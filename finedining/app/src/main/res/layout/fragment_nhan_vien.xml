@@ -12,3 +12,5 @@
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
+
+    <!-- Hiển thị danh sách nhân viên-->

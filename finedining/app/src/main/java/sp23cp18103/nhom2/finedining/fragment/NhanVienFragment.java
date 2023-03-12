@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 
 import sp23cp18103.nhom2.finedining.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NhanVienFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+/*
+ * Hiển thị danh sách nhân viên và thêm, sửa
+ * */
 public class NhanVienFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

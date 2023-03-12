@@ -7,3 +7,5 @@
     tools:context=".LoginActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Màn hình đăng nhập-->

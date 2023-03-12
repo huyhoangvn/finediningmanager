@@ -18,6 +18,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import sp23cp18103.nhom2.finedining.R;
 
+/*
+* Để hiển thị vị trí của nhà hàng
+* */
 public class MapsFragment extends Fragment {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {

@@ -12,3 +12,5 @@
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
+
+    <!--Hiên thị danh sách món bán chạy-->
