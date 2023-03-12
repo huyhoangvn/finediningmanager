@@ -12,3 +12,5 @@
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
+
+    <!--Để chọn bàn thêm vào hóa đơn -->

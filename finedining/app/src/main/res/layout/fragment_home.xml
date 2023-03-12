@@ -12,3 +12,5 @@
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
+
+    <!--Màn hình chính có tên nhà hàng, menu và, bản đồ-->

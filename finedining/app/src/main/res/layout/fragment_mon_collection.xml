@@ -12,3 +12,5 @@
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
+
+    <!--Quản lý viewpager của món và loại món-->

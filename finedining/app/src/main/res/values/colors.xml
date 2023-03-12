@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!--Light theme match logo -->
+    <color name="light_Primary">#9c4400</color>
+    <color name="light_Secondary">#765848</color>
+    <color name="light_Tertiary">#636032</color>
+    <color name="light_Background">#fffbff</color>
 </resources>

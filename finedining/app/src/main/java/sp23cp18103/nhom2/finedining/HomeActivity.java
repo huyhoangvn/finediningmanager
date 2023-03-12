@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/*
+* Màn hình chính chứa Fragment Home và sử dụng Navigation Drawer
+* */
 public class HomeActivity extends AppCompatActivity {
 
     @Override

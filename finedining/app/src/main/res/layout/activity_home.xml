@@ -7,3 +7,5 @@
     tools:context=".HomeActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Màn hình chính có navigation view-->

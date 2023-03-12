@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 
 import sp23cp18103.nhom2.finedining.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MonFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+/*
+* Hiển thị danh sách món và thêm, sửa
+* */
 public class MonFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
