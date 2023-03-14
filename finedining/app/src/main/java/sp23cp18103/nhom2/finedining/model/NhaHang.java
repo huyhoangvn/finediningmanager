@@ -6,13 +6,13 @@ import java.util.Objects;
 
 public class NhaHang {
     private int maNH;
-    private String tenNhaHang;
+    private String tenNH;
     private String diaChi;
     private byte[] hinh;
 
-    public NhaHang(int maNH, String tenNhaHang, String diaChi, byte[] hinh) {
+    public NhaHang(int maNH, String tenNH, String diaChi, byte[] hinh) {
         this.maNH = maNH;
-        this.tenNhaHang = tenNhaHang;
+        this.tenNH = tenNH;
         this.diaChi = diaChi;
         this.hinh = hinh;
     }
@@ -29,11 +29,11 @@ public class NhaHang {
     }
 
     public String getTenNhaHang() {
-        return tenNhaHang;
+        return tenNH;
     }
 
     public void setTenNhaHang(String tenNhaHang) {
-        this.tenNhaHang = tenNhaHang;
+        this.tenNH = tenNhaHang;
     }
 
     public String getDiaChi() {

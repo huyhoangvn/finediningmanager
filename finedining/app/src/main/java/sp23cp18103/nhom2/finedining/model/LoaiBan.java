@@ -7,12 +7,14 @@ import java.util.Objects;
 public class LoaiBan {
     private int maLB;
     private String tenLoai;
+    private int maNV;//Nhân viên quản lý
     private int soChoNgoi;
     private int trangThai;// 1:"Dùng"; 0:"Không dùng"
 
-    public LoaiBan(int maLB, String tenLoai, int soChoNgoi, int trangThai) {
+    public LoaiBan(int maLB, String tenLoai, int maNV, int soChoNgoi, int trangThai) {
         this.maLB = maLB;
         this.tenLoai = tenLoai;
+        this.maNV = maNV;
         this.soChoNgoi = soChoNgoi;
         this.trangThai = trangThai;
     }
@@ -50,6 +52,14 @@ public class LoaiBan {
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public int getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(int maNV) {
+        this.maNV = maNV;
     }
 
     /*
