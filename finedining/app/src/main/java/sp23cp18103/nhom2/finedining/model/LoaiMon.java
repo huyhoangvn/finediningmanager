@@ -5,11 +5,13 @@ import androidx.annotation.NonNull;
 public class LoaiMon {
     private int maLM;
     private String tenLoai;
+    private int maNV;//Nhân viên quản lý
     private int trangThai;
 
-    public LoaiMon(int maLM, String tenLoai, int trangThai) {
+    public LoaiMon(int maLM, String tenLoai, int maNV, int trangThai) {
         this.maLM = maLM;
         this.tenLoai = tenLoai;
+        this.maNV = maNV;
         this.trangThai = trangThai;
     }
 
@@ -38,6 +40,14 @@ public class LoaiMon {
 
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public int getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(int maNV) {
+        this.maNV = maNV;
     }
 
     /*
