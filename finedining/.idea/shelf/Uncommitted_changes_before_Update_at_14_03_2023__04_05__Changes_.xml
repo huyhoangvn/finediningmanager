@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_14_03_2023,_04_05_[Changes]" date="1678741528969" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_04_05_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 14/03/2023, 04:05 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/main/res/drawable/img.png" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_04_05_[Changes]/img.png" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/debug/res/drawable/img_loading.gif" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_04_05_[Changes]/img_loading.gif" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="app/src/debug/res/font/rowdies_bold.ttf" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_04_05_[Changes]/rowdies_bold.ttf" />
+  </binary>
+</changelist>

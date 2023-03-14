@@ -1,4 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/mn_home"
+        android:title="Trang Chủ"
+        android:icon="@drawable/ic_menu_home"
+        />
 
+    <item
+        android:id="@+id/mn_quanly_ban"
+        android:title="Quản lý bàn "
+        android:icon="@drawable/ic_menu_ban"/>
+
+    <item
+        android:id="@+id/mn_quanly_monan"
+        android:title="Quản lý món ăn"
+        android:icon="@drawable/ic_menu_mon"/>
+
+    <item
+        android:id="@+id/mn_quanly_hoadon"
+        android:title="Quản lí hóa đơn "
+        android:icon="@drawable/ic_menu_hoadon"/>
+
+    <item
+        android:id="@+id/mn_quanly_nhanvien"
+        android:title="Quản lí nhân viên "
+        android:icon="@drawable/ic_menu_nhanvien"/>
+
+    <item android:id="@+id/mn_thongke"
+        android:title="Thống Kê">
+
+        <menu>
+            <item android:id="@+id/mn_bestseller"
+                android:icon="@drawable/ic_menu_thongke_mon"
+                android:title="Mon Hot"
+                />
+
+            <item android:id="@+id/mn_doanhthu"
+                android:icon="@drawable/ic_menu_thongke_doanhthu"
+                android:title="Doanh thu"/>
+
+            <item android:id="@+id/mn_tongkhach"
+                android:icon="@drawable/ic_menu_thongke_khach"
+                android:title="Tổng khách hàng "/>
+        </menu>
+    </item>
+
+
+    <item android:id="@+id/mn_nguoidung"
+        android:title="Người Dùng">
+
+        <menu>
+            <item android:id="@+id/mn_doimatkhau"
+                android:icon="@drawable/ic_menu_doimatkhau"
+                android:title="Đổi Mật Khẩu"
+                />
+
+            <item android:id="@+id/mn_dangxuat"
+                android:icon="@drawable/ic_menu_thoat"
+                android:title="Đăng xuất"/>
+        </menu>
+    </item>
 </menu>

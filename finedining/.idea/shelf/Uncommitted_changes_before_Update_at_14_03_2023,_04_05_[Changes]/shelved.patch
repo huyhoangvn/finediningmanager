@@ -1,0 +1,1354 @@
+Index: app/src/main/res/layout/menu_header.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\">\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n\n    <!--Phần mà hiển thị tên và ảnh người dùng trong navigation drawer-->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/menu_header.xml b/app/src/main/res/layout/menu_header.xml
+--- a/app/src/main/res/layout/menu_header.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/menu_header.xml	(date 1678740674890)
+@@ -1,8 +1,42 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="180dp"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:orientation="vertical"
++    android:background="@color/black">
++    <de.hdodenhof.circleimageview.CircleImageView
++        android:id="@+id/img_avt"
++        android:layout_width="100dp"
++        android:layout_height="100dp"
++        android:layout_gravity="center"
++        android:layout_marginLeft="20dp"
++        android:layout_marginTop="15dp"
++        android:layout_marginBottom="-15dp"
++        android:src="@drawable/img_loading"
++        app:civ_border_color="@color/black"
++        app:civ_border_width="2dp" />
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
++    <TextView
++        android:id="@+id/tv_name"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_below="@+id/img_avt"
++        android:layout_marginLeft="10dp"
++        android:layout_marginTop="17dp"
++        android:text="Tên Nhân Viên: "
++        android:textColor="@color/white"
++        android:textSize="20dp"
++        android:textStyle="bold" />
++
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginLeft="10dp"
++        android:layout_below="@+id/tv_name"
++        android:text="Chức Vụ: "
++        android:textColor="@color/white"
++        android:textSize="14dp"
++        android:textStyle="italic" />
+ 
+-    <!--Phần mà hiển thị tên và ảnh người dùng trong navigation drawer-->
+\ No newline at end of file
++</RelativeLayout>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\n    id 'com.android.application'\n    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'\n}\n\nandroid {\n    namespace 'sp23cp18103.nhom2.finedining'\n    compileSdk 33\n\n    defaultConfig {\n        applicationId \"sp23cp18103.nhom2.finedining\"\n        minSdk 21\n        targetSdk 33\n        versionCode 1\n        versionName \"1.0\"\n\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n\n    buildTypes {\n        release {\n            minifyEnabled false\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n        }\n    }\n    compileOptions {\n        sourceCompatibility JavaVersion.VERSION_1_8\n        targetCompatibility JavaVersion.VERSION_1_8\n    }\n}\n\ndependencies {\n\n    implementation 'androidx.appcompat:appcompat:1.6.1'\n    implementation 'com.google.android.material:material:1.8.0'\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\n    implementation 'com.google.android.gms:play-services-maps:18.1.0'\n    testImplementation 'junit:junit:4.13.2'\n    androidTestImplementation 'androidx.test.ext:junit:1.1.5'\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/build.gradle	(date 1678739825228)
+@@ -38,4 +38,14 @@
+     testImplementation 'junit:junit:4.13.2'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
++
++    //thư viện map
++    implementation 'com.google.android.gms:play-services-maps:18.0.2'
++
++    // thư viện glide ảnh
++    implementation 'com.github.bumptech.glide:glide:4.14.2'
++    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
++
++    //thư viện avta
++    implementation 'de.hdodenhof:circleimageview:3.1.0'
+ }
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_ban_collection.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".fragment.BanCollectionFragment\">\n\n    <!-- TODO: Update blank fragment layout -->\n    <TextView\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\"\n        android:text=\"@string/hello_blank_fragment\" />\n\n</FrameLayout>\n\n    <!--Quản lý viewpager của bàn và loại bàn -->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_ban_collection.xml b/app/src/main/res/layout/fragment_ban_collection.xml
+--- a/app/src/main/res/layout/fragment_ban_collection.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/fragment_ban_collection.xml	(date 1678707599456)
+@@ -3,7 +3,8 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".fragment.BanCollectionFragment">
++    tools:context=".fragment.BanCollectionFragment"
++    android:background="@color/black">
+ 
+     <!-- TODO: Update blank fragment layout -->
+     <TextView
+Index: app/src/main/res/layout/fragment_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".fragment.HomeFragment\">\n\n    <!-- TODO: Update blank fragment layout -->\n    <TextView\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\"\n        android:text=\"@string/hello_blank_fragment\" />\n\n</FrameLayout>\n\n    <!--Màn hình chính có tên nhà hàng, menu và, bản đồ-->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_home.xml b/app/src/main/res/layout/fragment_home.xml
+--- a/app/src/main/res/layout/fragment_home.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/fragment_home.xml	(date 1678741375465)
+@@ -1,16 +1,78 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".fragment.HomeFragment">
++    android:orientation="vertical">
++
+ 
+-    <!-- TODO: Update blank fragment layout -->
++<!--    set tam-->
++    <ImageView
++        android:id="@+id/viewPage_slideFood"
++        android:layout_width="match_parent"
++        android:layout_height="250dp"
++        android:layout_marginTop="-11dp"
++        android:src="@drawable/img"
++        />
++
+     <TextView
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
++        android:layout_height="wrap_content"
++        android:gravity="center"
++        android:text="Tên Nhà Hàng"
++        android:textColor="@color/black"
++        android:textSize="20dp"
++        android:textStyle="bold" />
++
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:text="MENU chưa có list món chưa add"
++        android:textColor="@color/black"
++        android:textSize="20dp"
++        android:textStyle="bold" />
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/rcv_menu"
++        android:layout_width="match_parent"
++        android:layout_height="130dp"
++        app:spanCount="2"
++        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
++
++
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:gravity="center"
++        android:text="Địa Chỉ"
++        android:textColor="@color/black"
++        android:textSize="20dp"
++        android:textStyle="bold"
++        />
++
++    <androidx.cardview.widget.CardView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginLeft="1dp"
++        android:layout_marginRight="1dp"
++        app:cardCornerRadius="10dp"
++        android:layout_marginBottom="5dp">
++
++        <RelativeLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:background="@color/black"
++            >
++
++            <FrameLayout
++                android:id="@+id/map_01_Main_showMap"
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                />
+ 
+-</FrameLayout>
++        </RelativeLayout>
++    </androidx.cardview.widget.CardView>
++
+ 
+-    <!--Màn hình chính có tên nhà hàng, menu và, bản đồ-->
+\ No newline at end of file
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/fragment/HomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sp23cp18103.nhom2.finedining.fragment;\n\nimport android.os.Bundle;\n\nimport androidx.fragment.app.Fragment;\n\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\n\nimport sp23cp18103.nhom2.finedining.R;\n\n/*\n* Hiển thị thông tin nhà hàng và sử dụng MapsFragment để hiện địa chỉ\n* Hiện danh sách món còn sử dụng (sơ qua)\n* */\npublic class HomeFragment extends Fragment {\n\n    @Override\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\n                             Bundle savedInstanceState) {\n        // Inflate the layout for this fragment\n        return inflater.inflate(R.layout.fragment_home, container, false);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/HomeFragment.java b/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/HomeFragment.java
+--- a/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/HomeFragment.java	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/HomeFragment.java	(date 1678709858442)
+@@ -1,14 +1,29 @@
+ package sp23cp18103.nhom2.finedining.fragment;
+ 
++import android.app.ProgressDialog;
++import android.location.Address;
++import android.location.Geocoder;
+ import android.os.Bundle;
+ 
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
++import androidx.fragment.app.FragmentManager;
+ 
++import android.os.Handler;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.EditText;
++
++import com.google.android.material.textfield.TextInputLayout;
++
++import java.io.IOException;
++import java.util.ArrayList;
++import java.util.List;
+ 
+ import sp23cp18103.nhom2.finedining.R;
++import sp23cp18103.nhom2.finedining.model.Mon;
+ 
+ /*
+ * Hiển thị thông tin nhà hàng và sử dụng MapsFragment để hiện địa chỉ
+@@ -22,4 +37,54 @@
+         // Inflate the layout for this fragment
+         return inflater.inflate(R.layout.fragment_home, container, false);
+     }
++
++    private FragmentManager fragmentManager;
++    private ProgressDialog prgWait;
++    //    List<Mon> list;
++//    RecyclerView rcv_menu;
++//    Adapter_menu adapter_menu;  (để yên)
++
++    @Override
++    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
++        super.onViewCreated(view, savedInstanceState);
++        evMap();
++//        evRCV();
++    }
++
++
++    //CHưa dùng
++//    private void evRCV() {
++//        list = new ArrayList<>();
++//        list.add(new Mon("Shusi",R.drawable.category_sushi));
++//        adapter_menu = new Adapter_menu(list,getContext());
++//        rcv_menu.setAdapter(adapter_menu);
++//    }
++
++    private void evMap() {
++        //init map
++        fragmentManager = getActivity().getSupportFragmentManager();
++        //lat: 21.039009000383587, long: 105.74663689630138
++        fragmentManager.beginTransaction().replace(R.id.map_01_Main_showMap, new MapsFragment(21.040081, 105.747551, "Tòa nhà FPT Polytechnic, P. Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội")).commit();
++        //init Listener
++        geoLocate();
++    }
++
++
++    private void geoLocate() {
++        String location = "Tòa nhà FPT Polytechnic, P. Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội";
++        Geocoder geocoder = new Geocoder(getContext());
++        List<Address> list = new ArrayList<>();
++        try {
++            list = geocoder.getFromLocationName(location, 1);
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
++        if(list.size() > 0){
++            Address address = list.get(0);
++            fragmentManager.beginTransaction()
++                    .replace(R.id.map_01_Main_showMap, new MapsFragment(
++                            address.getLatitude(), address.getLongitude(), address.getFeatureName()))
++                    .commit();
++        }
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_search.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_search.xml b/app/src/main/res/drawable/ic_search.xml
+new file mode 100644
+--- /dev/null	(date 1678738160859)
++++ b/app/src/main/res/drawable/ic_search.xml	(date 1678738160859)
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="#000000"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M15.5,14h-0.79l-0.28,-0.27C15.41,12.59 16,11.11 16,9.5 16,5.91 13.09,3 9.5,3S3,5.91 3,9.5 5.91,16 9.5,16c1.61,0 3.09,-0.59 4.23,-1.57l0.27,0.28v0.79l5,4.99L20.49,19l-4.99,-5zM9.5,14C7.01,14 5,11.99 5,9.5S7.01,5 9.5,5 14,7.01 14,9.5 11.99,14 9.5,14z"/>
++</vector>
+Index: app/src/main/res/layout/activity_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".HomeActivity\">\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n\n    <!--Màn hình chính có navigation view-->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_home.xml b/app/src/main/res/layout/activity_home.xml
+--- a/app/src/main/res/layout/activity_home.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/activity_home.xml	(date 1678694436795)
+@@ -1,11 +1,37 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".HomeActivity">
++    tools:context=".HomeActivity"
++    android:id="@+id/drawer_layout"
++    >
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:orientation="vertical"
++        android:id="@+id/linear"
++        >
++        <androidx.appcompat.widget.Toolbar
++            android:layout_width="match_parent"
++            android:layout_height="?attr/actionBarSize"
++            android:id="@+id/tool_bar"
++            android:background="#0086FE"/>
++    </LinearLayout>
++
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
++
++    <com.google.android.material.navigation.NavigationView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:id="@+id/navi_menu"
++        android:layout_gravity="start"
++        app:headerLayout="@layout/menu_header"
++        app:menu="@menu/menu"
++        />
++
++</androidx.drawerlayout.widget.DrawerLayout>
+ 
+     <!--Màn hình chính có navigation view-->
+\ No newline at end of file
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/utils/DateHelper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sp23cp18103.nhom2.finedining.utils;\n\n/*\n* Hỗ trợ chuyển đổi định dạng ngày từ SQLite sang Việt Nam và ngược lại\n* Và hỗ trợ tạo dialog để chọn ngày giờ\n* */\npublic class DateHelper {\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/utils/DateHelper.java b/app/src/main/java/sp23cp18103/nhom2/finedining/utils/DateHelper.java
+--- a/app/src/main/java/sp23cp18103/nhom2/finedining/utils/DateHelper.java	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/utils/DateHelper.java	(date 1678684128780)
+@@ -5,4 +5,5 @@
+ * Và hỗ trợ tạo dialog để chọn ngày giờ
+ * */
+ public class DateHelper {
++
+ }
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n    <uses-permission android:name=\"android.permission.CAMERA\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>\n    <uses-permission android:name=\"android.permission.INTERNET\"/>\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>\n\n    <application\n        android:allowBackup=\"true\"\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\n        android:fullBackupContent=\"@xml/backup_rules\"\n        android:icon=\"@mipmap/ic_launcher\"\n        android:label=\"@string/app_name\"\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\n        android:supportsRtl=\"true\"\n        android:theme=\"@style/Theme.Finedining\"\n        tools:targetApi=\"31\">\n\n        <!--\n             TODO: Before you run your application, you need a Google Maps API key.\n\n             To get one, follow the directions here:\n\n                https://developers.google.com/maps/documentation/android-sdk/get-api-key\n\n             Once you have your API key (it starts with \"AIza\"), define a new property in your\n             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the\n             \"YOUR_API_KEY\" string in this file with \"${MAPS_API_KEY}\".\n        -->\n        <meta-data\n            android:name=\"com.google.android.geo.API_KEY\"\n            android:value=\"AIzaSyDs-W1ypwU1C3X5xyYNvfwGu72xS44ea7k\" />\n\n        <activity\n            android:name=\".HomeActivity\"\n            android:exported=\"false\">\n            <meta-data\n                android:name=\"android.app.lib_name\"\n                android:value=\"\" />\n        </activity>\n        <activity\n            android:name=\".LoginActivity\"\n            android:exported=\"false\">\n            <meta-data\n                android:name=\"android.app.lib_name\"\n                android:value=\"\" />\n        </activity>\n        <activity\n            android:name=\".SplashScreenActivity\"\n            android:exported=\"true\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.MAIN\" />\n\n                <category android:name=\"android.intent.category.LAUNCHER\" />\n            </intent-filter>\n\n            <meta-data\n                android:name=\"android.app.lib_name\"\n                android:value=\"\" />\n        </activity>\n    </application>\n\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/AndroidManifest.xml	(date 1678696770014)
+@@ -19,20 +19,9 @@
+         android:theme="@style/Theme.Finedining"
+         tools:targetApi="31">
+ 
+-        <!--
+-             TODO: Before you run your application, you need a Google Maps API key.
+-
+-             To get one, follow the directions here:
+-
+-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+-
+-             Once you have your API key (it starts with "AIza"), define a new property in your
+-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+-        -->
+         <meta-data
+             android:name="com.google.android.geo.API_KEY"
+-            android:value="AIzaSyDs-W1ypwU1C3X5xyYNvfwGu72xS44ea7k" />
++            android:value="AIzaSyBETmkzddHhyXyHlur3Oxtx5hp7C9kMkQo" />
+ 
+         <activity
+             android:name=".HomeActivity"
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".LoginActivity\">\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n\n    <!--Màn hình đăng nhập-->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+--- a/app/src/main/res/layout/activity_login.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/activity_login.xml	(date 1678706226968)
+@@ -1,11 +1,96 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".LoginActivity">
++    tools:context=".LoginActivity"
++    >
++
++    <ScrollView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:layout_alignParentBottom="true"
++        >
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:orientation="vertical">
++
++            <ImageView
++                android:layout_width="match_parent"
++                android:layout_height="250dp"
++                android:src="@drawable/ic_logo"
++                android:layout_marginTop="40dp"/>
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="10dp"
++                android:fontFamily="@font/rowdies_bold"
++                android:text="WELL COME TO\nFINE DINING"
++                android:textColor="#F44336"
++                android:textSize="35dp"
++                />
++
++            <com.google.android.material.textfield.TextInputLayout
++                android:id="@+id/input_taikhoan_dn"
++                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++                android:layout_width="match_parent"
++                android:layout_height="76dp"
++                android:layout_marginStart="10dp"
++                android:layout_marginEnd="10dp"
++                android:hint="Nhập tài Khoản"
++                android:padding="5dp"
++                app:boxBackgroundColor="@android:color/transparent"
++                app:errorEnabled="true">
++
++                <com.google.android.material.textfield.TextInputEditText
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:maxLines="1" />
++            </com.google.android.material.textfield.TextInputLayout>
++
++            <com.google.android.material.textfield.TextInputLayout
++                android:id="@+id/input_matkhau_dn"
++                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++                android:layout_width="match_parent"
++                android:layout_height="76dp"
++                android:layout_marginStart="10dp"
++                android:layout_marginEnd="10dp"
++                android:hint="Nhập mật Khẩu"
++                android:padding="5dp"
++                app:boxBackgroundColor="@android:color/transparent"
++                app:errorEnabled="true"
++                app:passwordToggleEnabled="true">
++
++                <com.google.android.material.textfield.TextInputEditText
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:inputType="textPassword"
++                    android:maxLines="1" />
++            </com.google.android.material.textfield.TextInputLayout>
++
++
++
++            <CheckBox
++                android:id="@+id/chkRemeber"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="Remember me"
++                android:textColor="@color/black"
++                android:layout_marginLeft="16dp"
++                />
++
++            <Button
++                android:id="@+id/btn_dangnhap"
++                android:layout_width="150dp"
++                android:layout_height="60dp"
++                android:layout_gravity="center"
++                android:backgroundTint="@color/teal_200"
++                android:text="Đăng nhập"
++                />
++        </LinearLayout>
++    </ScrollView>
+ 
+-    <!--Màn hình đăng nhập-->
+\ No newline at end of file
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/item_rcv_bestseller.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/item_rcv_bestseller.xml b/app/src/main/res/layout/item_rcv_bestseller.xml
+new file mode 100644
+--- /dev/null	(date 1678739646277)
++++ b/app/src/main/res/layout/item_rcv_bestseller.xml	(date 1678739646277)
+@@ -0,0 +1,73 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:padding="10dp">
++
++    <androidx.cardview.widget.CardView
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        app:cardCornerRadius="10dp"
++        >
++
++        <RelativeLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:padding="5dp"
++            >
++
++            <ImageView
++                android:id="@+id/img_monhot"
++                android:layout_width="100dp"
++                android:layout_height="100dp"
++                android:background="@color/black"
++                />
++
++            <RelativeLayout
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_toRightOf="@+id/img_monhot"
++                android:layout_marginLeft="5dp"
++                android:layout_centerInParent="true">
++
++                <TextView
++                    android:id="@+id/tv_name_monhot"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="humberger"
++                    android:textSize="20dp"
++                    android:textColor="@color/black"
++                    android:textStyle="bold"
++                    />
++                <TextView
++                    android:id="@+id/tv_soluong_monhot"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_below="@+id/tv_name_monhot"
++                    android:text="Số Lượng"
++                    android:textColor="@color/black"
++                    android:textSize="14dp"
++                    />
++
++                <TextView
++                    android:id="@+id/tv_doanhthu_monhot"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:layout_below="@+id/tv_soluong_monhot"
++                    android:text="Doanh Thu"
++                    android:textColor="@color/black"
++                    android:textSize="14dp" />
++
++            </RelativeLayout>
++
++
++
++        </RelativeLayout>
++
++
++    </androidx.cardview.widget.CardView>
++
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_splash_screen.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".SplashScreenActivity\">\n\n    <TextView\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:text=\"Hello World!\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\" />\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n\n    <!-- Màn hình chào -->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_splash_screen.xml b/app/src/main/res/layout/activity_splash_screen.xml
+--- a/app/src/main/res/layout/activity_splash_screen.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/activity_splash_screen.xml	(date 1678697232315)
+@@ -1,20 +1,37 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".SplashScreenActivity">
++    tools:context=".SplashScreenActivity"
++    android:orientation="vertical">
++
++    <ImageView
++        android:id="@+id/img_logo"
++        android:layout_width="436dp"
++        android:layout_height="400dp"
++        android:layout_gravity="center_horizontal"
++        android:layout_marginTop="100dp"
++        android:src="@drawable/ic_logo" />
+ 
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:text="Hello World!"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
++        android:text="Fine Dining"
++        android:layout_gravity="center_horizontal"
++        android:textSize="40dp"
++        android:textStyle="bold"
++        android:textColor="@color/black"
++        android:layout_marginTop="-80dp"/>
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
++
++    <ImageView
++        android:id="@+id/img_load"
++        android:layout_width="70dp"
++        android:layout_height="70dp"
++        android:layout_gravity="center_horizontal"
++        android:layout_marginTop="10dp"
++        android:src="@drawable/img_loading"/>
+ 
+-    <!-- Màn hình chào -->
+\ No newline at end of file
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/SplashScreenActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sp23cp18103.nhom2.finedining;\n\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport android.annotation.SuppressLint;\nimport android.os.Bundle;\n\n/*\n* Hiển thị màn hình chờ\n* */\n@SuppressLint(\"CustomSplashScreen\")\npublic class SplashScreenActivity extends AppCompatActivity {\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_splash_screen);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/SplashScreenActivity.java b/app/src/main/java/sp23cp18103/nhom2/finedining/SplashScreenActivity.java
+--- a/app/src/main/java/sp23cp18103/nhom2/finedining/SplashScreenActivity.java	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/SplashScreenActivity.java	(date 1678706306355)
+@@ -3,17 +3,34 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ 
+ import android.annotation.SuppressLint;
++import android.content.Intent;
+ import android.os.Bundle;
++import android.os.Handler;
++import android.widget.ImageView;
++
++import com.bumptech.glide.Glide;
+ 
+ /*
+ * Hiển thị màn hình chờ
+ * */
+ @SuppressLint("CustomSplashScreen")
+ public class SplashScreenActivity extends AppCompatActivity {
+-
++    ImageView img_logo,img_load;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_splash_screen);
++
++        img_logo = findViewById(R.id.img_logo);
++        img_load = findViewById(R.id.img_load);
++
++
++        Glide.with(this).load(R.drawable.img_loading).into(img_load);
++        new Handler().postDelayed(new Runnable() {
++            @Override
++            public void run() {
++                startActivity(new Intent(SplashScreenActivity.this,LoginActivity.class));
++            }
++        },3000);
+     }
+ }
+\ No newline at end of file
+Index: app/src/debug/res/drawable/ic_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/debug/res/drawable/ic_menu.xml b/app/src/debug/res/drawable/ic_menu.xml
+new file mode 100644
+--- /dev/null	(date 1678695107922)
++++ b/app/src/debug/res/drawable/ic_menu.xml	(date 1678695107922)
+@@ -0,0 +1,5 @@
++<vector android:autoMirrored="true" android:height="24dp"
++    android:tint="#000000" android:viewportHeight="24"
++    android:viewportWidth="24" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M3,18h13v-2L3,16v2zM3,13h10v-2L3,11v2zM3,6v2h13L16,6L3,6zM21,15.59L17.42,12 21,8.41 19.59,7l-5,5 5,5L21,15.59z"/>
++</vector>
+Index: app/src/main/res/layout/fragment_bestseller.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_bestseller.xml b/app/src/main/res/layout/fragment_bestseller.xml
+new file mode 100644
+--- /dev/null	(date 1678738676899)
++++ b/app/src/main/res/layout/fragment_bestseller.xml	(date 1678738676899)
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:orientation="vertical">
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/input_search"
++        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_margin="10dp"
++        android:hint="Nhập Tháng"
++        app:endIconDrawable="@drawable/ic_search"
++        app:endIconTint="@color/black"
++        app:endIconMode="custom"
++        tools:ignore="HardcodedText"
++        app:boxBackgroundColor="@color/white">
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/ed_share"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:inputType="text"
++            android:maxLines="1"
++            android:importantForAutofill="no"
++            android:textColor="@color/black"/>
++    </com.google.android.material.textfield.TextInputLayout>
++
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/rcv_monhot"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
++        android:orientation="vertical"/>
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/fragment/BestsellerFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/BestsellerFragment.java b/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/BestsellerFragment.java
+new file mode 100644
+--- /dev/null	(date 1678707015483)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/BestsellerFragment.java	(date 1678707015483)
+@@ -0,0 +1,26 @@
++package sp23cp18103.nhom2.finedining.fragment;
++
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.fragment.app.Fragment;
++
++import sp23cp18103.nhom2.finedining.R;
++
++public class BestsellerFragment extends Fragment {
++
++    @Nullable
++    @Override
++    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
++        return inflater.inflate(R.layout.fragment_bestseller,container,false);
++    }
++
++    @Override
++    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
++        super.onViewCreated(view, savedInstanceState);
++    }
++}
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/HomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sp23cp18103.nhom2.finedining;\n\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport android.os.Bundle;\n\n/*\n* Màn hình chính chứa Fragment Home và sử dụng Navigation Drawer\n* */\npublic class HomeActivity extends AppCompatActivity {\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_home);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/HomeActivity.java b/app/src/main/java/sp23cp18103/nhom2/finedining/HomeActivity.java
+--- a/app/src/main/java/sp23cp18103/nhom2/finedining/HomeActivity.java	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/HomeActivity.java	(date 1678711943764)
+@@ -1,17 +1,233 @@
+ package sp23cp18103.nhom2.finedining;
+ 
++import androidx.annotation.NonNull;
++import androidx.appcompat.app.ActionBar;
++import androidx.appcompat.app.AlertDialog;
+ import androidx.appcompat.app.AppCompatActivity;
++import androidx.appcompat.widget.Toolbar;
++import androidx.core.view.GravityCompat;
++import androidx.drawerlayout.widget.DrawerLayout;
++import androidx.fragment.app.Fragment;
++import androidx.fragment.app.FragmentManager;
+ 
++import android.content.DialogInterface;
++import android.content.Intent;
+ import android.os.Bundle;
++import android.view.MenuItem;
++
++import com.google.android.material.navigation.NavigationView;
++
++import sp23cp18103.nhom2.finedining.fragment.BanCollectionFragment;
++import sp23cp18103.nhom2.finedining.fragment.BestsellerFragment;
++import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
++import sp23cp18103.nhom2.finedining.fragment.HoaDonFragment;
++import sp23cp18103.nhom2.finedining.fragment.HomeFragment;
++import sp23cp18103.nhom2.finedining.fragment.LoaiBanFragment;
++import sp23cp18103.nhom2.finedining.fragment.LoaiMonFragment;
++import sp23cp18103.nhom2.finedining.fragment.MonCollectionFragment;
++import sp23cp18103.nhom2.finedining.fragment.NhanVienFragment;
++import sp23cp18103.nhom2.finedining.fragment.ThongKeDoanhThuFragment;
++import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
+ 
+ /*
+ * Màn hình chính chứa Fragment Home và sử dụng Navigation Drawer
+ * */
+ public class HomeActivity extends AppCompatActivity {
+-
++    Toolbar toolbar;
++    NavigationView navigationView;
++    DrawerLayout drawerLayout;
++    FragmentManager fragmentManager;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_home);
++        anhXa();
++        toolBar();
+     }
++
++    private void toolBar() {
++        // tollbar
++        Toolbar toolbar = findViewById(R.id.tool_bar);
++        setSupportActionBar(toolbar);
++        ActionBar actionBar = getSupportActionBar();
++        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
++        actionBar.setDisplayShowTitleEnabled(true);
++        actionBar.setDisplayHomeAsUpEnabled(true);
++        actionBar.setTitle("Trang Chủ");
++
++        fragmentManager = getSupportFragmentManager();
++        fragmentManager.beginTransaction().add(R.id.linear,new HomeFragment()).commit();
++        navigationView.getMenu().findItem(R.id.mn_home).setChecked(true);
++
++        /// mở navigationView
++        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
++            MenuItem prevMenuItem = null;
++            Fragment fragment = null;
++            @Override
++            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
++                fragmentManager = getSupportFragmentManager();
++                /// chọn item navigationView
++                switch (item.getItemId()){
++                    case R.id.mn_home:
++                       fragment = new HomeFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_left)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        toolbar.setTitle(item.getTitle());
++                        break;
++
++                    case R.id.mn_quanly_ban:
++                        fragment =  new BanCollectionFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_quanly_monan:
++                        fragment = new MonCollectionFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_quanly_hoadon:
++                        fragment = new HoaDonFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_quanly_nhanvien:
++                        fragment = new NhanVienFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_bestseller:
++                        fragment =  new BestsellerFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_doanhthu:
++                        fragment = new ThongKeDoanhThuFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_tongkhach:
++                        fragment = new ThongKeKhachFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_doimatkhau:
++                        fragment = new DoiMatKhauFragment();
++                        fragmentManager.beginTransaction()
++                                .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_right)
++                                .replace(R.id.linear,fragment)
++                                .commit();
++                        drawerLayout.closeDrawer(GravityCompat.START);
++                        toolbar.setTitle(item.getTitle());
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        break;
++
++                    case R.id.mn_dangxuat:
++                        navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
++                        new AlertDialog.Builder(HomeActivity.this).setTitle("Bạn Có Chắc Muốn Đăng Xuất")
++                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
++                                    @Override
++                                    public void onClick(DialogInterface dialogInterface, int i) {
++                                        Intent intent =  new Intent(HomeActivity.this,LoginActivity.class);
++                                        startActivity(intent);
++                                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
++                                    }
++                                })
++                                .setNegativeButton("no", new DialogInterface.OnClickListener() {
++                                    @Override
++                                    public void onClick(DialogInterface dialogInterface, int i) {
++                                            dialogInterface.dismiss();
++                                    }
++                                }).create().show();
++
++                        break;
++                }
++                // kiểm tra set mầu cho item khi click
++                        if (prevMenuItem != null) {
++                            prevMenuItem.setChecked(false); // uncheck the previously selected item
++                        }
++                        item.setChecked(true); // check the newly selected item
++                        prevMenuItem = item; // store the newly selected item
++                return true;
++
++            }
++        });
++
++    }
++
++
++    // set logic ấn nút back thì tắt naviwiew
++    @Override
++    public void onBackPressed() {
++        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
++            drawerLayout.closeDrawer(GravityCompat.START);
++        }else {
++            super.onBackPressed();
++        }
++    }
++
++
++    // set logic mở menu
++    @Override
++    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
++        if (item.getItemId() == android.R.id.home) {
++            drawerLayout.openDrawer(GravityCompat.START);
++
++        }
++        return super.onOptionsItemSelected(item);
++    }
++        private void   anhXa(){
++        toolbar = findViewById(R.id.tool_bar);
++        drawerLayout = findViewById(R.id.drawer_layout);
++        navigationView = findViewById(R.id.navi_menu);
++    }
++
++
++
++
+ }
+\ No newline at end of file
+Index: app/src/main/res/menu/menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<menu xmlns:android=\"http://schemas.android.com/apk/res/android\">\n\n</menu>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/menu/menu.xml b/app/src/main/res/menu/menu.xml
+--- a/app/src/main/res/menu/menu.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/menu/menu.xml	(date 1678707133213)
+@@ -1,4 +1,64 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<menu xmlns:android="http://schemas.android.com/apk/res/android">
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    >
++    <item
++        android:id="@+id/mn_home"
++        android:title="Trang Chủ"
++        android:icon="@drawable/ic_menu_home"
++        />
++
++    <item
++        android:id="@+id/mn_quanly_ban"
++        android:title="Quản lý bàn "
++        android:icon="@drawable/ic_menu_ban"/>
++
++    <item
++        android:id="@+id/mn_quanly_monan"
++        android:title="Quản lý món ăn"
++        android:icon="@drawable/ic_menu_mon"/>
++
++    <item
++        android:id="@+id/mn_quanly_hoadon"
++        android:title="Quản lí hóa đơn "
++        android:icon="@drawable/ic_menu_hoadon"/>
++
++    <item
++        android:id="@+id/mn_quanly_nhanvien"
++        android:title="Quản lí nhân viên "
++        android:icon="@drawable/ic_menu_nhanvien"/>
+ 
++    <item android:id="@+id/mn_thongke"
++        android:title="Thống Kê">
++
++        <menu>
++            <item android:id="@+id/mn_bestseller"
++                android:icon="@drawable/ic_menu_thongke_mon"
++                android:title="Mon Hot"
++                />
++
++            <item android:id="@+id/mn_doanhthu"
++                android:icon="@drawable/ic_menu_thongke_doanhthu"
++                android:title="Doanh thu"/>
++
++            <item android:id="@+id/mn_tongkhach"
++                android:icon="@drawable/ic_menu_thongke_khach"
++                android:title="Tổng khách hàng "/>
++        </menu>
++    </item>
++
++
++    <item android:id="@+id/mn_nguoidung"
++        android:title="Người Dùng">
++
++        <menu>
++            <item android:id="@+id/mn_doimatkhau"
++                android:icon="@drawable/ic_menu_doimatkhau"
++                android:title="Đổi Mật Khẩu"
++                />
++
++            <item android:id="@+id/mn_dangxuat"
++                android:icon="@drawable/ic_menu_thoat"
++                android:title="Đăng xuất"/>
++        </menu>
++    </item>
+ </menu>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_maps.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<fragment xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:id=\"@+id/map\"\n    android:name=\"com.google.android.gms.maps.SupportMapFragment\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".fragment.MapsFragment\" />\n\n    <!-- Bản đồ địa chỉ nhà hàng -->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_maps.xml b/app/src/main/res/layout/fragment_maps.xml
+--- a/app/src/main/res/layout/fragment_maps.xml	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/res/layout/fragment_maps.xml	(date 1678696878460)
+@@ -1,10 +1,6 @@
+-<?xml version="1.0" encoding="utf-8"?>
+ <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/map"
+     android:name="com.google.android.gms.maps.SupportMapFragment"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".fragment.MapsFragment" />
+-
+-    <!-- Bản đồ địa chỉ nhà hàng -->
+\ No newline at end of file
++    android:layout_height="match_parent"/>
+\ No newline at end of file
+Index: app/src/main/res/anim/slide_in_right.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_in_right.xml b/app/src/main/res/anim/slide_in_right.xml
+new file mode 100644
+--- /dev/null	(date 1678710665838)
++++ b/app/src/main/res/anim/slide_in_right.xml	(date 1678710665838)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<translate xmlns:android="http://schemas.android.com/apk/res/android"
++    android:duration="@android:integer/config_mediumAnimTime"
++    android:fromXDelta="-100%p"
++    android:toXDelta="0%p">
++
++
++</translate>
+\ No newline at end of file
+Index: app/src/main/res/anim/slide_out_right.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_out_right.xml b/app/src/main/res/anim/slide_out_right.xml
+new file mode 100644
+--- /dev/null	(date 1678710914459)
++++ b/app/src/main/res/anim/slide_out_right.xml	(date 1678710914459)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<translate xmlns:android="http://schemas.android.com/apk/res/android"
++    android:duration="@android:integer/config_mediumAnimTime"
++    android:fromXDelta="0%p"
++    android:toXDelta="100%p">
++
++
++</translate>
+\ No newline at end of file
+Index: app/src/main/res/anim/slide_in_left.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_in_left.xml b/app/src/main/res/anim/slide_in_left.xml
+new file mode 100644
+--- /dev/null	(date 1678710933561)
++++ b/app/src/main/res/anim/slide_in_left.xml	(date 1678710933561)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<translate xmlns:android="http://schemas.android.com/apk/res/android"
++    android:duration="@android:integer/config_mediumAnimTime"
++    android:fromXDelta="100%p"
++    android:toXDelta="0%p">
++
++
++</translate>
+\ No newline at end of file
+Index: app/src/main/res/anim/slide_out_left.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/anim/slide_out_left.xml b/app/src/main/res/anim/slide_out_left.xml
+new file mode 100644
+--- /dev/null	(date 1678710914453)
++++ b/app/src/main/res/anim/slide_out_left.xml	(date 1678710914453)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<translate xmlns:android="http://schemas.android.com/apk/res/android"
++    android:duration="@android:integer/config_mediumAnimTime"
++    android:fromXDelta="0%p"
++    android:toXDelta="-100%p">
++
++
++</translate>
+\ No newline at end of file
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/LoginActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sp23cp18103.nhom2.finedining;\n\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport android.os.Bundle;\n\n/*\n* Đăng nhập\n* Và chuyển qua màn hình chính nếu đã đăng nhập rồi\n* */\npublic class LoginActivity extends AppCompatActivity {\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_login);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/LoginActivity.java b/app/src/main/java/sp23cp18103/nhom2/finedining/LoginActivity.java
+--- a/app/src/main/java/sp23cp18103/nhom2/finedining/LoginActivity.java	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/LoginActivity.java	(date 1678710831625)
+@@ -2,17 +2,35 @@
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
++import android.view.View;
++import android.widget.Button;
+ 
+ /*
+ * Đăng nhập
+ * Và chuyển qua màn hình chính nếu đã đăng nhập rồi
+ * */
+ public class LoginActivity extends AppCompatActivity {
+-
++    Button btn_dangnhap;
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_login);
++        anhXa();
++        login();
++    }
++    private void login() {
++        btn_dangnhap.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
++                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_left);
++            }
++        });
++    }
++
++    private void anhXa() {
++        btn_dangnhap = findViewById(R.id.btn_dangnhap);
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/sp23cp18103/nhom2/finedining/fragment/MapsFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sp23cp18103.nhom2.finedining.fragment;\n\nimport androidx.annotation.NonNull;\nimport androidx.annotation.Nullable;\nimport androidx.fragment.app.Fragment;\n\nimport android.os.Bundle;\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\n\nimport com.google.android.gms.maps.CameraUpdateFactory;\nimport com.google.android.gms.maps.GoogleMap;\nimport com.google.android.gms.maps.OnMapReadyCallback;\nimport com.google.android.gms.maps.SupportMapFragment;\nimport com.google.android.gms.maps.model.LatLng;\nimport com.google.android.gms.maps.model.MarkerOptions;\n\nimport sp23cp18103.nhom2.finedining.R;\n\n/*\n* Để hiển thị vị trí của nhà hàng\n* */\npublic class MapsFragment extends Fragment {\n\n    private OnMapReadyCallback callback = new OnMapReadyCallback() {\n\n        /**\n         * Manipulates the map once available.\n         * This callback is triggered when the map is ready to be used.\n         * This is where we can add markers or lines, add listeners or move the camera.\n         * In this case, we just add a marker near Sydney, Australia.\n         * If Google Play services is not installed on the device, the user will be prompted to\n         * install it inside the SupportMapFragment. This method will only be triggered once the\n         * user has installed Google Play services and returned to the app.\n         */\n        @Override\n        public void onMapReady(GoogleMap googleMap) {\n            LatLng sydney = new LatLng(-34, 151);\n            googleMap.addMarker(new MarkerOptions().position(sydney).title(\"Marker in Sydney\"));\n            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));\n        }\n    };\n\n    @Nullable\n    @Override\n    public View onCreateView(@NonNull LayoutInflater inflater,\n                             @Nullable ViewGroup container,\n                             @Nullable Bundle savedInstanceState) {\n        return inflater.inflate(R.layout.fragment_maps, container, false);\n    }\n\n    @Override\n    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {\n        super.onViewCreated(view, savedInstanceState);\n        SupportMapFragment mapFragment =\n                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);\n        if (mapFragment != null) {\n            mapFragment.getMapAsync(callback);\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/MapsFragment.java b/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/MapsFragment.java
+--- a/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/MapsFragment.java	(revision 9780ac89cadc6d99edb26354778c9c526a1d9d9f)
++++ b/app/src/main/java/sp23cp18103/nhom2/finedining/fragment/MapsFragment.java	(date 1678697079403)
+@@ -23,33 +23,33 @@
+ * */
+ public class MapsFragment extends Fragment {
+ 
+-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+-
+-        /**
+-         * Manipulates the map once available.
+-         * This callback is triggered when the map is ready to be used.
+-         * This is where we can add markers or lines, add listeners or move the camera.
+-         * In this case, we just add a marker near Sydney, Australia.
+-         * If Google Play services is not installed on the device, the user will be prompted to
+-         * install it inside the SupportMapFragment. This method will only be triggered once the
+-         * user has installed Google Play services and returned to the app.
+-         */
+-        @Override
+-        public void onMapReady(GoogleMap googleMap) {
+-            LatLng sydney = new LatLng(-34, 151);
+-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+-        }
+-    };
+ 
+     @Nullable
+     @Override
+-    public View onCreateView(@NonNull LayoutInflater inflater,
+-                             @Nullable ViewGroup container,
+-                             @Nullable Bundle savedInstanceState) {
++    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+         return inflater.inflate(R.layout.fragment_maps, container, false);
+     }
+ 
++
++    private double longitude;
++    private double latitude;
++    private String title;
++
++    public MapsFragment(double latitude, double longitude, String title) {
++        this.longitude = longitude;
++        this.latitude = latitude;
++        this.title = title;
++    }
++
++    private OnMapReadyCallback callback = new OnMapReadyCallback() {
++        @Override
++        public void onMapReady(GoogleMap googleMap) {
++            LatLng coordination = new LatLng(latitude, longitude);
++            googleMap.addMarker(new MarkerOptions().position(coordination).title(title));
++            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordination, 12));
++        }
++    };
++
+     @Override
+     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+         super.onViewCreated(view, savedInstanceState);

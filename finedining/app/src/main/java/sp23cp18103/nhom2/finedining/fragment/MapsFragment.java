@@ -23,32 +23,32 @@ import sp23cp18103.nhom2.finedining.R;
 * */
 public class MapsFragment extends Fragment {
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        }
-    };
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
+
+
+    private double longitude;
+    private double latitude;
+    private String title;
+
+    public MapsFragment(double latitude, double longitude, String title) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.title = title;
+    }
+
+    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            LatLng coordination = new LatLng(latitude, longitude);
+            googleMap.addMarker(new MarkerOptions().position(coordination).title(title));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordination, 12));
+        }
+    };
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
