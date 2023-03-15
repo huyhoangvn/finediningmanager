@@ -10,17 +10,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-
-
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_timkiemloaiban"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconDrawable="@drawable/search"
         app:endIconMode="custom"
         android:layout_margin="10dp">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_timkiemloaiban"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tìm kiếm loại bàn"/>
