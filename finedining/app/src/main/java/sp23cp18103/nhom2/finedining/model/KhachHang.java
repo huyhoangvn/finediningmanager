@@ -23,6 +23,9 @@ public class KhachHang {
         this.hinh = hinh;
     }
 
+    public KhachHang() {
+    }
+
     public int getMaKH() {
         return maKH;
     }
