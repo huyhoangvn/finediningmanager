@@ -51,7 +51,6 @@ public class DatMonDAO {
             dm.setMaMon(c.getInt(c.getColumnIndex("maMon")));
             dm.setMaHD(c.getInt(c.getColumnIndex("maHD")));
             dm.setSoLuong(c.getInt(c.getColumnIndex("soLuong")));
-
             list.add(dm);
 
         }

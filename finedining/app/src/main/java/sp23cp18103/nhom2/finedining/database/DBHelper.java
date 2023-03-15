@@ -90,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maLM INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "tenLoai TEXT NOT NULL," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
@@ -103,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maBan INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maLB INTEGER NOT NULL REFERENCES loaiban(maLB)," +
                 "viTri TEXT NOT NULL," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
@@ -117,7 +117,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "tenLoai TEXT NOT NULL," +
                 "soChoNgoi INTEGER NOT NULL," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
@@ -150,7 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "ngaySinh TEXT NOT NULL," +
                 "sdt TEXT NOT NULL," +
                 "phanQuyen INTEGER NOT NULL CHECK (phanQuyen = 1 OR trangThai = 0)," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "taiKhoan TEXT NOT NULL," +
                 "matKhau TEXT NOT NULL)";
         db.execSQL(sql);
