@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="40dp"
+    android:padding="10dp"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +13,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="center"
-        android:layout_margin="20dp"/>
+        android:layout_margin="10dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_dialog_chonMon_FragmentThemHoaDon"
         android:layout_width="match_parent"
