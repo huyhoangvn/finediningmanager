@@ -11,15 +11,16 @@ public class KhachHang {
     private String sdt;//Số điện thoại
     private String taiKhoan;//Hiện tại chưa dùng
     private String matKhau;//Hiện tại chưa dùng
+    private String hinh;
 
-    public KhachHang(int maKH, String tenKH, int gioiTinh, String sdt,
-                     String taiKhoan, String matKhau) {
+    public KhachHang(int maKH, String tenKH, int gioiTinh, String sdt, String taiKhoan, String matKhau, String hinh) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.gioiTinh = gioiTinh;
         this.sdt = sdt;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
+        this.hinh = hinh;
     }
 
     public int getMaKH() {
@@ -68,6 +69,14 @@ public class KhachHang {
 
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
+    }
+
+    public String getHinh() {
+        return hinh;
+    }
+
+    public void setHinh(String hinh) {
+        this.hinh = hinh;
     }
 
     /*

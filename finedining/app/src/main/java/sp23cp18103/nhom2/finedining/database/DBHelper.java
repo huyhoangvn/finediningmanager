@@ -77,7 +77,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maLM INTEGER NOT NULL REFERENCES loaimon(maLM)," +
                 "tenMon TEXT NOT NULL," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
-                "hinh BLOB)";
+                "hinh TEXT)";
         db.execSQL(sql);
     }
 
@@ -123,7 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /*
     * Tạo bảng khách hàng
-    * khachhang ( maKH, tenKH, gioiTinh, sdt, taiKhoan, matKhau )
+    * khachhang ( maKH, tenKH, gioiTinh, sdt, taiKhoan, matKhau, hinh )
     * */
     private void createTableKhachhang(SQLiteDatabase db) {
         String sql = "CREATE TABLE khachhang(" +
@@ -132,7 +132,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "gioiTinh INTEGER CHECK (trangThai = 1 OR trangThai = 2 OR trangThai = 0)," +
                 "sdt TEXT," +
                 "taiKhoan TEXT UNIQUE," +
-                "matKhau TEXT)";
+                "matKhau TEXT," +
+                "hinh TEXT)";
         db.execSQL(sql);
     }
 
@@ -164,7 +165,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNH INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tenNH TEXT NOT NULL," +
                 "diaChi TEXT NOT NULL," +
-                "hinh BLOB)";
+                "hinh TEXT)";
         db.execSQL(sql);
     }
 

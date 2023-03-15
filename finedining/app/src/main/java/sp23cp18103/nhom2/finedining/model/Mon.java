@@ -9,9 +9,9 @@ public class Mon {
     private int maLM;
     private String tenMon;
     private int trangThai; // 1:"Dùng"; 0:"Không dùng"
-    private byte[] hinh;
+    private String hinh;
 
-    public Mon(int maMon, int maLM, String tenMon, int trangThai, byte[] hinh) {
+    public Mon(int maMon, int maLM, String tenMon, int trangThai, String hinh) {
         this.maMon = maMon;
         this.maLM = maLM;
         this.tenMon = tenMon;
@@ -54,11 +54,11 @@ public class Mon {
         this.trangThai = trangThai;
     }
 
-    public byte[] getHinh() {
+    public String getHinh() {
         return hinh;
     }
 
-    public void setHinh(byte[] hinh) {
+    public void setHinh(String hinh) {
         this.hinh = hinh;
     }
 

@@ -8,9 +8,9 @@ public class NhaHang {
     private int maNH;
     private String tenNH;
     private String diaChi;
-    private byte[] hinh;
+    private String hinh;
 
-    public NhaHang(int maNH, String tenNH, String diaChi, byte[] hinh) {
+    public NhaHang(int maNH, String tenNH, String diaChi, String hinh) {
         this.maNH = maNH;
         this.tenNH = tenNH;
         this.diaChi = diaChi;
@@ -44,11 +44,19 @@ public class NhaHang {
         this.diaChi = diaChi;
     }
 
-    public byte[] getHinh() {
+    public String getTenNH() {
+        return tenNH;
+    }
+
+    public void setTenNH(String tenNH) {
+        this.tenNH = tenNH;
+    }
+
+    public String getHinh() {
         return hinh;
     }
 
-    public void setHinh(byte[] hinh) {
+    public void setHinh(String hinh) {
         this.hinh = hinh;
     }
 
