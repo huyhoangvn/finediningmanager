@@ -11,14 +11,12 @@
         android:orientation="vertical">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_fNhanVien_timNhanVien"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Tìm Nhân Viên"
-            app:boxBackgroundColor="@android:color/transparent"
+            android:hint="Tìm tên nhân viên"
             app:endIconMode="custom"
-            app:endIconDrawable="@drawable/search">
+            app:endIconDrawable="@drawable/ic_search">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -37,12 +35,12 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbtn_fNhanVien_them"
+        android:id="@+id/ftbtn_fNhanVien_them"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:src="@drawable/add"
-        app:backgroundTint="@color/teal_700"
+        android:src="@drawable/ic_ftbtn_add"
+        app:backgroundTint="?attr/colorPrimary"
         android:layout_gravity="bottom|right"
         app:tint="@color/white"
         tools:ignore="ContentDescription,RtlHardcoded" />

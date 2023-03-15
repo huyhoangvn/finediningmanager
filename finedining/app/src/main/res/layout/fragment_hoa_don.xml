@@ -23,7 +23,7 @@
             android:hint="Tìm Hóa Đơn"
             app:boxBackgroundColor="@android:color/transparent"
             app:endIconMode="custom"
-            app:endIconDrawable="@drawable/search">
+            app:endIconDrawable="@drawable/ic_search">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_hoaDon_timHoaDon"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:src="@drawable/add"
+        android:src="@drawable/ic_ftbtn_add"
         app:backgroundTint="@color/teal_700"
         android:layout_gravity="bottom|right"
         app:tint="@color/white"

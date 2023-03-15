@@ -14,7 +14,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endIconDrawable="@drawable/search"
+        app:endIconDrawable="@drawable/ic_search"
         app:endIconMode="custom"
         android:layout_margin="10dp">
         <com.google.android.material.textfield.TextInputEditText
@@ -39,7 +39,7 @@
         android:id="@+id/fbtn_ban"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/add"
+        android:src="@drawable/ic_ftbtn_add"
         android:layout_gravity="bottom|right"
         android:layout_margin="10dp"
         />

@@ -1,49 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mCardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
-            <ImageView
-                android:id="@+id/img_cardview_Loai_Mon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/default_avatar"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"/>
+            android:padding="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_carview_Ten_Loai_Mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ten loai mon"
-                android:textSize="20sp"
-                android:layout_marginTop="25dp"/>
-            <View
+                style="@style/mHeaderText"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hải sản"/>
+
             <ImageView
                 android:id="@+id/img_cardview_Sua_Loai_Mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_sua_thongtin"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="10dp"/>
+                style="@style/mImageButton"
+                android:src="@drawable/ic_sua_thongtin"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>
 
     <!-- Card cho Recycler View của loại món-->

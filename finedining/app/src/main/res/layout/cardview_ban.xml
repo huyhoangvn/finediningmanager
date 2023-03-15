@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mCardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginEnd="10dp"
-    android:layout_marginTop="10dp"
-    app:cardCornerRadius="8dp"
-    android:layout_margin="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_vitri"
+                style="@style/mHeaderText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:textSize="20sp"
-                android:text="Vị trí: khu A "/>
-            <TextView
-                android:id="@+id/tv_loaiban"
-                android:layout_width="match_parent"
+                android:text="Vị trí"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:textSize="16sp"
-                android:text="Loại bàn: VIP "
-                />
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loại: "/>
+                <TextView
+                    android:id="@+id/tv_loaiban"
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="VIP"/>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_trangthai"
+                style="@style/mNormalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:textSize="16sp"
-                android:text="Dùng  "
+                android:text="Còn dùng"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
                 />
         </LinearLayout>
+
         <ImageView
             android:id="@+id/img_sua"
+            style="@style/mImageButton"
             android:src="@drawable/ic_sua_thongtin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
