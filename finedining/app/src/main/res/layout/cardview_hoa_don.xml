@@ -79,7 +79,7 @@
 
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imgBtn_edit_CardView_HoaDon"
             style="@style/mImageButton"
             android:layout_gravity="center"

@@ -51,7 +51,7 @@
                 />
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/img_sua_LB"
             style="@style/mImageButton"
             android:src="@drawable/ic_sua_thongtin"
