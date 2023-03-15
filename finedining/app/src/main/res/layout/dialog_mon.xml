@@ -1,8 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm/sửa món"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/img_dialog_Mon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/default_avatar"
+        android:layout_gravity="center_horizontal"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_dialog_Ten_Mon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_dialog_Ten_Mon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên món "/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_dialog_Gia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_dialog_Gia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Giá "/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <Spinner
+        android:id="@+id/spnr_dialog_Loai_Mon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
+    <CheckBox
+        android:id="@+id/chk_dialog_Trang_Thai_Mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trang thái"
+        android:layout_marginLeft="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_dialog_Luu_Mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu"
+            android:layout_weight="1"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_dialog_Huy_Mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hủy"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
 
     <!-- Dialog để thêm hoặc sửa món-->
