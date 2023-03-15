@@ -129,7 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE khachhang(" +
                 "maKH INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tenKH TEXT NOT NULL," +
-                "gioiTinh INTEGER CHECK (trangThai = 1 OR trangThai = 2 OR trangThai = 0)," +
+                "gioiTinh INTEGER CHECK (gioiTinh = 1 OR gioiTinh = 2 OR gioiTinh = 0)," +
                 "sdt TEXT," +
                 "taiKhoan TEXT UNIQUE," +
                 "matKhau TEXT," +
@@ -146,7 +146,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNV INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maNH INTEGER NOT NULL REFERENCES nhahang(maNH)," +
                 "tenNV TEXT NOT NULL," +
-                "gioiTinh INTEGER CHECK (trangThai = 1 OR trangThai = 2 OR trangThai = 0)," +
+                "gioiTinh INTEGER CHECK (gioiTinh = 1 OR gioiTinh = 2 OR gioiTinh = 0)," +
                 "ngaySinh TEXT NOT NULL," +
                 "sdt TEXT NOT NULL," +
                 "phanQuyen INTEGER NOT NULL CHECK (phanQuyen = 1 OR trangThai = 0)," +
