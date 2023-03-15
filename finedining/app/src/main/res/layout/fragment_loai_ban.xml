@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.BanFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -23,18 +30,22 @@
         android:id="@+id/rcv_loaiban"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="100dp"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbtn_loaiban"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/add"
-        android:layout_gravity="bottom|right"
         android:layout_margin="10dp"
-        />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"/>
 
+
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ftbtn_them_loaiban"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/add"
+        app:backgroundTint="@color/teal_700"
+        android:layout_gravity="bottom|right"
+        app:tint="@color/white"
+        />
 
 </FrameLayout>
 
