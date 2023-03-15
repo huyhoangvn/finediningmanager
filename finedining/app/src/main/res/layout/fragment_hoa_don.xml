@@ -51,7 +51,7 @@
         app:backgroundTint="@color/teal_700"
         android:layout_gravity="bottom|right"
         app:tint="@color/white"
-
+        android:contentDescription="Thêm hóa đơn"
         />
 </FrameLayout>
 
