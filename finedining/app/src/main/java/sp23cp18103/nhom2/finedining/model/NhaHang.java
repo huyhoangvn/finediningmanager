@@ -28,14 +28,6 @@ public class NhaHang {
         this.maNH = maNH;
     }
 
-    public String getTenNhaHang() {
-        return tenNH;
-    }
-
-    public void setTenNhaHang(String tenNhaHang) {
-        this.tenNH = tenNhaHang;
-    }
-
     public String getDiaChi() {
         return diaChi;
     }
@@ -76,6 +68,6 @@ public class NhaHang {
     @NonNull
     @Override
     public String toString() {
-        return getTenNhaHang();
+        return getTenNH();
     }
 }
