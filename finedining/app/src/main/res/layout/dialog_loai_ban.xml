@@ -2,68 +2,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_margin="10dp"
-    android:padding="10dp">
+    android:padding="5dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
         <TextView
-            android:text="Thêm/sửa loại bàn"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:background="#2196F3"
+            android:id="@+id/tv_tieude_loaiban"
+            style="@style/mHeaderText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Thêm/sửa loại bàn"/>
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_tenLB"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            app:errorEnabled="true"
+            android:hint="Tên loại bàn">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_tenLB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tên loại bàn"/>
+                android:inputType="text"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_soChoNgoi"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            app:errorEnabled="true"
+            android:hint="Tên loại bàn">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_soChoNgoi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Số chỗ ngồi "/>
+                android:inputType="text"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
+
         <CheckBox
-            android:id="@+id/chk_trangthai_LB"
-            android:text="Trạng thái "
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
+            android:id="@+id/chk_trangthai_ban"
+            style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:text="Còn sử dụng?"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_shaveloaiban"
-                android:text="Lưu "
-                android:layout_margin="10dp"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/btn_shaveban"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:text="Hủy"
-                android:layout_margin="10dp"
-                android:id="@+id/btn_cancelloaiban"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/btn_cancelban"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy"/>
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>
 
     <!-- Dialog để thêm hoặc sửa loại bàn-->

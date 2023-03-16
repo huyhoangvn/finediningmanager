@@ -36,13 +36,9 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ftbtn_fNhanVien_them"
+        style="@style/mFloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_ftbtn_add"
-        app:backgroundTint="?attr/colorPrimary"
-        android:layout_gravity="bottom|right"
-        app:tint="@color/white"
         tools:ignore="ContentDescription,RtlHardcoded" />
 </FrameLayout>
 

@@ -5,46 +5,43 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.BanFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_timkiemloaiban"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:endIconDrawable="@drawable/ic_search"
-        app:endIconMode="custom"
-        android:layout_margin="10dp">
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_timkiemloaiban"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tìm kiếm loại bàn"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="Tìm kiếm tên người thanh toán"
+            app:endIconDrawable="@drawable/ic_search"
+            app:endIconMode="custom">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_loaiban"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_loaiban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ftbtn_them_loaiban"
+        style="@style/mFloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_ftbtn_add"
-        app:backgroundTint="@color/teal_700"
-        android:layout_gravity="bottom|right"
-        app:tint="@color/white"
-        />
-
+        tools:ignore="ContentDescription,RtlHardcoded,SpeakableTextPresentCheck" />
 </FrameLayout>
 
     <!--Hiện danh sách bàn-->

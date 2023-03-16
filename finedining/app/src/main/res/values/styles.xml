@@ -39,10 +39,28 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="mFloatingButton">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:src">@drawable/ic_ftbtn_add</item>
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="tint">@color/white</item>
+        <item name="borderWidth">0dp</item>
+    </style>
+
     <style name="mInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
         <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="mTabLayout">
+        <item name="background">?attr/colorSecondary</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMaxWidth">0dp</item>
+<!--        <item name="android:textColor">@color/...</item>-->
+<!--        <item name="tabIconTint">@color/...</item>-->
+<!--        <item name="tabIndicatorColor">@color/...</item>-->
     </style>
 
     <style name="mButton" parent="Widget.AppCompat.Button">
