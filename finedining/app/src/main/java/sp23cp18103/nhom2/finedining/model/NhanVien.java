@@ -15,11 +15,10 @@ public class NhanVien {
     private int trangThai;// 1:"Làm"; 0:"Nghỉ"
     private String taiKhoan;
     private String matKhau;
+    private String hinh;//URL
 
-    public NhanVien(int maNV, int maNH, String tenNV,
-                    int gioiTinh, String ngaySinh, String sdt,
-                    int phanQuyen, int trangThai,
-                    String taiKhoan, String matKhau) {
+    public NhanVien(int maNV, int maNH, String tenNV, int gioiTinh, String ngaySinh, String sdt,
+                    int phanQuyen, int trangThai, String taiKhoan, String matKhau, String hinh) {
         this.maNV = maNV;
         this.maNH = maNH;
         this.tenNV = tenNV;
@@ -30,6 +29,7 @@ public class NhanVien {
         this.trangThai = trangThai;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
+        this.hinh = hinh;
     }
 
     public NhanVien() {
@@ -113,6 +113,14 @@ public class NhanVien {
 
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
+    }
+
+    public String getHinh() {
+        return hinh;
+    }
+
+    public void setHinh(String hinh) {
+        this.hinh = hinh;
     }
 
     /*

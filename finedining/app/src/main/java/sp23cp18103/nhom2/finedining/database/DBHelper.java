@@ -139,7 +139,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /*
     * Tạo bảng nhân viên
-    * nhanvien ( maNV, maNH, tenNV, gioiTinh, ngaySinh, sdt, phanQuyen, trangThai, taiKhoan, matKhau )
+    * nhanvien ( maNV, maNH, tenNV, gioiTinh, ngaySinh, sdt, phanQuyen, trangThai, hinh, taiKhoan, matKhau )
     * */
     private void createTableNhanvien(SQLiteDatabase db) {
         String sql = "CREATE TABLE nhanvien(" +
@@ -151,6 +151,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "sdt TEXT NOT NULL," +
                 "phanQuyen INTEGER NOT NULL CHECK (phanQuyen = 1 OR trangThai = 0)," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
+                "hinh TEXT," +
                 "taiKhoan TEXT NOT NULL," +
                 "matKhau TEXT NOT NULL)";
         db.execSQL(sql);
