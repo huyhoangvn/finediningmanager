@@ -1,4 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="mLogo">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:src">@drawable/ic_logo</item>
+    </style>
 
+    <style name="mAvatarImage">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="mCardview" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:checkable">true</item>
+    </style>
+
+    <style name="mImageButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:scaleX">1.5</item>
+        <item name="android:scaleY">1.5</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="mAvatarImageButton">
+        <item name="android:layout_width">135dp</item>
+        <item name="android:layout_height">135dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="mFloatingButton">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:src">@drawable/ic_ftbtn_add</item>
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="tint">@color/white</item>
+        <item name="borderWidth">0dp</item>
+    </style>
+
+    <style name="mInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="mTabLayout">
+        <item name="background">?attr/colorSecondary</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMaxWidth">0dp</item>
+<!--        <item name="android:textColor">@color/...</item>-->
+<!--        <item name="tabIconTint">@color/...</item>-->
+<!--        <item name="tabIndicatorColor">@color/...</item>-->
+    </style>
+
+    <style name="mButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="mTitleText" >
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="mHeaderText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="mNormalText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

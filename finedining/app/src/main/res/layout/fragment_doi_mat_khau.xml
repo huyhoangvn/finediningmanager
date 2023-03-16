@@ -8,23 +8,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <ImageView
+            style="@style/mLogo"/>
+
+        <TextView
+            style="@style/mTitleText"
             android:layout_width="wrap_content"
-            android:layout_height="250dp"
-            android:src="@drawable/ic_logo" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Đổi mật khẩu"
+            android:textAllCaps="false"
+            tools:ignore="RtlHardcoded"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_fDoiMatKhau_matKhauCu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mật khẩu cũ"
-            android:padding="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:boxBackgroundColor="@android:color/transparent"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
@@ -36,14 +40,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_fDoiMatKhau_matKhauMoi"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mật khẩu mới"
-            android:padding="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:boxBackgroundColor="@android:color/transparent"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
@@ -55,14 +55,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_fDoiMatKhau_xacNhanMatKhau"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Xác nhận mật khẩu mới"
-            android:padding="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:boxBackgroundColor="@android:color/transparent"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
@@ -74,12 +70,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_fDoiMatKhau_luu"
+            style="@style/mButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Lưu Mật Khẩu"/>
+            android:text="Lưu"/>
     </LinearLayout>
 
 </FrameLayout>

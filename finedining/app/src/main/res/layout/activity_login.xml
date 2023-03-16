@@ -5,62 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:gravity="center"
     >
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:src="@drawable/ic_logo"
-                android:layout_marginTop="40dp"/>
+                style="@style/mLogo"
+                android:layout_gravity="center"/>
 
             <TextView
+                style="@style/mTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_margin="10dp"
                 android:text="WELLCOME\nTO FINE DINING"
-                android:textColor="#F44336"
-                android:textSize="35dp"
-                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_gravity="start"
                 />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_taikhoan_dangnhap"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/mInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
                 android:hint="Nhập tài Khoản"
-                android:padding="5dp"
-                app:boxBackgroundColor="@android:color/transparent"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1" />
+                    android:inputType="text"
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_matkhau_dangphap"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/mInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
                 android:hint="Nhập mật Khẩu"
-                android:padding="5dp"
-                app:boxBackgroundColor="@android:color/transparent"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
@@ -75,20 +62,17 @@
                 android:id="@+id/chk_Remeber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:textColor="@color/black"
-                android:layout_marginLeft="16dp"
+                android:text="Ghi nhớ đăng nhập"
+                android:layout_marginStart="10dp"
                 />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_dangnhap"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/teal_200"
+                style="@style/mButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Đăng nhập"
                 />
         </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

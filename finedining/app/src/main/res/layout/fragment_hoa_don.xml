@@ -5,53 +5,41 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.HoaDonFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        >
-
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_01_hoaDon_timHoaDon"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Tìm Hóa Đơn"
-            app:boxBackgroundColor="@android:color/transparent"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/search">
-
+            android:hint="Tìm kiếm tên người thanh toán"
+            app:endIconDrawable="@drawable/ic_search"
+            app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_hoaDon_timHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_hoaDon"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            />
-
+            android:padding="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ftbtn_them_hoaDon"
+        style="@style/mFloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/add"
-        app:backgroundTint="@color/teal_700"
-        android:layout_gravity="bottom|right"
-        app:tint="@color/white"
-        android:contentDescription="Thêm hóa đơn"
-        />
+        tools:ignore="ContentDescription,RtlHardcoded,SpeakableTextPresentCheck" />
 </FrameLayout>
 

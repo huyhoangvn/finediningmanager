@@ -1,8 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mCardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/img_cvNhanVien_hinh"
+            style="@style/mAvatarImage"
+            android:src="@drawable/default_avatar"
+            tools:ignore="contentDescription"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cvNhanVien_tenNV"
+                style="@style/mHeaderText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên Nhân Viên"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày sinh: "/>
+
+                <TextView
+                    android:id="@+id/tv_cvNhanVien_ngaySinh"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01-10-2000"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số điện thoại: "/>
+
+                <TextView
+                    android:id="@+id/tv_cvNhanVien_sdt"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0943765588"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giới tính: "
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_cvNhanVien_gioiTinh"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nam"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_cvNhanVien_trangThai"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang làm"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imgbtn_cvNhanVien_sua"
+            style="@style/mImageButton"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_sua_thongtin"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
 
     <!-- Card cho Recycler View của nhân viên-->

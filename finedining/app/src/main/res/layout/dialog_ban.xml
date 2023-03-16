@@ -1,61 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_margin="10dp"
-    android:padding="10dp">
+    android:padding="5dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
+
         <TextView
-            android:text="Thêm/sửa  bàn"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:background="#2196F3"
+            android:id="@+id/tv_tieude_ban"
+            style="@style/mHeaderText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Thêm/sửa  bàn"/>
+
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            app:errorEnabled="true"
+            android:hint="Vị trí">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_vitri_ban"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Vị trí"/>
+                android:inputType="text"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
-       <Spinner
-           android:id="@+id/spnr_ban"
-           android:layout_width="match_parent"
-           android:layout_marginStart="10dp"
-           android:layout_marginEnd="10dp"
-           android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/spnr_ban"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
         <CheckBox
             android:id="@+id/chk_trangthai_ban"
-            android:text="Còn sử dụng "
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
+            style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:text="Còn sử dụng?"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_margin="10dp"
                 android:id="@+id/btn_shaveban"
-                android:text="Lưu "
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"/>
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:text="Hủy"
-                android:layout_margin="10dp"
                 android:id="@+id/btn_cancelban"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"/>
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy"/>
         </LinearLayout>
 
     </LinearLayout>
