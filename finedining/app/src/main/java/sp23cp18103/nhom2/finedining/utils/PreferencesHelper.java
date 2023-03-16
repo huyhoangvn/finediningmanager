@@ -17,7 +17,7 @@ public class PreferencesHelper {
     private static final String PASSWORD_TAG = "matKhau";
     private static final String REMEMBER_TAG = "ghiNho";
 
-    private static SharedPreferences getSharedPref(Context context){
+    public static SharedPreferences getSharedPref(Context context){
         return context.getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
 
@@ -25,7 +25,7 @@ public class PreferencesHelper {
     * Lưu mã người dùng khi đã đăng nhập thành công
     * Tài khoản, mật khẩu sẽ được ghi nhớ nếu ghiNho == true
     * */
-    private static void saveSharedPref(Context context, Integer maNguoiDung,
+    public static void saveSharedPref(Context context, Integer maNguoiDung,
                                        String taiKhoan, String maKhau, boolean ghiNho) {
         SharedPreferences sharedPreferences = getSharedPref(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -46,7 +46,7 @@ public class PreferencesHelper {
     /*
      * Lấy ghi nhớ tài khoản
      * */
-    private static String getTaiKhoan(Context context){
+    public  static String getTaiKhoan(Context context){
         SharedPreferences sharedPreferences = getSharedPref(context);
         return sharedPreferences.getString(ACCOUNT_TAG, "");
     }
@@ -54,7 +54,7 @@ public class PreferencesHelper {
     /*
      * Lấy ghi nhớ mật khẩu
      * */
-    private static String getMatKhau(Context context){
+    public  static String getMatKhau(Context context){
         SharedPreferences sharedPreferences = getSharedPref(context);
         return sharedPreferences.getString(PASSWORD_TAG, "");
     }
@@ -62,7 +62,7 @@ public class PreferencesHelper {
     /*
      * Lấy ghi nhớ đăng nhập
      * */
-    private static boolean getGhiNho(Context context){
+    public  static boolean getGhiNho(Context context){
         SharedPreferences sharedPreferences = getSharedPref(context);
         return sharedPreferences.getBoolean(REMEMBER_TAG, false);
     }
@@ -70,7 +70,7 @@ public class PreferencesHelper {
     /*
     * Lấy mã người dùng hiện tại
     * */
-    private static int getId(Context context){
+    public  static int getId(Context context){
         SharedPreferences sharedPreferences = getSharedPref(context);
         return sharedPreferences.getInt(ID_TAG, -1);
     }
@@ -78,7 +78,7 @@ public class PreferencesHelper {
     /*
     * Khi người dùng thoát khỏi chương trình thì sẽ giải phóng mã người dùng
     * */
-    private static void clearId(Context context){
+    public  static void clearId(Context context){
         SharedPreferences sharedPreferences = getSharedPref(context);
         sharedPreferences.edit().putInt("maThuThu", -1).apply();
     }
