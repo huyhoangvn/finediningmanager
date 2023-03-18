@@ -1,8 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mCardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
-    <!-- Card cho Recycler View của món ăn bán chạy-->
+            <ImageView
+                android:id="@+id/img_monhot"
+                style="@style/mAvatarImage"
+                android:src="@drawable/default_avatar"/>
+
+            <RelativeLayout
+                android:id="@+id/lyt_thongtin_monhot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img_monhot"
+                android:layout_toStartOf="@id/tv_xephang_monhot"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tv_name_monhot"
+                    style="@style/mHeaderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tên món ăn"
+                    />
+                <TextView
+                    android:id="@+id/tv_tieude_soluong_monhot"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_name_monhot"
+                    android:text="Số Lượng: "
+                    />
+                <TextView
+                    android:id="@+id/tv_soluong_monhot"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_tieude_soluong_monhot"
+                    android:layout_below="@+id/tv_name_monhot"
+                    android:text="1,000,000"
+                    />
+                <TextView
+                    android:id="@+id/tv_tieude_doanhthu_monhot"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_tieude_soluong_monhot"
+                    android:text="Doanh thu: "
+                    />
+                <TextView
+                    android:id="@+id/tv_doanhthu_monhot"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_tieude_doanhthu_monhot"
+                    android:layout_below="@+id/tv_soluong_monhot"
+                    android:text="1,000,000"/>
+                <TextView
+                    android:id="@+id/tv_donViTien_monhot"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/tv_doanhthu_monhot"
+                    android:layout_below="@+id/tv_soluong_monhot"
+                    android:text=" vnd"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_xephang_monhot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/mTitleText"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="#1"/>
+
+        </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

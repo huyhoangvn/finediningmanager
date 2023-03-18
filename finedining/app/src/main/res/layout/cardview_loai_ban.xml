@@ -1,8 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mCardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_tenLB"
+                style="@style/mHeaderText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên loại bàn"/>
 
-    <!-- Card cho Recycler View của loại bàn-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Số chỗ: "/>
+                <TextView
+                    android:id="@+id/tv_sochongoi"
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_trangthai_LB"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Còn dùng"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
+                />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/img_sua_LB"
+            style="@style/mImageButton"
+            android:src="@drawable/ic_sua_thongtin"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+    <!-- Card cho Recycler View của bàn-->

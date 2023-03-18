@@ -3,14 +3,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ThongKeKhachFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.ThongKeDoanhThuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+        <TextView
+            style="@style/mHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng số lượng khách"
+            android:layout_margin="10dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center">
+            <TextView
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng khách: "
+                android:textColor="@android:color/holo_green_dark"/>
+            <TextView
+                android:id="@+id/tvTongKhachHang"
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1,000,000,000,000"
+                android:textColor="@android:color/holo_green_dark"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_thongKeKhach_ngayBatDau"
+                style="@style/mInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Ngày bắt đầu"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_chon_ngay">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_thongKeKhach_ngayKetThuc"
+                style="@style/mInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Ngày kết thúc"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_chon_ngay">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnThongKeKhach1"
+            style="@style/mButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thống Kê"/>
+
+
+        <TextView
+            style="@style/mHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số lượng khách theo tháng"
+            android:layout_margin="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_ThongKeKhach"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_nam_ThongKeKhach"
+            style="@style/mInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Năm"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnThongKeKhach2"
+            style="@style/mButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thống Kê"/>
+
+    </LinearLayout>
 </FrameLayout>
 
-    <!--Thống kê số lượng khách-->

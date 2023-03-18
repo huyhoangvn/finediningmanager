@@ -1,8 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mCardview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/img_cardview_Mon"
+            style="@style/mAvatarImage"
+            android:src="@drawable/default_avatar"
+            tools:ignore="contentDescription"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cardview_Ten_Mon"
+                style="@style/mHeaderText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên món"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loại: "/>
+
+                <TextView
+                    android:id="@+id/tv_cardview_Ten_Loai_Mon"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hải sản"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giá: "/>
+
+                <TextView
+                    android:id="@+id/tv_cardview_Gia"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10,000"/>
+
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" vnd"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_cardview_Trang_Thai"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Còn dùng"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/img_cardview_Sua_Mon"
+            style="@style/mImageButton"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_sua_thongtin"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
 
     <!-- Card cho Recycler View của món-->

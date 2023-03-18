@@ -77,7 +77,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maLM INTEGER NOT NULL REFERENCES loaimon(maLM)," +
                 "tenMon TEXT NOT NULL," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
-                "hinh BLOB)";
+                "hinh TEXT)";
         db.execSQL(sql);
     }
 
@@ -90,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maLM INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "tenLoai TEXT NOT NULL," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
@@ -103,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maBan INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maLB INTEGER NOT NULL REFERENCES loaiban(maLB)," +
                 "viTri TEXT NOT NULL," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
@@ -117,39 +117,41 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "tenLoai TEXT NOT NULL," +
                 "soChoNgoi INTEGER NOT NULL," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
     /*
     * Tạo bảng khách hàng
-    * khachhang ( maKH, tenKH, gioiTinh, sdt, taiKhoan, matKhau )
+    * khachhang ( maKH, tenKH, gioiTinh, sdt, taiKhoan, matKhau, hinh )
     * */
     private void createTableKhachhang(SQLiteDatabase db) {
         String sql = "CREATE TABLE khachhang(" +
                 "maKH INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tenKH TEXT NOT NULL," +
-                "gioiTinh INTEGER CHECK (trangThai = 1 OR trangThai = 2 OR trangThai = 0)," +
+                "gioiTinh INTEGER CHECK (gioiTinh = 1 OR gioiTinh = 2 OR gioiTinh = 0)," +
                 "sdt TEXT," +
                 "taiKhoan TEXT UNIQUE," +
-                "matKhau TEXT)";
+                "matKhau TEXT," +
+                "hinh TEXT)";
         db.execSQL(sql);
     }
 
     /*
     * Tạo bảng nhân viên
-    * nhanvien ( maNV, maNH, tenNV, gioiTinh, ngaySinh, sdt, phanQuyen, trangThai, taiKhoan, matKhau )
+    * nhanvien ( maNV, maNH, tenNV, gioiTinh, ngaySinh, sdt, phanQuyen, trangThai, hinh, taiKhoan, matKhau )
     * */
     private void createTableNhanvien(SQLiteDatabase db) {
         String sql = "CREATE TABLE nhanvien(" +
                 "maNV INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maNH INTEGER NOT NULL REFERENCES nhahang(maNH)," +
                 "tenNV TEXT NOT NULL," +
-                "gioiTinh INTEGER CHECK (trangThai = 1 OR trangThai = 2 OR trangThai = 0)," +
+                "gioiTinh INTEGER CHECK (gioiTinh = 1 OR gioiTinh = 2 OR gioiTinh = 0)," +
                 "ngaySinh TEXT NOT NULL," +
                 "sdt TEXT NOT NULL," +
                 "phanQuyen INTEGER NOT NULL CHECK (phanQuyen = 1 OR trangThai = 0)," +
-                "trangThai TEXT NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
+                "hinh TEXT," +
                 "taiKhoan TEXT NOT NULL," +
                 "matKhau TEXT NOT NULL)";
         db.execSQL(sql);
@@ -164,7 +166,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNH INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tenNH TEXT NOT NULL," +
                 "diaChi TEXT NOT NULL," +
-                "hinh BLOB)";
+                "hinh TEXT)";
         db.execSQL(sql);
     }
 
