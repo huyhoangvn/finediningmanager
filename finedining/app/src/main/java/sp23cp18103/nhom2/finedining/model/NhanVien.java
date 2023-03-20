@@ -17,11 +17,6 @@ public class NhanVien {
     private String matKhau;
     private String hinh;//URL
 
-
-
-    public NhanVien() {
-    }
-
     public NhanVien(int maNV, int maNH, String tenNV, int gioiTinh, String ngaySinh, String sdt, int phanQuyen, int trangThai, String taiKhoan, String matKhau, String hinh) {
         this.maNV = maNV;
         this.maNH = maNH;
@@ -34,6 +29,9 @@ public class NhanVien {
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
         this.hinh = hinh;
+    }
+
+    public NhanVien() {
     }
 
     public int getMaNV() {
