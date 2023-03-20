@@ -83,6 +83,13 @@ public class NhanVienDAO {
         return cursor.getCount() > 0;
     }
 
+    public boolean checkDangnhap(String taikhoan, String matkhau){
+        String sql = String.format("select * from nhanvien where taikhoan = '%s' and matkhau = '%s' ",taikhoan,matkhau);
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor.getCount() > 0;
+    }
+
+
     /*
      * Đăng nhập nếu tài khoản và mật khẩu có trùng không
      * Nếu trùng thì trả về mã nhân viên đăng nhập thành công lưu vào shared preferences
