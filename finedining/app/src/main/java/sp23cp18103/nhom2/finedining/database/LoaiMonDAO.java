@@ -50,4 +50,9 @@ public class LoaiMonDAO {
         }
         return list;
     }
+    public boolean checkloaimon(String loaimon){
+        String sql = String.format("select * from loaimon where tenLoai = '%s' ",loaimon);
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor.getCount() > 0;
+    }
 }

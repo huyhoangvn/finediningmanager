@@ -29,6 +29,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/menu_header"
         app:menu="@menu/menu"
+        app:itemTextColor="@drawable/menu_item_color_selector"
+        app:itemIconTint="@drawable/menu_item_color_selector"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>
