@@ -5,77 +5,82 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.DoiMatKhauFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <ImageView
-            style="@style/mLogo"/>
-
-        <TextView
-            style="@style/mTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Đổi mật khẩu"
-            android:textAllCaps="false"
-            tools:ignore="RtlHardcoded"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_fDoiMatKhau_matKhauCu"
-            style="@style/mInputLayout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mật khẩu cũ"
-            app:errorEnabled="true"
-            app:passwordToggleEnabled="true">
-            <com.google.android.material.textfield.TextInputEditText
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_fDoiMatKhau_matKhauMoi"
-            style="@style/mInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mật khẩu mới"
-            app:errorEnabled="true"
-            app:passwordToggleEnabled="true">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    style="@style/mLogo"
+                    tools:ignore="ContentDescription" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_fDoiMatKhau_xacNhanMatKhau"
-            style="@style/mInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Xác nhận mật khẩu mới"
-            app:errorEnabled="true"
-            app:passwordToggleEnabled="true">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    style="@style/mTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Đổi mật khẩu"
+                    android:textAllCaps="false"
+                    tools:ignore="RtlHardcoded"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_fDoiMatKhau_luu"
-            style="@style/mButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lưu"/>
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_fDoiMatKhau_matKhauCu"
+                    style="@style/mInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mật khẩu cũ"
+                    app:errorEnabled="true"
+                    app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_fDoiMatKhau_matKhauMoi"
+                    style="@style/mInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mật khẩu mới"
+                    app:errorEnabled="true"
+                    app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_fDoiMatKhau_xacNhanMatKhau"
+                    style="@style/mInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Xác nhận mật khẩu mới"
+                    app:errorEnabled="true"
+                    app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_fDoiMatKhau_luu"
+                    style="@style/mButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lưu"/>
+            </LinearLayout>
+        </ScrollView>
 </FrameLayout>
 
     <!--Đổi mật khẩu nhân viên-->
