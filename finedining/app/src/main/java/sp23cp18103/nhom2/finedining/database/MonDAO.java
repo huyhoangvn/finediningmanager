@@ -22,6 +22,7 @@ public class MonDAO {
         ContentValues values = new ContentValues();
         values.put("maLM", mon.getMaLM());
         values.put("tenMon",mon.getTenMon());
+        values.put("gia",mon.getGia());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
         return db.insert("mon", null, values);
@@ -30,6 +31,7 @@ public class MonDAO {
         ContentValues values = new ContentValues();
         values.put("maLM", mon.getMaLM());
         values.put("tenMon",mon.getTenMon());
+        values.put("gia",mon.getGia());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
         return db.update("mon", values,"maMon = ?", new String[]{String.valueOf(mon.getMaMon())});
@@ -54,6 +56,7 @@ public class MonDAO {
             mon.setMaMon(c.getInt(c.getColumnIndex("maMon")));
             mon.setMaLM(c.getInt(c.getColumnIndex("maLM")));
             mon.setTenMon(c.getString(c.getColumnIndex("tenMon")));
+            mon.setGia(c.getInt(c.getColumnIndex("gia")));
             mon.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             mon.setHinh(c.getString(c.getColumnIndex("hinh")));
             list.add(mon);
