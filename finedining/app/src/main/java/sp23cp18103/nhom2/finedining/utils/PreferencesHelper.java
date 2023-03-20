@@ -22,14 +22,22 @@ public class PreferencesHelper {
     }
 
     /*
-    * Lưu mã người dùng khi đã đăng nhập thành công
-    * Tài khoản, mật khẩu sẽ được ghi nhớ nếu ghiNho == true
-    * */
-    public static void saveSharedPref(Context context, Integer maNguoiDung,
-                                       String taiKhoan, String maKhau, boolean ghiNho) {
+     * Lưu mã người dùng khi đã đăng nhập thành công
+     * */
+    public static void saveIdSharedPref(Context context, Integer maNguoiDung){
         SharedPreferences sharedPreferences = getSharedPref(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(ID_TAG, maNguoiDung);
+        editor.apply();
+    }
+
+    /*
+    * Lưu khi đã đăng nhập thành công
+    * Tài khoản, mật khẩu sẽ được ghi nhớ nếu ghiNho == true
+    * */
+    public static void saveSharedPref(Context context, String taiKhoan, String maKhau, boolean ghiNho) {
+        SharedPreferences sharedPreferences = getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         if(ghiNho){
             editor.putString(ACCOUNT_TAG, taiKhoan);
             editor.putString(PASSWORD_TAG, maKhau);

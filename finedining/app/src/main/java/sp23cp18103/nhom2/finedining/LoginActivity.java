@@ -17,10 +17,25 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+
+import sp23cp18103.nhom2.finedining.database.BanDAO;
+import sp23cp18103.nhom2.finedining.database.DBHelper;
+import sp23cp18103.nhom2.finedining.database.DatBanDAO;
+import sp23cp18103.nhom2.finedining.database.DatMonDAO;
+import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
+import sp23cp18103.nhom2.finedining.database.KhachDAO;
+import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.NhaHangDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
+
+import sp23cp18103.nhom2.finedining.model.Ban;
+import sp23cp18103.nhom2.finedining.model.DatMon;
+import sp23cp18103.nhom2.finedining.model.HoaDon;
+import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.model.NhaHang;
+import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.NhaHang;
@@ -47,12 +62,10 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
         anhXa();
 //        insertTest();
-
         login();
         saveTaiKhoanMatKhau();
-
-
     }
+    
     private void login() {
         nhanVienDAO = new NhanVienDAO(LoginActivity.this);
         btnDangnhap.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +108,35 @@ public class LoginActivity extends AppCompatActivity{
     }
 
 
+    //Nhập dữ liệu mẫu để thực hành
+    void insertTest(){
+        NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
+        LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
+        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
+        BanDAO banDAO = new BanDAO(this);
+        MonDAO monDAO = new MonDAO(this);
+        KhachDAO khachDAO = new KhachDAO(this);
+        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
+        DatBanDAO datBanDAO = new DatBanDAO(this);
+        DatMonDAO datMonDAO = new DatMonDAO(this);
+        //Nhà hàng
+        nhaHangDAO.insertNhaHang(new NhaHang(1, "Fine Dining", "Hà Nội", null));
+        nhaHangDAO.insertNhaHang(new NhaHang(2, "Nha Nam", "TP Hồ Chí Minh", null));
+        //Nhân viên
+        nhanVienDAO.insertNhanVien(new NhanVien(1, 1, "Nguyễn Huy Hoàng", 1,
+                "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://imgur.com/jxfDB4O"));
+        nhanVienDAO.insertNhanVien(new NhanVien(2, 1, "Hồ Ngọc Hà", 2,
+                "1999-01-10", "0933763999", 0, 1, "hongocha", "hongocha", null));
+        nhanVienDAO.insertNhanVien(new NhanVien(3, 2, "Lưu Hữu Phước", 1,
+                "2000-03-10", "0933765999", 1, 1, "notadmin", "admin", null));
+        nhanVienDAO.insertNhanVien(new NhanVien(4, 1, "Nguyễn Huy Hồng", 1,
+                "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", null));
+        nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
+                "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", null));
+        //Loại bàn
+        loaiBanDAO.insertloaiban(new LoaiBan());
+
     void loading(){
         // progress dialog custom
         dialog =  new CustomProgressDialog(this);
@@ -120,50 +162,6 @@ public class LoginActivity extends AppCompatActivity{
         inputTaikhoanDangnhap.getEditText().setText(PreferencesHelper.getTaiKhoan(this));
         inputMatkhauDangnhap.getEditText().setText(PreferencesHelper.getMatKhau(this));
         chkRemeber.setChecked(PreferencesHelper.getGhiNho(this));
-    }
-
-    //test đăng nhập gọi lên main
-    void insertTest(){
-        NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
-        if (nhaHangDAO.checknhahang("Nhà Hàng a")){
-            return;
-        }
-        nhaHangDAO.insertNhaHang(new NhaHang("Nhà Hàng a","hanoi","null"));
-
-
-        nhanVienDAO = new NhanVienDAO(this);
-        if (nhanVienDAO.checkTaikhoan("admin")){
-            return;
-        }
-        nhanVienDAO.insertNhanVien(new NhanVien(1,"admin",1,"2000","03633891",1,1,"admin","admin"));
-
-
-
-        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
-        if (loaiMonDAO.checkloaimon("Rang")){
-            return;
-        }
-        loaiMonDAO.insertLoaiMon(new LoaiMon("Rang",1,1));
-
-
-        MonDAO monDAO = new MonDAO(this);
-        if (monDAO.checkmon("Gà Rang")){
-            return;
-        } if (monDAO.checkmon("Hamberger")){
-            return;
-        } if (monDAO.checkmon("Gà Rang Muối")){
-            return;
-        } if (monDAO.checkmon("Ếch Rang")){
-            return;
-        } if (monDAO.checkmon("Ếch Rang Muối")){
-            return;
-        }
-        monDAO.insertMon(new Mon(1,"Gà Rang",1,"null"));
-        monDAO.insertMon(new Mon(1,"Hamberger",1,"null"));
-        monDAO.insertMon(new Mon(1,"Gà Rang Muối",1,"null"));
-        monDAO.insertMon(new Mon(1,"Ếch Rang",1,"null"));
-        monDAO.insertMon(new Mon(1,"Ếch Rang Muối",1,"null"));
-
     }
 
     private void anhXa() {
