@@ -17,8 +17,8 @@ public class NhanVien {
     private String matKhau;
     private String hinh;//URL
 
-    public NhanVien(int maNV, int maNH, String tenNV, int gioiTinh, String ngaySinh, String sdt,
-                    int phanQuyen, int trangThai, String taiKhoan, String matKhau, String hinh) {
+    public NhanVien(int maNV, String tenNV, int gioiTinh, String ngaySinh, String sdt,
+                    int phanQuyen, int trangThai, String taiKhoan, String matKhau) {
         this.maNV = maNV;
         this.maNH = maNH;
         this.tenNV = tenNV;

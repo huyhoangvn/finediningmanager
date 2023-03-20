@@ -20,24 +20,31 @@ public class MonDAO {
     }
     public long insertMon(Mon mon){
         ContentValues values = new ContentValues();
-        values.put("maNV",mon.getMaLM());
-        values.put("tenLoai", mon.getTenMon());
+        values.put("maLM", mon.getMaLM());
+        values.put("tenMon",mon.getTenMon());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
         return db.insert("mon", null, values);
     }
     public int updateMon(Mon mon){
         ContentValues values = new ContentValues();
-        values.put("maNV",mon.getMaLM());
-        values.put("tenLoai", mon.getTenMon());
+        values.put("maLM", mon.getMaLM());
+        values.put("tenMon",mon.getTenMon());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
         return db.update("mon", values,"maMon = ?", new String[]{String.valueOf(mon.getMaMon())});
     }
     public List<Mon> getAllMon(){
-        String sql ="SELECT *FROM mon";
+        String sql ="SELECT * FROM mon";
         return getData(sql);
     }
+
+    public boolean checkmon(String tenmon){
+        String sql = String.format("select * from mon where tenMon = '%s' ",tenmon);
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor.getCount() > 0;
+    }
+
     @SuppressLint("Range")
     public List<Mon> getData(String sql, String...SelectArgs){
         List<Mon> list = new ArrayList<>();
@@ -53,4 +60,6 @@ public class MonDAO {
         }
         return list;
     }
+
+
 }

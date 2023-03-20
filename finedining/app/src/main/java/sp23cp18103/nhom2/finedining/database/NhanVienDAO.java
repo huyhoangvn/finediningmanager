@@ -72,20 +72,18 @@ public class NhanVienDAO {
     }
 
 
-    public long updateMatKhauNhanvien(NhanVien nv, String matKhauCu){
-        ContentValues values = new ContentValues();
-        values.put("matkhau", nv.getMatKhau());
 
-        String whereClause = "maNV = ? AND matkhau = ?";
-        String[] whereArgs = {String.valueOf(nv.getMaNV()), matKhauCu};
-
-        return db.update("nhanvien", values, whereClause, whereArgs);
-    }
 
     public boolean checkDangnhap(String taikhoan, String matkhau){
         String sql = String.format("select * from nhanvien where taikhoan = '%s' and matkhau = '%s' ",taikhoan,matkhau);
         Cursor cursor = db.rawQuery(sql,null);
         return cursor.getCount() > 0;
+    }
+
+    public int getIdNhanVienByTaiKhoan(String taikhoan,String matkhau){
+        String sql = String.format("select maNV from nhanvien where taikhoan = '%s' and matkhau = '%s'",taikhoan,matkhau);
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor.getCount();
     }
 
 
