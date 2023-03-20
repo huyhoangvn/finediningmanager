@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         anhXa();
-//        insertTest();
+        insertTest();
         login();
         saveTaiKhoanMatKhau();
     }
@@ -93,7 +93,8 @@ public class LoginActivity extends AppCompatActivity{
                 if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
                     int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
                     // gọi PreferencesHelperđể lưu
-                    PreferencesHelper.saveSharedPref(LoginActivity.this,maNV,taikhoan,matkhau,chkRemeber.isChecked());
+                    PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+                    PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
                     // fix delay
                     loading();
                     //chuyển activity
@@ -109,7 +110,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
     //Nhập dữ liệu mẫu để thực hành
-    void insertTest(){
+    void insertTest() {
         NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
         NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
         LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
@@ -120,10 +121,27 @@ public class LoginActivity extends AppCompatActivity{
         HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
         DatBanDAO datBanDAO = new DatBanDAO(this);
         DatMonDAO datMonDAO = new DatMonDAO(this);
+
         //Nhà hàng
+        if (nhaHangDAO.checknhahang("Fine Dining")){
+            return;
+        } if (nhaHangDAO.checknhahang("Nha Nam")){
+            return;
+        }
         nhaHangDAO.insertNhaHang(new NhaHang(1, "Fine Dining", "Hà Nội", null));
         nhaHangDAO.insertNhaHang(new NhaHang(2, "Nha Nam", "TP Hồ Chí Minh", null));
         //Nhân viên
+        if (nhanVienDAO.checkTaikhoan("myadmin")){
+            return;
+        }if (nhanVienDAO.checkTaikhoan("hongocha")){
+            return;
+        }if (nhanVienDAO.checkTaikhoan("notadmin")){
+            return;
+        }if (nhanVienDAO.checkTaikhoan("isadmin")){
+            return;
+        }if (nhanVienDAO.checkTaikhoan("Hameno")){
+            return;
+        }
         nhanVienDAO.insertNhanVien(new NhanVien(1, 1, "Nguyễn Huy Hoàng", 1,
                 "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://imgur.com/jxfDB4O"));
         nhanVienDAO.insertNhanVien(new NhanVien(2, 1, "Hồ Ngọc Hà", 2,
@@ -134,42 +152,38 @@ public class LoginActivity extends AppCompatActivity{
                 "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", null));
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
                 "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", null));
-        //Loại bàn
-        loaiBanDAO.insertloaiban(new LoaiBan());
-
-    void loading(){
+    }
+    void loading () {
         // progress dialog custom
-        dialog =  new CustomProgressDialog(this);
+        dialog = new CustomProgressDialog(this);
         dialog.show();
         Window window = dialog.getWindow();
-        if (window == null){
+        if (window == null) {
             return;
         }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     // tắt progress dialog
-    protected void onResume() {
+    protected void onResume () {
         super.onResume();
-        if (dialog != null){
+        if (dialog != null) {
             dialog.dismiss();
         }
     }
 
     // lưu lại toài khoản mật khẩu khi ghi nhớ
-    void saveTaiKhoanMatKhau(){
+    void saveTaiKhoanMatKhau () {
         inputTaikhoanDangnhap.getEditText().setText(PreferencesHelper.getTaiKhoan(this));
         inputMatkhauDangnhap.getEditText().setText(PreferencesHelper.getMatKhau(this));
         chkRemeber.setChecked(PreferencesHelper.getGhiNho(this));
     }
 
-    private void anhXa() {
+    private void anhXa () {
         btnDangnhap = findViewById(R.id.btn_dangnhap);
         inputTaikhoanDangnhap = findViewById(R.id.input_taikhoan_dangnhap);
         inputMatkhauDangnhap = findViewById(R.id.input_matkhau_dangphap);
         chkRemeber = findViewById(R.id.chk_Remeber);
     }
-
-
 }

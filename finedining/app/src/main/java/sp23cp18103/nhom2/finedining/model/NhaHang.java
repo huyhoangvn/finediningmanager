@@ -10,7 +10,7 @@ public class NhaHang {
     private String diaChi;
     private String hinh;
 
-    public NhaHang(String tenNH, String diaChi, String hinh) {
+    public NhaHang(int i, String tenNH, String diaChi, String hinh) {
         this.maNH = maNH;
         this.tenNH = tenNH;
         this.diaChi = diaChi;
