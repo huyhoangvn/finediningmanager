@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity{
                 //Check tài khoản mật khẩu
                 if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
                     int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
-                    // gọi PreferencesHelperđể lưu
                     PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+                    // gọi PreferencesHelperđể lưu
                     PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
                     // fix delay
                     loading();
@@ -113,15 +113,14 @@ public class LoginActivity extends AppCompatActivity{
     void insertTest() {
         NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
         NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
-        LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
-        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
-        BanDAO banDAO = new BanDAO(this);
-        MonDAO monDAO = new MonDAO(this);
-        KhachDAO khachDAO = new KhachDAO(this);
-        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
-        DatBanDAO datBanDAO = new DatBanDAO(this);
-        DatMonDAO datMonDAO = new DatMonDAO(this);
-
+//        LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
+//        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
+//        BanDAO banDAO = new BanDAO(this);
+//        MonDAO monDAO = new MonDAO(this);
+//        KhachDAO khachDAO = new KhachDAO(this);
+//        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
+//        DatBanDAO datBanDAO = new DatBanDAO(this);
+//        DatMonDAO datMonDAO = new DatMonDAO(this);
         //Nhà hàng
         if (nhaHangDAO.checknhahang("Fine Dining")){
             return;
@@ -152,7 +151,9 @@ public class LoginActivity extends AppCompatActivity{
                 "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", null));
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
                 "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", null));
+
     }
+
     void loading () {
         // progress dialog custom
         dialog = new CustomProgressDialog(this);
@@ -186,4 +187,5 @@ public class LoginActivity extends AppCompatActivity{
         inputMatkhauDangnhap = findViewById(R.id.input_matkhau_dangphap);
         chkRemeber = findViewById(R.id.chk_Remeber);
     }
+
 }

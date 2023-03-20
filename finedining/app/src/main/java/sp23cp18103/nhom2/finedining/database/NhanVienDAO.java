@@ -89,7 +89,6 @@ public class NhanVienDAO {
         return cursor.getCount() > 0;
     }
 
-
     /*
      * Đăng nhập nếu tài khoản và mật khẩu có trùng không
      * Nếu trùng thì trả về mã nhân viên đăng nhập thành công lưu vào shared preferences
