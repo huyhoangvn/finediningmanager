@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:gravity="center">
         <TextView
-            android:id="@+id/tv_tieude_loaiban"
+            android:id="@+id/tvTieuDeLoaiBan"
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,28 +26,31 @@
             app:errorEnabled="true"
             android:hint="Tên loại bàn">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTenLoaiBan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_soChoNgoi"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            android:hint="Tên loại bàn">
+            android:hint="Số chỗ ngồi">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edSoChoNgoi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <CheckBox
-            android:id="@+id/chk_trangthai_ban"
+            android:id="@+id/chkTrangThaiLoaiBan"
             style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,14 +63,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_shaveban"
+                android:id="@+id/btn_ShaveLoaiBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_cancelban"
+                android:id="@+id/btn_CancelLoaiBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/tv_tenLB"
+                android:id="@+id/tv_TenLoaiBan"
                 style="@style/mHeaderText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="Số chỗ: "/>
                 <TextView
-                    android:id="@+id/tv_sochongoi"
+                    android:id="@+id/tv_SoChoNgoi"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_trangthai_LB"
+                android:id="@+id/tv_TrangThai_LoaiBan"
                 style="@style/mNormalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/img_sua_LB"
+            android:id="@+id/img_Sua_LoaiBan"
             style="@style/mImageButton"
             android:src="@drawable/ic_sua_thongtin"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck"
