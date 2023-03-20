@@ -50,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maHD INTEGER NOT NULL REFERENCES hoadon(maHD)," +
                 "maMon INTEGER NOT NULL REFERENCES mon(maMon)," +
                 "soLuong INTEGER NOT NULL," +
+                "gia INTEGER NOT NULL,"+
                 "PRIMARY KEY (maHD, maMon))";
         db.execSQL(sql);
     }
