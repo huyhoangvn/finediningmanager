@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
+import sp23cp18103.nhom2.finedining.adapter.MenuAdapter;
+import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.model.Mon;
 
 /*
  * Hiển thị thông tin nhà hàng và sử dụng MapsFragment để hiện địa chỉ
@@ -34,26 +38,26 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentManager fragmentManager;
-    private ProgressDialog prgWait;
-    //    List<Mon> list;
-//    RecyclerView rcv_menu;
-//    Adapter_menu adapter_menu;  (để yên)
+    RecyclerView rcv_menu;
+    MenuAdapter menuAdapter;
+    MonDAO monDAO;
+    List<Mon> listMon;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rcv_menu = view.findViewById(R.id.rcv_menu);
         evMap();
-//        evRCV();
+        evRCV();
     }
 
 
-    //CHưa dùng
-//    private void evRCV() {
-//        list = new ArrayList<>();
-//        list.add(new Mon("Shusi",R.drawable.category_sushi));
-//        adapter_menu = new Adapter_menu(list,getContext());
-//        rcv_menu.setAdapter(adapter_menu);
-//    }
+    private void evRCV() {
+        monDAO = new MonDAO(getContext());
+        listMon = monDAO.getAllMon();
+        menuAdapter = new MenuAdapter(listMon,getContext());
+        rcv_menu.setAdapter(menuAdapter);
+    }
 
     private void evMap() {
         //init map
@@ -66,11 +70,10 @@ public class HomeFragment extends Fragment {
 
 
     private void geoLocate() {
-        String location = "Tòa nhà FPT Polytechnic, P. Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội";
         Geocoder geocoder = new Geocoder(getContext());
         List<Address> list = new ArrayList<>();
         try {
-            list = geocoder.getFromLocationName(location, 1);
+            list = geocoder.getFromLocationName("", 1);
         } catch (IOException e) {
             e.printStackTrace();
         }

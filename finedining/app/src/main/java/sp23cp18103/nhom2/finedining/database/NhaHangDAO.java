@@ -57,9 +57,11 @@ public class NhaHangDAO {
         return db.update("nhahang",values,"maNH = ?", new String[]{String.valueOf(nhaHang.getMaNH())});
     }
 
-    public boolean checknhahang(String nhahang){
-        String sql = String.format("select * from nhahang where tenNH = '%s' ",nhahang);
+    public boolean checknhahang(String tenNhahang){
+        String sql = String.format("select * from nhahang where tenNH = '%s' ",tenNhahang);
         Cursor cursor = db.rawQuery(sql,null);
         return cursor.getCount() > 0;
     }
+
+
 }

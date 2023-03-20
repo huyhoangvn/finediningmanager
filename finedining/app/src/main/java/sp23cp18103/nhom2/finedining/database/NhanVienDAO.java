@@ -77,20 +77,9 @@ public class NhanVienDAO {
      * Nếu đã tồn tại thì trả về true và báo lỗi sai tên tài khoản
      * Nếu chưa tồn tại thì trả về false và chuyển qua phần kiểm tra đăng nhập
      * */
-    public boolean checkTaiKhoan(String taiKhoan) {
-        String sql = "SELECT * FROM nhanvien WHERE taiKhoan LIKE ? ";
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{taiKhoan});
-        return cursor.getCount() > 0;
-    }
-
-    /*
-     * Cho biết nếu tài khoản và mật khẩu có trùng không
-     * Nếu trùng thì trả về true và lấy mã nhân viên đăng nhập thành công
-     * Nếu không trùng thì trả về false và báo lỗi sai mật khẩu
-     * */
-    public boolean checkDangNhap(String taiKhoan, String matKhau) {
-        String sql = "SELECT * FROM nhanvien WHERE taiKhoan LIKE ? AND matKhau LIKE ?";
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{taiKhoan, matKhau});
+    public boolean checkTaikhoan(String taikhoan){
+        String sql = String.format("select * from nhanvien where taikhoan = '%s' ",taikhoan);
+        Cursor cursor = db.rawQuery(sql,null);
         return cursor.getCount() > 0;
     }
 
