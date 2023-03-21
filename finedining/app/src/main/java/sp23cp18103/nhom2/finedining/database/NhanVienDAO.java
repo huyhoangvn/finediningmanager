@@ -47,7 +47,7 @@ public class NhanVienDAO {
      * Không cập nhật mã nhân viên
      * Không cập nhật tài khoản và mật khẩu
      * */
-    public long updateNhanVien(NhanVien nv) {
+    public int updateNhanVien(NhanVien nv) {
         ContentValues values = new ContentValues();
         values.put("maNH", nv.getMaNH());
         values.put("tenNV", nv.getTenNV());
@@ -65,11 +65,11 @@ public class NhanVienDAO {
      * Nếu người dùng có mã nhân viên và mật khẩu cũ đúng
      * Đổi sang mật khẩu mới
      * */
-    public long updateMatKhauNhanvien(String maNV, String matKhauCu, String matKhauMoi) {
+    public int updateMatKhauNhanvien(int maNV, String matKhauCu, String matKhauMoi) {
         ContentValues values = new ContentValues();
         values.put("matKhau", matKhauMoi);
-        return db.update("nhanvien", values, "maNV = ? AND matKhau LIKE ?"
-                , new String[]{maNV, matKhauCu});
+        return db.update("nhanvien", values, "maNV = ? AND matKhau LIKE ? "
+                , new String[]{String.valueOf(maNV), matKhauCu});
     }
 
     /*
@@ -79,18 +79,18 @@ public class NhanVienDAO {
      * */
     public boolean checkTaikhoan(String taikhoan){
         String sql = String.format("select * from nhanvien where taikhoan = '%s' ",taikhoan);
-        Cursor cursor = db.rawQuery(sql,null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql,null);
         return cursor.getCount() > 0;
     }
 
     public boolean checkDangnhap(String taikhoan, String matkhau){
         String sql = String.format("select * from nhanvien where taikhoan = '%s' and matkhau = '%s' ",taikhoan,matkhau);
-        Cursor cursor = db.rawQuery(sql,null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql,null);
         return cursor.getCount() > 0;
     }
 
     /*
-     * Đăng nhập nếu tài khoản và mật khẩu có trùng không
+     * Đăng nhập nếu tài khoản và mật khẩu có trùng
      * Nếu trùng thì trả về mã nhân viên đăng nhập thành công lưu vào shared preferences
      * Nếu không trùng thì trả về -1
      * */
