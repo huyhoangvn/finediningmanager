@@ -19,7 +19,6 @@ public class KhachDAO {
     }
     public long insert(KhachHang obj){
         ContentValues values=new ContentValues();
-        values.put("maKH",obj.getMaKH());
         values.put("tenKH",obj.getTenKH());
         return db.insert("khachhang",null,values);
     }

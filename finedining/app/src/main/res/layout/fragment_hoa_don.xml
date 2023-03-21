@@ -11,7 +11,6 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_01_hoaDon_timHoaDon"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,6 +18,7 @@
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_01_hoaDon_timHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -36,7 +36,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ftbtn_them_hoaDon"
+        android:id="@+id/fbtn_them_hoaDon"
         style="@style/mFloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

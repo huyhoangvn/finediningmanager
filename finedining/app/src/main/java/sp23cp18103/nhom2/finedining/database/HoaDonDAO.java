@@ -18,7 +18,6 @@ public class HoaDonDAO{
         DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
 
-
     }
     /*insert hóa đơn*/
     public long insertHoaDon(HoaDon hd){
@@ -58,6 +57,7 @@ public class HoaDonDAO{
         }else
             return list.get(0);
     }
+
     @SuppressLint("Range")
     public List<HoaDon> getData(String sql, String...SelectArgs){
         List<HoaDon> list = new ArrayList<>();

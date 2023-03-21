@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_ThemHoaDonFragment"
     tools:context=".fragment.ThemHoaDonFragment">
 
     <LinearLayout
@@ -21,13 +22,13 @@
             android:text="Thêm/Sửa hóa đơn"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_tenKhachHang_them_FragmentThemHoaDon"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
             android:hint="Tên chủ hóa đơn">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_tenKhachHang_them_FragmentThemHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -35,13 +36,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_soLuongKhach_them_FragmentThemHoaDon"
+
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
             android:hint="Số lượng khách mời">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_soLuongKhach_them_FragmentThemHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -49,7 +51,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_mon_them_FragmentThemHoaDon"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,6 +62,7 @@
             app:endIconDrawable="@drawable/ic_dat_mon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_mon_them_FragmentThemHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
@@ -68,7 +71,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_ban_them_FragmentThemHoaDon"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,6 +82,7 @@
             app:endIconDrawable="@drawable/ic_dat_ban">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_ban_them_FragmentThemHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="3"

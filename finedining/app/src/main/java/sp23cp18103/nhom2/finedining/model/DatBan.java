@@ -7,6 +7,15 @@ public class DatBan {
     private int maHD;
     private String thoiGianDat;//YYYY-mm-dd hh:mm
 
+    public DatBan(int maBan, int maHD, String thoiGianDat) {
+        this.maBan = maBan;
+        this.maHD = maHD;
+        this.thoiGianDat = thoiGianDat;
+    }
+
+    public DatBan() {
+    }
+
     public int getMaBan() {
         return maBan;
     }
