@@ -16,10 +16,6 @@ public class NumberHelper {
         return df.format(money);
     }
 
-    public static String getNumberWithDecimal(String money){
-        return getNumberWithDecimal(money);
-    }
-
     /*
      * Trả về định dạng số không có dấu phẩy phân cách
      * VD: 1,000,000 (String) > 1000000 (int)
