@@ -153,7 +153,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "phanQuyen INTEGER NOT NULL CHECK (phanQuyen = 1 OR phanQuyen = 0)," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "hinh TEXT," +
-                "taiKhoan TEXT NOT NULL," +
+                "taiKhoan TEXT NOT NULL UNIQUE," +
                 "matKhau TEXT NOT NULL)";
         db.execSQL(sql);
     }

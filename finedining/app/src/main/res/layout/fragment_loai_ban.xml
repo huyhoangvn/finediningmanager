@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_timkiemloaiban"
+            android:id="@+id/inputTimKiemLoaiBan"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +20,7 @@
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTimKiemLoaiBan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -32,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"/>
 
     </LinearLayout>
 
