@@ -29,30 +29,23 @@
             android:id="@+id/rcv_fNhanVien_danhSach"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:padding="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ftbtn_fNhanVien_them"
-        style="@style/mFloatingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="ContentDescription,RtlHardcoded" />
-
     <CheckBox
-        android:id="@+id/chk_fNhanVien_nhanVienCu"
+        android:id="@+id/chk_fNhanVien_nhanVienDangLam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
         android:layout_margin="10dp"
-        android:buttonTint="@android:color/darker_gray"
-        android:textColor="@android:color/darker_gray"
-        android:checked="false"
+        android:layout_gravity="bottom|start"
+        android:buttonTint="?attr/colorPrimary"
+        android:textColor="?attr/colorPrimary"
+        android:checked="true"
         android:gravity="center|start"
         android:textSize="16sp"
-        android:text="Nhân viên cũ"/>
+        android:textStyle="bold"
+        android:text="Đang làm việc"/>
 
 </FrameLayout>
 

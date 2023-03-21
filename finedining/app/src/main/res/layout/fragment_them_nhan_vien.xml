@@ -4,23 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.ThemNhanVienFragment">
+    tools:context=".fragment.ThemNhanVienFragment"
+    android:background="?android:colorBackground">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:ignore="UselessParent">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center">
 
+                    <TextView
+                        style="@style/mHeaderText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="Thêm nhân viên"/>
+
                     <ImageButton
                         android:id="@+id/imgbtn_fragThemNhanVien_themAnh"
                         style="@style/mAvatarImageButton"
                         android:layout_margin="10dp"
                         android:src="@drawable/default_avatar"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/input_fragThemNhanVien_taiKhoan"

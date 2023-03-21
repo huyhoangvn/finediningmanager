@@ -130,10 +130,10 @@ public class DoiMatKhauFragment extends Fragment {
     private void doiMatKhau() {
         if( nhanVienDAO.updateMatKhauNhanvien( PreferencesHelper.getId(context),
                 edMatKhauCu.getText().toString().trim(), edMatKhauMoi.getText().toString().trim() ) > 0 ){
-            Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
             inputMatKhauCu.setError("Nhập sai mật khẩu");
         } else {
-            Toast.makeText(context, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
         }
     }
 }
