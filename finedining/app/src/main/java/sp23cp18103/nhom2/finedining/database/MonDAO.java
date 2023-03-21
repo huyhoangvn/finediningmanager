@@ -25,7 +25,7 @@ public class MonDAO {
         values.put("gia",mon.getGia());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
-        return db.insert("mon", null, values);
+        return db. insert("mon", null, values);
     }
     public int updateMon(Mon mon){
         ContentValues values = new ContentValues();
@@ -39,6 +39,15 @@ public class MonDAO {
     public List<Mon> getAllMon(){
         String sql ="SELECT * FROM mon";
         return getData(sql);
+    }
+    public List<Mon> timKiem(int maNV, String tenmon ){
+        String sql = "Select * from mon m " +
+                "JOIN loaimon lm ON lm.maLM = m.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND m.tenMon LIKE ? ";
+        return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
     }
 
     public boolean checkmon(String tenmon){

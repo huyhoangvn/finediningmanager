@@ -12,20 +12,21 @@
         android:orientation="vertical"
         android:gravity="center">
         <TextView
-            android:id="@+id/tv_tieude_loaimon"
+            android:id="@+id/tvTieuDeLoaiMon"
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thêm/sửa loại món"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_dialog_Ten_Loai_Mon"
+            android:id="@+id/inputDialogTenLoaiMon"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
             android:hint="Tên loại món">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTenLoaiMon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -33,7 +34,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
-            android:id="@+id/chk_dialog_Trang_Thai_Loai_Mon"
+            android:id="@+id/chkDialogTrangThaiLoaiMon"
             style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,14 +47,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_dialog_Luu_Loai_Mon"
+                android:id="@+id/btnDialogLuuLoaiMon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_dialog_Huy_Loai_Mon"
+                android:id="@+id/btnDialogHuyLoaiMon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

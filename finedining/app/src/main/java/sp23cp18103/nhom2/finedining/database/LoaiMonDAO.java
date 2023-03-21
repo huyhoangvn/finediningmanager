@@ -36,6 +36,19 @@ public class LoaiMonDAO {
         String sql ="SELECT *FROM loaimon";
         return getData(sql);
     }
+    public LoaiMon getId(String id){
+        String sql = "select * from loaimon where maLM = ?";
+        List<LoaiMon> list = getData(sql,id);
+        return list.get(0);
+    }
+    public List<LoaiMon> timKiem(int maNV, String tenloai ){
+        String sql = "Select * from loaimon lm " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lm.tenLoai LIKE ? ";
+        return getData(sql, String.valueOf(maNV), String.valueOf(tenloai + "%"));
+    }
     @SuppressLint("Range")
     public List<LoaiMon> getData(String sql, String...SelectArgs){
         List<LoaiMon> list = new ArrayList<>();
