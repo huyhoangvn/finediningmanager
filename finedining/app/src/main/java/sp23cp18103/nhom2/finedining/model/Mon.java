@@ -13,9 +13,7 @@ public class Mon {
     private int trangThai; // 1:"Dùng"; 0:"Không dùng"
     private String hinh;
 
-
-
-    public Mon(int maMon, int maLM, String tenMon , int gia, int trangThai, String hinh) {
+    public Mon(int maMon,int maLM , String tenMon , int gia, int trangThai, String hinh) {
         this.maMon = maMon;
         this.maLM = maLM;
         this.tenMon = tenMon;

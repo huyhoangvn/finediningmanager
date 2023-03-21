@@ -44,7 +44,8 @@ public class BanDAO {
       List<Ban>list=new ArrayList<>();
        Cursor c=db.rawQuery(sql,selectavg);
        while (c.moveToNext()){
-          Ban obj=new Ban();
+          Ban obj = new Ban();
+
           obj.setMaBan(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
           obj.setMaLB(Integer.parseInt(c.getString(c.getColumnIndex("maLB"))));
           obj.setViTri(c.getString(c.getColumnIndex("viTri")));

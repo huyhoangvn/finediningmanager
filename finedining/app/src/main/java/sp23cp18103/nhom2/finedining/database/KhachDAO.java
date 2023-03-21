@@ -19,10 +19,10 @@ public class KhachDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    public long insert(KhachHang obj) {
-        ContentValues values = new ContentValues();
-        values.put("tenKH", obj.getTenKH());
-        return db.insert("khachhang", null, values);
+    public long insert(KhachHang obj){
+        ContentValues values=new ContentValues();
+        values.put("tenKH",obj.getTenKH());
+        return db.insert("khachhang",null,values);
     }
 
     @SuppressLint("Range")

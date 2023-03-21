@@ -31,8 +31,10 @@ import sp23cp18103.nhom2.finedining.database.NhaHangDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 
 import sp23cp18103.nhom2.finedining.model.Ban;
+import sp23cp18103.nhom2.finedining.model.DatBan;
 import sp23cp18103.nhom2.finedining.model.DatMon;
 import sp23cp18103.nhom2.finedining.model.HoaDon;
+import sp23cp18103.nhom2.finedining.model.KhachHang;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.model.NhaHang;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
@@ -41,6 +43,7 @@ import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.NhaHang;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.Custom.CustomProgressDialog;
+import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -113,14 +116,14 @@ public class LoginActivity extends AppCompatActivity{
     void insertTest() {
         NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
         NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
-//        LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
-//        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
-//        BanDAO banDAO = new BanDAO(this);
-//        MonDAO monDAO = new MonDAO(this);
-//        KhachDAO khachDAO = new KhachDAO(this);
-//        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
-//        DatBanDAO datBanDAO = new DatBanDAO(this);
-//        DatMonDAO datMonDAO = new DatMonDAO(this);
+        LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
+        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
+        BanDAO banDAO = new BanDAO(this);
+        MonDAO monDAO = new MonDAO(this);
+        KhachDAO khachDAO = new KhachDAO(this);
+        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
+        DatBanDAO datBanDAO = new DatBanDAO(this);
+        DatMonDAO datMonDAO = new DatMonDAO(this);
         //Nhà hàng
         if (nhaHangDAO.checknhahang("Fine Dining")){
             return;
@@ -128,6 +131,7 @@ public class LoginActivity extends AppCompatActivity{
             return;
         }
         nhaHangDAO.insertNhaHang(new NhaHang(1, "Fine Dining", "Hà Nội", null));
+
         nhaHangDAO.insertNhaHang(new NhaHang(2, "Nha Nam", "TP Hồ Chí Minh", null));
         //Nhân viên
         if (nhanVienDAO.checkTaikhoan("myadmin")){
@@ -152,7 +156,33 @@ public class LoginActivity extends AppCompatActivity{
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
                 "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", null));
 
+        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04",1));
+
+        hoaDonDAO.insertHoaDon(new HoaDon(2,2,2,5, "2023/05/06",1));
+
+        loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
+
+        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,null));
+
+        khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
+
+        khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
+
+        banDAO.insertban(new Ban(1,1,"A1",1));
+
+        banDAO.insertban(new Ban(2,2,"A2",1));
+
+        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
+
+        datBanDAO.insertDatBan(new DatBan(1,1,"2023/5/4"));
+
+        datMonDAO.insertDatMon(new DatMon(1,1,3));
+
+
+        
+
     }
+
 
     void loading () {
         // progress dialog custom

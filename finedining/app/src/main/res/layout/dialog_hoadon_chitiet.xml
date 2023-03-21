@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="5dp"
     android:gravity="center">
@@ -59,13 +60,24 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_gravity="start"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_mon_dialog_hoaDon_chiTiet"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:padding="5dp"/>
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_mon_dialog_hoaDon_chiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
+    </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
