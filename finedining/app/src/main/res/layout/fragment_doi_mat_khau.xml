@@ -9,11 +9,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_gravity="center_vertical">
 
                 <ImageView
                     style="@style/mLogo"
@@ -37,6 +39,7 @@
                     app:errorEnabled="true"
                     app:passwordToggleEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_fDoiMatKhau_matKhauCu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -52,6 +55,7 @@
                     app:errorEnabled="true"
                     app:passwordToggleEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_fDoiMatKhau_matKhauMoi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -67,6 +71,7 @@
                     app:errorEnabled="true"
                     app:passwordToggleEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ed_fDoiMatKhau_xacNhanMatKhau"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
