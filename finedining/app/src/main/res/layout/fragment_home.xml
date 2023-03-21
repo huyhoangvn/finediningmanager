@@ -9,7 +9,7 @@
 
     <!--    set tam-->
     <ImageView
-        android:id="@+id/viewPage_slideFood"
+        android:id="@+id/img_nhaHang"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/default_banner"

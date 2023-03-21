@@ -3,10 +3,14 @@ package sp23cp18103.nhom2.finedining;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -84,7 +88,7 @@ public class LoginActivity extends AppCompatActivity{
                 }else{
                     inputTaikhoanDangnhap.setError(null);
                 }
-                //validate tài mật khẩu
+                //validate mật khẩu
                 if (matkhau.isEmpty()){
                     inputMatkhauDangnhap.setError("Vui lòng nhập mật khẩu");
                     return;
@@ -92,21 +96,31 @@ public class LoginActivity extends AppCompatActivity{
                     inputMatkhauDangnhap.setError(null);
                 }
 
-                //Check tài khoản mật khẩu
-                if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
-                    int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
-                    PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
-                    // gọi PreferencesHelperđể lưu
-                    PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
-                    // fix delay
-                    loading();
-                    //chuyển activity
-                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-                    // animation chuyển
-                    overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
-                }else {
-                    Toast.makeText(LoginActivity.this, "Thông tin tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                // check mạng
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                // nếu có mạng
+                if (isConnected) {
+                    //Check tài khoản mật khẩu
+                    if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
+                        int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
+                        PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+                        // gọi PreferencesHelperđể lưu
+                        PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
+                        // fix delay
+                        loading();
+                        //chuyển activity
+                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                        // animation chuyển
+                        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+                    }else {
+                        Toast.makeText(LoginActivity.this, "Thông tin tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Kiếm Tra kết nối internet và thử lại", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
@@ -203,6 +217,7 @@ public class LoginActivity extends AppCompatActivity{
             dialog.dismiss();
         }
     }
+
 
     // lưu lại toài khoản mật khẩu khi ghi nhớ
     void saveTaiKhoanMatKhau () {

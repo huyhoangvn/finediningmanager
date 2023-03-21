@@ -3,6 +3,8 @@ package sp23cp18103.nhom2.finedining.fragment;
 import android.app.ProgressDialog;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +45,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentManager fragmentManager;
     RecyclerView rcv_menu;
+    ImageView imgnhaHang;
     MenuAdapter menuAdapter;
     MonDAO monDAO;
     List<Mon> listMon;
@@ -46,10 +53,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcv_menu = view.findViewById(R.id.rcv_menu);
+        anhXa(view);
+        loadAnh();
         evMap();
         evRCV();
+
     }
+
 
 
     private void evRCV() {
@@ -85,4 +95,27 @@ public class HomeFragment extends Fragment {
                     .commit();
         }
     }
+
+    private void loadAnh(){
+        Glide.with(this)
+                .load("https://chupanhmonan.com/wp-content/uploads/2019/03/ma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg")
+                .into(imgnhaHang);
+    }
+    private void anhXa(View view) {
+        rcv_menu = view.findViewById(R.id.rcv_menu);
+        imgnhaHang = view.findViewById(R.id.img_nhaHang);
+    }
+
+    void checkInternet(){
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(getContext().CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if (isConnected) {
+            Toast.makeText(getContext(), "Connected", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
 }
