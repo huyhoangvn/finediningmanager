@@ -72,7 +72,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         NhanVien nhanVien = listNhanVien.get(position);
         holder.tvTenNV.setText(nhanVien.getTenNV());
         holder.tvSdt.setText(nhanVien.getSdt());
-        holder.tvNgaySinh.setText(nhanVien.getNgaySinh());
+        holder.tvNgaySinh.setText(DateHelper.getDateVietnam(nhanVien.getNgaySinh()));
         holder.tvGioiTinh.setText(nhanVien.getTenGioiTinh());
         holder.tvTrangThai.setText(nhanVien.getTenTrangThai());
         if(nhanVien.getTrangThai() == 1){
