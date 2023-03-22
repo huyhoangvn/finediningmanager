@@ -48,7 +48,7 @@ public class LoaiMonFragment extends Fragment {
     FloatingActionButton fabLoaiMon;
     LoaiMonDAO dao;
     Context context;
-    List<LoaiMon> list, list2;
+    List<LoaiMon> listMon, listTimKiem;
     LoaiMonAdapter adapter;
     TextInputLayout inputTimKiemLoaiMon;
 
@@ -86,6 +86,8 @@ public class LoaiMonFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         LoaiMon lm = new LoaiMon();
+                        int maNV = PreferencesHelper.getId(getContext());
+                        lm.setMaNV(maNV);
                         lm.setTenLoai(edTenLoaiMon.getText().toString().trim());
                         if(chkDialogTrangThaiLoaiMon.isChecked()){
                             lm.setTrangThai(1);
@@ -121,16 +123,16 @@ public class LoaiMonFragment extends Fragment {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 int maNV = PreferencesHelper.getId(getContext());
+
                 if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
 
                     String timKiem = edTimKiemLoaiMon.getText().toString().trim();
                     if(timKiem.isEmpty()){
-                        adapter = new LoaiMonAdapter(getActivity(), list);
-                        rcvLoaiMon.setAdapter(adapter);
+                        capNhat();
                         return false;
                     }else{
-                        list2 = dao.timKiem(maNV, timKiem);
-                        adapter = new LoaiMonAdapter(getActivity(), list2);
+                        listTimKiem = dao.timKiem(maNV, timKiem);
+                        adapter = new LoaiMonAdapter(getActivity(), listTimKiem);
                         rcvLoaiMon.setAdapter(adapter);
                     }
                     return true;
@@ -144,12 +146,11 @@ public class LoaiMonFragment extends Fragment {
                 int maNV = PreferencesHelper.getId(getContext());
                 String timKiem = edTimKiemLoaiMon.getText().toString().trim();
                 if(timKiem.isEmpty()){
-                    adapter = new LoaiMonAdapter(getActivity(), list);
-                    rcvLoaiMon.setAdapter(adapter);
+                    capNhat();
                     return ;
                 }else{
-                    list2 = dao.timKiem(maNV, timKiem);
-                    adapter = new LoaiMonAdapter(getActivity(), list2);
+                    listTimKiem = dao.timKiem(maNV, timKiem);
+                    adapter = new LoaiMonAdapter(getContext(), listTimKiem);
                     rcvLoaiMon.setAdapter(adapter);
                 }
             }
@@ -158,8 +159,10 @@ public class LoaiMonFragment extends Fragment {
 
     //hàm cập nhật recycleview
     void capNhat(){
-        list = dao.getAllLoaiMon();
-        adapter = new LoaiMonAdapter(getContext(), list);
+        listMon = dao.getAllLoaiMon();
+        adapter = new LoaiMonAdapter(getContext(), listMon);
         rcvLoaiMon.setAdapter(adapter);
     }
+
+
 }
