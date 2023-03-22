@@ -69,7 +69,6 @@ public class BanFragment extends Fragment {
         edTimKhiemBan = view.findViewById(R.id.edTimKiemBan);
         fab = view.findViewById(R.id.fbtnBan);
         banDAO = new BanDAO(getContext());
-
         CapNhat();
         timkiemBan();
 
@@ -80,7 +79,6 @@ public class BanFragment extends Fragment {
             }
         });
         return view;
-
     }
 
     public void openDialog(final Context context, final int type) {
@@ -88,7 +86,6 @@ public class BanFragment extends Fragment {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_ban, null);
         builder.setView(view);
-
         edViTriBan = view.findViewById(R.id.edViTriBan);
         spnrBan = view.findViewById(R.id.spnrBan);
         tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
@@ -96,41 +93,31 @@ public class BanFragment extends Fragment {
         chkTrangThaiBan = view.findViewById(R.id.chkTrangThaiBan);
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
         btnCancelBan = view.findViewById(R.id.btnCancelBan);
-
         Dialog dialog = builder.create();
-
         banDAO = new BanDAO(getContext());
         loaiBanDAO = new LoaiBanDAO(getContext());
         listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getAllLoaiBan();
         banSpinnerAdapter = new BanSpinnerAdapter(getContext(), listloaiban);
         spnrBan.setAdapter(banSpinnerAdapter);
-
         spnrBan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
                 maLoaiBan = listloaiban.get(i).getMaLB();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
-
         btnCancelBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
-
         });
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (validate() > 0) {
-
                     ban = new Ban();
                     LoaiBan loaiBan = (LoaiBan) spnrBan.getSelectedItem();
                     ban.setMaLB(loaiBan.getMaLB());
@@ -144,40 +131,31 @@ public class BanFragment extends Fragment {
                     if (type == 0) {
                         if (banDAO.insertban(ban) > 0) {
                             Toast.makeText(context, "Thêm loại bàn thành công!", Toast.LENGTH_SHORT).show();
-
                         } else {
                             Toast.makeText(context, "Thêm bàn chưa thành công!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     dialog.dismiss();
                     CapNhat();
-
                 }
             }
         });
         dialog.show();
     }
-
-
     void CapNhat() {
         list = banDAO.getAllBan();
         banAdapter = new BanAdapter(getContext(), list);
         rcvBan.setAdapter(banAdapter);
     }
-
-
-
     public int validate() {
         int check = 1;
         if (edViTriBan.getText().length() == 0) {
             Toast.makeText(getContext(), "Dữ liệu không được để trống", Toast.LENGTH_SHORT).show();
             check = -1;
         } else {
-
         }
         return check;
     }
-
     void timkiemBan() {
         list2 = banDAO.getAllBan();
         banAdapter = new BanAdapter(getContext(), list2);
@@ -197,9 +175,7 @@ public class BanFragment extends Fragment {
                         list = banDAO.timKiem(maNV, timKiem);
                         banAdapter = new BanAdapter(getContext(), list);
                         rcvBan.setAdapter(banAdapter);
-
                     }
-
                     return true;
                 }
                 return false;
