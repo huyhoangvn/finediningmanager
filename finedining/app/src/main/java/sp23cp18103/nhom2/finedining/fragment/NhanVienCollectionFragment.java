@@ -27,7 +27,6 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 public class NhanVienCollectionFragment extends Fragment {
     private Context context;
     private FragmentManager fmNhanVien;
-    private DrawerLayout drawerLayout;
     //Database
     private NhanVienDAO nhanVienDAO;    //Controller
     private FloatingActionButton fbtnThemNhanVien;
@@ -57,7 +56,6 @@ public class NhanVienCollectionFragment extends Fragment {
     * Ánh xạ các view cần dùng
     * */
     private void anhXa(View view) {
-        drawerLayout = view.findViewById(R.id.drawer_layout);
         fbtnThemNhanVien = view.findViewById(R.id.ftbtn_fNhanVien_them);
     }
 

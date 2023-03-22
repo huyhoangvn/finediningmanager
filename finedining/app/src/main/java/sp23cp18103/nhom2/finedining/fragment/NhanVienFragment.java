@@ -9,6 +9,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -110,18 +114,31 @@ public class NhanVienFragment extends Fragment {
     *
     * */
     private void khoiTaoTimKiem() {
-//        inputTimNhanVien.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if(event.getAction() == KeyEvent.KEYCODE_ENTER
-//                        || event.getAction() == KeyEvent.ACTION_DOWN
-//                        || keyCode == EditorInfo.IME_ACTION_DONE){
-//                    hienThiDanhSachNhanVien();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        edTimNhanVien.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                hienThiDanhSachNhanVien();
+            }
+        });
+        edTimNhanVien.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE
+                        || actionId == EditorInfo.IME_ACTION_SEARCH){
+                    hienThiDanhSachNhanVien();
+                    return true;
+                }
+                return false;            }
+        });
         inputTimNhanVien.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
