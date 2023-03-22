@@ -65,7 +65,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
         LoaiBanDAO loaiBanDAO = new LoaiBanDAO(context);
         loaiBan = loaiBanDAO.getID(ban.getMaLB());
-//        banDAO=new BanDAO(context);
+        banDAO=new BanDAO(context);
         holder.tvViTri.setText(ban.getViTri());
         holder.tvLoaiBan.setText(""+loaiBan.getTenLoai());
         holder.tvTrangThaiBan.setText(""+ban.getTenTrangThai());
