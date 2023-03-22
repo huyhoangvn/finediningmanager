@@ -26,6 +26,7 @@ import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
 import sp23cp18103.nhom2.finedining.fragment.HoaDonFragment;
 import sp23cp18103.nhom2.finedining.fragment.HomeFragment;
 import sp23cp18103.nhom2.finedining.fragment.MonCollectionFragment;
+import sp23cp18103.nhom2.finedining.fragment.NhanVienCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.NhanVienFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeDoanhThuFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
@@ -126,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.mn_quanly_nhanvien:
-                        fragment = new NhanVienFragment();
+                        fragment = new NhanVienCollectionFragment();
                         fragmentManager.beginTransaction()
                                 .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left)
                                 .replace(R.id.linear,fragment)

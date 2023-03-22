@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
+import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -78,17 +80,22 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         } else {
             holder.tvTrangThai.setTextColor(Color.RED);
         }
-        if(nhanVien.getTrangThai() != 1){
+        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) != 1){
             if(PreferencesHelper.getId(context) != nhanVien.getMaNV()){
+                holder.imgbtnSua.setVisibility(View.GONE);
+            }
+        } else {
+            if(nhanVienDAO.getPhanQuyen(nhanVien.getMaNV()) == 1){
                 holder.imgbtnSua.setVisibility(View.GONE);
             }
         }
         holder.imgbtnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showDialogSua();
             }
         });
+        ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
     }
 
     @Override
@@ -112,4 +119,12 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             imgbtnSua = itemView.findViewById(R.id.imgbtn_cvNhanVien_sua);
         }
     }
+
+    /*
+     * Sửa thông tin công khai của nhân viên
+     * */
+    private void showDialogSua() {
+
+    }
+
 }

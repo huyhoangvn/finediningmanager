@@ -163,12 +163,15 @@ public class NhanVienDAO {
      * Lấy tất cả thông tin công khai của nhân viên làm việc ở nhà hàng của nhân viên hiện tại
      * Trả về mảng các nhân viên có cùng mã nhà hàng với nhân viên hiện tại
      * và hiển thị những nhân viên đã nghỉ nếu trạng thái là 0
+     * với tên nhân viên đó trùng với chuỗi tìm kiếm
+     * nếu chuỗi tìm kiếm rỗng thì hiển thị toàn bộ danh sách
      * */
-    public List<NhanVien> getAllNhanVien(int maNV, int trangThai) {
+    public List<NhanVien> getAllNhanVien(int maNV, int trangThai, String timKiem) {
         String sql = "SELECT * FROM nhanvien nv " +
                 "WHERE nv.maNH = ( SELECT maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND nv.tenNV LIKE ? " +
                 "AND nv.trangThai >= ? ";
-        return getThongTin(sql, String.valueOf(maNV), String.valueOf(trangThai));
+        return getThongTin(sql, String.valueOf(maNV), String.valueOf(timKiem + "%"), String.valueOf(trangThai));
     }
 
     /*
@@ -184,20 +187,5 @@ public class NhanVienDAO {
             return list.get(0);
         }
         return null;
-    }
-
-    /*
-     * Lấy thông tin công khai của nhân viên làm việc ở nhà hàng của nhân viên hiện tại
-     * với tên nhân viên đó trùng với chuỗi tìm kiếm
-     * và hiển thị những nhân viên đã nghỉ nếu trạng thái là 0
-     * */
-    public List<NhanVien> searchNhanVien(int maNV, String tenNV, int trangThai) {
-        String sql = "SELECT * FROM nhanvien nv " +
-                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND nv.tenNV LIKE ? " +
-                "AND LENGTH(nv.tenNV) >= LENGTH( ? ) " +
-                "AND nv.trangThai >= ? ";
-        return getThongTin(sql, String.valueOf(maNV), String.valueOf(tenNV + "%"),
-                String.valueOf(tenNV), String.valueOf(trangThai));
     }
 }

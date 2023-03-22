@@ -9,13 +9,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -37,6 +42,8 @@ public class NhanVienFragment extends Fragment {
     //Controller
     private RecyclerView rcvNhanVien;
     private CheckBox chkNhanVienDangLam;
+    private TextInputLayout inputTimNhanVien;
+    private EditText edTimNhanVien;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +60,8 @@ public class NhanVienFragment extends Fragment {
         anhXa(view);
         khoiTaoDAO();
         khoiTaoRecyclerView();
-        khoiTaoListener();
+        khoiTaoCheckboxListener();
+        khoiTaoTimKiem();
     }
 
     /*
@@ -62,6 +70,8 @@ public class NhanVienFragment extends Fragment {
     private void anhXa(View view) {
         rcvNhanVien = view.findViewById(R.id.rcv_fNhanVien_danhSach);
         chkNhanVienDangLam = view.findViewById(R.id.chk_fNhanVien_nhanVienDangLam);
+        inputTimNhanVien = view.findViewById(R.id.input_fNhanVien_timNhanVien);
+        edTimNhanVien = view.findViewById(R.id.ed_fNhanVien_timNhanVien);
     }
 
     /*
@@ -76,7 +86,8 @@ public class NhanVienFragment extends Fragment {
     * */
     private void khoiTaoRecyclerView() {
         listNhanVien = (ArrayList<NhanVien>) nhanVienDAO.getAllNhanVien(PreferencesHelper.getId(context),
-                (chkNhanVienDangLam.isChecked())?1:0);
+                (chkNhanVienDangLam.isChecked())?1:0,
+                edTimNhanVien.getText().toString().trim());
         adpNhanVien = new NhanVienAdapter(context, listNhanVien);
         rcvNhanVien.setAdapter(adpNhanVien);
     }
@@ -86,16 +97,55 @@ public class NhanVienFragment extends Fragment {
     * Chọn thì chỉ hiển thị những nhân viên đang đi làm
     * Bỏ chọn thì hiển thị cả những nhân viên đã nghỉ
     * */
-    private void khoiTaoListener() {
+    private void khoiTaoCheckboxListener() {
         chkNhanVienDangLam.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                listNhanVien.clear();
-                listNhanVien.addAll(nhanVienDAO.getAllNhanVien(PreferencesHelper.getId(context),
-                        (chkNhanVienDangLam.isChecked())?1:0));
-                adpNhanVien.notifyDataSetChanged();
+                hienThiDanhSachNhanVien();
             }
         });
     }
+
+    /*
+    *
+    * */
+    private void khoiTaoTimKiem() {
+//        inputTimNhanVien.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if(event.getAction() == KeyEvent.KEYCODE_ENTER
+//                        || event.getAction() == KeyEvent.ACTION_DOWN
+//                        || keyCode == EditorInfo.IME_ACTION_DONE){
+//                    hienThiDanhSachNhanVien();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+        inputTimNhanVien.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hienThiDanhSachNhanVien();
+            }
+        });
+    }
+
+    /*
+    * Tải lại toàn bộ danh sách nhân viên khi quay về từ thêm mới
+    * */
+    @Override
+    public void onResume() {
+        hienThiDanhSachNhanVien();
+        super.onResume();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void hienThiDanhSachNhanVien() {
+        listNhanVien.clear();
+        listNhanVien.addAll(nhanVienDAO.getAllNhanVien(PreferencesHelper.getId(context),
+                (chkNhanVienDangLam.isChecked())?1:0,
+                edTimNhanVien.getText().toString().trim()));
+        adpNhanVien.notifyDataSetChanged();
+    }
+
 }
