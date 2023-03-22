@@ -58,61 +58,61 @@ public class DateHelper {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
         return sdf.format(new Date());
     }
-
-    /*
-     * Chuyển đổi ngày giờ từ định dạng việt nam sang định dạng sql
-     * VD: 30-12-2000 09:01 > 2000-12-30 09:01
-     * */
-    public static String getDateTimeSql(String dateTimeVietnam){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-        return sdf.format(dateTimeVietnam);
-    }
-
-    /*
-     * Chuyển đổi ngày giờ từ định dạng sql sang định dạng việt nam
-     * VD: 2000-12-30 09:01 > 30-12-2000 09:01
-     * */
-    public static String getDateTimeVietnam(String dateTimeSql){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-        return sdf.format(dateTimeSql);
-    }
-
-    /*
-     * Chuyển đổi ngày từ định dạng việt nam sang định dạng sql
-     * VD: 30-12-2000 > 2000-12-30
-     * */
-    public static String getTimeSql(String dateVietnam){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        return sdf.format(dateVietnam);
-    }
-
-    /*
-     * Chuyển đổi ngày từ định dạng sql sang định dạng việt nam
-     * VD: 2000-12-30 > 30-12-2000
-     * */
-    public static String getTimeVietnam(String dateSql){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        return sdf.format(dateSql);
-    }
-
-    /*
-     * Hiển thị hộp thoại để chọn ngày-tháng-năm
-     * Đặt ngày theo định dạng dd-mm-YYYY trên textview đã thêm vào
-     * */
-    public static void showDatePickerVietnam(Context context, TextView textView) {
-        final Calendar c = Calendar.getInstance();
-        new DatePickerDialog(context,
-                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                (datePicker, i, i1, i2) -> {
-                    String date = i2 + "/" + (i1+1) + "/" + i;
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
-                    textView.setText((String)sdf.format(date));
-                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)){
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            }
-        }.show();
-    }
+///*
+//    *//*
+//     * Chuyển đổi ngày giờ từ định dạng việt nam sang định dạng sql
+//     * VD: 30-12-2000 09:01 > 2000-12-30 09:01
+//     * *//*
+//    public static String getDateTimeSql(String dateTimeVietnam){
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+//        return sdf.format(dateTimeVietnam);
+//    }
+//
+//    *//*
+//     * Chuyển đổi ngày giờ từ định dạng sql sang định dạng việt nam
+//     * VD: 2000-12-30 09:01 > 30-12-2000 09:01
+//     * *//*
+//    public static String getDateTimeVietnam(String dateTimeSql){
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+//        return sdf.format(dateTimeSql);
+//    }
+//
+//    *//*
+//     * Chuyển đổi ngày từ định dạng việt nam sang định dạng sql
+//     * VD: 30-12-2000 > 2000-12-30
+//     * *//*
+//    public static String getDateSql(String dateVietnam){
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//        return sdf.format(dateVietnam);
+//    }
+//
+//    *//*
+//     * Chuyển đổi ngày từ định dạng sql sang định dạng việt nam
+//     * VD: 2000-12-30 > 30-12-2000
+//     * *//*
+//    public static String getDateVietnam(String dateSql){
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+//        return sdf.format(dateSql);
+//    }
+//
+//    *//*
+//     * Hiển thị hộp thoại để chọn ngày-tháng-năm
+//     * Đặt ngày theo định dạng dd-mm-YYYY trên textview đã thêm vào
+//     * *//*
+//    public static void showDatePickerVietnam(Context context, TextView textView) {
+//        final Calendar c = Calendar.getInstance();
+//        new DatePickerDialog(context,
+//                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+//                (datePicker, i, i1, i2) -> {
+//                    String date = i2 + "/" + (i1+1) + "/" + i;
+//                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+//                    textView.setText((String)sdf.format(date));
+//                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)){
+//            @Override
+//            protected void onCreate(Bundle savedInstanceState) {
+//                super.onCreate(savedInstanceState);
+//                getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            }
+//        }.show();
+//    }*/
 }
