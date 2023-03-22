@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/tv_vitri"
+                android:id="@+id/tvViTri"
                 style="@style/mHeaderText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="Loại: "/>
                 <TextView
-                    android:id="@+id/tv_loaiban"
+                    android:id="@+id/tvLoaiBan"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_trangthai"
+                android:id="@+id/tvTrangThai"
                 style="@style/mNormalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/img_sua"
+            android:id="@+id/imgSua"
             style="@style/mImageButton"
             android:src="@drawable/ic_sua_thongtin"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck"

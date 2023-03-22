@@ -14,7 +14,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/tv_tieude_ban"
+            android:id="@+id/tvTieuDeBan"
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:errorEnabled="true"
             android:hint="Vị trí">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_vitri_ban"
+                android:id="@+id/edViTriBan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -35,7 +35,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
-            android:id="@+id/spnr_ban"
+            android:id="@+id/spnrBan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -44,7 +44,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <CheckBox
-            android:id="@+id/chk_trangthai_ban"
+            android:id="@+id/chkTrangThaiBan"
             style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,14 +56,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_shaveban"
+                android:id="@+id/btnShaveBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_cancelban"
+                android:id="@+id/btnCancelBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

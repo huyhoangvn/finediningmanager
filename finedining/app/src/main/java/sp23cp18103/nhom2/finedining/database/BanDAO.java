@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.Ban;
+import sp23cp18103.nhom2.finedining.model.LoaiBan;
+
 
 public class BanDAO {
     SQLiteDatabase db;
@@ -52,6 +54,23 @@ public class BanDAO {
           list.add(obj);
        }
        return list;
-
     }
+
+    public Ban getID(int maNV){
+        String sql="select*from ban where viTri=?";
+        List<Ban> list = getDaTa(sql, String.valueOf(maNV));
+        return list.get(0);
+    }
+
+    public List<Ban> timKiem(int maNV, String vitri ){
+        String sql = "Select * from ban b " +
+                "JOIN loaiban lb ON lb.maLB = b.maLB " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.vitri LIKE ? ";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf(vitri + "%"));
+    }
+
+
 }
