@@ -2,6 +2,7 @@ package sp23cp18103.nhom2.finedining.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,12 +39,14 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     private Context context;
     private NhanVienAdapter adpNhanVien;
     private ArrayList<NhanVien> listNhanVien;
+    private IEditListener iEditListener;
     //Database
     private NhanVienDAO nhanVienDAO;
 
-    public NhanVienAdapter(Context context, ArrayList<NhanVien> listNhanVien) {
+    public NhanVienAdapter(Context context, ArrayList<NhanVien> listNhanVien, IEditListener iEditListener) {
         this.context = context;
         this.listNhanVien = listNhanVien;
+        this.iEditListener = iEditListener;
 
         khoiTaoDAO();
     }
@@ -80,22 +85,26 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         } else {
             holder.tvTrangThai.setTextColor(Color.RED);
         }
+        ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
+        /*
+        * Hiển thị fragment để sửa thông tin nhân viên
+        * */
         if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) != 1){
             if(PreferencesHelper.getId(context) != nhanVien.getMaNV()){
                 holder.imgbtnSua.setVisibility(View.GONE);
             }
         } else {
-            if(nhanVienDAO.getPhanQuyen(nhanVien.getMaNV()) == 1){
+            if(nhanVienDAO.getPhanQuyen(nhanVien.getMaNV()) == 1
+                && PreferencesHelper.getId(context) != nhanVien.getMaNV()){
                 holder.imgbtnSua.setVisibility(View.GONE);
             }
         }
         holder.imgbtnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogSua();
+                iEditListener.showEditFragment(nhanVien.getMaNV());
             }
         });
-        ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
     }
 
     @Override
@@ -123,7 +132,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     /*
      * Sửa thông tin công khai của nhân viên
      * */
-    private void showDialogSua() {
+    private void showFragmentSua() {
 
     }
 

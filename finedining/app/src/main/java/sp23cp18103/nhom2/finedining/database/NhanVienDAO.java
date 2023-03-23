@@ -171,7 +171,7 @@ public class NhanVienDAO {
                 "WHERE nv.maNH = ( SELECT maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND nv.tenNV LIKE ? " +
                 "AND nv.trangThai >= ? " +
-                "ORDER BY nv.trangThai DESC, nv.tenNV ASC";
+                "ORDER BY nv.trangThai DESC, nv.phanQuyen DESC, nv.tenNV ASC";
         return getThongTin(sql, String.valueOf(maNV), String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai));
     }
 
@@ -182,11 +182,26 @@ public class NhanVienDAO {
      * */
     public NhanVien getNhanVien(int maNV) {
         String sql = "SELECT * FROM nhanvien nv " +
-                "WHERE nv.maNH = ? ";
+                "WHERE nv.maNV = ? ";
         ArrayList<NhanVien> list = (ArrayList<NhanVien>) getThongTin(sql, String.valueOf(maNV));
         if(list.size() > 0){
             return list.get(0);
         }
         return null;
+    }
+
+    /*
+     * Cho biết mã nhà hàng nhân viên có mã người dùng hiện tại
+     * Nếu có trả về mã nhà hàng
+     * Nếu không trả về -1
+     * */
+    @SuppressLint("Range")
+    public int getMaNH(int maNV) {
+        String sql = "SELECT maNH FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("maNH"));
+        }
+        return -1;
     }
 }
