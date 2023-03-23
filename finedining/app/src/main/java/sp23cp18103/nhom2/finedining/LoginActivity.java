@@ -178,6 +178,8 @@ public class LoginActivity extends AppCompatActivity{
 
         monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,null));
 
+        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
+
         khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));

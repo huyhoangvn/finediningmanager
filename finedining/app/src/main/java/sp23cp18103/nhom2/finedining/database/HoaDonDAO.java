@@ -59,6 +59,16 @@ public class HoaDonDAO{
     }
 
     @SuppressLint("Range")
+    public int getMaHoaDonTiepTheo(){
+        String sql = " SELECT seq FROM sqlite_sequence WHERE name LIKE 'hoadon' ";
+        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
+        if(c.moveToNext()){
+            return c.getInt(c.getColumnIndex("seq")) + 1;
+        }
+        return -1;
+    }
+
+    @SuppressLint("Range")
     public List<HoaDon> getData(String sql, String...SelectArgs){
         List<HoaDon> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,SelectArgs);

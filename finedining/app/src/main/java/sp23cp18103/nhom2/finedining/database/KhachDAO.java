@@ -24,6 +24,15 @@ public class KhachDAO {
         values.put("tenKH",obj.getTenKH());
         return db.insert("khachhang",null,values);
     }
+    @SuppressLint("Range")
+    public int getMaKhanhHangTiepTheo(){
+        String sql = " SELECT seq FROM sqlite_sequence WHERE name LIKE 'khachhang' ";
+        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
+        if(c.moveToNext()){
+            return c.getInt(c.getColumnIndex("seq")) + 1;
+        }
+        return -1;
+    }
 
     @SuppressLint("Range")
     public List<KhachHang> getDaTa(String sql, String... selectAvg) {
