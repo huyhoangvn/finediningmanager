@@ -41,9 +41,9 @@
             android:hint="Số chỗ ngồi">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edSoChoNgoi"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:maxLines="1"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -56,6 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Còn sử dụng?"
             android:layout_gravity="start"
+            android:checked="true"
             android:layout_marginStart="10dp"/>
 
         <LinearLayout
