@@ -17,10 +17,14 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.BanCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
 import sp23cp18103.nhom2.finedining.fragment.HoaDonCollectionFragment;
@@ -32,6 +36,7 @@ import sp23cp18103.nhom2.finedining.fragment.NhanVienFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeDoanhThuFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeMonFragment;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Màn hình chính chứa Fragment Home và sử dụng Navigation Drawer
@@ -41,16 +46,17 @@ public class HomeActivity extends AppCompatActivity {
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     FragmentManager fragmentManager;
+    NhanVienDAO nhanVienDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         anhXa();
         toolBar();
+        contenHeader();
     }
 
     private void toolBar() {
-
         // tollbar
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -221,6 +227,30 @@ public class HomeActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }else {
             super.onBackPressed();
+        }
+    }
+
+    void contenHeader(){
+        View view = navigationView.getHeaderView(0);
+        TextView tvTenNV = view.findViewById(R.id.tv_tenNhanVien);
+        TextView tvChucVu = view.findViewById(R.id.tv_chucvu);
+
+        nhanVienDAO = new NhanVienDAO(this);
+        int maNV = PreferencesHelper.getId(this);
+        String name = nhanVienDAO.getTenNV(maNV);
+        int chuVu = nhanVienDAO.getPhanQuyen(maNV);
+        //set name header
+        tvTenNV.setText(name);
+
+        //set phân quyền
+        if (chuVu == 1){
+            tvChucVu.setText("Quản Lý");
+        }else {
+            tvChucVu.setText("Nhân Viên");
+            Menu menu = navigationView.getMenu();
+            menu.findItem(R.id.mn_doanhthu).setVisible(false);
+            menu.findItem(R.id.mn_quanly_nhanvien).setVisible(false);
+            menu.findItem(R.id.mn_tongkhach).setVisible(false);
         }
     }
 
