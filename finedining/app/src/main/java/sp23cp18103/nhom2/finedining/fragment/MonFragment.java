@@ -37,6 +37,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.MonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -57,6 +58,7 @@ public class MonFragment extends Fragment {
     int maLoaiMon, positionLM;
     LoaiMonSpinnerAdapter loaiMonSpinnerAdapter;
     LoaiMonDAO loaiMonDAO;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,8 +74,8 @@ public class MonFragment extends Fragment {
         edTimKiemMon = view.findViewById(R.id.edTimKiemMon);
         inputTimKiemMon = view.findViewById(R.id.inputTimKiemMon);
         dao = new MonDAO(getContext());
+        hideFloatingButton();
         loaiMonDAO = new LoaiMonDAO(getContext());
-
         capNhat();
         //Them mon
         fabMon.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +199,17 @@ public class MonFragment extends Fragment {
                 }
             }
         });
+    }
+
+    void hideFloatingButton(){
+       NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
+        int maNV = PreferencesHelper.getId(getContext());
+        int chuVu = nhanVienDAO.getPhanQuyen(maNV);
+        if (chuVu == 1){
+            fabMon.setVisibility(View.VISIBLE);
+        }else {
+            fabMon.setVisibility(View.GONE);
+        }
     }
 
     void capNhat(){

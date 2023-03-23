@@ -189,4 +189,14 @@ public class NhanVienDAO {
         }
         return null;
     }
+
+    @SuppressLint("Range")
+    public int getmaNH(int maNV) {
+        String sql = "SELECT maNH FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("maNH"));
+        }
+        return -1;
+    }
 }

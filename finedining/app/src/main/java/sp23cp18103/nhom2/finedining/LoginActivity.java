@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity{
     NhanVienDAO nhanVienDAO;
 
     CustomProgressDialog dialog ;
-    private ProgressDialog prgWait;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -120,6 +119,51 @@ public class LoginActivity extends AppCompatActivity{
                 } else {
                     Toast.makeText(getApplicationContext(), "Kiếm Tra kết nối internet và thử lại", Toast.LENGTH_SHORT).show();
                 }
+
+                // test đừng xoá
+//                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+//
+//                if (networkInfo != null && networkInfo.isConnected()) {
+//                    // Thiết bị đã kết nối Internet
+//                    if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+//                        if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
+//                        int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
+//                        PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+//                        // gọi PreferencesHelperđể lưu
+//                        PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
+//                        // fix delay
+//                        loading();
+//                        //chuyển activity
+//                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+//                        // animation chuyển
+//                        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+//                    }else {
+//                        Toast.makeText(LoginActivity.this, "Thông tin tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+//                    }
+//                        Toast.makeText(getApplicationContext(), "Kết nối Internet qua dữ liệu di động", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        // Thiết bị kết nối qua WiFi hoặc kết nối khác
+//                        Toast.makeText(getApplicationContext(), "Kết nối Internet qua WiFi hoặc kết nối khác", Toast.LENGTH_SHORT).show();
+//                        if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
+//                        int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
+//                        PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+//                        // gọi PreferencesHelperđể lưu
+//                        PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
+//                        // fix delay
+//                        loading();
+//                        //chuyển activity
+//                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+//                        // animation chuyển
+//                        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+//                    }else {
+//                        Toast.makeText(LoginActivity.this, "Thông tin tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+//                    }
+//                    }
+//                } else {
+//                    // Thiết bị không kết nối Internet
+//                    Toast.makeText(getApplicationContext(), "Không có kết nối Internet", Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });
@@ -181,12 +225,12 @@ public class LoginActivity extends AppCompatActivity{
         khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
+
+        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
 //
-//        banDAO.insertban(new Ban(1,1,"A1",1));
+        banDAO.insertban(new Ban(1,1,"A1",1));
 //
-//        banDAO.insertban(new Ban(2,2,"A2",1));
-//
-//        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
+
 
         datBanDAO.insertDatBan(new DatBan(1,1,"2023/5/4"));
 
