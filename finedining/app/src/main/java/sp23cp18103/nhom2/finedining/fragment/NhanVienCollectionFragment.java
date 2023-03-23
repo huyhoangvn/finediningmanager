@@ -26,8 +26,8 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 public class NhanVienCollectionFragment extends Fragment {
     private Context context;
+    //Utils
     private FragmentManager fmNhanVien;
-    private DrawerLayout drawerLayout;
     //Database
     private NhanVienDAO nhanVienDAO;    //Controller
     private FloatingActionButton fbtnThemNhanVien;
@@ -57,7 +57,6 @@ public class NhanVienCollectionFragment extends Fragment {
     * Ánh xạ các view cần dùng
     * */
     private void anhXa(View view) {
-        drawerLayout = view.findViewById(R.id.drawer_layout);
         fbtnThemNhanVien = view.findViewById(R.id.ftbtn_fNhanVien_them);
     }
 
@@ -92,7 +91,8 @@ public class NhanVienCollectionFragment extends Fragment {
     private void khoiTaoListener() {
         fbtnThemNhanVien.setOnClickListener(v -> {
             fmNhanVien.beginTransaction()
-                    .add(R.id.lyt_fNhanVienCollection_fragmentManager, new ThemNhanVienFragment(),
+                    .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+                    .add(R.id.lyt_fNhanVienCollection_fragmentManager, new ThemNhanVienFragment(0),
                             "THEM_NHAN_VIEN")
                     .addToBackStack(null)
                     .commit();
@@ -110,7 +110,9 @@ public class NhanVienCollectionFragment extends Fragment {
             public void handleOnBackPressed() {
                 if(isEnabled()){
                     fmNhanVien.popBackStack();
-                    fbtnThemNhanVien.show();
+                    if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 1){
+                        fbtnThemNhanVien.show();
+                    }
                 }
             }
         });

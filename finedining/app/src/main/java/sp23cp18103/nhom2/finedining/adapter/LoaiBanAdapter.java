@@ -36,14 +36,15 @@ import sp23cp18103.nhom2.finedining.model.LoaiBan;
  * Adapter để hiển thị danh sách loại bàn trong LoaiBanFragment
  * */
 public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanViewHolder> {
- Context context;
- List<LoaiBan> mListLoaiBan;
- LoaiBanFragment fragment;
- TextInputEditText edTenLoaiBan,edSoChoNgoi;
- CheckBox chkDialogTrangThaiLoaiBan;
- AppCompatButton btn_ShaveLoaiBan,btn_CancelLoaiBan;
- LoaiBanDAO dao;
-        public LoaiBanAdapter(List<LoaiBan> mListLoaiBan, Context context) {
+    Context context;
+    List<LoaiBan> mListLoaiBan;
+    LoaiBanFragment fragment;
+    TextInputEditText edTenLoaiBan, edSoChoNgoi;
+    CheckBox chkDialogTrangThaiLoaiBan;
+    AppCompatButton btn_ShaveLoaiBan, btn_CancelLoaiBan;
+    LoaiBanDAO dao;
+
+    public LoaiBanAdapter(List<LoaiBan> mListLoaiBan, Context context) {
         this.mListLoaiBan = mListLoaiBan;
         this.context = context;
     }
@@ -51,44 +52,46 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     @NonNull
     @Override
     public LoaiBanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_loai_ban,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_loai_ban, parent, false);
         return new LoaiBanViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LoaiBanViewHolder holder, int position) {
-        LoaiBan loaiBan=mListLoaiBan.get(position);
-        dao=new LoaiBanDAO(context);
+        LoaiBan loaiBan = mListLoaiBan.get(position);
+        dao = new LoaiBanDAO(context);
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
         holder.tv_SoChoNgoi.setText(String.valueOf(loaiBan.getSoChoNgoi()));
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
-        if(loaiBan.getTrangThai()==1){
+        if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText(" Dùng");
             holder.tv_TrangThai_LoaiBan.setTextColor(Color.BLUE);
-        }else{
+        } else {
             holder.tv_TrangThai_LoaiBan.setText("Không dùng");
             holder.tv_TrangThai_LoaiBan.setTextColor(Color.RED);
         }
         holder.img_Sua_LoaiBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(context);
-                LayoutInflater inflater=((Activity)context).getLayoutInflater();
-                View view=inflater.inflate(R.layout.dialog_loai_ban,null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_loai_ban, null);
                 builder.setView(view);
                 TextView tv_tieude_loaiban = view.findViewById(R.id.tvTieuDeLoaiBan);
                 tv_tieude_loaiban.setText("Sửa loại loại bàn");
-                edTenLoaiBan=view.findViewById(R.id.edTenLoaiBan);
-                edSoChoNgoi=view.findViewById(R.id.edSoChoNgoi);
-                chkDialogTrangThaiLoaiBan=view.findViewById(R.id.chkTrangThaiLoaiBan);
-                btn_ShaveLoaiBan=view.findViewById(R.id.btn_ShaveLoaiBan);
-                btn_CancelLoaiBan=view.findViewById(R.id.btn_CancelLoaiBan);
+
+                edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
+                edSoChoNgoi = view.findViewById(R.id.edSoChoNgoi);
+                chkDialogTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
+                btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
+                btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
                 edSoChoNgoi.setText(String.valueOf(loaiBan.getSoChoNgoi()));
-                Dialog dialog= builder.create();
-                if(loaiBan.getTrangThai()==1){
+
+                Dialog dialog = builder.create();
+                if (loaiBan.getTrangThai() == 1) {
                     chkDialogTrangThaiLoaiBan.setChecked(true);
-                }else{
+                } else {
                     chkDialogTrangThaiLoaiBan.setChecked(false);
                 }
 
@@ -103,47 +106,49 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                     @Override
                     public void onClick(View v) {
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
-                        String soChoNgoi=edSoChoNgoi.getText().toString().trim();
+                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
                         loaiBan.setTenLoai(tenLoai);
-                        if(chkDialogTrangThaiLoaiBan.isChecked()){
+                        if (chkDialogTrangThaiLoaiBan.isChecked()) {
                             loaiBan.setTrangThai(1);
-                        }else{
+                        } else {
                             loaiBan.setTrangThai(0);
                         }
-                        if(tenLoai.isEmpty()||soChoNgoi.isEmpty()){
+                        if (tenLoai.isEmpty() || soChoNgoi.isEmpty()) {
                             edTenLoaiBan.setError("Không được để trống");
                             edSoChoNgoi.setError("Không được để trống");
                             return;
-                        }else{
+                        } else {
                             loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
-                            if(dao.updateloaiban(loaiBan)>0){
+                            if (dao.updateloaiban(loaiBan) > 0) {
                                 Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
-                            }else{
+                            } else {
                                 Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
-             dialog.show();
+                dialog.show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-     return mListLoaiBan.size();
+        return mListLoaiBan.size();
     }
+
     public class LoaiBanViewHolder extends RecyclerView.ViewHolder {
-         TextView tv_TenLoaiBan,tv_SoChoNgoi,tv_TrangThai_LoaiBan;
-         ImageButton img_Sua_LoaiBan;
+        TextView tv_TenLoaiBan, tv_SoChoNgoi, tv_TrangThai_LoaiBan;
+        ImageButton img_Sua_LoaiBan;
+
         public LoaiBanViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_TenLoaiBan=itemView.findViewById(R.id.tv_TenLoaiBan);
-            tv_SoChoNgoi=itemView.findViewById(R.id.tv_SoChoNgoi);
-            tv_TrangThai_LoaiBan=itemView.findViewById(R.id.tv_TrangThai_LoaiBan);
-            img_Sua_LoaiBan=itemView.findViewById(R.id.img_Sua_LoaiBan);
+            tv_TenLoaiBan = itemView.findViewById(R.id.tv_TenLoaiBan);
+            tv_SoChoNgoi = itemView.findViewById(R.id.tv_SoChoNgoi);
+            tv_TrangThai_LoaiBan = itemView.findViewById(R.id.tv_TrangThai_LoaiBan);
+            img_Sua_LoaiBan = itemView.findViewById(R.id.img_Sua_LoaiBan);
 
         }
     }

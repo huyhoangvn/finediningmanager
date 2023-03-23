@@ -10,6 +10,7 @@ import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 
 public class LoaiBanDAO {
@@ -40,7 +41,6 @@ public class LoaiBanDAO {
 
     public List<LoaiBan> getAllLoaiBan() {
         String sql = "SELECT * FROM loaiban";
-
         return getDaTa(sql);
     }
 
@@ -60,11 +60,11 @@ public class LoaiBanDAO {
         return list;
     }
 
-    public LoaiBan getID(String id) {
-        String sql = "Select * from loaiban where tenLoai = ?";
-        List<LoaiBan> list = getDaTa(sql, id);
-        return list.get(0);
-    }
+//    public LoaiBan getID(String id) {
+//        String sql = "Select * from loaiban where tenLoai = ?";
+//        List<LoaiBan> list = getDaTa(sql, id);
+//        return list.get(0);
+//    }
 
     // tìm kiếm tương đối theo nhân viên và tên loại bàn
     public List<LoaiBan> getTimKiem(int maNV, String tenloai  ) {
@@ -74,5 +74,10 @@ public class LoaiBanDAO {
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND lb.tenLoai LIKE ? ";
         return getDaTa(sql, String.valueOf(maNV), String.valueOf(tenloai + "%"));
+    }
+    public LoaiBan getID(int maLB){
+        String sql="select*from loaiban where maLB=?";
+        List<LoaiBan> list = getDaTa(sql, String.valueOf(maLB));
+        return list.get(0);
     }
 }

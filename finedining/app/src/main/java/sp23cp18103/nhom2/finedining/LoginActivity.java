@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity{
         } if (nhaHangDAO.checknhahang("Nha Nam")){
             return;
         }
-        nhaHangDAO.insertNhaHang(new NhaHang(1, "Fine Dining", "Hà Nội", null));
+        nhaHangDAO.insertNhaHang(new NhaHang(1, "Fine Dining", "Hà Nội", "https://chupanhmonan.com/wp-content/uploads/2019/03/ma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg"));
 
         nhaHangDAO.insertNhaHang(new NhaHang(2, "Nha Nam", "TP Hồ Chí Minh", null));
         //Nhân viên
@@ -160,15 +160,15 @@ public class LoginActivity extends AppCompatActivity{
             return;
         }
         nhanVienDAO.insertNhanVien(new NhanVien(1, 1, "Nguyễn Huy Hoàng", 1,
-                "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://imgur.com/jxfDB4O"));
+                "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/10f13510774061.560eadfde5b61.png"));
         nhanVienDAO.insertNhanVien(new NhanVien(2, 1, "Hồ Ngọc Hà", 2,
-                "1999-01-10", "0933763999", 0, 1, "hongocha", "hongocha", null));
+                "1999-01-10", "0933763999", 0, 1, "hongocha", "hongocha", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/b654a410774061.560eadfd1e2cc.png"));
         nhanVienDAO.insertNhanVien(new NhanVien(3, 2, "Lưu Hữu Phước", 1,
-                "2000-03-10", "0933765999", 1, 1, "notadmin", "admin", null));
+                "2000-03-10", "0933765999", 1, 1, "notadmin", "admin", "https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
         nhanVienDAO.insertNhanVien(new NhanVien(4, 1, "Nguyễn Huy Hồng", 1,
-                "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", null));
+                "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/200f2910774061.560eac1cd606c.png"));
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
-                "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", null));
+                "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://i.pinimg.com/originals/91/de/1e/91de1e48020787761c1906c9fcde86cd.jpg"));
 
         hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04",1));
 
@@ -184,18 +184,15 @@ public class LoginActivity extends AppCompatActivity{
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
 
-        banDAO.insertban(new Ban(1,1,"A1",1));
-
-        banDAO.insertban(new Ban(2,2,"A2",1));
-
-        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
+//        banDAO.insertban(new Ban(1,1,"A1",1));
+//
+//        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
 
         datBanDAO.insertDatBan(new DatBan(1,1,"2023/5/4"));
 
         datMonDAO.insertDatMon(new DatMon(1,1,3));
 
 
-        
 
     }
 

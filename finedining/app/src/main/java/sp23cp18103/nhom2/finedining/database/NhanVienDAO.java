@@ -163,12 +163,16 @@ public class NhanVienDAO {
      * Lấy tất cả thông tin công khai của nhân viên làm việc ở nhà hàng của nhân viên hiện tại
      * Trả về mảng các nhân viên có cùng mã nhà hàng với nhân viên hiện tại
      * và hiển thị những nhân viên đã nghỉ nếu trạng thái là 0
+     * với tên nhân viên đó trùng với chuỗi tìm kiếm
+     * nếu chuỗi tìm kiếm rỗng thì hiển thị toàn bộ danh sách
      * */
-    public List<NhanVien> getAllNhanVien(int maNV, int trangThai) {
+    public List<NhanVien> getAllNhanVien(int maNV, int trangThai, String timKiem) {
         String sql = "SELECT * FROM nhanvien nv " +
                 "WHERE nv.maNH = ( SELECT maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND nv.trangThai >= ? ";
-        return getThongTin(sql, String.valueOf(maNV), String.valueOf(trangThai));
+                "AND nv.tenNV LIKE ? " +
+                "AND nv.trangThai >= ? " +
+                "ORDER BY nv.trangThai DESC, nv.phanQuyen DESC, nv.tenNV ASC";
+        return getThongTin(sql, String.valueOf(maNV), String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai));
     }
 
     /*
@@ -178,7 +182,7 @@ public class NhanVienDAO {
      * */
     public NhanVien getNhanVien(int maNV) {
         String sql = "SELECT * FROM nhanvien nv " +
-                "WHERE nv.maNH = ? ";
+                "WHERE nv.maNV = ? ";
         ArrayList<NhanVien> list = (ArrayList<NhanVien>) getThongTin(sql, String.valueOf(maNV));
         if(list.size() > 0){
             return list.get(0);
@@ -187,17 +191,17 @@ public class NhanVienDAO {
     }
 
     /*
-     * Lấy thông tin công khai của nhân viên làm việc ở nhà hàng của nhân viên hiện tại
-     * với tên nhân viên đó trùng với chuỗi tìm kiếm
-     * và hiển thị những nhân viên đã nghỉ nếu trạng thái là 0
+     * Cho biết mã nhà hàng nhân viên có mã người dùng hiện tại
+     * Nếu có trả về mã nhà hàng
+     * Nếu không trả về -1
      * */
-    public List<NhanVien> searchNhanVien(int maNV, String tenNV, int trangThai) {
-        String sql = "SELECT * FROM nhanvien nv " +
-                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND nv.tenNV LIKE ? " +
-                "AND LENGTH(nv.tenNV) >= LENGTH( ? ) " +
-                "AND nv.trangThai >= ? ";
-        return getThongTin(sql, String.valueOf(maNV), String.valueOf(tenNV + "%"),
-                String.valueOf(tenNV), String.valueOf(trangThai));
+    @SuppressLint("Range")
+    public int getMaNH(int maNV) {
+        String sql = "SELECT maNH FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("maNH"));
+        }
+        return -1;
     }
 }

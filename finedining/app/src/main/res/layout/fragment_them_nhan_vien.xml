@@ -18,12 +18,13 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_fThemNhanVien_title"
                         style="@style/mHeaderText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="Thêm nhân viên"/>
+                        android:text="Thêm Tài Khoản Nhân Viên"/>
 
                     <ImageButton
                         android:id="@+id/imgbtn_fragThemNhanVien_themAnh"
@@ -33,7 +34,7 @@
                         tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/input_fragThemNhanVien_taiKhoan"
+                        android:id="@+id/input_fThemNhanVien_taiKhoan"
                         style="@style/mInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
                         app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true">
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_taiKhoan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
@@ -57,6 +59,7 @@
                         app:errorEnabled="true"
                         app:passwordToggleEnabled="true">
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_matKhau"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
@@ -72,9 +75,26 @@
                         app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true">
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_tenNV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
+                            android:maxLines="1"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_fThemNhanVien_sdt"
+                        style="@style/mInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Số điện thoại"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_sdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,25 +109,10 @@
                         app:endIconMode="custom"
                         app:endIconDrawable="@drawable/ic_chon_ngay">
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_ngaySinh"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:enabled="false"
-                            android:maxLines="1"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/input_fThemNhanVien_sdt"
-                        style="@style/mInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Số điện thoại"
-                        app:boxBackgroundColor="@android:color/transparent"
-                        app:errorEnabled="true">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="phone"
+                            android:inputType="date"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,26 +123,54 @@
                         android:orientation="horizontal"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp">
+                        <TextView
+                            style="@style/mNormalText"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Giới tính: "
+                            android:padding="5dp"
+                            android:textStyle="bold"/>
                         <RadioButton
                             android:id="@+id/rdo_fThemNhanVien_nam"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Nam"
+                            android:text="Nam"
                             android:layout_weight="1"/>
                         <RadioButton
                             android:id="@+id/rdo_fThemNhanVien_nu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Nữ"
+                            android:text="Nữ"
                             android:layout_weight="1"/>
                         <RadioButton
                             android:id="@+id/rdo_fThemNhanVien_khac"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Khác"
+                            android:text="Khác"
                             android:checked="true"
                             android:layout_weight="1"/>
                     </RadioGroup>
+
+                    <LinearLayout
+                        android:id="@+id/lyt_fThemNhanVien_trangThai"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+                        <TextView
+                            style="@style/mNormalText"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Trạng thái: "
+                            android:padding="5dp"
+                            android:textStyle="bold"/>
+                        <CheckBox
+                            android:id="@+id/chk_fThemNhanVien_trangThai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đang làm"
+                            android:checked="true"/>
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -155,7 +188,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Hủy"/>
+                            android:text="Quay về"/>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
