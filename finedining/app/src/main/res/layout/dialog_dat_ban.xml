@@ -36,7 +36,7 @@
             android:text="Bàn Đã Chọn: "/>
 
         <TextView
-            android:id="@+id/tvMonDaChon_dialog_chonBan_FragmentThemHoaDon"
+            android:id="@+id/tvBanDaChon_dialog_chonBan_FragmentThemHoaDon"
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

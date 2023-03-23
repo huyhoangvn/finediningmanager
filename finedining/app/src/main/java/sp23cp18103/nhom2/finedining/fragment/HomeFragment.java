@@ -49,7 +49,7 @@ import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
- * Hiển thị thông tin nhà hàng và sử dụng MapsFragment để hiện địa chỉ
+ * Hiển thị thônghttps://github.com/huyhoangvn/finediningmanager/pull/55/conflict?name=finedining%252Fapp%252Fsrc%252Fmain%252Fjava%252Fsp23cp18103%252Fnhom2%252Ffinedining%252Ffragment%252FHomeFragment.java&ancestor_oid=92e505c0da8ef683e2bc3df99db5f307e8737749&base_oid=64bced0f52e062f5619bc637b89255ba5c4b1958&head_oid=4b0c60b81f27d0a97dcffc1d0bbe72c1ba9a0e3a tin nhà hàng và sử dụng MapsFragment để hiện địa chỉ
  * Hiện danh sách món còn sử dụng (sơ qua)
  * */
 public class HomeFragment extends Fragment {
@@ -87,8 +87,8 @@ public class HomeFragment extends Fragment {
     }
     private void evRCV() {
         monDAO = new MonDAO(getContext());
-        listMon = monDAO.getAllMon();
-        menuAdapter = new MenuAdapter(listMon, getContext());
+        listMon = monDAO.timKiem(PreferencesHelper.getId(getContext()),"");
+        menuAdapter = new MenuAdapter(listMon,getContext());
         rcv_menu.setAdapter(menuAdapter);
     }
     private void evMap() {

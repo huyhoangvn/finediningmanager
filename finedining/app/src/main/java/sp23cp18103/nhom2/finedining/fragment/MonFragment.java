@@ -213,7 +213,7 @@ public class MonFragment extends Fragment {
     }
 
     void capNhat(){
-        list = dao.getAllMon();
+        list = dao.timKiem(PreferencesHelper.getId(getContext()),"");
         adapter = new MonAdapter(getContext(), list);
         rcvMon.setAdapter(adapter);
     }

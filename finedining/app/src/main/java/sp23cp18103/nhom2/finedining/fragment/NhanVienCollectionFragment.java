@@ -26,6 +26,7 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 public class NhanVienCollectionFragment extends Fragment {
     private Context context;
+    //Utils
     private FragmentManager fmNhanVien;
     //Database
     private NhanVienDAO nhanVienDAO;    //Controller
@@ -90,7 +91,8 @@ public class NhanVienCollectionFragment extends Fragment {
     private void khoiTaoListener() {
         fbtnThemNhanVien.setOnClickListener(v -> {
             fmNhanVien.beginTransaction()
-                    .add(R.id.lyt_fNhanVienCollection_fragmentManager, new ThemNhanVienFragment(),
+                    .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+                    .add(R.id.lyt_fNhanVienCollection_fragmentManager, new ThemNhanVienFragment(0),
                             "THEM_NHAN_VIEN")
                     .addToBackStack(null)
                     .commit();
@@ -108,7 +110,9 @@ public class NhanVienCollectionFragment extends Fragment {
             public void handleOnBackPressed() {
                 if(isEnabled()){
                     fmNhanVien.popBackStack();
-                    fbtnThemNhanVien.show();
+                    if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 1){
+                        fbtnThemNhanVien.show();
+                    }
                 }
             }
         });

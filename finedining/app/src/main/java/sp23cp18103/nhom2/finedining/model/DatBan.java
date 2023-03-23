@@ -52,4 +52,10 @@ public class DatBan {
     public int hashCode() {
         return Objects.hash(maBan, maHD);
     }
+
+    @Override
+    public String toString() {
+        return "" +maBan ;
+
+    }
 }

@@ -1,8 +1,11 @@
 package sp23cp18103.nhom2.finedining.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
+import sp23cp18103.nhom2.finedining.fragment.ThemHoaDonFragment;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
@@ -69,15 +73,18 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         holder.imgBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(context,androidx.appcompat.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                dialog.setContentView(R.layout.dialog_hoadon_chitiet);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater=((Activity)context).getLayoutInflater();
+                View view=inflater.inflate(R.layout.dialog_hoadon_chitiet,null);
+                builder.setView(view);
+                Dialog dialog = builder.create();
 
-                TextView tv_SoluongKhach = dialog.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
-                TextView tvThoiGianXuat = dialog.findViewById(R.id.tv_thoiGianXuat_dialog_hoaDon_chiTiet);
-                RecyclerView rcv_mon = dialog.findViewById(R.id.rcv_mon_dialog_hoaDon_chiTiet);
-                TextView tv_ban = dialog.findViewById(R.id.tv_danhSachBan_dialog_hoaDon_chiTiet);
-                TextView tv_tongTien = dialog.findViewById(R.id.tv_tongTien_dialog_hoaDon_chiTiet);
-                TextView tvTrangThai = dialog.findViewById(R.id.tv_trangThai_dialog_hoaDon_chiTiet);
+                TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
+                TextView tvThoiGianXuat = view.findViewById(R.id.tv_thoiGianXuat_dialog_hoaDon_chiTiet);
+                RecyclerView rcv_mon = view.findViewById(R.id.rcv_mon_dialog_hoaDon_chiTiet);
+                TextView tv_ban = view.findViewById(R.id.tv_danhSachBan_dialog_hoaDon_chiTiet);
+                TextView tv_tongTien = view.findViewById(R.id.tv_tongTien_dialog_hoaDon_chiTiet);
+                TextView tvTrangThai = view.findViewById(R.id.tv_trangThai_dialog_hoaDon_chiTiet);
 
                 tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
                 tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
@@ -94,7 +101,16 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
                 dialog.show();
             }
+
         });
+        holder.imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
 
 
     }
