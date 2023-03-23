@@ -36,10 +36,6 @@ public class MonDAO {
         values.put("hinh", mon.getHinh());
         return db.update("mon", values,"maMon = ?", new String[]{String.valueOf(mon.getMaMon())});
     }
-    public List<Mon> getAllMon(){
-        String sql ="SELECT * FROM mon";
-        return getData(sql);
-    }
     public List<Mon> timKiem(int maNV, String tenmon ){
         String sql = "Select * from mon m " +
                 "JOIN loaimon lm ON lm.maLM = m.maLM " +
@@ -49,7 +45,11 @@ public class MonDAO {
                 "AND m.tenMon LIKE ? ";
         return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
     }
-
+    public List<Mon> getTenMon(){
+        String sql ="SELECT tenMon From mon " +
+                "WHERE maMon=? ";
+        return getData(sql);
+    }
     public boolean checkmon(String tenmon){
         String sql = String.format("select * from mon where tenMon = '%s' ",tenmon);
         Cursor cursor = db.rawQuery(sql,null);

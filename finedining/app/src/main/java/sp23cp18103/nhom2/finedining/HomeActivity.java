@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import sp23cp18103.nhom2.finedining.fragment.BanCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
+import sp23cp18103.nhom2.finedining.fragment.HoaDonCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.HoaDonFragment;
 import sp23cp18103.nhom2.finedining.fragment.HomeFragment;
 import sp23cp18103.nhom2.finedining.fragment.MonCollectionFragment;
@@ -115,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.mn_quanly_hoadon:
-                        fragment = new HoaDonFragment();
+                        fragment = new HoaDonCollectionFragment();
                         fragmentManager.beginTransaction()
                                 .setCustomAnimations(R.anim.anim_slide_in_right,R.anim.anim_slide_out_right)
                                 .replace(R.id.linear,fragment)

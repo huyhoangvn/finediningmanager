@@ -41,7 +41,6 @@ public class HoaDonFragment extends Fragment {
     List<ThongTinHoaDon> thongTinHoaDonList;
     HoaDonAdapter hoaDonAdapter;
     TextInputEditText edTimKiem;
-    private FragmentManager fragmentManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,13 +51,11 @@ public class HoaDonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnThemHoaDon = view.findViewById(R.id.fbtn_them_hoaDon);
         rcv_HoaDon = view.findViewById(R.id.rcv_hoaDon);
         thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
         thongTinHoaDonList =  thongTinHoaDonDAO.getThongTinHoaDon(PreferencesHelper.getId(getContext()));
         hoaDonAdapter = new HoaDonAdapter(getContext(),thongTinHoaDonList);
         rcv_HoaDon.setAdapter(hoaDonAdapter);
-        fragmentManager = getActivity().getSupportFragmentManager();
         edTimKiem = view.findViewById(R.id.input_01_hoaDon_timHoaDon);
 
 
@@ -70,12 +67,13 @@ public class HoaDonFragment extends Fragment {
 
                     String timKiem = edTimKiem.getText().toString().trim();
                     if (timKiem.isEmpty()) {
-                        hoaDonAdapter = new HoaDonAdapter(getContext(), thongTinHoaDonList);
+                        thongTinHoaDonList =  thongTinHoaDonDAO.getThongTinHoaDon(PreferencesHelper.getId(getContext()));
+                        hoaDonAdapter = new HoaDonAdapter(getContext(),thongTinHoaDonList);
                         rcv_HoaDon.setAdapter(hoaDonAdapter);
                         return false;
                     } else {
                         thongTinHoaDonList.clear();
-                        thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTimKiemThongTinHoaDon(maNV,edTimKiem.getText().toString()));
+                        thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTimKiemThongTinHoaDon(maNV,timKiem));
                         hoaDonAdapter.notifyDataSetChanged();
                     }
                     return true;

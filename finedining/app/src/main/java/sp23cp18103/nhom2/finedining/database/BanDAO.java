@@ -39,6 +39,15 @@ public class BanDAO {
         String sql="select*from ban";
         return getDaTa(sql);
    }
+    public List<Ban> gettimKiem(int maNV, String viTri ){
+        String sql = "Select * from ban b " +
+                "JOIN loaiban lb ON lb.maLB = b.maLB " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.viTri LIKE ? ";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf(viTri + "%"));
+    }
    @SuppressLint("Range")
    public List<Ban> getDaTa(String sql, String...selectavg){
       List<Ban>list=new ArrayList<>();
