@@ -47,11 +47,10 @@ public class BanDAO {
        Cursor c=db.rawQuery(sql,selectavg);
        while (c.moveToNext()){
           Ban obj = new Ban();
-
           obj.setMaBan(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
           obj.setMaLB(Integer.parseInt(c.getString(c.getColumnIndex("maLB"))));
           obj.setViTri(c.getString(c.getColumnIndex("viTri")));
-          obj.setTrangThai(Integer.parseInt(c.getString(c.getColumnIndex("trangThai"))));
+          obj.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
           list.add(obj);
        }
        return list;
@@ -63,14 +62,15 @@ public class BanDAO {
         return list.get(0);
     }
 
-    public List<Ban> timKiem(int maNV, String vitri ){
-        String sql = "Select * from ban b " +
+    public List<Ban> gettimKiem(int maNV,String timKiem ,String trangThai){
+        String sql = "Select b.maBan,b.maLB,b.viTri,b.trangThai from ban b " +
                 "JOIN loaiban lb ON lb.maLB = b.maLB " +
                 "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND b.vitri LIKE ? ";
-        return getDaTa(sql, String.valueOf(maNV), String.valueOf(vitri + "%"));
+                "AND b.vitri LIKE ? " +
+                "AND b.trangThai >= ?";
+        return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
 
 

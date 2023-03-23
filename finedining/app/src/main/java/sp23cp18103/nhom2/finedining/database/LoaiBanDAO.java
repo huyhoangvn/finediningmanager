@@ -47,7 +47,8 @@ public class LoaiBanDAO {
     @SuppressLint("Range")
     public List<LoaiBan> getDaTa(String sql, String... selectAvg) {
         List<LoaiBan> list = new ArrayList<>();
-        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, selectAvg);
+        @SuppressLint("Recycle")
+        Cursor c = db.rawQuery(sql, selectAvg);
         while (c.moveToNext()) {
             LoaiBan obj = new LoaiBan();
             obj.setMaLB(c.getInt(c.getColumnIndex("maLB")));
@@ -59,7 +60,11 @@ public class LoaiBanDAO {
         }
         return list;
     }
-
+    public LoaiBan getID(int maLB){
+        String sql="select*from loaiban where maLB=?";
+        List<LoaiBan> list = getDaTa(sql, String.valueOf(maLB));
+        return list.get(0);
+    }
 //    public LoaiBan getID(String id) {
 //        String sql = "Select * from loaiban where tenLoai = ?";
 //        List<LoaiBan> list = getDaTa(sql, id);
@@ -67,17 +72,15 @@ public class LoaiBanDAO {
 //    }
 
     // tìm kiếm tương đối theo nhân viên và tên loại bàn
-    public List<LoaiBan> getTimKiem(int maNV, String tenloai  ) {
-        String sql = "Select * from loaiban lb " +
+    public List<LoaiBan> getTimKiem(int maNV, String timKiem ,String trangThai  ) {
+        String sql = "Select  lb.maLB,lb.maNV,lb.tenLoai,lb.soChoNgoi,lb.trangThai from loaiban lb " +
                 "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND lb.tenLoai LIKE ? ";
-        return getDaTa(sql, String.valueOf(maNV), String.valueOf(tenloai + "%"));
+                "AND lb.tenLoai LIKE ? " +
+                "AND lb.trangThai >= ?";
+        return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
-    public LoaiBan getID(int maLB){
-        String sql="select*from loaiban where maLB=?";
-        List<LoaiBan> list = getDaTa(sql, String.valueOf(maLB));
-        return list.get(0);
-    }
+
+
 }

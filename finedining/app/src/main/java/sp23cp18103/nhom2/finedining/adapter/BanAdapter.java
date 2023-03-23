@@ -68,7 +68,8 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         banDAO=new BanDAO(context);
         holder.tvViTri.setText(ban.getViTri());
         holder.tvLoaiBan.setText(""+loaiBan.getTenLoai());
-        holder.tvTrangThaiBan.setText(""+ban.getTenTrangThai());
+        holder.tvTrangThaiBan.setText(""+ban.getTrangThai());
+
         if(ban.getTrangThai()==1){
             holder.tvTrangThaiBan.setText(" Dùng");
             holder.tvTrangThaiBan.setTextColor(Color.BLUE);
@@ -76,6 +77,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             holder.tvTrangThaiBan.setText("Không dùng");
             holder.tvTrangThaiBan.setTextColor(Color.RED);
         }
+
         holder.imgSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
