@@ -70,7 +70,6 @@ public class ThemHoaDonFragment extends Fragment {
     private FragmentManager fragmentManager;
     ThongTinHoaDonDAO thongTinHoaDonDAO;
 
-
     MonDAO monDAO;
     List<Mon> monList;
 
@@ -90,6 +89,7 @@ public class ThemHoaDonFragment extends Fragment {
     ThongTinDatMon thongTindatMon;
 
     ThongTinDatBan thongTindatBan ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,6 +110,7 @@ public class ThemHoaDonFragment extends Fragment {
         fragmentManager = getParentFragmentManager();
 
         thongTindatMon = new ThongTinDatMon();
+
         hoaDonDAO = new HoaDonDAO(getContext());
         maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
         thongTindatMon.setMaHD(maHoaDonSapThem);
@@ -119,6 +120,8 @@ public class ThemHoaDonFragment extends Fragment {
         datMonDAO = new DatMonDAO(getContext());
         banDAO = new BanDAO(getContext());
         thongTindatBan = new ThongTinDatBan();
+
+        datBan = new ThongTinDatBan();
         datBanDAO = new DatBanDAO(getContext());
 
         datMon = new DatMon();
