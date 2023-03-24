@@ -1,21 +1,20 @@
 package sp23cp18103.nhom2.finedining;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Instrumentation;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,21 +31,26 @@ import sp23cp18103.nhom2.finedining.fragment.HoaDonFragment;
 import sp23cp18103.nhom2.finedining.fragment.HomeFragment;
 import sp23cp18103.nhom2.finedining.fragment.MonCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.NhanVienCollectionFragment;
-import sp23cp18103.nhom2.finedining.fragment.NhanVienFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeDoanhThuFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeMonFragment;
+import sp23cp18103.nhom2.finedining.utils.BetterActivityResult;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Màn hình chính chứa Fragment Home và sử dụng Navigation Drawer
  * */
 public class HomeActivity extends AppCompatActivity {
+    //Hỗ trợ GalleryHelper
+    public final BetterActivityResult<Intent, ActivityResult> activityLauncher
+            = BetterActivityResult.registerActivityForResult(this);
+
     Toolbar toolbar;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     FragmentManager fragmentManager;
     NhanVienDAO nhanVienDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +224,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
-    // set logic ấn nút back thì tắt naviwiew
+    // set logic ấn nút back thì tắt naviwiew có vấn đề mà cũng ko cần thiết
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){

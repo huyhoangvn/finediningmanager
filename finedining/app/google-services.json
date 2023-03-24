@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "636459786301",
+    "project_id": "fine-dining-66f4b",
+    "storage_bucket": "fine-dining-66f4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636459786301:android:02bf409372bcf99b7f0a54",
+        "android_client_info": {
+          "package_name": "sp23cp18103.nhom2.finedining"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636459786301-6cgf0uk9nu94d7i1q3920q71fa98supg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqQ62apfcyxJFsHpDQOHfJltS2a8td8dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636459786301-6cgf0uk9nu94d7i1q3920q71fa98supg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

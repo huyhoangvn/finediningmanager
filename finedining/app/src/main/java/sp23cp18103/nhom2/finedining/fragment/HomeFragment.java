@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment {
     }
     private void evRCV() {
         monDAO = new MonDAO(getContext());
+
         int maNV = PreferencesHelper.getId(getContext());
         listMon = monDAO.timKiem(maNV, "");
         menuAdapter = new MenuAdapter(listMon,getContext());

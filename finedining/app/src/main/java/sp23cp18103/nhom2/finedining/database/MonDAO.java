@@ -37,6 +37,7 @@ public class MonDAO {
         return db.update("mon", values,"maMon = ?", new String[]{String.valueOf(mon.getMaMon())});
     }
 
+
     public List<Mon> trangThaiLoaiMon(int maNV, int trangThai, String timKiem) {
         String sql = "Select m.maMon, m.maLM, m.tenMon, m.gia, m.trangThai, m.hinh from mon m " +
                 "JOIN loaimon lm ON m.maLM = lm.maLM " +
@@ -58,11 +59,16 @@ public class MonDAO {
                 "AND m.tenMon LIKE ? ";
         return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
     }
-
-    public List<Mon> getTenMon(){
-        String sql ="SELECT tenMon From mon " +
-                "WHERE maMon=? ";
-        return getData(sql);
+    
+    @SuppressLint("Range")
+    public String getTenMon(int maMon) {
+        String sql = "SELECT tenMon From mon " +
+                "WHERE maMon = ? ";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maMon)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("tenMon"));
+        }
+        return "";
     }
 
     public boolean checkmon(String tenmon){
