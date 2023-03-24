@@ -34,7 +34,7 @@ public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanView
     @Override
     public DatBanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview_datban,null);
+        View view = inflater.inflate(R.layout.cardview_datban,parent,false);
         DatBanAdapter.DatBanViewHolder viewHolder = new DatBanAdapter.DatBanViewHolder(view);
 
         return viewHolder;

@@ -60,8 +60,8 @@ import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
-* Thêm hóa đơn mới (có thể dùng để sửa hóa đơn hoặc tạo một SuaHoaDonFragment)
-* */
+ * Thêm hóa đơn mới (có thể dùng để sửa hóa đơn hoặc tạo một SuaHoaDonFragment)
+ * */
 public class ThemHoaDonFragment extends Fragment {
     TextInputEditText input_tenKH,input_soLuongKhach;
     TextInputLayout  input_mon,input_ban;
@@ -70,18 +70,13 @@ public class ThemHoaDonFragment extends Fragment {
     private FragmentManager fragmentManager;
     ThongTinHoaDonDAO thongTinHoaDonDAO;
 
-    ThongTinDatMon datMon;
-    DatMon datMon;
+
     MonDAO monDAO;
     List<Mon> monList;
 
     List<Ban> banList;
     ArrayList<ThongTinDatMon> listDatMon = new ArrayList<>();
     ArrayList<ThongTinDatBan> listDatban = new ArrayList<>();
-
-    //ArrayList<DatMon> listDatMon = new ArrayList<>();
-    //ArrayList<DatBan> listDatban = new ArrayList<>();
-
     int maHoaDonSapThem;
     int maKHSapThem;
     KhachDAO khachDAO;
@@ -90,10 +85,11 @@ public class ThemHoaDonFragment extends Fragment {
     DatBanDAO datBanDAO;
 
     BanDAO banDAO;
+    DatBan datBan;
+    DatMon datMon;
+    ThongTinDatMon thongTindatMon;
 
-    ThongTinDatBan datBan ;
-    DatBan datBan ;
-    
+    ThongTinDatBan thongTindatBan ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -113,19 +109,20 @@ public class ThemHoaDonFragment extends Fragment {
         tvTieuDe = view.findViewById(R.id.tv_tieuDe_FragmentThemHoaDon);
         fragmentManager = getParentFragmentManager();
 
-        datMon = new ThongTinDatMon();
-        datMon = new DatMon();
+        thongTindatMon = new ThongTinDatMon();
         hoaDonDAO = new HoaDonDAO(getContext());
         maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
-        datMon.setMaHD(maHoaDonSapThem);
+        thongTindatMon.setMaHD(maHoaDonSapThem);
         tvTieuDe.setText("Thêm Hóa Đơn");
         thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
         monDAO = new MonDAO(getContext());
         datMonDAO = new DatMonDAO(getContext());
         banDAO = new BanDAO(getContext());
-        datBan = new ThongTinDatBan();
-        datBan = new DatBan();
+        thongTindatBan = new ThongTinDatBan();
         datBanDAO = new DatBanDAO(getContext());
+
+        datMon = new DatMon();
+        datBan = new DatBan();
 
         input_mon.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,21 +145,21 @@ public class ThemHoaDonFragment extends Fragment {
                     @Override
                     public int getMaMon(int maMon) {
                         String tenMon = monDAO.getTenMon(maMon);
-                        datMon.setTenMon(tenMon);
+                        thongTindatMon.setTenMon(tenMon);
+                        thongTindatMon.setMaMon(maMon);
                         return 0;
                     }
                 });
                 rcv_chonMon.setAdapter(adapter);
 
                 tvMonDaChon.setText("");
-
                 btnChon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                      int soLuong = Integer.parseInt(inputSoLuongChonMon.getText().toString());
-                      datMon.setSoLuong(soLuong);
-                      listDatMon.add(datMon);
-                      tvMonDaChon.setText(listDatMon.toString());
+                        int soLuong = Integer.parseInt(inputSoLuongChonMon.getText().toString());
+                        thongTindatMon.setSoLuong(soLuong);
+                        listDatMon.add(thongTindatMon);
+                        tvMonDaChon.setText(listDatMon.toString());
                     }
                 });
 
@@ -194,14 +191,16 @@ public class ThemHoaDonFragment extends Fragment {
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
 
+
                 banList = banDAO.gettimKiem(PreferencesHelper.getId(getContext()),"");
                 DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, new InterfaceDatBan() {
                     @Override
                     public int getMaBan(int maBan) {
                         String viTri = banDAO.getViTri(maBan);
-                        datBan.setViTri(viTri);
-                        datBan.setMaBan(maBan);
-                        listDatban.add(datBan);
+                        thongTindatBan.setViTri(viTri);
+                        thongTindatBan.setMaBan(maBan);
+                        thongTindatBan.setMaHD(maHoaDonSapThem);
+                        listDatban.add(thongTindatBan);
                         tvBanDaChon.setText(listDatban.toString());
                         return 0;
                     }
@@ -213,8 +212,8 @@ public class ThemHoaDonFragment extends Fragment {
                 btnLuuChonBan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    input_ban.getEditText().setText(listDatban.toString());
-                    dialog.dismiss();
+                        input_ban.getEditText().setText(listDatban.toString());
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
@@ -224,40 +223,52 @@ public class ThemHoaDonFragment extends Fragment {
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // thêm đặt bàn , đặt mon fixx
+
+
+
+                for (int i = 0; i < listDatMon.size(); i++){
+                    datMon.setMaMon(listDatMon.get(i).getMaMon());
+                    datMon.setSoLuong(listDatMon.get(i).getSoLuong());
+                    datMon.setMaHD(listDatMon.get(i).getMaHD());
+                    datMonDAO.insertDatMon(datMon);
+                }
+
+
+                listDatban.size();
+                for (int i = 0; i < listDatban.size(); i++){
+                    datBan.setMaBan(listDatban.get(i).getMaBan());
+                    datBan.setMaHD(listDatban.get(i).getMaHD());
+                    datBan.setThoiGianDat(DateHelper.getDateTimeSQLNow());
+                    if (datBanDAO.insertDatBan(datBan) > 0){
+                        Toast.makeText(getContext(), "THành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), "Đầu buồi rẻ rách", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
                 //Khach
                 khachDAO = new KhachDAO(getContext());
                 KhachHang kh = new KhachHang();
                 kh.setTenKH(input_tenKH.getText().toString().trim());
                 khachDAO.insert(kh);
 
+                listDatMon.size();
+
                 //Hoa don
                 HoaDon hoaDon = new HoaDon();
                 //get ma khach tiep theo;
                 maKHSapThem = khachDAO.getMaKhanhHangTiepTheo();
                 hoaDon.setMaKH(maKHSapThem);
-                kh.setMaKH(maKHSapThem);
-                
+
+
+
                 hoaDon.setSoLuongKhach(Integer.parseInt(input_soLuongKhach.getText().toString().trim()));
                 hoaDon.setMaNV(PreferencesHelper.getId(getContext()));
                 hoaDon.setTrangThai(1);
                 hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
-
-                DatMon datMon1 = new DatMon();
-                DatBan datBan1 = new DatBan();
-
-                for (int i = 0; i < listDatMon.size(); i++){
-                    datMon1.setMaMon(listDatMon.get(i).getMaMon());
-                    datMon1.setSoLuong(listDatMon.get(i).getSoLuong());
-                    datMon1.setMaHD(listDatMon.get(i).getMaHD());
-                    datMonDAO.insertDatMon(datMon1);
-                }
-
-                for (int i = 0; i < listDatban.size(); i++){
-                    datBan1.setMaBan(listDatban.get(i).getMaBan());
-                    datBan1.setMaHD(listDatban.get(i).getMaHD());
-                    datBan1.setThoiGianDat(DateHelper.getDateSQLNow());
-                    datBanDAO.insertDatBan(datBan1);
-                }
 
                 hoaDonDAO.insertHoaDon(hoaDon);
 
