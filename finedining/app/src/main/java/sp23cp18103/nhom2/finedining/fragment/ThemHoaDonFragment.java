@@ -71,7 +71,7 @@ public class ThemHoaDonFragment extends Fragment {
     ThongTinHoaDonDAO thongTinHoaDonDAO;
 
     ThongTinDatMon datMon;
-    DatMon datMon;
+//    DatMon datMon;
     MonDAO monDAO;
     List<Mon> monList;
 
@@ -92,8 +92,8 @@ public class ThemHoaDonFragment extends Fragment {
     BanDAO banDAO;
 
     ThongTinDatBan datBan ;
-    DatBan datBan ;
-    
+//    DatBan datBan ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class ThemHoaDonFragment extends Fragment {
         fragmentManager = getParentFragmentManager();
 
         datMon = new ThongTinDatMon();
-        datMon = new DatMon();
+//        datMon = new DatMon();
         hoaDonDAO = new HoaDonDAO(getContext());
         maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
         datMon.setMaHD(maHoaDonSapThem);
@@ -124,7 +124,7 @@ public class ThemHoaDonFragment extends Fragment {
         datMonDAO = new DatMonDAO(getContext());
         banDAO = new BanDAO(getContext());
         datBan = new ThongTinDatBan();
-        datBan = new DatBan();
+//        datBan = new DatBan();
         datBanDAO = new DatBanDAO(getContext());
 
         input_mon.setEndIconOnClickListener(new View.OnClickListener() {
