@@ -16,57 +16,49 @@
             tools:ignore="contentDescription"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
-            <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvCardviewTenMon"
+                style="@style/mHeaderText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên món"/>
+
+            <TextView
+                android:id="@+id/tvCardviewTenLoaiMon"
+                style="@style/mNormalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+                android:text="Hải sản"/>
 
-                <TextView
-                    android:id="@+id/tvCardviewTenMon"
-                    style="@style/mHeaderText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tên món"/>
+            <TextView
+                android:id="@+id/tvCardviewGiaMon"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá: "/>
 
-                <TextView
-                    android:id="@+id/tvCardviewTenLoaiMon"
-                    style="@style/mNormalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hải sản"/>
-
-                <TextView
-                    android:id="@+id/tvCardviewGiaMon"
-                    style="@style/mNormalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Giá: "/>
-
-                <TextView
-                    android:id="@+id/tvCardviewTrangThaiMon"
-                    style="@style/mNormalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Còn dùng"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/holo_green_dark"/>
-            </LinearLayout>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageButton
-                android:id="@+id/imgcardviewSuaMon"
-                style="@style/mImageButton"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_sua_thongtin"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/tvCardviewTrangThaiMon"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Còn dùng"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"/>
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imgcardviewSuaMon"
+            style="@style/mImageButton"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_sua_thongtin"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
 
     </LinearLayout>

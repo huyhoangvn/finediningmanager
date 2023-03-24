@@ -204,4 +204,19 @@ public class NhanVienDAO {
         }
         return -1;
     }
+
+    /*
+     * Cho biết hình nhân viên có mã người dùng hiện tại
+     * Nếu có trả về string url hình
+     * Nếu không trả về chuỗi rỗng
+     * */
+    @SuppressLint("Range")
+    public String getHinh(int maNV) {
+        String sql = "SELECT hinh FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("hinh"));
+        }
+        return "";
+    }
 }
