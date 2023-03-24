@@ -49,7 +49,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
     @NonNull
     @Override
     public loaiMonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview_loai_mon, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.cardview_loai_mon,parent, false);
         return new loaiMonViewHolder(view);
     }
 

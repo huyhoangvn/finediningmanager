@@ -235,7 +235,11 @@ public class ThemHoaDonFragment extends Fragment {
                     datMon.setMaMon(listDatMon.get(i).getMaMon());
                     datMon.setSoLuong(listDatMon.get(i).getSoLuong());
                     datMon.setMaHD(listDatMon.get(i).getMaHD());
-                    datMonDAO.insertDatMon(datMon);
+                    if (datMonDAO.insertDatMon(datMon) > 0){
+                        Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
 
@@ -245,9 +249,9 @@ public class ThemHoaDonFragment extends Fragment {
                     datBan.setMaHD(listDatban.get(i).getMaHD());
                     datBan.setThoiGianDat(DateHelper.getDateTimeSQLNow());
                     if (datBanDAO.insertDatBan(datBan) > 0){
-                        Toast.makeText(getContext(), "THành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm bàn thành công", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(getContext(), "Đầu buồi rẻ rách", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm bàn Không thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
 

@@ -56,7 +56,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     @NonNull
     @Override
     public MonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview_mon, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.cardview_mon, parent, false);
         return new MonViewHolder(view);
     }
 
@@ -189,6 +189,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
 
         }
     }
+
     public int ValidateMon(){
         int check = 1;
         String tenMon = edDialogTenMon.getText().toString();

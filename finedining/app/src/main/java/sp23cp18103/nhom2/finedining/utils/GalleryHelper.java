@@ -39,8 +39,6 @@ import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 * */
 public class GalleryHelper{
     private Context context;
-
-    private Uri currentImageUri;
     private String currentImageUrl;
 
     public GalleryHelper(Context context) {
@@ -80,8 +78,7 @@ public class GalleryHelper{
                     Intent data = result.getData();
                     if(data != null){
                         imageView.setImageURI(data.getData());
-                        currentImageUri = data.getData();
-                        uploadImageToFirebase();
+                        uploadImageToFirebase(data.getData());
                     }
                 }
             });
@@ -90,8 +87,8 @@ public class GalleryHelper{
         }
     }
 
-    public void uploadImageToFirebase() {
-        if(currentImageUri == null)
+    public void uploadImageToFirebase(Uri uri) {
+        if(uri == null)
             return;
 
         ProgressDialog prgLoad = new ProgressDialog(context);
@@ -105,7 +102,7 @@ public class GalleryHelper{
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         storageReference = storageReference
                 .child("images/"+ fileName);
-        storageReference.putFile(currentImageUri)
+        storageReference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
