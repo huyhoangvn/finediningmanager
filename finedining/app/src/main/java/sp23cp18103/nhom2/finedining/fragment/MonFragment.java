@@ -80,7 +80,6 @@ public class MonFragment extends Fragment {
         inputTimKiemMon = view.findViewById(R.id.inputTimKiemMon);
         chkFragmentMon = view.findViewById(R.id.chkFragmentMon);
         dao = new MonDAO(getContext());
-        hideFloatingButton();
         loaiMonDAO = new LoaiMonDAO(getContext());
         timKiemMon();
         capNhat();
@@ -249,5 +248,7 @@ public class MonFragment extends Fragment {
         int maNV = PreferencesHelper.getId(getContext());
         int trangThai = (chkFragmentMon.isChecked())?1:0;
         list = dao.trangThaiLoaiMon(maNV, trangThai, "");
+        adapter = new MonAdapter(getContext(), list);
+        rcvMon.setAdapter(adapter);
     }
 }
