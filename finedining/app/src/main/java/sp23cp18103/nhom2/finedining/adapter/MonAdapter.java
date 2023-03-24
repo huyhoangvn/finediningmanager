@@ -29,6 +29,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
@@ -61,6 +62,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MonViewHolder holder, int position) {
+        hideFloatingButton(holder);
         Mon m =list.get(position);
         dao = new MonDAO(context);
         holder.tvCardviewTenMon.setText(m.getTenMon());
@@ -206,5 +208,15 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
             }
         }
         return check;
+    }
+    void hideFloatingButton(MonViewHolder holder){
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+        int maNV = PreferencesHelper.getId(context);
+        int chuVu = nhanVienDAO.getPhanQuyen(maNV);
+        if (chuVu == 1){
+            holder.imgcardviewSuaMon.setVisibility(View.VISIBLE);
+        }else {
+            holder.imgcardviewSuaMon.setVisibility(View.GONE);
+        }
     }
 }

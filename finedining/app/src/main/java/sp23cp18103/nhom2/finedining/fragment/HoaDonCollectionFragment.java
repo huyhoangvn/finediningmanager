@@ -2,6 +2,7 @@ package sp23cp18103.nhom2.finedining.fragment;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -32,17 +33,40 @@ public class HoaDonCollectionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnThemHoaDon_collection = view.findViewById(R.id.fbtn_them_hoaDon_collection);
-        fragmentManager = getActivity().getSupportFragmentManager();
-        HoaDonFragment hoaDonFragment = new HoaDonFragment();
-        fragmentManager.beginTransaction().add(R.id.frame_collection_hoadon,hoaDonFragment).commit();
 
-        btnThemHoaDon_collection.setOnClickListener(new View.OnClickListener() {
+        btnThemHoaDon_collection = view.findViewById(R.id.fbtn_them_hoaDon_collection);
+        fragmentManager = getParentFragmentManager();
+        khoiTaoFragmentManager();
+
+        btnThemHoaDon_collection.setOnClickListener(v -> {
+            fragmentManager.beginTransaction()
+                    .add(R.id.frame_collection_hoadon, new ThemHoaDonFragment())
+
+                    .commit();
+            btnThemHoaDon_collection.hide();
+        });
+
+        handleOnBackPressed();
+
+
+    }
+    private void handleOnBackPressed() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
-            public void onClick(View v) {
-                fragmentManager.beginTransaction().replace(R.id.frame_collection_hoadon,new ThemHoaDonFragment()).commit();
-                btnThemHoaDon_collection.hide();
+            public void handleOnBackPressed() {
+                if(isEnabled()){
+                    khoiTaoFragmentManager();
+                    fragmentManager.popBackStack();
+                    btnThemHoaDon_collection.show();
+                }
             }
         });
     }
+    private void khoiTaoFragmentManager() {
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.frame_collection_hoadon,new HoaDonFragment())
+                .commit();
+    }
+
 }

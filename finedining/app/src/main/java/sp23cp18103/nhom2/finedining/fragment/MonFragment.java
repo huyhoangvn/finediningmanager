@@ -41,6 +41,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.MonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -62,6 +63,7 @@ public class MonFragment extends Fragment {
     int maLoaiMon, positionLM;
     LoaiMonSpinnerAdapter loaiMonSpinnerAdapter;
     LoaiMonDAO loaiMonDAO;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class MonFragment extends Fragment {
         inputTimKiemMon = view.findViewById(R.id.inputTimKiemMon);
         chkFragmentMon = view.findViewById(R.id.chkFragmentMon);
         dao = new MonDAO(getContext());
+        hideFloatingButton();
         loaiMonDAO = new LoaiMonDAO(getContext());
         timKiemMon();
         capNhat();
@@ -203,6 +206,7 @@ public class MonFragment extends Fragment {
             }
         });
     }
+
     //hàm kiểm tra dữ liệu
     public int ValidateMon(){
         int check = 1;
@@ -245,7 +249,5 @@ public class MonFragment extends Fragment {
         int maNV = PreferencesHelper.getId(getContext());
         int trangThai = (chkFragmentMon.isChecked())?1:0;
         list = dao.trangThaiLoaiMon(maNV, trangThai, "");
-        adapter = new MonAdapter(getContext(), list);
-        rcvMon.setAdapter(adapter);
     }
 }

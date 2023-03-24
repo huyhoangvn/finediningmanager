@@ -52,4 +52,10 @@ public class DatMon {
     public int hashCode() {
         return Objects.hash(maMon, maHD);
     }
+
+    @Override
+    public String toString() {
+        return ""+ maMon +"x"+ soLuong
+                ;
+    }
 }

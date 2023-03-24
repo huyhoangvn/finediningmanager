@@ -16,7 +16,7 @@
         app:civ_border_width="2dp" />
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_tenNhanVien"
         style="@style/mHeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

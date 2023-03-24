@@ -93,10 +93,4 @@ public class Mon {
     public int hashCode() {
         return Objects.hash(maMon);
     }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return getTenMon();
-    }
 }
