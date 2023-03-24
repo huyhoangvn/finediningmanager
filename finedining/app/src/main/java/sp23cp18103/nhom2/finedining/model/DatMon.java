@@ -2,10 +2,13 @@ package sp23cp18103.nhom2.finedining.model;
 
 import java.util.Objects;
 
+import sp23cp18103.nhom2.finedining.database.MonDAO;
+
 public class DatMon {
     private int maMon;
     private int maHD;
     private int soLuong;
+
 
     public DatMon(int maMon, int maHD, int soLuong) {
         this.maMon = maMon;
@@ -53,9 +56,5 @@ public class DatMon {
         return Objects.hash(maMon, maHD);
     }
 
-    @Override
-    public String toString() {
-        return ""+ maMon +"x"+ soLuong
-                ;
-    }
+
 }

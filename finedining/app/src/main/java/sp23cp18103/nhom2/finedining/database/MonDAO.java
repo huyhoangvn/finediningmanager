@@ -45,10 +45,19 @@ public class MonDAO {
                 "AND m.tenMon LIKE ? ";
         return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
     }
-    public List<Mon> getTenMon(){
-        String sql ="SELECT tenMon From mon " +
-                "WHERE maMon=? ";
-        return getData(sql);
+//    public Mon getTenMon(int maMon){
+//        String sql =;
+//        return getData(sql,String.valueOf(maMon));
+//    }
+    @SuppressLint("Range")
+    public String getTenMon(int maMon) {
+        String sql = "SELECT tenMon From mon " +
+                "WHERE maMon = ? ";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maMon)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("tenMon"));
+        }
+        return "";
     }
     public boolean checkmon(String tenmon){
         String sql = String.format("select * from mon where tenMon = '%s' ",tenmon);

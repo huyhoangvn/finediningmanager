@@ -24,9 +24,7 @@ public class DatMonDAO {
         values.put("maMon",dm.getMaMon());
         values.put("maHD",dm.getMaHD());
         values.put("soLuong",dm.getSoLuong());
-
         return db.insert("datmon",null,values);
-
     }
     public int updateDatMon(DatMon dm){
         ContentValues values = new ContentValues();
