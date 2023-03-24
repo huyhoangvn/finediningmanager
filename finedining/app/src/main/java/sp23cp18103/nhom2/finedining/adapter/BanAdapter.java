@@ -71,7 +71,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         holder.tvTrangThaiBan.setText(""+ban.getTrangThai());
 
         if(ban.getTrangThai()==1){
-            holder.tvTrangThaiBan.setText(" Dùng");
+            holder.tvTrangThaiBan.setText("Dùng");
             holder.tvTrangThaiBan.setTextColor(Color.BLUE);
         }else{
             holder.tvTrangThaiBan.setText("Không dùng");

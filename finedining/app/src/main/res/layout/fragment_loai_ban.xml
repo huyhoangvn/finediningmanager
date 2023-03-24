@@ -26,7 +26,19 @@
                 android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
-
+        <CheckBox
+            android:id="@+id/chk_fLoaiBan_conDung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="bottom|start"
+            android:buttonTint="?attr/colorPrimary"
+            android:textColor="?attr/colorPrimary"
+            android:checked="true"
+            android:gravity="center|start"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="Còn Dùng"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_loaiban"
             android:layout_width="match_parent"
@@ -44,19 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="ContentDescription,RtlHardcoded,SpeakableTextPresentCheck" />
-    <CheckBox
-        android:id="@+id/chk_fLoaiBan_conDung"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="bottom|start"
-        android:buttonTint="?attr/colorPrimary"
-        android:textColor="?attr/colorPrimary"
-        android:checked="true"
-        android:gravity="center|start"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="Còn Dùng"/>
+
 </FrameLayout>
 
     <!--Hiện danh sách bàn-->
