@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
         NhaHangDAO nhaHangDAO = new NhaHangDAO(getContext());
         int maNV = PreferencesHelper.getId(getContext());
-        int maNH = nhanVienDAO.getmaNH(maNV);
+        int maNH = nhanVienDAO.getMaNH(maNV);
         String location = nhaHangDAO.getDiaChi(maNH);
         Geocoder geocoder = new Geocoder(getContext());
         List<Address> list = new ArrayList<>();
@@ -167,7 +167,7 @@ public class HomeFragment extends Fragment {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
         NhaHangDAO nhaHangDAO = new NhaHangDAO(getContext());
         int maNV = PreferencesHelper.getId(getContext());
-        int maNH = nhanVienDAO.getmaNH(maNV);
+        int maNH = nhanVienDAO.getMaNH(maNV);
         String tenNhaHang = nhaHangDAO.getTenNH(maNH);
         String diachi = nhaHangDAO.getDiaChi(maNH);
         tvTenNhaHang.setText(tenNhaHang);
