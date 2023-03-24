@@ -216,7 +216,7 @@ public class LoginActivity extends AppCompatActivity{
 
         hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04",1));
 
-        hoaDonDAO.insertHoaDon(new HoaDon(2,2,2,5, "2023/05/06",1));
+        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, "2023/05/06",1));
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
