@@ -71,12 +71,17 @@ public class ThemHoaDonFragment extends Fragment {
     ThongTinHoaDonDAO thongTinHoaDonDAO;
 
     ThongTinDatMon datMon;
+    DatMon datMon;
     MonDAO monDAO;
     List<Mon> monList;
 
     List<Ban> banList;
     ArrayList<ThongTinDatMon> listDatMon = new ArrayList<>();
     ArrayList<ThongTinDatBan> listDatban = new ArrayList<>();
+
+    //ArrayList<DatMon> listDatMon = new ArrayList<>();
+    //ArrayList<DatBan> listDatban = new ArrayList<>();
+
     int maHoaDonSapThem;
     int maKHSapThem;
     KhachDAO khachDAO;
@@ -87,6 +92,8 @@ public class ThemHoaDonFragment extends Fragment {
     BanDAO banDAO;
 
     ThongTinDatBan datBan ;
+    DatBan datBan ;
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,7 +114,8 @@ public class ThemHoaDonFragment extends Fragment {
         fragmentManager = getParentFragmentManager();
 
         datMon = new ThongTinDatMon();
-         hoaDonDAO = new HoaDonDAO(getContext());
+        datMon = new DatMon();
+        hoaDonDAO = new HoaDonDAO(getContext());
         maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
         datMon.setMaHD(maHoaDonSapThem);
         tvTieuDe.setText("Thêm Hóa Đơn");
@@ -116,6 +124,7 @@ public class ThemHoaDonFragment extends Fragment {
         datMonDAO = new DatMonDAO(getContext());
         banDAO = new BanDAO(getContext());
         datBan = new ThongTinDatBan();
+        datBan = new DatBan();
         datBanDAO = new DatBanDAO(getContext());
 
         input_mon.setEndIconOnClickListener(new View.OnClickListener() {
@@ -146,6 +155,7 @@ public class ThemHoaDonFragment extends Fragment {
                 rcv_chonMon.setAdapter(adapter);
 
                 tvMonDaChon.setText("");
+
                 btnChon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -184,13 +194,13 @@ public class ThemHoaDonFragment extends Fragment {
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
 
-
                 banList = banDAO.gettimKiem(PreferencesHelper.getId(getContext()),"");
                 DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, new InterfaceDatBan() {
                     @Override
                     public int getMaBan(int maBan) {
                         String viTri = banDAO.getViTri(maBan);
                         datBan.setViTri(viTri);
+                        datBan.setMaBan(maBan);
                         listDatban.add(datBan);
                         tvBanDaChon.setText(listDatban.toString());
                         return 0;
@@ -225,7 +235,8 @@ public class ThemHoaDonFragment extends Fragment {
                 //get ma khach tiep theo;
                 maKHSapThem = khachDAO.getMaKhanhHangTiepTheo();
                 hoaDon.setMaKH(maKHSapThem);
-
+                kh.setMaKH(maKHSapThem);
+                
                 hoaDon.setSoLuongKhach(Integer.parseInt(input_soLuongKhach.getText().toString().trim()));
                 hoaDon.setMaNV(PreferencesHelper.getId(getContext()));
                 hoaDon.setTrangThai(1);

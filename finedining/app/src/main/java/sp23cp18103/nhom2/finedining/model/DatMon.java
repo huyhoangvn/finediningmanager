@@ -56,5 +56,9 @@ public class DatMon {
         return Objects.hash(maMon, maHD);
     }
 
-
+    @Override
+    public String toString() {
+        return ""+ maMon +"x"+ soLuong
+                ;
+    }
 }

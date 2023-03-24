@@ -54,4 +54,9 @@ public class DatBan {
     }
 
 
+    @Override
+    public String toString() {
+        return "" +maBan ;
+
+    }
 }

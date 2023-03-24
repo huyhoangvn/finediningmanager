@@ -2,7 +2,6 @@ package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,13 +26,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
@@ -47,6 +44,7 @@ public class ThemNhanVienFragment extends Fragment {
     private Context context;
     //Utils
     private FragmentManager fmNhanVien;
+    private GalleryHelper galleryHelper;
     //Database
     private NhanVienDAO nhanVienDAO;
     //Controller
@@ -71,7 +69,7 @@ public class ThemNhanVienFragment extends Fragment {
     private Button btnHuy;
     //variables
     private final int maNV;//Lưu trữ mã nhân viên đang sửa
-    private String avatarUrl;//Lưu trữ hình ảnh avatar hiện tại đang hiển thị
+//    private String avatarUrl;//Lưu trữ hình ảnh avatar hiện tại đang hiển thị
 
     public ThemNhanVienFragment(int maNV) {
         this.maNV = maNV;
@@ -91,7 +89,8 @@ public class ThemNhanVienFragment extends Fragment {
 
         anhXa(view);
         khoiTaoDAO();
-        khoiTaoFragmentManager();
+        khoiTaoUtils();
+
         khoiTaoListener();
         //Hiển thị tùy theo người dùng muốn thêm hoặc sửa nhân viên
         //Cho sửa nhân viên nếu mã nhân viên hợp lệ được truyền vào (maNV != 0)
@@ -135,10 +134,11 @@ public class ThemNhanVienFragment extends Fragment {
     }
 
     /*
-    * Khởi tạo fragment manager
+    * Khởi tạo các lớp utils
     * */
-    private void khoiTaoFragmentManager() {
+    private void khoiTaoUtils() {
         fmNhanVien = getParentFragmentManager();
+        galleryHelper = new GalleryHelper(context);
     }
 
     /*
@@ -167,11 +167,7 @@ public class ThemNhanVienFragment extends Fragment {
         imgbtnThemAnh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                * Viết hàm chọn ảnh từ Gallery và lưu vào firebase
-                * Hiện chưa làm :<
-                * */
-                Toast.makeText(context, "Chọn ảnh...", Toast.LENGTH_SHORT).show();
+                galleryHelper.getImageFromGallery(imgbtnThemAnh);
             }
         });
     }
@@ -314,6 +310,11 @@ public class ThemNhanVienFragment extends Fragment {
         nhanVien.setSdt(edSdt.getText().toString().trim());
         nhanVien.setNgaySinh(DateHelper.getDateSql(edNgaySinh.getText().toString().trim()));//Chuyển sang định dạng SQL
         nhanVien.setTrangThai((chkTrangThai.isChecked())?1:0);
+        nhanVien.setHinh(nhanVien.getHinh());
+        String currentImageUrl = galleryHelper.getCurrentImageUrl();
+        if(!currentImageUrl.equals("")){
+            nhanVien.setHinh(currentImageUrl);
+        }
         if(rdoNam.isChecked()){
             nhanVien.setGioiTinh(1);
         }
@@ -323,7 +324,11 @@ public class ThemNhanVienFragment extends Fragment {
         else if (rdoKhac.isChecked()){
             nhanVien.setGioiTinh(0);
         }
-        nhanVien.setPhanQuyen(0);//Nhân viên phục vụ
+        if(maNV == 0){//Thêm nhân viên
+            nhanVien.setPhanQuyen(0);//Nhân viên phục vụ
+        } else {
+            nhanVien.setPhanQuyen(nhanVienDAO.getPhanQuyen(maNV));//Trường hợp sửa nhân viên
+        }
         return nhanVien;
     }
 
@@ -333,7 +338,6 @@ public class ThemNhanVienFragment extends Fragment {
     private void fillThongTinNhanVien() {
         NhanVien nhanVien = nhanVienDAO.getNhanVien(maNV);
         ImageHelper.loadAvatar(context, imgbtnThemAnh, nhanVien.getHinh());
-        avatarUrl = nhanVien.getHinh();
         edTenNV.setText(nhanVien.getTenNV());
         edNgaySinh.setText(DateHelper.getDateVietnam(nhanVien.getNgaySinh()));//Chuyển sang định dạng tiếng việt
         edSdt.setText(nhanVien.getSdt());
