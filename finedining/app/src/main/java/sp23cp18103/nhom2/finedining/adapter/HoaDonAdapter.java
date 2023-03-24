@@ -48,7 +48,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
     @Override
     public HoaDonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview_hoa_don,null);
+        View view = inflater.inflate(R.layout.cardview_hoa_don,parent,false);
         HoaDonAdapter.HoaDonViewHolder viewHolder = new HoaDonAdapter.HoaDonViewHolder(view);
 
         return viewHolder;
@@ -96,7 +96,6 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 rcv_mon.setAdapter(hoaDonChiTietAdapter);
 
                 tv_ban.setText(""+thongTinChiTietDatMonDAO.getBan(tthd.getMaHD()));
-
                 tv_tongTien.setText(""+thongTinChiTietDatMonDAO.getTongSoTien(tthd.getMaHD()));
 
                 dialog.show();
