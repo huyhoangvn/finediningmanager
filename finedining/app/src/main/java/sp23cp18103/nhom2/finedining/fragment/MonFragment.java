@@ -12,13 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,12 +53,13 @@ public class MonFragment extends Fragment {
     Context context;
     RecyclerView rcvMon;
     FloatingActionButton fabMon;
-    List<Mon> list, list2;
+    List<Mon> list;
     MonDAO dao;
     MonAdapter adapter;
-    TextInputEditText edTimKiemMon;
+    TextInputEditText edTimKiemMon, edDialogTenMon, edDialogGia;
     TextInputLayout inputTimKiemMon;
     ArrayList<LoaiMon> listLoaiMon;
+    CheckBox chkFragmentMon;
     int maLoaiMon, positionLM;
     LoaiMonSpinnerAdapter loaiMonSpinnerAdapter;
     LoaiMonDAO loaiMonDAO;
@@ -73,11 +78,22 @@ public class MonFragment extends Fragment {
         fabMon = view.findViewById(R.id.fbtnAddMon);
         edTimKiemMon = view.findViewById(R.id.edTimKiemMon);
         inputTimKiemMon = view.findViewById(R.id.inputTimKiemMon);
+        chkFragmentMon = view.findViewById(R.id.chkFragmentMon);
         dao = new MonDAO(getContext());
-        hideFloatingButton();
         loaiMonDAO = new LoaiMonDAO(getContext());
+        timKiemMon();
         capNhat();
-        //Them mon
+        chkFragmentMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                list.clear();
+                list.addAll(dao.trangThaiLoaiMon(PreferencesHelper.getId(getContext()),
+                        (chkFragmentMon.isChecked())?1:0,
+                        edTimKiemMon.getText().toString().trim()));
+                adapter.notifyDataSetChanged();
+            }
+        });
+        //Sự kiện thêm món
         fabMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +103,8 @@ public class MonFragment extends Fragment {
                 builder.setView(view);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 TextView tv_tieude_mon = view.findViewById(R.id.tvTieuDeMon);
-                TextInputEditText edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
-                TextInputEditText edDialogGia = view.findViewById(R.id.edDialogGia);
+                edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
+                edDialogGia = view.findViewById(R.id.edDialogGia);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 Spinner spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
                 CheckBox chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
@@ -97,7 +113,9 @@ public class MonFragment extends Fragment {
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
                 tv_tieude_mon.setText("Thêm món");
                 Dialog dialog = builder.create();
-                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.getAllLoaiMon();
+                int maNV = PreferencesHelper.getId(getContext());
+                int trangThai = (chkTrangThaiMon.isChecked())?1:0;
+                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, trangThai, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
                 Mon m = new Mon();
@@ -119,30 +137,20 @@ public class MonFragment extends Fragment {
                 btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String tenMon = edDialogTenMon.getText().toString().trim();
-                        String giaMon = edDialogGia.getText().toString().trim();
+                        String tenMon = edDialogTenMon.getText().toString();
+                        String giaMon = edDialogGia.getText().toString();
                         m.setTenMon(tenMon);
                         m.setMaLM(maLoaiMon);
-                        m.setGia(Integer.parseInt(giaMon));
+                        if(!giaMon.isEmpty()){
+                            m.setGia(Integer.parseInt(giaMon));
+                        }
                         m.setHinh(String.valueOf(R.drawable.default_avatar));
                         if(chkTrangThaiMon.isChecked()){
                             m.setTrangThai(1);
                         }else{
                             m.setTrangThai(0);
                         }
-                        if(tenMon.isEmpty()){
-                            edDialogTenMon.setError("Không được để trống");
-                            return;
-                        }else if(giaMon.isEmpty()){
-                            edDialogGia.setError("Không được để trống");
-                            return;
-                        }else{
-                            try {
-                                Integer.parseInt(edDialogGia.getText().toString());
-                            }catch (Exception e){
-                                edDialogGia.setError("Giá không hợp lệ");
-                                return;
-                            }
+                        if(ValidateMon()>0){
                             if(dao.insertMon(m)>0){
                                 Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
@@ -162,22 +170,29 @@ public class MonFragment extends Fragment {
                 dialog.show();
             }
         });
-        edTimKiemMon.setOnKeyListener(new View.OnKeyListener() {
+    }
+    //hàm tìm kiếm món
+    public void timKiemMon(){
+        edTimKiemMon.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                int maNV = PreferencesHelper.getId(getContext());
-                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    String timKiem = edTimKiemMon.getText().toString().trim();
-                    if(timKiem.isEmpty()){
-                        adapter = new MonAdapter(getActivity(), list);
-                        rcvMon.setAdapter(adapter);
-                        return false;
-                    }else{
-                        list2 = dao.timKiem(maNV, timKiem);
-                        adapter = new MonAdapter(getActivity(), list2);
-                        rcvMon.setAdapter(adapter);
-                    }
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                hienThiDanhSachMon();
+            }
+        });
+        edTimKiemMon.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE
+                        || actionId == EditorInfo.IME_ACTION_SEARCH){
+                    hienThiDanhSachMon();
                     return true;
                 }
                 return false;
@@ -186,34 +201,53 @@ public class MonFragment extends Fragment {
         inputTimKiemMon.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int maNV = PreferencesHelper.getId(getContext());
-                String timKiem = edTimKiemMon.getText().toString().trim();
-                if(timKiem.isEmpty()){
-                    adapter = new MonAdapter(getActivity(), list);
-                    rcvMon.setAdapter(adapter);
-                    return ;
-                }else{
-                    list2 = dao.timKiem(maNV, timKiem);
-                    adapter = new MonAdapter(getActivity(), list2);
-                    rcvMon.setAdapter(adapter);
-                }
+                hienThiDanhSachMon();
             }
         });
     }
 
-    void hideFloatingButton(){
-       NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
+    //hàm kiểm tra dữ liệu
+    public int ValidateMon(){
+        int check = 1;
+        String tenMon = edDialogTenMon.getText().toString();
+        String giaMon = edDialogGia.getText().toString();
+        if(tenMon.isEmpty()){
+            edDialogTenMon.setError("Không được để trống");
+            check = -1;
+        }else if(giaMon.isEmpty()){
+            edDialogGia.setError("Không được để trống");
+            check = -1;
+        }else{
+            try {
+                Integer.parseInt(edDialogGia.getText().toString());
+            }catch (Exception e){
+                edDialogGia.setError("Giá không hợp lệ");
+                check = -1;
+            }
+        }
+        return check;
+    }
+    //hàm cập nhật recycleview tìm kiếm
+    public void hienThiDanhSachMon(){
         int maNV = PreferencesHelper.getId(getContext());
-        int chuVu = nhanVienDAO.getPhanQuyen(maNV);
-        if (chuVu == 1){
-            fabMon.setVisibility(View.VISIBLE);
-        }else {
-            fabMon.setVisibility(View.GONE);
+        int trangThai = (chkFragmentMon.isChecked())?1:0;
+        String timKiem = edTimKiemMon.getText().toString().trim();
+        if(timKiem.isEmpty()){
+            list = dao.trangThaiLoaiMon(maNV, trangThai, "");
+            adapter = new MonAdapter(getActivity(), list);
+            rcvMon.setAdapter(adapter);
+            return ;
+        }else{
+            list = dao.trangThaiLoaiMon(maNV, trangThai, timKiem);
+            adapter = new MonAdapter(getActivity(), list);
+            rcvMon.setAdapter(adapter);
         }
     }
-
+    //hàm cập nhật recycleview
     void capNhat(){
-        list = dao.timKiem(PreferencesHelper.getId(getContext()),"");
+        int maNV = PreferencesHelper.getId(getContext());
+        int trangThai = (chkFragmentMon.isChecked())?1:0;
+        list = dao.trangThaiLoaiMon(maNV, trangThai, "");
         adapter = new MonAdapter(getContext(), list);
         rcvMon.setAdapter(adapter);
     }

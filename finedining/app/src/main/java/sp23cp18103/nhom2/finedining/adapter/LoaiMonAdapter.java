@@ -86,7 +86,6 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                 }else{
                     chkDialogTrangThaiLoaiMon.setChecked(false);
                 }
-
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

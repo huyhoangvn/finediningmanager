@@ -32,6 +32,7 @@ import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -45,6 +46,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     LoaiMonDAO loaiMonDAO;
     ArrayList<LoaiMon> listLoaiMon;
     int maLoaiMon, positionLM;
+    TextInputEditText edDialogTenMon, edDialogGia;
 
     public MonAdapter( Context context, List<Mon> list) {
         this.context = context;
@@ -75,7 +77,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
             holder.tvCardviewTrangThaiMon.setText("Không dùng");
             holder.tvCardviewTrangThaiMon.setTextColor(Color.RED);
         }
-
+        ImageHelper.loadAvatar(context, holder.imgCardviewMon, m.getHinh());
         holder.imgcardviewSuaMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,8 +87,8 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 builder.setView(view);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 TextView tv_tieude_mon = view.findViewById(R.id.tvTieuDeMon);
-                TextInputEditText edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
-                TextInputEditText edDialogGia = view.findViewById(R.id.edDialogGia);
+                edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
+                edDialogGia = view.findViewById(R.id.edDialogGia);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 Spinner spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
                 CheckBox chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
@@ -103,7 +105,9 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 }else{
                     chkTrangThaiMon.setChecked(false);
                 }
-                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.getAllLoaiMon();
+                int maNV = PreferencesHelper.getId(context);
+                int trangThai = (chkTrangThaiMon.isChecked())?1:0;
+                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, trangThai, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
                 for(int i = 0; i<listLoaiMon.size(); i++){
@@ -128,7 +132,9 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                         String tenMon = edDialogTenMon.getText().toString().trim();
                         String giaMon = edDialogGia.getText().toString().trim();
                         m.setTenMon(tenMon);
-                        m.setGia(Integer.parseInt(giaMon));
+                        if(!giaMon.isEmpty()){
+                            m.setGia(Integer.parseInt(giaMon));
+                        }
                         m.setHinh(String.valueOf(R.drawable.default_avatar));
                         m.setMaLM(maLoaiMon);
                         if(chkTrangThaiMon.isChecked()){
@@ -142,17 +148,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                             }
                         }
                         spnrialogLoaiMon.setSelection(positionLM);
-                        if(tenMon.isEmpty() && giaMon.isEmpty()){
-                            edDialogTenMon.setError("Không được để trống");
-                            edDialogGia.setError("Không được để trống");
-                            return;
-                        }else{
-                            try {
-                                Integer.parseInt(edDialogGia.getText().toString());
-                            }catch (Exception e){
-                                edDialogGia.setError("Giá không hợp lệ");
-                                return;
-                            }
+                       if(ValidateMon()>0){
                             if(dao.updateMon(m)>0){
                                 Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
@@ -193,7 +189,26 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
 
         }
     }
-
+    public int ValidateMon(){
+        int check = 1;
+        String tenMon = edDialogTenMon.getText().toString();
+        String giaMon = edDialogGia.getText().toString();
+        if(tenMon.isEmpty()){
+            edDialogTenMon.setError("Không được để trống");
+            check = -1;
+        }else if(giaMon.isEmpty()){
+            edDialogGia.setError("Không được để trống");
+            check = -1;
+        }else{
+            try {
+                Integer.parseInt(edDialogGia.getText().toString());
+            }catch (Exception e){
+                edDialogGia.setError("Giá không hợp lệ");
+                check = -1;
+            }
+        }
+        return check;
+    }
     void hideFloatingButton(MonViewHolder holder){
         NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
         int maNV = PreferencesHelper.getId(context);
