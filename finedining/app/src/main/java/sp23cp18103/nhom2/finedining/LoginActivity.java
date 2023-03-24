@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity{
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
-        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,null));
+        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,"https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
 
         khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 

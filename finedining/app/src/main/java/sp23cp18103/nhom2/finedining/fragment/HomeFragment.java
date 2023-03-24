@@ -29,6 +29,7 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.MenuAdapter;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Hiển thị thông tin nhà hàng và sử dụng MapsFragment để hiện địa chỉ
@@ -64,7 +65,8 @@ public class HomeFragment extends Fragment {
 
     private void evRCV() {
         monDAO = new MonDAO(getContext());
-        listMon = monDAO.getAllMon();
+        int maNV = PreferencesHelper.getId(getContext());
+        listMon = monDAO.timKiem(maNV, "");
         menuAdapter = new MenuAdapter(listMon,getContext());
         rcv_menu.setAdapter(menuAdapter);
     }
