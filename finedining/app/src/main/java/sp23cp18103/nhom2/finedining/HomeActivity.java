@@ -27,6 +27,7 @@ import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.BanCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
 import sp23cp18103.nhom2.finedining.fragment.HoaDonCollectionFragment;
+import sp23cp18103.nhom2.finedining.fragment.HoaDonFragment;
 import sp23cp18103.nhom2.finedining.fragment.HomeFragment;
 import sp23cp18103.nhom2.finedining.fragment.MonCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.NhanVienCollectionFragment;

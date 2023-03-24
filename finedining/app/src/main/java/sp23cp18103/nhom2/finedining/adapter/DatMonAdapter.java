@@ -1,5 +1,9 @@
 package sp23cp18103.nhom2.finedining.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.util.SparseBooleanArray;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -27,11 +32,15 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
 
     List<Mon> monList;
     InterfaceDatMon interfaceDatMon;
+    private boolean isSelected = false;
+    private SparseBooleanArray selectedItems;
 
     public DatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
         this.context = context;
         this.monList = monList;
         this.interfaceDatMon = interfaceDatMon;
+
+        selectedItems = new SparseBooleanArray();
     }
 
     @NonNull
@@ -45,7 +54,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DatMonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         final int vitri = position;
         Mon mon = monList.get(position);
@@ -53,11 +62,28 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
         holder.tvTen.setText(""+mon.getTenMon());
         holder.tvGia.setText(""+mon.getGia());
 
+
+        holder.itemView.setSelected(selectedItems.get(position, false));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.lnChonMon.setBackgroundColor(Color.GREEN);
-                interfaceDatMon.getMaMon(mon.getMaMon());
+                if (selectedItems.get(position, false)) {
+                    selectedItems.delete(position);
+                    holder.itemView.setSelected(false);
+                    holder.lnChonMon.setBackgroundColor(Color.WHITE);
+
+                } else {
+                    selectedItems.put(position, true);
+                    holder.itemView.setSelected(true);
+                    interfaceDatMon.getMaMon(mon.getMaMon());
+                    holder.lnChonMon.setBackgroundColor(Color.GREEN);
+                }
+
+
+
+//                holder.lnChonMon.setBackgroundColor(Color.GREEN);
+//
+
             }
         });
 

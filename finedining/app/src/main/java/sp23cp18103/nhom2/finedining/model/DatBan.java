@@ -53,6 +53,7 @@ public class DatBan {
         return Objects.hash(maBan, maHD);
     }
 
+
     @Override
     public String toString() {
         return "" +maBan ;

@@ -224,9 +224,21 @@ public class LoginActivity extends AppCompatActivity{
 
         monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
 
+        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
+
+        monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
+
         khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
+
+        banDAO.insertban(new Ban(1,1,"A1",1));
+        banDAO.insertban(new Ban(2,1,"A2",1));
+        banDAO.insertban(new Ban(3,1,"A3",1));
+        banDAO.insertban(new Ban(4,1,"A4",1));
+
+
+        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
 
         datBanDAO.insertDatBan(new DatBan(1,1,"2023/5/4"));
 

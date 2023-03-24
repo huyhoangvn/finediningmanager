@@ -41,6 +41,18 @@ public class BanDAO {
         String sql="select*from ban";
         return getDaTa(sql);
    }
+
+    @SuppressLint("Range")
+    public String getViTri(int maBan) {
+        String sql = "SELECT viTri From ban " +
+                "WHERE maBan = ? ";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maBan)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("viTri"));
+        }
+        return "";
+    }
+
     public List<Ban> gettimKiem(int maNV, String viTri ){
         String sql = "Select * from ban b " +
                 "JOIN loaiban lb ON lb.maLB = b.maLB " +
