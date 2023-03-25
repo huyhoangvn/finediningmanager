@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -50,6 +51,7 @@ public class NhanVienFragment extends Fragment {
     private CheckBox chkNhanVienDangLam;
     private TextInputLayout inputTimNhanVien;
     private EditText edTimNhanVien;
+    private FloatingActionButton fbtnThemNhanVien;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +72,7 @@ public class NhanVienFragment extends Fragment {
         khoiTaoPhanQuyen();
         khoiTaoCheckboxListener();
         khoiTaoTimKiem();
+        handleOnBackPressed();
     }
 
     /*
@@ -80,6 +83,7 @@ public class NhanVienFragment extends Fragment {
         chkNhanVienDangLam = view.findViewById(R.id.chk_fNhanVien_nhanVienDangLam);
         inputTimNhanVien = view.findViewById(R.id.input_fNhanVien_timNhanVien);
         edTimNhanVien = view.findViewById(R.id.ed_fNhanVien_timNhanVien);
+        fbtnThemNhanVien = view.getRootView().findViewById(R.id.ftbtn_fNhanVien_them);
     }
 
     /*
@@ -216,4 +220,21 @@ public class NhanVienFragment extends Fragment {
         adpNhanVien.notifyDataSetChanged();
     }
 
+    /*
+     * Quay về fragment quản lý nhân viên khi ấn nút quay về trên thiết bị
+     * Hiển thị lại floating action button
+     * */
+    private void handleOnBackPressed() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if(isEnabled()){
+                    fmNhanVien.popBackStack();
+                    if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 1){
+                        fbtnThemNhanVien.show();
+                    }
+                }
+            }
+        });
+    }
 }
