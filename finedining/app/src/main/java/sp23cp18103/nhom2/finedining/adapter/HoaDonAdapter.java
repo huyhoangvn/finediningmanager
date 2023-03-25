@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import sp23cp18103.nhom2.finedining.Interface.IEditListener;
+import sp23cp18103.nhom2.finedining.Interface.IEditListenerHoaDon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
@@ -37,11 +39,13 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
     List<ThongTinHoaDon> ThongTinHoaDonList;
 
     List<ThongTinChiTietDatMon> thongTinChiTietDatMonList;
+    private IEditListenerHoaDon iEditListener;
 
 
-    public HoaDonAdapter(Context context, List<ThongTinHoaDon> ThongTinHoaDonList) {
+    public HoaDonAdapter(Context context, List<ThongTinHoaDon> ThongTinHoaDonList,IEditListenerHoaDon iEditListener) {
         this.context = context;
         this.ThongTinHoaDonList = ThongTinHoaDonList;
+        this.iEditListener = iEditListener;
     }
 
     @NonNull
@@ -56,7 +60,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
     @SuppressLint("ResourceType")
     @Override
-    public void onBindViewHolder(@NonNull HoaDonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HoaDonViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         final int vitri = position;
 
@@ -79,6 +83,10 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 builder.setView(view);
                 Dialog dialog = builder.create();
 
+                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+                TextView tv_tenKhach = view.findViewById(R.id.tv_tenKhach_dialog_hoaDon_chiTiet);
+                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+                TextView tv_tenNhanVien = view.findViewById(R.id.tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet);
                 TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
                 TextView tvThoiGianXuat = view.findViewById(R.id.tv_thoiGianXuat_dialog_hoaDon_chiTiet);
                 RecyclerView rcv_mon = view.findViewById(R.id.rcv_mon_dialog_hoaDon_chiTiet);
@@ -86,6 +94,8 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 TextView tv_tongTien = view.findViewById(R.id.tv_tongTien_dialog_hoaDon_chiTiet);
                 TextView tvTrangThai = view.findViewById(R.id.tv_trangThai_dialog_hoaDon_chiTiet);
 
+                tv_tenNhanVien.setText(tthd.getTenNhanVien());
+                tv_tenKhach.setText(tthd.getTenKhachHang());
                 tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
                 tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
                 tvTrangThai.setText((tthd.getTrangThai()==1) ?"Đã Thanh Toán":"Chưa Thanh Toán");
@@ -105,13 +115,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            iEditListener.showEditFragment(tthd.getMaHD());
             }
         });
-
-
-
-
     }
 
 
@@ -124,7 +130,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         ImageButton imgEdit;
         AppCompatButton imgBill;
 
-        TextView tv_tenKhach,tvSoLuongKhach,tvThoiGianXuat,tvTrangThai;
+        TextView tv_tenKhach,tvSoLuongKhach,tvThoiGianXuat,tvTrangThai,tvTenKhachHang;
         public HoaDonViewHolder(@NonNull View itemView) {
             super(itemView);
             imgBill = itemView.findViewById(R.id.imgBill);
@@ -133,6 +139,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
             tvSoLuongKhach = itemView.findViewById(R.id.tv_soLuongKhach_CardView_HoaDon);
             tvThoiGianXuat = itemView.findViewById(R.id.tv_thoiGianXuat_CardView_HoaDon);
             tvTrangThai = itemView.findViewById(R.id.tv_trangThai_CardView_HoaDon);
+
 
         }
     }

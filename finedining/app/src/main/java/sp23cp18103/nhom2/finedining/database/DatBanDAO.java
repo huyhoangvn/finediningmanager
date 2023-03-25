@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.DatBan;
+import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
+import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 
 public class DatBanDAO {
     private SQLiteDatabase db;
@@ -33,6 +35,17 @@ public class DatBanDAO {
         values.put("thoiGianDat",dBan.getThoiGianDat());
 
         return db.update("datban",values,"maBan=?",new String[]{String.valueOf(dBan.getMaBan())});
+    }
+
+    @SuppressLint("Range")
+    public ThongTinDatBan getBan(int maHD) {
+        ThongTinDatBan datBan = new ThongTinDatBan();
+        String sql = "SELECT ban.viTri FROM ban JOIN datban on ban.maban = datban.maban WHERE datban.maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            datBan.setViTri(cursor.getString(cursor.getColumnIndex("viTri")));
+        }
+        return datBan;
     }
 
     public List<DatBan> getAllDatBan(){

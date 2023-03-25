@@ -72,7 +72,7 @@ public class ThemHoaDonFragment extends Fragment {
 
 
     MonDAO monDAO;
-    List<Mon> monList;
+    List<Mon> monList2;
 
     List<Ban> banList;
     ArrayList<ThongTinDatMon> listDatMon = new ArrayList<>();
@@ -88,8 +88,11 @@ public class ThemHoaDonFragment extends Fragment {
     DatBan datBan;
     DatMon datMon;
     ThongTinDatMon thongTindatMon;
-
     ThongTinDatBan thongTindatBan ;
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,8 +143,8 @@ public class ThemHoaDonFragment extends Fragment {
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 AppCompatButton btnChon = view.findViewById(R.id.btnChon_SoLuongMon);
 
-                monList = monDAO.timKiem(PreferencesHelper.getId(getContext()),"");
-                DatMonAdapter adapter = new DatMonAdapter(getContext(), monList, new InterfaceDatMon() {
+                monList2 = monDAO.timKiem(PreferencesHelper.getId(getContext()),"");
+                DatMonAdapter adapter = new DatMonAdapter(getContext(), monList2, new InterfaceDatMon() {
                     @Override
                     public int getMaMon(int maMon) {
                         String tenMon = monDAO.getTenMon(maMon);
@@ -226,8 +229,6 @@ public class ThemHoaDonFragment extends Fragment {
 
                 // thêm đặt bàn , đặt mon fixx
 
-
-
                 for (int i = 0; i < listDatMon.size(); i++){
                     datMon.setMaMon(listDatMon.get(i).getMaMon());
                     datMon.setSoLuong(listDatMon.get(i).getSoLuong());
@@ -242,9 +243,9 @@ public class ThemHoaDonFragment extends Fragment {
                     datBan.setMaHD(listDatban.get(i).getMaHD());
                     datBan.setThoiGianDat(DateHelper.getDateTimeSQLNow());
                     if (datBanDAO.insertDatBan(datBan) > 0){
-                        Toast.makeText(getContext(), "THành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thành công", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(getContext(), "Đầu buồi rẻ rách", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "khong thanh cong ", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -262,12 +263,9 @@ public class ThemHoaDonFragment extends Fragment {
                 //get ma khach tiep theo;
                 maKHSapThem = khachDAO.getMaKhanhHangTiepTheo();
                 hoaDon.setMaKH(maKHSapThem);
-
-
-
                 hoaDon.setSoLuongKhach(Integer.parseInt(input_soLuongKhach.getText().toString().trim()));
                 hoaDon.setMaNV(PreferencesHelper.getId(getContext()));
-                hoaDon.setTrangThai(1);
+                hoaDon.setTrangThai(0);
                 hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
 
                 hoaDonDAO.insertHoaDon(hoaDon);
