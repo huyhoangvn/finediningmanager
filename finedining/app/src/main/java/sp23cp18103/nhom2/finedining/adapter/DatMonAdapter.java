@@ -80,10 +80,6 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
                 }
 
 
-
-//                holder.lnChonMon.setBackgroundColor(Color.GREEN);
-//
-
             }
         });
 

@@ -40,7 +40,7 @@ public class HoaDonDAO{
         values.put("thoiGianXuat",hd.getThoiGianXuat());
         values.put("trangThai",hd.getTrangThai());
 
-        return db.update("hoadon",null,"maHD=?",new String[]{String.valueOf(hd.getMaHD())});
+        return db.update("hoadon",values,"maHD=?",new String[]{String.valueOf(hd.getMaHD())});
 
     }
     /*getAll danh sach hóa đơn*/
@@ -48,14 +48,32 @@ public class HoaDonDAO{
         String sql ="SELECT *FROM hoadon";
         return getData(sql);
     }
+    @SuppressLint("Range")
+    public int getMaKhachHang(int maHD){
+        String sql = "SELECT maKH FROM hoadon WHERE maHD = ? ";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("maKH"));
+        }
+        return -1;
+    }
     /* hóa đơn*/
     public HoaDon getID(String id){
-        String sql = "SELECT *FROM hoadon WHERE maHD=?";
+        String sql = "SELECT * FROM hoadon WHERE maHD = ? ";
         List<HoaDon> list = getData(sql,id);
         if(list==null){
             return null;
         }else
             return list.get(0);
+    }
+    @SuppressLint("Range")
+    public int getSoLuongKhach(int maHD) {
+        String sql = "SELECT soLuongKhach FROM hoadon WHERE maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("soLuongKhach"));
+        }
+        return -1;
     }
 
     @SuppressLint("Range")

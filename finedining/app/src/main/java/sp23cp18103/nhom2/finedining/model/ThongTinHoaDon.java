@@ -2,17 +2,27 @@ package sp23cp18103.nhom2.finedining.model;
 
 public class ThongTinHoaDon {
     private int maHD;
+    private String tenNhanVien;
     private String tenKhachHang;
     private int soLuongKhachHang;
     private String thoiGianXuat;
     private int trangThai;
 
-    public ThongTinHoaDon(int maHD,String tenKhachHang, int soLuongKhachHang, String thoiGianXuat, int trangThai) {
+    public ThongTinHoaDon(int maHD,String tenNhanVien,String tenKhachHang, int soLuongKhachHang, String thoiGianXuat, int trangThai) {
         this.maHD = maHD;
         this.tenKhachHang = tenKhachHang;
+        this.tenNhanVien = tenNhanVien;
         this.soLuongKhachHang = soLuongKhachHang;
         this.thoiGianXuat = thoiGianXuat;
         this.trangThai = trangThai;
+    }
+
+    public String getTenNhanVien() {
+        return tenNhanVien;
+    }
+
+    public void setTenNhanVien(String tenNhanVien) {
+        this.tenNhanVien = tenNhanVien;
     }
 
     public ThongTinHoaDon() {
