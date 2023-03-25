@@ -47,7 +47,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     @Override
     public DatMonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview_chonmon,null);
+        View view = inflater.inflate(R.layout.cardview_chonmon,parent, false);
         DatMonAdapter.DatMonViewHolder viewHolder = new DatMonAdapter.DatMonViewHolder(view);
 
         return viewHolder;

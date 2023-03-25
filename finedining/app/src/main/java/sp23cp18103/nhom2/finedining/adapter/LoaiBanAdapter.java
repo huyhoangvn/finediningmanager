@@ -64,7 +64,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
         holder.tv_SoChoNgoi.setText(String.valueOf(loaiBan.getSoChoNgoi()));
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
         if (loaiBan.getTrangThai() == 1) {
-            holder.tv_TrangThai_LoaiBan.setText(" Dùng");
+            holder.tv_TrangThai_LoaiBan.setText("Dùng");
             holder.tv_TrangThai_LoaiBan.setTextColor(Color.BLUE);
         } else {
             holder.tv_TrangThai_LoaiBan.setText("Không dùng");

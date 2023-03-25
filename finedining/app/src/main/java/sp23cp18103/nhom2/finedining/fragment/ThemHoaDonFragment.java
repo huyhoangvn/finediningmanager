@@ -70,7 +70,6 @@ public class ThemHoaDonFragment extends Fragment {
     private FragmentManager fragmentManager;
     ThongTinHoaDonDAO thongTinHoaDonDAO;
 
-
     MonDAO monDAO;
     List<Mon> monList2;
 
@@ -89,9 +88,6 @@ public class ThemHoaDonFragment extends Fragment {
     DatMon datMon;
     ThongTinDatMon thongTindatMon;
     ThongTinDatBan thongTindatBan ;
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,6 +109,7 @@ public class ThemHoaDonFragment extends Fragment {
         fragmentManager = getParentFragmentManager();
 
         thongTindatMon = new ThongTinDatMon();
+
         hoaDonDAO = new HoaDonDAO(getContext());
         maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
         thongTindatMon.setMaHD(maHoaDonSapThem);
@@ -122,6 +119,8 @@ public class ThemHoaDonFragment extends Fragment {
         datMonDAO = new DatMonDAO(getContext());
         banDAO = new BanDAO(getContext());
         thongTindatBan = new ThongTinDatBan();
+
+        datBan = new ThongTinDatBan();
         datBanDAO = new DatBanDAO(getContext());
 
         datMon = new DatMon();
@@ -233,7 +232,11 @@ public class ThemHoaDonFragment extends Fragment {
                     datMon.setMaMon(listDatMon.get(i).getMaMon());
                     datMon.setSoLuong(listDatMon.get(i).getSoLuong());
                     datMon.setMaHD(listDatMon.get(i).getMaHD());
-                    datMonDAO.insertDatMon(datMon);
+                    if (datMonDAO.insertDatMon(datMon) > 0){
+                        Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
 

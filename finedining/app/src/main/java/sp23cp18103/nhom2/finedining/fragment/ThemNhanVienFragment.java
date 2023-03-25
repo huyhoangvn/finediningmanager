@@ -310,11 +310,12 @@ public class ThemNhanVienFragment extends Fragment {
         nhanVien.setSdt(edSdt.getText().toString().trim());
         nhanVien.setNgaySinh(DateHelper.getDateSql(edNgaySinh.getText().toString().trim()));//Chuyển sang định dạng SQL
         nhanVien.setTrangThai((chkTrangThai.isChecked())?1:0);
-        nhanVien.setHinh(nhanVien.getHinh());
+        nhanVien.setHinh(nhanVienDAO.getHinh(maNV));
         String currentImageUrl = galleryHelper.getCurrentImageUrl();
-        if(!currentImageUrl.equals("")){
+        if(currentImageUrl != null){
             nhanVien.setHinh(currentImageUrl);
         }
+
         if(rdoNam.isChecked()){
             nhanVien.setGioiTinh(1);
         }

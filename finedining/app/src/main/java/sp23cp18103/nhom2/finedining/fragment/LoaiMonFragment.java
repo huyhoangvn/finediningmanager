@@ -194,7 +194,7 @@ public class LoaiMonFragment extends Fragment {
             rcvLoaiMon.setAdapter(adapter);
             return ;
         }else{
-            listLM = dao.trangThaiLoaiMon(maNV, trangThai,"");
+            listLM = dao.trangThaiLoaiMon(maNV, trangThai,timKiem);
             adapter = new LoaiMonAdapter(getContext(), listLM);
             rcvLoaiMon.setAdapter(adapter);
         }

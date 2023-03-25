@@ -29,7 +29,8 @@ public class NhanVienCollectionFragment extends Fragment {
     //Utils
     private FragmentManager fmNhanVien;
     //Database
-    private NhanVienDAO nhanVienDAO;    //Controller
+    private NhanVienDAO nhanVienDAO;
+    //Controller
     private FloatingActionButton fbtnThemNhanVien;
 
     @Override
@@ -50,7 +51,6 @@ public class NhanVienCollectionFragment extends Fragment {
         khoiTaoFragmentManager();
         khoiTaoPhanQuyen();
         khoiTaoListener();
-        handleOnBackPressed();
     }
 
     /*
@@ -97,24 +97,6 @@ public class NhanVienCollectionFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
             fbtnThemNhanVien.hide();
-        });
-    }
-
-    /*
-    * Quay về fragment quản lý nhân viên khi ấn nút quay về trên thiết bị
-    * Hiển thị lại floating action button
-    * */
-    private void handleOnBackPressed() {
-        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if(isEnabled()){
-                    fmNhanVien.popBackStack();
-                    if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 1){
-                        fbtnThemNhanVien.show();
-                    }
-                }
-            }
         });
     }
 }
