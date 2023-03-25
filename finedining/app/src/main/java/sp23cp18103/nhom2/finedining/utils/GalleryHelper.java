@@ -87,18 +87,23 @@ public class GalleryHelper{
         }
     }
 
+    /*
+    * Tải ảnh lên firebase theo uri
+    * rồi lấy url về lưu vào currentImageUrl
+    * */
     public void uploadImageToFirebase(Uri uri) {
         if(uri == null)
             return;
 
         ProgressDialog prgLoad = new ProgressDialog(context);
-        prgLoad.setMessage("Loading Image...");
+        prgLoad.setMessage("Upload Image...");
+        prgLoad.setCanceledOnTouchOutside(false);
         prgLoad.show();
-        //Make file name
+        //Tạo filename lấy ngày giờ tạo
         SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
         Date now = new Date();
         String fileName = format.format(now);
-        //Store image
+        //Lưu vào images/
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         storageReference = storageReference
                 .child("images/"+ fileName);
@@ -106,24 +111,35 @@ public class GalleryHelper{
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful());
-                        Uri downloadUri = uriTask.getResult();
-                        if(uriTask.isSuccessful()){
-                            currentImageUrl = downloadUri.toString();
-                            prgLoad.dismiss();
-                        }
-                        Toast.makeText(context, "Lưu ảnh thành công", Toast.LENGTH_SHORT).show();
+                        taskSnapshot.getStorage().getDownloadUrl()
+                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        currentImageUrl = uri.toString();
+                                        prgLoad.dismiss();
+                                        Toast.makeText(context, "Chọn ảnh thành công...", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        prgLoad.dismiss();
+                                        Toast.makeText(context, "Lấy đường dẫn không thành công...", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         prgLoad.dismiss();
+                        Toast.makeText(context, "Tải ảnh lên không thành công...", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    /*
+    * Lấy url ảnh đã thêm vào
+    * */
     public String getCurrentImageUrl() {
         return currentImageUrl;
     }

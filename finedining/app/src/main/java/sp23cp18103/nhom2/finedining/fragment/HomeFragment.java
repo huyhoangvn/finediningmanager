@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
     }
     private void loadAnh() {
         Glide.with(this)
-                .load("https://chupanhmonan.com/wp-content/uploads/2019/03/ma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg")
+                .load("https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/images%2Fma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg?alt=media&token=f88c9bfc-695a-4cfd-82d1-82e38d952231")
                 .into(imgnhaHang);
     }
     void getNameDiachiNH() {
@@ -172,7 +172,7 @@ public class HomeFragment extends Fragment {
         String tenNhaHang = nhaHangDAO.getTenNH(maNH);
         String diachi = nhaHangDAO.getDiaChi(maNH);
         tvTenNhaHang.setText(tenNhaHang);
-        tvDiaChi.setText("Địa Chỉ: " + diachi);
+        tvDiaChi.setText("Địa chỉ: " + diachi);
     }
 
     private void anhXa(View view) {
