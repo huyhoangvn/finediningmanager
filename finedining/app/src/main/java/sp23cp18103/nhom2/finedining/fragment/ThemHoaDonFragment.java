@@ -268,7 +268,7 @@ public class ThemHoaDonFragment extends Fragment {
                 hoaDon.setMaKH(maKHSapThem);
                 hoaDon.setSoLuongKhach(Integer.parseInt(input_soLuongKhach.getText().toString().trim()));
                 hoaDon.setMaNV(PreferencesHelper.getId(getContext()));
-                hoaDon.setTrangThai(0);
+                hoaDon.setTrangThai(2);
                 hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
 
                 hoaDonDAO.insertHoaDon(hoaDon);

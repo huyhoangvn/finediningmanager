@@ -43,7 +43,7 @@ BanViewPagerAdapter banViewPagerAdapter;
         new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) -> {
             switch (position){
                 case 0:
-                    tab.setText("Loài bàn");
+                    tab.setText("Loại bàn");
                     break;
                 case 1:
                     tab.setText("Bàn");

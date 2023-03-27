@@ -52,7 +52,7 @@
                 android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -35,9 +35,9 @@ public class ThongTinHoaDonDAO {
                 "JOIN khachhang as kh ON hd.maKH = kh.maKH " +
                 "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?) " +
-                " AND hd.trangThai <= ? "+
-                " AND  hd.trangThai <> 0 "+
-                " AND kh.tenKH LIKE ? "+
+                " AND hd.trangThai >= ? " +
+                " AND  hd.trangThai <> 0 " +
+                " AND kh.tenKH LIKE ? " +
                 " ORDER BY hd.trangThai DESC, kh.tenKH ASC ";
         String tim = "%" + tenKH + "%";
         return getDaTa(sql, String.valueOf(maNV),String.valueOf(trangThai),tim);

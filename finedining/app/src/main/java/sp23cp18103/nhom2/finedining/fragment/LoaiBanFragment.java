@@ -196,7 +196,7 @@ public class LoaiBanFragment extends Fragment {
     private void khoiTaoRecyclerView() {
         list = (ArrayList<LoaiBan>) loaiBanDAO.getTimKiem(PreferencesHelper.getId(context),
                 edTimKhiemLoaiBan.getText().toString().trim(),
-                String.valueOf((chk_fLoaiBan_conDung.isChecked())?1:0));
+                String.valueOf((chk_fLoaiBan_conDung.isChecked())?0:1));
 
         loaiBanAdapter = new LoaiBanAdapter(list, getContext());
         rcv_loaiban.setAdapter(loaiBanAdapter);
@@ -259,7 +259,7 @@ public class LoaiBanFragment extends Fragment {
         list.clear();
         list.addAll(loaiBanDAO.getTimKiem(PreferencesHelper.getId(context),
                 edTimKhiemLoaiBan.getText().toString().trim(),
-                String.valueOf((chk_fLoaiBan_conDung.isChecked())?1:0)));
+                String.valueOf((chk_fLoaiBan_conDung.isChecked())?0:1)));
         loaiBanAdapter.notifyDataSetChanged();
     }
 }

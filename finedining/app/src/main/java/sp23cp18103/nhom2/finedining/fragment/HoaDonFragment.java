@@ -76,7 +76,7 @@ public class HoaDonFragment extends Fragment {
 //        timKiemHoaDon();
 
 
-        thongTinHoaDonList =  thongTinHoaDonDAO.getTrangThaiHoaDon(PreferencesHelper.getId(context),(chkFragmentHoaDon.isChecked())?2:1,edTimKiem.getText().toString());
+        thongTinHoaDonList =  thongTinHoaDonDAO.getTrangThaiHoaDon(PreferencesHelper.getId(context),(chkFragmentHoaDon.isChecked())?1:2,edTimKiem.getText().toString());
         hoaDonAdapter = new HoaDonAdapter(getContext(), thongTinHoaDonList, new IEditListenerHoaDon() {
             @Override
             public void showEditFragment(int maHD) {
@@ -167,7 +167,7 @@ public class HoaDonFragment extends Fragment {
     public void hienThiDanhSachHoaDon(){
         thongTinHoaDonList.clear();
         thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThaiHoaDon(PreferencesHelper.getId(context),
-                (chkFragmentHoaDon.isChecked())?2:1,
+                (chkFragmentHoaDon.isChecked())?1:2,
                 edTimKiem.getText().toString().trim()));
         hoaDonAdapter.notifyDataSetChanged();
     }

@@ -169,7 +169,7 @@ public class SuaHoaDonFragment extends Fragment {
         listDatban = new ArrayList<>();
         listDatMon = new ArrayList<>();
 
-        listDatMon = (ArrayList<ThongTinDatMon>) datMonDAO.getDatMonTheoHoaDon(maHD);
+//        listDatMon = (ArrayList<ThongTinDatMon>) datMonDAO.getDatMonTheoHoaDon(maHD);
 
 
     }

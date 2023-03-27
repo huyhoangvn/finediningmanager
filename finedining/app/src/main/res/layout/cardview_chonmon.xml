@@ -1,41 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/mCardview"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/mCardViewSmall"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+    android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/linearChonMon"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            >
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/tvTenMon_Cardview_datMon"
-                android:layout_width="match_parent"
+                style="@style/mNormalText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Tên Món:"
-
-                />
+                android:layout_weight="1"
+                android:text="Thịt gà"/>
 
             <TextView
                 android:id="@+id/tvGia_Cardview_datMon"
+                style="@style/mNormalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Giá: "/>
+                android:text="100"/>
+            <TextView
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" vnd"/>
         </LinearLayout>
-    </LinearLayout>
-
-
 
 </androidx.cardview.widget.CardView>

@@ -81,7 +81,7 @@ public class LoaiMonFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 listLM.clear();
                 listLM.addAll(dao.trangThaiLoaiMon(PreferencesHelper.getId(getContext()),
-                        (chkFragmentLoaiMon.isChecked())?1:0,
+                        (chkFragmentLoaiMon.isChecked())?0:1,
                         edTimKiemLoaiMon.getText().toString().trim()));
                 adapter.notifyDataSetChanged();
             }
@@ -186,7 +186,7 @@ public class LoaiMonFragment extends Fragment {
     //hàm cập nhật recycleview cho hàm tìm kiếm
     public void hiemThiDanhSachLM(){
         int maNV = PreferencesHelper.getId(getContext());
-        int trangThai = (chkFragmentLoaiMon.isChecked())?1:0;
+        int trangThai = (chkFragmentLoaiMon.isChecked())?0:1;
         String timKiem = edTimKiemLoaiMon.getText().toString().trim();
         if(timKiem.isEmpty()){
             listLM = dao.trangThaiLoaiMon(maNV, trangThai,"");
@@ -203,7 +203,7 @@ public class LoaiMonFragment extends Fragment {
     //hàm cập nhật recycleview
     void capNhat(){
         int maNV = PreferencesHelper.getId(getContext());
-        int trangThai = (chkFragmentLoaiMon.isChecked())?1:0;
+        int trangThai = (chkFragmentLoaiMon.isChecked())?0:1;
         listLM = dao.trangThaiLoaiMon(maNV, trangThai ,"");
         adapter = new LoaiMonAdapter(getContext(), listLM);
         rcvLoaiMon.setAdapter(adapter);
