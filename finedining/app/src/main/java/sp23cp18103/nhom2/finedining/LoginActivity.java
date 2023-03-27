@@ -220,13 +220,15 @@ public class LoginActivity extends AppCompatActivity{
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
-        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,"https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
+        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,"https://i.pinimg.com/originals/91/de/1e/91de1e48020787761c1906c9fcde86cd.jpg"));
+        monDAO.insertMon(new Mon(3,1,"thịt lợn",700,1,"https://mir-s3-cdn-cf.behance.net/project_modules/disp/200f2910774061.560eac1cd606c.png"));
+        monDAO.insertMon(new Mon(4,1,"thịt chim",700,1,"https://mir-s3-cdn-cf.behance.net/project_modules/disp/10f13510774061.560eadfde5b61.png"));
+        monDAO.insertMon(new Mon(5,1,"thịt cá",700,1,"https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
+        monDAO.insertMon(new Mon(6,1,"thịt Hổ",700,1,"https://mir-s3-cdn-cf.behance.net/project_modules/disp/10f13510774061.560eadfde5b61.png"));
+        monDAO.insertMon(new Mon(1,1,"thịt gà",700,1,null));
+        monDAO.insertMon(new Mon(8,1,"thịt Rồng",200,1,null));
+        monDAO.insertMon(new Mon(9,1,"thịt em",200,1,null));
 
-        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
-
-        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
-
-        monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
 
         khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 

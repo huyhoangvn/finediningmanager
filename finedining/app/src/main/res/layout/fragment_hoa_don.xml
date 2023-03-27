@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:hint="Tìm kiếm tên người thanh toán"
             app:endIconDrawable="@drawable/ic_search"
-            app:endIconMode="custom">
+            app:endIconMode="custom"
+            >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_01_hoaDon_timHoaDon"
                 android:layout_width="match_parent"

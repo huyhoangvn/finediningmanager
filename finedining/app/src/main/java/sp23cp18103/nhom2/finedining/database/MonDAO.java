@@ -59,6 +59,11 @@ public class MonDAO {
                 "AND m.tenMon LIKE ? ";
         return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
     }
+
+    public  List<Mon> getAll(){
+        String sql = "select * from mon";
+        return getData(sql);
+    }
     
     @SuppressLint("Range")
     public String getTenMon(int maMon) {

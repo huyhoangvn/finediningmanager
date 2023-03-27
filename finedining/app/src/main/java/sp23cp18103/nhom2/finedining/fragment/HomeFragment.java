@@ -46,6 +46,7 @@ import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.NhaHangDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -82,14 +83,14 @@ public class HomeFragment extends Fragment {
         getNameDiachiNH();
         loadAnh();
         evMap();
-        evRCV();
+        evRxvMenu();
 
     }
-    private void evRCV() {
+    private void evRxvMenu() {
         monDAO = new MonDAO(getContext());
-
         int maNV = PreferencesHelper.getId(getContext());
-        listMon = monDAO.timKiem(maNV, "");
+//        listMon = monDAO.timKiem(maNV, "");
+        listMon = monDAO.getAll();
         menuAdapter = new MenuAdapter(listMon,getContext());
         rcv_menu.setAdapter(menuAdapter);
     }
@@ -160,9 +161,7 @@ public class HomeFragment extends Fragment {
         }
     }
     private void loadAnh() {
-        Glide.with(this)
-                .load("https://chupanhmonan.com/wp-content/uploads/2019/03/ma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg")
-                .into(imgnhaHang);
+        ImageHelper.loadBanner(getContext(),imgnhaHang,"https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/images%2Fma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg?alt=media&token=f88c9bfc-695a-4cfd-82d1-82e38d952231");
     }
     void getNameDiachiNH() {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
