@@ -193,7 +193,7 @@ public class BanFragment extends Fragment {
     private void khoiTaoRecyclerView() {
         list = (ArrayList<Ban>) banDAO.gettimKiem(PreferencesHelper.getId(context),
                 edTimBan.getText().toString().trim(),
-                String.valueOf((chk_fBan_conDung.isChecked()) ? 1 : 0));
+                String.valueOf((chk_fBan_conDung.isChecked())?0:1));
 
         banAdapter = new BanAdapter(getContext(), list);
         rcvBan.setAdapter(banAdapter);
@@ -256,7 +256,7 @@ public class BanFragment extends Fragment {
         list.clear();
         list.addAll(banDAO.gettimKiem(PreferencesHelper.getId(context),
                 edTimBan.getText().toString().trim(),
-                String.valueOf((chk_fBan_conDung.isChecked()) ? 1 : 0)));
+                String.valueOf((chk_fBan_conDung.isChecked())?0:1)));
         banAdapter.notifyDataSetChanged();
     }
 }

@@ -60,7 +60,6 @@
             android:src="@drawable/ic_sua_thongtin"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

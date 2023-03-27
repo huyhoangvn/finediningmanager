@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "soLuongKhach INTEGER NOT NULL," +
                 "thoiGianXuat TEXT NOT NULL," +
-                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 2 OR trangThai = 0))";
+                "trangThai INTEGER NOT NULL CHECK (trangThai >= 0 AND trangThai <= 3))";
         db.execSQL(sql);
     }
 

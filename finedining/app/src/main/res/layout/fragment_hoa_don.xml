@@ -29,19 +29,15 @@
 
         <CheckBox
             android:id="@+id/chkFragmentHoaDon"
+            style="@style/mCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:text="Chưa Thanh Toán"
-            android:checked="true"
-            android:layout_marginLeft="10dp"
-            android:textSize="16sp"/>
+            android:text="Đã Thanh Toán"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_hoaDon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:padding="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />

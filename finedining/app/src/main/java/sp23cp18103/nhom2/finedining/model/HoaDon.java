@@ -75,10 +75,12 @@ public class HoaDon {
      * 1:"Đã thanh toán", 2:"Chưa thanh toán", 0:"Hủy"
      * */
     public String getTenGioiTinh(){
-        if ( this.trangThai == 1 ) {
-            return "Đã thanh toán";
+        if ( this.trangThai == 3 ) {
+            return "Chờ thanh toán";
         } else if ( this.trangThai == 2 ) {
             return "Chưa thanh toán";
+        } else if ( this.trangThai == 1 ) {
+            return "Đã thanh toán";
         } else {
             return "Hủy";
         }

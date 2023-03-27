@@ -115,7 +115,7 @@ public class NhanVienFragment extends Fragment {
     * */
     private void khoiTaoRecyclerView() {
         listNhanVien = (ArrayList<NhanVien>) nhanVienDAO.getAllNhanVien(PreferencesHelper.getId(context),
-                (chkNhanVienDangLam.isChecked())?1:0,
+                (chkNhanVienDangLam.isChecked())?0:1,
                 edTimNhanVien.getText().toString().trim());
         adpNhanVien = new NhanVienAdapter(context, listNhanVien, new IEditListener() {
             /*
@@ -215,7 +215,7 @@ public class NhanVienFragment extends Fragment {
     private void hienThiDanhSachNhanVien() {
         listNhanVien.clear();
         listNhanVien.addAll(nhanVienDAO.getAllNhanVien(PreferencesHelper.getId(context),
-                (chkNhanVienDangLam.isChecked())?1:0,
+                (chkNhanVienDangLam.isChecked())?0:1,
                 edTimNhanVien.getText().toString().trim()));
         adpNhanVien.notifyDataSetChanged();
     }
