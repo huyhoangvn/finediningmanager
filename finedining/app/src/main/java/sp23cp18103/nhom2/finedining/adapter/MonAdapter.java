@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
@@ -47,10 +49,12 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     ArrayList<LoaiMon> listLoaiMon;
     int maLoaiMon, positionLM;
     TextInputEditText edDialogTenMon, edDialogGia;
+    GalleryHelper galleryHelper;
 
     public MonAdapter( Context context, List<Mon> list) {
         this.context = context;
         this.list = list;
+        galleryHelper = new GalleryHelper(context);
     }
 
     @NonNull
@@ -58,6 +62,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     public MonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.cardview_mon, parent, false);
         return new MonViewHolder(view);
+
     }
 
     @Override
@@ -98,7 +103,13 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 tv_tieude_mon.setText("Sửa món");
                 edDialogTenMon.setText(m.getTenMon());
                 edDialogGia.setText(String.valueOf(m.getGia()));
-                imgDialogMon.setImageResource(R.drawable.default_avatar);
+                imgDialogMon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                            galleryHelper.getImageFromGallery(imgDialogMon);
+                    }
+                });
+                ImageHelper.loadAvatar(context,imgDialogMon,m.getHinh());
                 Dialog dialog = builder.create();
                 if(m.getTrangThai()==1){
                     chkTrangThaiMon.setChecked(true);
@@ -148,6 +159,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                             }
                         }
                         spnrialogLoaiMon.setSelection(positionLM);
+                        m.setHinh(galleryHelper.getCurrentImageUrl());
                        if(ValidateMon()>0){
                             if(dao.updateMon(m)>0){
                                 Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
