@@ -28,22 +28,15 @@
             </com.google.android.material.textfield.TextInputLayout>
             <CheckBox
                 android:id="@+id/chk_fBan_conDung"
+                style="@style/mCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_gravity="bottom|start"
-                android:buttonTint="?attr/colorPrimary"
-                android:textColor="?attr/colorPrimary"
-                android:checked="true"
-                android:gravity="center|start"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:text="Còn Dùng"/>
+                android:text="Không Còn Trống"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvBan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:padding="5dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"/>

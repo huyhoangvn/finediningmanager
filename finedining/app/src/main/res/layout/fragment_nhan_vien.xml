@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_fNhanVien_timNhanVien"
             style="@style/mInputLayout"
@@ -27,6 +28,14 @@
                 android:imeOptions="actionSearch"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/chk_fNhanVien_nhanVienDangLam"
+            style="@style/mCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã nghỉ việc"
+            android:visibility="gone"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_fNhanVien_danhSach"
             android:layout_width="match_parent"
@@ -34,21 +43,6 @@
             android:padding="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/chk_fNhanVien_nhanVienDangLam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="bottom|start"
-        android:buttonTint="?attr/colorPrimary"
-        android:textColor="?attr/colorPrimary"
-        android:checked="true"
-        android:gravity="center|start"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        android:text="Đang làm việc"/>
 
 </FrameLayout>
 

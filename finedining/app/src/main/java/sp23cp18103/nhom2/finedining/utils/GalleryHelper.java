@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,12 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -32,6 +35,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import sp23cp18103.nhom2.finedining.HomeActivity;
+import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 
 /*
@@ -39,10 +43,34 @@ import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 * */
 public class GalleryHelper{
     private Context context;
+    //Firebase
+    private StorageReference storageReference;
+    //Controller
+    private ProgressDialog prgLoad;
+    //Variables
     private String currentImageUrl;
 
     public GalleryHelper(Context context) {
         this.context = context;
+        khoiTaoDialog();
+        khoiTaoStorageReferences();
+    }
+
+    /*
+    * Khởi tạo progress dialog
+    * */
+    private void khoiTaoDialog() {
+        prgLoad = new ProgressDialog(context);
+        prgLoad.setMessage("Uploading Image...");
+        prgLoad.setCanceledOnTouchOutside(false);
+        //prgLoad.setCancelable(false);
+    }
+
+    /*
+    * Khởi tạo firebase storage để lưu trữ ảnh
+    * */
+    private void khoiTaoStorageReferences() {
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 
     /*
@@ -77,8 +105,7 @@ public class GalleryHelper{
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
                     if(data != null){
-                        imageView.setImageURI(data.getData());
-                        uploadImageToFirebase(data.getData());
+                        uploadImageToFirebase(data.getData(), imageView);
                     }
                 }
             });
@@ -87,43 +114,54 @@ public class GalleryHelper{
         }
     }
 
-    public void uploadImageToFirebase(Uri uri) {
+    /*
+    * Tải ảnh lên firebase theo uri
+    * rồi lấy url về lưu vào currentImageUrl
+    * */
+    public void uploadImageToFirebase(Uri uri, ImageView imageView) {
         if(uri == null)
             return;
 
-        ProgressDialog prgLoad = new ProgressDialog(context);
-        prgLoad.setMessage("Loading Image...");
         prgLoad.show();
-        //Make file name
-        SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
-        Date now = new Date();
-        String fileName = format.format(now);
-        //Store image
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        storageReference = storageReference
-                .child("images/"+ fileName);
+
+        String fileName = DateHelper.getDateTimeSQLNow().replace(" ", "_");
+        storageReference = storageReference.child("images/"+ fileName);
         storageReference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful());
-                        Uri downloadUri = uriTask.getResult();
-                        if(uriTask.isSuccessful()){
-                            currentImageUrl = downloadUri.toString();
-                            prgLoad.dismiss();
-                        }
-                        Toast.makeText(context, "Lưu ảnh thành công", Toast.LENGTH_SHORT).show();
+                        //Lấy url khi thành công
+                        taskSnapshot.getStorage().getDownloadUrl()
+                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        currentImageUrl = uri.toString();
+                                        ImageHelper.loadAvatar(context, imageView, currentImageUrl);
+                                        Toast.makeText(context, "Chọn ảnh thành công...", Toast.LENGTH_SHORT).show();
+                                        prgLoad.dismiss();
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, "Lấy đường dẫn không thành công...", Toast.LENGTH_SHORT).show();
+                                        prgLoad.dismiss();
+                                    }
+                                });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         prgLoad.dismiss();
+                        Toast.makeText(context, "Tải ảnh lên không thành công...", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    /*
+    * Lấy url ảnh đã thêm vào
+    * */
     public String getCurrentImageUrl() {
         return currentImageUrl;
     }

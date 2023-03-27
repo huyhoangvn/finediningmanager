@@ -254,8 +254,12 @@ public class ThemNhanVienFragment extends Fragment {
             inputSdt.setError("Chưa nhập số điện thoại");
             return false;
         }
+        if(edSdt.getText().toString().trim().length() != 10){
+            inputSdt.setError("Số điện thoại không hợp lệ");
+            return false;
+        }
         if(edNgaySinh.getText().toString().trim().equals("")){
-            inputSdt.setError("Chưa nhập ngày sinh");
+            inputNgaySinh.setError("Chưa nhập ngày sinh");
             return false;
         }
         /*
@@ -279,7 +283,14 @@ public class ThemNhanVienFragment extends Fragment {
     * Thêm nhân viên
     * */
     private void themNhanVien() {
-        if(nhanVienDAO.insertNhanVien(getThongTinTuForm()) != -1){
+        //Kiểm tra xem tài khoản đã tồn tại chưa
+        NhanVien nhanVien = getThongTinTuForm();
+        if(nhanVienDAO.checkTaikhoan(nhanVien.getTaiKhoan())){
+            inputTaiKhoan.setError("Tài khoản đã tồn tại");
+            return;
+        }
+        //Thêm nhân viên nếu tài khoản hợp lệ
+        if(nhanVienDAO.insertNhanVien(nhanVien) != -1){
             Toast.makeText(context, "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Thêm nhân viên thất bại", Toast.LENGTH_SHORT).show();

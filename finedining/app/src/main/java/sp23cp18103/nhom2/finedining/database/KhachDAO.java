@@ -24,6 +24,12 @@ public class KhachDAO {
         values.put("tenKH",obj.getTenKH());
         return db.insert("khachhang",null,values);
     }
+    public int updateKhachHang(KhachHang obj){
+        ContentValues values=new ContentValues();
+        values.put("tenKH",obj.getTenKH());
+        return db.update("khachhang",values,"maKH=?",new String[]{String.valueOf(obj.getMaKH())});
+
+    }
     @SuppressLint("Range")
     public int getMaKhanhHangTiepTheo(){
         String sql = " SELECT seq FROM sqlite_sequence WHERE name LIKE 'khachhang' ";
@@ -32,6 +38,16 @@ public class KhachDAO {
             return c.getInt(c.getColumnIndex("seq")) + 1;
         }
         return -1;
+    }
+
+    @SuppressLint("Range")
+    public String getTenKhach(int maHD) {
+        String sql = "SELECT khachhang.tenKH FROM khachhang JOIN hoadon on hoadon.maKH = khachhang.maKH WHERE hoadon.maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("tenKH"));
+        }
+        return "";
     }
 
     @SuppressLint("Range")

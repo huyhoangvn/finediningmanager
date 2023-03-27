@@ -21,6 +21,7 @@ import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -67,7 +68,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         NhanVien nhanVien = listNhanVien.get(position);
         holder.tvTenNV.setText(nhanVien.getTenNV());
-        holder.tvSdt.setText(nhanVien.getSdt());
+        holder.tvSdt.setText(NumberHelper.getReadablePhoneNumber(nhanVien.getSdt()));
         holder.tvNgaySinh.setText(DateHelper.getDateVietnam(nhanVien.getNgaySinh()));
         holder.tvGioiTinh.setText(nhanVien.getTenGioiTinh());
         holder.tvTrangThai.setText(nhanVien.getTenTrangThai());
@@ -77,6 +78,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             holder.tvTrangThai.setTextColor(Color.RED);
         }
         ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
+        holder.tvPhanQuyen.setText(nhanVien.getTenPhanQuyen());
         /*
         * Hiển thị fragment để sửa thông tin nhân viên
         * */
@@ -105,7 +107,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imgHinh;
-        TextView tvTenNV, tvNgaySinh, tvSdt, tvGioiTinh, tvTrangThai;
+        TextView tvTenNV, tvNgaySinh, tvSdt, tvGioiTinh, tvTrangThai, tvPhanQuyen;
         ImageButton imgbtnSua;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -116,6 +118,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             tvNgaySinh = itemView.findViewById(R.id.tv_cvNhanVien_ngaySinh);
             tvGioiTinh = itemView.findViewById(R.id.tv_cvNhanVien_gioiTinh);
             tvTrangThai = itemView.findViewById(R.id.tv_cvNhanVien_trangThai);
+            tvPhanQuyen = itemView.findViewById(R.id.tv_cvNhanVien_phanQuyen);
             imgbtnSua = itemView.findViewById(R.id.imgbtn_cvNhanVien_sua);
         }
     }

@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputTimKiemHoaDon"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,11 +28,17 @@
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/chkFragmentHoaDon"
+            style="@style/mCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã Thanh Toán"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_hoaDon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:padding="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />

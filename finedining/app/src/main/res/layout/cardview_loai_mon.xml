@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/mCardview"
+    style="@style/mCardviewMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
                 <TextView
                     android:id="@+id/tvCarviewTenLoaiMon"
                     style="@style/mHeaderText"
@@ -24,20 +24,17 @@
                     android:text="Hải sản"/>
                 <TextView
                     android:id="@+id/tvCardviewTrangThaiLM"
+                    style="@style/mNormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hải sản"/>
             </LinearLayout>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+
             <ImageButton
                 android:id="@+id/imgCardviewSuaLoaiMon"
                 style="@style/mImageButton"
                 android:src="@drawable/ic_sua_thongtin"
                 tools:ignore="ContentDescription" />
-
         </LinearLayout>
 </androidx.cardview.widget.CardView>
 

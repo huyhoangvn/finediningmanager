@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment {
         String tenNhaHang = nhaHangDAO.getTenNH(maNH);
         String diachi = nhaHangDAO.getDiaChi(maNH);
         tvTenNhaHang.setText(tenNhaHang);
-        tvDiaChi.setText("Địa Chỉ: " + diachi);
+        tvDiaChi.setText("Địa chỉ: " + diachi);
     }
 
     private void anhXa(View view) {

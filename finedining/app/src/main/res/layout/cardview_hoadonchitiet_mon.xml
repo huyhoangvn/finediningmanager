@@ -1,70 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mCardViewSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/mCardview"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp"
-        >
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/tvTenMon_Cardview_HoaDonChiTiet_mon"
+            style="@style/mNormalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thịt gà"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvTenMon_Cardview_HoaDonChiTiet_mon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tên Món: "
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="X"
-
-                />
-            <TextView
-                android:id="@+id/tvSoLuong_Cardview_HoaDonChiTietmon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Số Lượng "
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-
-                />
-            <TextView
-                android:id="@+id/tvThanhGia_Cardview_HoaDonChiTietmon"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Thành giá "
-                android:gravity="end"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                />
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvGiaTien_Cardview_HoaDonChiTiet_mon"
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10000"/>
+<!--                <TextView-->
+<!--                    style="@style/mNormalText"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text=" vnd"/>-->
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" * "/>
+                <TextView
+                    style="@style/mNormalText"
+                    android:id="@+id/tvSoLuong_Cardview_HoaDonChiTietmon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"/>
+            </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/tvThanhGia_Cardview_HoaDonChiTietmon"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30000"/>
+            <TextView
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" vnd"/>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvGiaTien_Cardview_HoaDonChiTiet_mon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Giá:  "
-            android:textColor="@color/black"
-            android:layout_margin="5dp"
-
-            />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_ThemHoaDonFragment"
-    tools:context=".fragment.ThemHoaDonFragment"
+    android:id="@+id/fragment_suaHoaDonFragment"
+    tools:context=".fragment.SuaHoaDonFragment"
     android:background="?android:colorBackground"
     >
 
@@ -16,15 +16,16 @@
         android:gravity="center"
         tools:ignore="UselessParent"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        >
 
         <TextView
-            android:id="@+id/tv_tieuDe_FragmentThemHoaDon"
+            android:id="@+id/tv_tieuDe_FragmenSuaHoaDon"
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Thêm/Sửa hóa đơn"/>
+            android:text="Sửa hóa đơn"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/mInputLayout"
@@ -33,7 +34,7 @@
             app:errorEnabled="true"
             android:hint="Tên chủ hóa đơn">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_tenKhachHang_them_FragmentThemHoaDon"
+                android:id="@+id/input_tenKhachHang_sua_FragmentSuaHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -48,15 +49,15 @@
             app:errorEnabled="true"
             android:hint="Số lượng khách mời">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_soLuongKhach_them_FragmentThemHoaDon"
+                android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_mon_them_FragmentThemHoaDon"
+            android:id="@+id/input_mon_Sua_FragmentSuaHoaDon"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +76,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_ban_them_FragmentThemHoaDon"
+            android:id="@+id/input_ban_Sua_FragmentSuaHoaDon"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,14 +100,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnThem_FragmentThemHoaDon"
+                android:id="@+id/btnSua_FragmentSuaHoaDon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnHuy_FragmentThemHoaDon"
+                android:id="@+id/btnHuy_FragmentSuaHoaDon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
