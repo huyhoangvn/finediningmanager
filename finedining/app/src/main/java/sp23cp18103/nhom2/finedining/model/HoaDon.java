@@ -8,18 +8,16 @@ public class HoaDon {
     private int maNV;
     private int soLuongKhach;
     private String thoiGianXuat;//YYYY-mm-dd hh:mm
-    private String thoiGianĐat;//YYYY-mm-dd hh:mm
-    private String thoiGianThanhToan;//YYYY-mm-dd hh:mm
+    private String thoiGianDat;//YYYY-mm-dd hh:mm
     private int trangThai;// 1:"Đang đặt"; 2:"Chờ thanh toán"; 3:"Đã thanh toán"; 0:"Hủy"
 
-    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianĐat, String thoiGianThanhToan, int trangThai) {
+    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianThanhToan, int trangThai) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.soLuongKhach = soLuongKhach;
         this.thoiGianXuat = thoiGianXuat;
-        this.thoiGianĐat = thoiGianĐat;
-        this.thoiGianThanhToan = thoiGianThanhToan;
+        this.thoiGianDat = thoiGianDat;
         this.trangThai = trangThai;
     }
 
@@ -74,20 +72,12 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
-    public String getThoiGianĐat() {
-        return thoiGianĐat;
+    public String getThoiGianDat() {
+        return thoiGianDat;
     }
 
-    public void setThoiGianĐat(String thoiGianĐat) {
-        this.thoiGianĐat = thoiGianĐat;
-    }
-
-    public String getThoiGianThanhToan() {
-        return thoiGianThanhToan;
-    }
-
-    public void setThoiGianThanhToan(String thoiGianThanhToan) {
-        this.thoiGianThanhToan = thoiGianThanhToan;
+    public void setThoiGianDat(String thoiGianĐat) {
+        this.thoiGianDat = thoiGianDat;
     }
 
     /*
