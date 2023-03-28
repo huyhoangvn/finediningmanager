@@ -8,12 +8,13 @@ public class DatMon {
     private int maMon;
     private int maHD;
     private int soLuong;
+    private int trangThai;//1: "Còn dùng; 0: "Hủy"
 
-
-    public DatMon(int maMon, int maHD, int soLuong) {
+    public DatMon(int maMon, int maHD, int soLuong, int trangThai) {
         this.maMon = maMon;
         this.maHD = maHD;
         this.soLuong = soLuong;
+        this.trangThai = trangThai;
     }
 
     public DatMon() {
@@ -41,6 +42,14 @@ public class DatMon {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     @Override

@@ -26,12 +26,15 @@ public class DatMonDAO {
         values.put("maMon",dm.getMaMon());
         values.put("maHD",dm.getMaHD());
         values.put("soLuong",dm.getSoLuong());
+        values.put("trangThai",dm.getTrangThai());
         return db.insert("datmon",null,values);
     }
+
     public int updateDatMon(DatMon dm){
         ContentValues values = new ContentValues();
         values.put("soLuong",dm.getSoLuong());
-
+        values.put("trangThai",dm.getTrangThai());
+        values.put("trangThai",dm.getTrangThai());
         return db.update("datmon",values,"maMon=? AND maHD=?",new String[]{String.valueOf(dm.getMaMon()),String.valueOf(dm.getMaHD())});
 
     }
@@ -69,6 +72,7 @@ public class DatMonDAO {
             dm.setMaMon(c.getInt(c.getColumnIndex("maMon")));
             dm.setMaHD(c.getInt(c.getColumnIndex("maHD")));
             dm.setSoLuong(c.getInt(c.getColumnIndex("soLuong")));
+            dm.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(dm);
 
         }

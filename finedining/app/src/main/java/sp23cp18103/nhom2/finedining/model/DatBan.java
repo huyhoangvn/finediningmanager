@@ -5,15 +5,15 @@ import java.util.Objects;
 public class DatBan {
     private int maBan;
     private int maHD;
-    private String thoiGianDat;//YYYY-mm-dd hh:mm
-
-    public DatBan(int maBan, int maHD, String thoiGianDat) {
-        this.maBan = maBan;
-        this.maHD = maHD;
-        this.thoiGianDat = thoiGianDat;
-    }
+    private int trangThai;//1: "Còn dùng; 0: "Hủy"
 
     public DatBan() {
+    }
+
+    public DatBan(int maBan, int maHD, int trangThai) {
+        this.maBan = maBan;
+        this.maHD = maHD;
+        this.trangThai = trangThai;
     }
 
     public int getMaBan() {
@@ -32,12 +32,12 @@ public class DatBan {
         this.maHD = maHD;
     }
 
-    public String getThoiGianDat() {
-        return thoiGianDat;
+    public int getTrangThai() {
+        return trangThai;
     }
 
-    public void setThoiGianDat(String thoiGianDat) {
-        this.thoiGianDat = thoiGianDat;
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     @Override

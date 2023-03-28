@@ -28,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /*
     * Tạo bảng hóa đơn
-    * hoadon( maHD, maKH, maNV, soLuongKhach, thoiGianXuat, trangThai )
+    * hoadon( maHD, maKH, maNV, soLuongKhach, thoiGianXuat, thoiGianDat, thoiGianThanhToan, trangThai )
     * */
     private void createTableHoadon(SQLiteDatabase db) {
         String sql = "CREATE TABLE hoadon(" +
@@ -37,32 +37,35 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "soLuongKhach INTEGER NOT NULL," +
                 "thoiGianXuat TEXT NOT NULL," +
+                "thoiGianDat TEXT," +
+                "thoiGianThanhToan TEXT," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai >= 0 AND trangThai <= 3))";
         db.execSQL(sql);
     }
 
     /*
      * Tạo bảng đặt món
-     * datmon( maHD, maMon, soLuong )
+     * datmon( maHD, maMon, soLuong, trangThai )
      * */
     private void createTableDatmon(SQLiteDatabase db) {
         String sql = "CREATE TABLE datmon(" +
                 "maHD INTEGER NOT NULL REFERENCES hoadon(maHD)," +
                 "maMon INTEGER NOT NULL REFERENCES mon(maMon)," +
                 "soLuong INTEGER NOT NULL," +
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "PRIMARY KEY (maHD, maMon))";
         db.execSQL(sql);
     }
 
     /*
      * Tạo bảng đặt bàn
-     * datban( maHD, maBan, thoiGianDat )
+     * datban( maHD, maBan, trangThai )
      * */
     private void createTableDatban(SQLiteDatabase db) {
         String sql = "CREATE TABLE datban(" +
                 "maHD INTEGER NOT NULL REFERENCES hoadon(maHD)," +
                 "maBan INTEGER NOT NULL UNIQUE REFERENCES ban(maBan)," +
-                "thoiGianDat INTEGER NOT NULL," +
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "PRIMARY KEY (maHD, maBan))";
         db.execSQL(sql);
     }
