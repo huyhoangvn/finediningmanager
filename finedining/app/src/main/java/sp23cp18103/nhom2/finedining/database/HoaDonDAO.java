@@ -26,8 +26,7 @@ public class HoaDonDAO{
         values.put("maNV",hd.getMaNV());
         values.put("soLuongKhach",hd.getSoLuongKhach());
         values.put("thoiGianXuat",hd.getThoiGianXuat());
-        values.put("thoiGianĐat",hd.getThoiGianĐat());
-        values.put("thoiGianThanhToan",hd.getThoiGianThanhToan());
+        values.put("thoiGiandat",hd.getThoiGianĐat());
         values.put("trangThai",hd.getTrangThai());
 
         return db.insert("hoadon",null,values);
@@ -40,8 +39,6 @@ public class HoaDonDAO{
         values.put("maNV",hd.getMaNV());
         values.put("soLuongKhach",hd.getSoLuongKhach());
         values.put("thoiGianXuat",hd.getThoiGianXuat());
-        values.put("thoiGianĐat",hd.getThoiGianĐat());
-        values.put("thoiGianThanhToan",hd.getThoiGianThanhToan());
         values.put("trangThai",hd.getTrangThai());
 
         return db.update("hoadon",values,"maHD=?",new String[]{String.valueOf(hd.getMaHD())});
@@ -102,7 +99,6 @@ public class HoaDonDAO{
             hd.setSoLuongKhach(c.getInt(c.getColumnIndex("soLuongKhach")));
             hd.setThoiGianXuat(c.getString(c.getColumnIndex("thoiGianXuat")));
             hd.setThoiGianĐat(c.getString(c.getColumnIndex("thoiGianĐat")));
-            hd.setThoiGianThanhToan(c.getString(c.getColumnIndex("thoiGianThanhToan")));
             hd.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(hd);
         }

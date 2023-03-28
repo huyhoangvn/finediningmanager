@@ -9,17 +9,15 @@ public class HoaDon {
     private int soLuongKhach;
     private String thoiGianXuat;//YYYY-mm-dd hh:mm
     private String thoiGianĐat;//YYYY-mm-dd hh:mm
-    private String thoiGianThanhToan;//YYYY-mm-dd hh:mm
     private int trangThai;// 1:"Đang đặt"; 2:"Chờ thanh toán"; 3:"Đã thanh toán"; 0:"Hủy"
 
-    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianĐat, String thoiGianThanhToan, int trangThai) {
+    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianĐat, int trangThai) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.soLuongKhach = soLuongKhach;
         this.thoiGianXuat = thoiGianXuat;
         this.thoiGianĐat = thoiGianĐat;
-        this.thoiGianThanhToan = thoiGianThanhToan;
         this.trangThai = trangThai;
     }
 
@@ -82,13 +80,6 @@ public class HoaDon {
         this.thoiGianĐat = thoiGianĐat;
     }
 
-    public String getThoiGianThanhToan() {
-        return thoiGianThanhToan;
-    }
-
-    public void setThoiGianThanhToan(String thoiGianThanhToan) {
-        this.thoiGianThanhToan = thoiGianThanhToan;
-    }
 
     /*
      * Trả về tên của của trạng thái

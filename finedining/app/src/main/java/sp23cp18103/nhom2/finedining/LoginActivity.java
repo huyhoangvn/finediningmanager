@@ -214,9 +214,10 @@ public class LoginActivity extends AppCompatActivity{
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
                 "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://i.pinimg.com/originals/91/de/1e/91de1e48020787761c1906c9fcde86cd.jpg"));
 
-        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04", "2023/05/04", "2023/05/04",1));
+        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04", "2023/05/04",1));
 
-        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, "2023/05/06", "2023/05/04", "2023/05/04",1));
+        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, "2023/05/06", "2023/05/04",1));
+        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, "2023/05/06", "2023/05/04",2));
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
@@ -241,6 +242,7 @@ public class LoginActivity extends AppCompatActivity{
         loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
 
         datBanDAO.insertDatBan(new DatBan(1,1,1));
+        datBanDAO.insertDatBan(new DatBan(2,3,1));
 
         datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
 
