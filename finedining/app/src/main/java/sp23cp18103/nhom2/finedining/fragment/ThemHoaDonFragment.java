@@ -232,6 +232,7 @@ public class ThemHoaDonFragment extends Fragment {
                     datMon.setMaMon(listDatMon.get(i).getMaMon());
                     datMon.setSoLuong(listDatMon.get(i).getSoLuong());
                     datMon.setMaHD(listDatMon.get(i).getMaHD());
+                    datMon.setTrangThai(1);
                     if (datMonDAO.insertDatMon(datMon) > 0){
                         Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
                     }else {
@@ -244,7 +245,7 @@ public class ThemHoaDonFragment extends Fragment {
                 for (int i = 0; i < listDatban.size(); i++){
                     datBan.setMaBan(listDatban.get(i).getMaBan());
                     datBan.setMaHD(listDatban.get(i).getMaHD());
-                    datBan.setThoiGianDat(DateHelper.getDateTimeSQLNow());
+                    datBan.setTrangThai(1);
                     if (datBanDAO.insertDatBan(datBan) > 0){
                         Toast.makeText(getContext(), "Thành công", Toast.LENGTH_SHORT).show();
                     }else {
