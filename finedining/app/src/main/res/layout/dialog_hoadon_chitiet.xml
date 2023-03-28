@@ -12,6 +12,7 @@
         style="@style/mHeaderText"
         android:layout_margin="10dp"
         android:text="Chi tiết hóa đơn"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,27 +24,7 @@
             style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên  Nhân viên: "/>
-
-        <TextView
-            android:id="@+id/tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="30"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <TextView
-            style="@style/mNormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tên Khách Thanh Toán: "/>
+            android:text="Chủ Hóa Đơn: "/>
 
         <TextView
             android:id="@+id/tv_tenKhach_dialog_hoaDon_chiTiet"
@@ -52,8 +33,6 @@
             android:layout_height="wrap_content"
             android:text="30"/>
     </LinearLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,6 +53,28 @@
             android:layout_height="wrap_content"
             android:text="30"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            style="@style/mNormalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên  Nhân viên: "/>
+
+        <TextView
+            android:id="@+id/tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet"
+            style="@style/mNormalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="30"/>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,6 +90,25 @@
 
         <TextView
             android:id="@+id/tv_thoiGianXuat_dialog_hoaDon_chiTiet"
+            style="@style/mNormalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="30-10-2012"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <TextView
+            style="@style/mNormalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thời Gian Đặt: "/>
+
+        <TextView
+            android:id="@+id/tv_thoiGianDat_dialog_hoaDon_chiTiet"
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
