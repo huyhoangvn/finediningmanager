@@ -11,8 +11,7 @@ public class HoaDon {
     private String thoiGianDat;//YYYY-mm-dd hh:mm
     private int trangThai;// 1:"Đang đặt"; 2:"Chờ thanh toán"; 3:"Đã thanh toán"; 0:"Hủy"
 
-    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianThanhToan, int trangThai) {
-
+    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianDat, int trangThai) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
