@@ -100,6 +100,7 @@ public class HoaDonDAO{
             hd.setSoLuongKhach(c.getInt(c.getColumnIndex("soLuongKhach")));
             hd.setThoiGianXuat(c.getString(c.getColumnIndex("thoiGianXuat")));
             hd.setThoiGianDat(c.getString(c.getColumnIndex("thoiGianDat")));
+
             hd.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(hd);
         }

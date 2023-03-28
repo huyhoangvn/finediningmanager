@@ -12,6 +12,7 @@ public class HoaDon {
     private int trangThai;// 1:"Đang đặt"; 2:"Chờ thanh toán"; 3:"Đã thanh toán"; 0:"Hủy"
 
     public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianThanhToan, int trangThai) {
+
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
@@ -79,6 +80,7 @@ public class HoaDon {
     public void setThoiGianDat(String thoiGianĐat) {
         this.thoiGianDat = thoiGianDat;
     }
+
 
     /*
      * Trả về tên của của trạng thái
