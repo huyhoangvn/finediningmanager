@@ -93,6 +93,14 @@ public class BanDAO {
                 "AND b.trangThai >= ?";
         return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
+   public int getKiemTraConTrong(int maBan){
+        String sql="Select * from ban b " +
+                "JOIN datban db on db.maBan = b.maBan " +
+                "JOIN hoadon hd on db.maHD = hd.maHD " +
+                "where b.trangThai = 2 " +
+                "and b.maBan = ? ";
 
+        return getDaTa(sql,String.valueOf(maBan)).size();
+   }
 
 }
