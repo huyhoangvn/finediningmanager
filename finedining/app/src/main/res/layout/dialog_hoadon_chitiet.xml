@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp"
     android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/mHeaderText"
-        android:layout_margin="10dp"
-        android:text="Chi tiết hóa đơn"/>
+        android:text="Chi tiết hóa đơn"
+        android:layout_margin="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="horizontal">
 
         <TextView
-            style="@style/mNormalText"
+            style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chủ Hóa Đơn: "/>
@@ -31,17 +29,15 @@
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="30"/>
+            android:text="Nguyễn Huy Hoàng"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="horizontal">
 
         <TextView
-            style="@style/mNormalText"
+            style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Số lượng khách: "/>
@@ -51,27 +47,25 @@
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="30"/>
+            android:text="5"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="horizontal">
 
         <TextView
-            style="@style/mNormalText"
+            style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên  Nhân viên: "/>
+            android:text="Nhân viên phục vụ: "/>
 
         <TextView
             android:id="@+id/tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet"
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="30"/>
+            android:text="Hồ Ngọc Hà"/>
     </LinearLayout>
 
 
@@ -79,11 +73,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="horizontal">
         <TextView
-            style="@style/mNormalText"
+            style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thời Gian Xuất: "/>
@@ -93,16 +85,15 @@
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="30-10-2012"/>
+            android:text="30-10-2012 20:20"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="horizontal">
         <TextView
-            style="@style/mNormalText"
+            style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thời Gian Đặt: "/>
@@ -112,44 +103,35 @@
             style="@style/mNormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="30-10-2012"/>
+            android:text="30-10-2012 20:20"/>
     </LinearLayout>
+
     <TextView
-        style="@style/mNormalText"
+        style="@style/mLabelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chi tiết món: "
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:text="Danh sách đặt món: "
         android:layout_gravity="start"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        >
+        android:layout_height="wrap_content">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_mon_dialog_hoaDon_chiTiet"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"/>
     </ScrollView>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:orientation="vertical">
         <TextView
-            style="@style/mNormalText"
+            style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Danh sách bàn: "/>
+            android:text="Danh sách đặt bàn: "/>
 
         <TextView
             android:id="@+id/tv_danhSachBan_dialog_hoaDon_chiTiet"
@@ -169,8 +151,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:gravity="center">
         <TextView
             style="@style/mHeaderText"
@@ -183,7 +163,7 @@
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A1, A2, A3,..."/>
+            android:text="30,000"/>
 
         <TextView
             style="@style/mHeaderText"
@@ -194,12 +174,10 @@
 
     <TextView
         android:id="@+id/tv_trangThai_dialog_hoaDon_chiTiet"
-        style="@style/mNormalText"
+        style="@style/mBoldText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đã thanh toán"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_green_dark"/>
+        android:text="Đã thanh toán"/>
 
 </LinearLayout>
 

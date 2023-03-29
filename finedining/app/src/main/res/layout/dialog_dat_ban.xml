@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mDialog"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
     android:gravity="center">
 
     <TextView
+        style="@style/mHeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/mHeaderText"
-        android:text="Chọn Bàn"/>
+        android:text="Đặt bàn"
+        android:layout_margin="10dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_dialog_chonBan_FragmentThemHoaDon"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        />
+        android:layout_height="200dp"
+        tools:ignore="UselessLeaf">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_dialog_chonBan_FragmentThemHoaDon"
+                style="@style/mRecyclerViewGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"/>
+    </ScrollView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
         <TextView
             style="@style/mNormalText"
             android:layout_width="wrap_content"

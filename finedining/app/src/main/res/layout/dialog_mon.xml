@@ -1,91 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
-    android:padding="5dp"
-    android:orientation="vertical"
-    android:gravity="center">
-    <TextView
-        android:id="@+id/tvTieuDeMon"
-        style="@style/mHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Thêm/sửa món"/>
-
-    <ImageButton
-        android:id="@+id/imgDialogMon"
-        style="@style/mAvatarImageButton"
-        android:layout_margin="10dp"
-        android:src="@drawable/default_avatar"
-        tools:ignore="ContentDescription" />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputDialogTenMon"
-        style="@style/mInputLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        android:hint="Tên món">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edDialogTenMon"
+        android:layout_height="match_parent"
+        tools:ignore="ScrollViewCount">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvTieuDeMon"
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thêm/sửa món"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputDialogGia"
-        style="@style/mInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        android:hint="Giá">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edDialogGia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLines="1"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <ImageButton
+                android:id="@+id/imgDialogMon"
+                style="@style/mAvatarImageButton"
+                android:src="@drawable/default_avatar"
+                tools:ignore="ContentDescription" />
 
-    <Spinner
-        android:id="@+id/spnrDialogLoaiMon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:minHeight="48dp"
-        tools:ignore="SpeakableTextPresentCheck" />
-    <CheckBox
-        android:id="@+id/chkTrangThaiMon"
-        style="@style/mNormalText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Còn sử dụng?"
-        android:layout_gravity="start"
-        android:layout_marginStart="10dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDialogLuuMon"
-            style="@style/mButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Lưu"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDialogHuyMon"
-            style="@style/mButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Hủy"/>
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputDialogTenMon"
+                style="@style/mInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="Tên món">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edDialogTenMon"
+                    style="@style/mEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputDialogGia"
+                style="@style/mInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:hint="Giá">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edDialogGia"
+                    style="@style/mEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spnrDialogLoaiMon"
+                style="@style/mSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <CheckBox
+                android:id="@+id/chkTrangThaiMon"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Còn sử dụng?"
+                android:layout_gravity="start"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDialogLuuMon"
+                    style="@style/mButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lưu"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDialogHuyMon"
+                    style="@style/mButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hủy"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 
     <!-- Dialog để thêm hoặc sửa món-->

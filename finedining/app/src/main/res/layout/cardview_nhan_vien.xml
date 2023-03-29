@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ngày sinh: "/>
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SĐT: "/>
@@ -64,7 +64,7 @@
                     style="@style/mNormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0943765588"/>
+                    android:text="0943 7655 888"/>
             </LinearLayout>
 
             <LinearLayout
@@ -72,10 +72,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    style="@style/mLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Giới tính: "
-                    android:textSize="16sp"/>
+                    android:text="Giới tính: "/>
 
                 <TextView
                     android:id="@+id/tv_cvNhanVien_gioiTinh"
@@ -90,10 +90,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    style="@style/mLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chức vụ: "
-                    android:textSize="16sp"/>
+                    android:text="Chức vụ: "/>
 
                 <TextView
                     android:id="@+id/tv_cvNhanVien_phanQuyen"
@@ -105,12 +105,10 @@
 
             <TextView
                 android:id="@+id/tv_cvNhanVien_trangThai"
-                style="@style/mNormalText"
+                style="@style/mBoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đang làm"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"/>
+                android:text="Đang làm"/>
         </LinearLayout>
 
         <ImageButton

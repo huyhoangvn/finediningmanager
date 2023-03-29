@@ -49,7 +49,7 @@ public class BanSpinnerAdapter extends BaseAdapter {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         if (convertView == null){
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.ban_item_spinner,null);
+            convertView = inflater.inflate(R.layout.ban_item_spinner, parent, false);
             viewHolder.tvMaBanSP = convertView.findViewById(R.id.tvMaBanSP);
             viewHolder.tvTenBanSP = convertView.findViewById(R.id.tvTenBanSP);
             convertView.setTag(viewHolder);
@@ -59,8 +59,8 @@ public class BanSpinnerAdapter extends BaseAdapter {
         }
         LoaiBan loaiBan = list.get(position);
 
-        viewHolder.tvMaBanSP.setText(""+loaiBan.getMaLB()+".");
-        viewHolder.tvTenBanSP.setText(loaiBan.getTenLoai()+".");
+        viewHolder.tvMaBanSP.setText(String.valueOf(loaiBan.getMaLB()));
+        viewHolder.tvTenBanSP.setText(loaiBan.getTenLoai());
         return convertView;
     }
     public final class ViewHolder{
