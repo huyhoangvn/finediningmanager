@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mFragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.HoaDonFragment"
-    android:background="?android:colorBackground">
+    tools:context=".fragment.HoaDonFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,6 +22,7 @@
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_01_hoaDon_timHoaDon"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -29,94 +31,92 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="4"
+            android:weightSum="3"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputChonNgay"
                 style="@style/mInputLayout"
-                android:layout_weight="1.7"
-                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Chọn Ngày"
+                android:hint="Ngày"
+                android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay"
                 app:endIconMode="custom">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_01_hoaDon_ChonNgay"
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="date"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputChonGio"
                 style="@style/mInputLayout"
-                android:layout_weight="2.3"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Chọn Giờ"
+                android:layout_weight="1"
+                android:hint="Giờ"
+                android:layout_marginStart="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay"
                 app:endIconMode="custom">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_01_hoaDon_ChonGio"
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="time"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:scrollbarThumbHorizontal="@null">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-            <TextView
-                android:id="@+id/tvChoThanhToan_hoaDon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chờ Thanh Toán"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:padding="5dp"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tvDaThanhToan_hoaDon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đã Thanh Toán"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:padding="5dp"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-            <TextView
-                android:id="@+id/tvDangDatTruoc_hoaDon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đang Đặt Trước"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:padding="5dp"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvChoThanhToan_hoaDon"
+                    style="@style/mFilterItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chờ Thanh Toán"/>
+                <TextView
+                    android:id="@+id/tvDaThanhToan_hoaDon"
+                    style="@style/mFilterItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã Thanh Toán"/>
+                <TextView
+                    android:id="@+id/tvDangDatTruoc_hoaDon"
+                    style="@style/mFilterItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đang Đặt Trước"/>
+                <TextView
+                    android:id="@+id/tvHuy_hoaDon"
+                    style="@style/mFilterItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã Hủy"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_hoaDon"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="5dp"
-            android:layout_weight="1"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

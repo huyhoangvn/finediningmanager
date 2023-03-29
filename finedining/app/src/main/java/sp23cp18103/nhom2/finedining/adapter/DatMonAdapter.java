@@ -47,7 +47,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     @Override
     public DatMonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview_chonmon,parent, false);
+        View view = inflater.inflate(R.layout.cardview_chonmon, parent, false);
         DatMonAdapter.DatMonViewHolder viewHolder = new DatMonAdapter.DatMonViewHolder(view);
 
         return viewHolder;
@@ -60,8 +60,6 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
         Mon mon = monList.get(position);
 
         holder.tvTen.setText(""+mon.getTenMon());
-        holder.tvGia.setText(""+mon.getGia());
-
 
         holder.itemView.setSelected(selectedItems.get(position, false));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -91,13 +89,12 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     }
 
     class DatMonViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTen,tvGia;
+        TextView tvTen;
         LinearLayout lnChonMon;
 
         public DatMonViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTen = itemView.findViewById(R.id.tvTenMon_Cardview_datMon);
-            tvGia = itemView.findViewById(R.id.tvGia_Cardview_datMon);
             lnChonMon = itemView.findViewById(R.id.linearChonMon);
         }
     }

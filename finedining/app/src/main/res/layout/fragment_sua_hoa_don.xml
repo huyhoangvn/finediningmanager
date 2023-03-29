@@ -1,211 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_suaHoaDonFragment"
     tools:context=".fragment.SuaHoaDonFragment"
-    android:background="?android:colorBackground"
-    >
-
-    <LinearLayout
+    android:background="?android:colorBackground">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:ignore="UselessParent"
-        android:clickable="true"
-        android:focusable="true"
-        >
-
-        <TextView
-            android:id="@+id/tv_tieuDe_FragmenSuaHoaDon"
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Sửa hóa đơn"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/mInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            android:hint="Tên chủ hóa đơn">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_tenKhachHang_sua_FragmentSuaHoaDon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-
-            style="@style/mInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            android:hint="Số lượng khách mời">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="4"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:gravity="center"
+            tools:ignore="UselessParent"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tv_tieuDe_FragmentSuaHoaDon"
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Thêm/Sửa hóa đơn"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputChonNgay_SuaHoaDon"
                 style="@style/mInputLayout"
-                android:layout_weight="1.7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Chọn Ngày"
-                app:endIconDrawable="@drawable/ic_chon_ngay"
-                app:endIconMode="custom">
+                app:errorEnabled="true"
+                android:hint="Tên chủ hóa đơn">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_01_SuahoaDon_ChonNgay"
+                    android:id="@+id/input_tenKhachHang_sua_FragmentSuaHoaDon"
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:enabled="false"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputChonGio_SuaHoaDon"
                 style="@style/mInputLayout"
-                android:layout_weight="2.3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Chọn Giờ"
+                app:errorEnabled="true"
+                android:hint="Ngày đặt"
                 app:endIconDrawable="@drawable/ic_chon_ngay"
                 app:endIconMode="custom">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_01_SuaHoaDon_ChonGio"
+                    android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:enabled="false"
+                    android:inputType="datetime"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_mon_Sua_FragmentSuaHoaDon"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Danh sách đặt món"
-            app:boxBackgroundColor="@android:color/transparent"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_dat_mon">
+            <com.google.android.material.textfield.TextInputLayout
 
-            <com.google.android.material.textfield.TextInputEditText
+                style="@style/mInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:enabled="false"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                app:errorEnabled="true"
+                android:hint="Số lượng khách mời">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_thoiGianDat_sua_FragmentSuaHoaDon"
+                    style="@style/mEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_ban_Sua_FragmentSuaHoaDon"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Danh sách đặt bàn"
-            app:boxBackgroundColor="@android:color/transparent"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_dat_ban">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_mon_sua_FragmentSuaHoaDon"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:enabled="false"
-                android:inputType="text"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_margin="10dp"
+                android:hint="Danh sách đặt món"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_dat_mon">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:enabled="false"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <RadioButton
-                android:id="@+id/rdoDangDat_themHoaDon"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_ban_Sua_FragmentSuaHoaDon"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Đang Đặt"
+                android:layout_margin="10dp"
+                android:hint="Danh sách đặt bàn"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_dat_ban">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:enabled="false"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginLeft="10dp"
-                />
-            <RadioButton
-                android:id="@+id/rdoChoThanhToan_themHoaDon"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="10dp">
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Trạng thái: "
+                    android:padding="5dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Chờ thanh toán"
+                        android:layout_weight="1"/>
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Đặt bàn"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Đã thanh toán"
+                        android:layout_weight="1"/>
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Hủy"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Chờ Thanh Toán"
-                android:layout_marginRight="10dp"
-                />
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSua_FragmentSuaHoaDon"
+                    style="@style/mButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lưu"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHuy_FragmentSuaHoaDon"
+                    style="@style/mButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hủy"/>
+            </LinearLayout>
+
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
 
-            <RadioButton
-                android:id="@+id/rdoDaThanhToan_themHoaDon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35 "
-                android:text="Đã thanh toán"
-                android:layout_marginLeft="10dp"
-                />
-            <RadioButton
-                android:id="@+id/rdoHuy_themHoaDon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hủy"
-                android:layout_marginRight="10dp"
-
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSua_FragmentSuaHoaDon"
-                style="@style/mButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Lưu"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnHuy_FragmentSuaHoaDon"
-                style="@style/mButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hủy"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>
 

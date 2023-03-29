@@ -25,7 +25,6 @@ import java.util.Objects;
 * Và hỗ trợ tạo dialog để chọn ngày giờ
 * */
 public class DateHelper {
-
     /*
      * Trả về ngày và giờ hiện tại theo chuẩn cơ sở dữ liệu SQL
      * VD: 2000-12-30 09:01
@@ -59,6 +58,15 @@ public class DateHelper {
      */
     public static String getDateVietnamNow(){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+    /*
+     * Trả về ngày hiện tại theo chuẩn
+     * VD: 24:01
+     */
+    public static String getTimeNow(){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return sdf.format(new Date());
     }
 
@@ -140,6 +148,37 @@ public class DateHelper {
                         e.printStackTrace();
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)){
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
+        }.show();
+    }
+
+    /*
+     * Hiển thị hộp thoại để chọn giờ
+     * Đặt ngày theo định dạng HH:mm trên textview đã thêm vào
+     */
+    @SuppressLint("SimpleDateFormat")
+    public static void showTimePicker(Context context, TextView textView) {
+        final Calendar c = Calendar.getInstance();
+        new TimePickerDialog(context,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @SuppressLint("DefaultLocale")
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                        try {
+                            textView.setText((String)sdf.format(Objects.requireNonNull(
+                                    new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute))));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true
+        ){
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);

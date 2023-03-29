@@ -10,27 +10,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tvTenMon_Cardview_datMon"
                 style="@style/mNormalText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Thịt gà"/>
+                android:text="Tên món ăn"
+                android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/tvGia_Cardview_datMon"
-                style="@style/mNormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"/>
-            <TextView
-                style="@style/mNormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" vnd"/>
+            <EditText
+                android:id="@+id/edSoLuong_Cardview_datMon"
+                style="@style/mEditText"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:inputType="number"
+                android:autofillHints="0"
+                android:text="0"
+                android:layout_gravity="end"/>
         </LinearLayout>
 
 </androidx.cardview.widget.CardView>

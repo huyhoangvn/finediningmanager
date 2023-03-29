@@ -4,6 +4,7 @@
     style="@style/mCardViewSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <LinearLayout
@@ -17,13 +18,17 @@
                 style="@style/mNormalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:lines="1"
                 android:text="Vị trí"/>
             <TextView
                 android:id="@+id/tv_trangthai_DatBan"
-                style="@style/mNormalText"
+                style="@style/mBoldText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trống"/>
+                android:maxLines="1"
+                android:lines="1"
+                android:text="Trống/Đầy"/>
         </LinearLayout>
 
 </androidx.cardview.widget.CardView>

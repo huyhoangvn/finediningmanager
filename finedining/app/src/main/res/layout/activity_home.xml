@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:id="@+id/drawer_layout"
-    >
+    android:id="@+id/drawer_layout">
 
     <LinearLayout
         android:id="@+id/linear"
@@ -18,16 +17,13 @@
             style="@style/mToolbar"/>
     </LinearLayout>
 
-
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navi_menu"
         style="@style/mNavigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:headerLayout="@layout/menu_header"
-        app:menu="@menu/menu"
-        />
+        app:menu="@menu/menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
 
