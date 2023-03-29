@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="Bàn trống: "/>
                 <TextView
-                    android:id="@+id/tv_SoBanTrong"
+                    android:id="@+id/tv_SoBanTrongBan"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

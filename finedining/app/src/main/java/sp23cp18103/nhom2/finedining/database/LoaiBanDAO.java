@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.net.PortUnreachableException;
 import java.util.ArrayList;
@@ -65,11 +66,7 @@ public class LoaiBanDAO {
         List<LoaiBan> list = getDaTa(sql, String.valueOf(maLB));
         return list.get(0);
     }
-//    public LoaiBan getID(String id) {
-//        String sql = "Select * from loaiban where tenLoai = ?";
-//        List<LoaiBan> list = getDaTa(sql, id);
-//        return list.get(0);
-//    }
+
 
     // tìm kiếm tương đối theo nhân viên và tên loại bàn
     public List<LoaiBan> getTimKiem(int maNV, String timKiem ,String trangThai  ) {
@@ -81,6 +78,36 @@ public class LoaiBanDAO {
                 "AND lb.trangThai >= ?";
         return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
+    public int getlienKetTrangThai(int maLB, int maNV) {
+        String sql = "Select b.maBan from ban b " +
+                "JOIN loaiban lb ON b.maLB = lb.maLB " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.trangThai = 1 " +
+                "AND b.maLB = ? " ;
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLB)});
+        return c.getCount();
+    }
+   @SuppressLint("Range")
+   public int getSoLuongBan(int maLB, int maNV){
+        String sql="select count(b.maBan) AS DemSoLuong from ban b  " +
+                "Join loaiban lb on lb.maLB = b.maLB " +
+                "Join datban db on db.maBan = b.maBan " +
+                "Join hoadon hd on db.maHD = hd.maHD " +
+                "Join nhanvien nv on nv.maNV = lb.maNV " +
+                "where nv.maNH = " +
+                "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+                "AND b.trangThai = 1 " +
+                "And  hd.trangThai = 2 " +
+                "And lb.maLB = ? ";
 
-
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
+        if (c.moveToNext()){
+            Log.d("TAG", "getSoLuongBan: "+c.getInt(c.getColumnIndex("DemSoLuong")));
+            Log.d("TAG", "getSoLuongBan: IN ");
+            return c.getInt(c.getColumnIndex("DemSoLuong"));
+        }
+        return 0;
+   }
 }

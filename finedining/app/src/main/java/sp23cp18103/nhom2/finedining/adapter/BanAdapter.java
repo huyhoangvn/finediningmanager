@@ -68,13 +68,13 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         banDAO=new BanDAO(context);
         holder.tvViTri.setText(ban.getViTri());
         holder.tvLoaiBan.setText(""+loaiBan.getTenLoai());
-        holder.tvTrangThaiBan.setText(""+ban.getTrangThai());
+//        holder.tvTrangThaiBan.setText((banDAO.getKiemTraConTrong(position)==1) ?"Trống":"Đầy");
 
-        if(ban.getTrangThai()==1){
-            holder.tvTrangThaiBan.setText("Dùng");
+        if(banDAO.getKiemTraConTrong(position)==1){
+            holder.tvTrangThaiBan.setText("Đầy");
             holder.tvTrangThaiBan.setTextColor(Color.BLUE);
         }else{
-            holder.tvTrangThaiBan.setText("Không dùng");
+            holder.tvTrangThaiBan.setText("Trống");
             holder.tvTrangThaiBan.setTextColor(Color.RED);
         }
 
@@ -185,4 +185,5 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             }
         }
     }
+
 }
