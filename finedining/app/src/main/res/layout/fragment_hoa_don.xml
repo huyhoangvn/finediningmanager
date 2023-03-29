@@ -110,7 +110,6 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_hoaDon"
             style="@style/mRecyclerViewLinear"

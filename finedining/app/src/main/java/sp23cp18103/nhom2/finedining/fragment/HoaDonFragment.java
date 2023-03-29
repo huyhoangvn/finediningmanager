@@ -48,7 +48,6 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 * */
 public class HoaDonFragment extends Fragment {
     ThongTinHoaDonDAO thongTinHoaDonDAO;
-    FloatingActionButton btnThemHoaDon;
     private FragmentManager fmNhanVien;
     RecyclerView rcv_HoaDon;
     List<ThongTinHoaDon> thongTinHoaDonList;
@@ -56,7 +55,7 @@ public class HoaDonFragment extends Fragment {
     TextInputEditText edTimKiem;
     CheckBox chkFragmentHoaDon;
     TextInputLayout inputTimKiemHoaDon;
-    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat;
+    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy;
 
     Context context;
     @Override
@@ -75,6 +74,7 @@ public class HoaDonFragment extends Fragment {
         tvChoThanhToan = view.findViewById(R.id.tvChoThanhToan_hoaDon);
         tvDaThanhToan = view.findViewById(R.id.tvDaThanhToan_hoaDon);
         tvDangDuocDat = view.findViewById(R.id.tvDangDatTruoc_hoaDon);
+        tvDaHuy = view.findViewById(R.id.tvHuy_hoaDon);
         thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
         context = getContext();
         timKiemHoaDon();
@@ -101,7 +101,6 @@ public class HoaDonFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
-                tvDaThanhToan.setBackgroundColor(Color.GREEN);
                 thongTinHoaDonList.clear();
                 thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),1));
                 hoaDonAdapter.notifyDataSetChanged();
@@ -111,8 +110,6 @@ public class HoaDonFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
-                tvChoThanhToan.setBackgroundColor(Color.GREEN);
-                tvDaThanhToan.setBackgroundColor(Color.TRANSPARENT);
                 thongTinHoaDonList.clear();
                 thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),2));
                 hoaDonAdapter.notifyDataSetChanged();
@@ -122,11 +119,18 @@ public class HoaDonFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
-                tvDangDuocDat.setBackgroundColor(Color.GREEN);
-                tvChoThanhToan.setBackgroundColor(Color.TRANSPARENT);
-                tvDaThanhToan.setBackgroundColor(Color.TRANSPARENT);
                 thongTinHoaDonList.clear();
                 thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),3));
+                hoaDonAdapter.notifyDataSetChanged();
+            }
+
+        });
+        tvDaHuy.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View v) {
+                thongTinHoaDonList.clear();
+                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),0));
                 hoaDonAdapter.notifyDataSetChanged();
             }
         });
@@ -188,16 +192,16 @@ public class HoaDonFragment extends Fragment {
         fmNhanVien.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-               hienThiDanhSachHoaDon();
+               new HoaDonFragment();
             }
         });
     }
-    @SuppressLint("NotifyDataSetChanged")
-    public void hienThiDanhSachHoaDon(){
-        thongTinHoaDonList.clear();
-        thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThaiHoaDon(PreferencesHelper.getId(context),
-                (chkFragmentHoaDon.isChecked())?1:2,
-                edTimKiem.getText().toString().trim()));
-        hoaDonAdapter.notifyDataSetChanged();
-    }
+//    @SuppressLint("NotifyDataSetChanged")
+//    public void hienThiDanhSachHoaDon(){
+//        thongTinHoaDonList.clear();
+//        thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThaiHoaDon(PreferencesHelper.getId(context),
+//               ,
+//                edTimKiem.getText().toString().trim()));
+//        hoaDonAdapter.notifyDataSetChanged();
+//    }
 }
