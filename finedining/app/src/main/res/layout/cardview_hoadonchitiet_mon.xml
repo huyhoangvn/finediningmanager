@@ -12,7 +12,7 @@
         android:padding="5dp">
         <TextView
             android:id="@+id/tvTenMon_Cardview_HoaDonChiTiet_mon"
-            style="@style/mNormalText"
+            style="@style/mBoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thịt gà"/>

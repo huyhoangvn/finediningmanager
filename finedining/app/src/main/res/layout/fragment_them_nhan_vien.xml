@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,7 +59,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Mật khẩu"
-                        app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true"
                         app:passwordToggleEnabled="true">
                         <com.google.android.material.textfield.TextInputEditText
@@ -75,7 +75,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Tên nhân viên"
-                        app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ed_fThemNhanVien_tenNV"
@@ -91,7 +90,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Số điện thoại"
-                        app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ed_fThemNhanVien_sdt"
@@ -107,7 +105,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Ngày sinh"
-                        app:boxBackgroundColor="@android:color/transparent"
                         app:errorEnabled="true"
                         app:endIconMode="custom"
                         app:endIconDrawable="@drawable/ic_chon_ngay">

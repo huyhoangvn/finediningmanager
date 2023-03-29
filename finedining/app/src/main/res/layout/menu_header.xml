@@ -12,8 +12,8 @@
         android:layout_margin="10dp"
         android:layout_gravity="start"
         android:src="@drawable/default_avatar"
-        app:civ_border_color="?attr/colorPrimaryVariant"
-        app:civ_border_width="2dp" />
+        app:civ_border_color="?attr/colorSecondary"
+        app:civ_border_width="5dp" />
 
     <TextView
         android:id="@+id/tv_tenNhanVien"
@@ -24,7 +24,6 @@
         android:layout_gravity="start"
         android:text="Tên Nhân Viên"
         android:textColor="?attr/colorOnPrimary"/>
-
 
     <TextView
         android:id="@+id/tv_chucvu"

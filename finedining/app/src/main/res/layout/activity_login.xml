@@ -24,10 +24,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:padding="5dp"
                 android:text="WELLCOME TO \nFINE DINING MANAGER"
                 android:textAllCaps="true"
-                android:layout_gravity="start"
-                />
+                android:layout_gravity="start" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_taikhoan_dangnhap"
@@ -38,6 +38,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -54,6 +55,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mFragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -61,10 +62,11 @@
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="date"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,10 +80,11 @@
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="date"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -119,15 +122,13 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:hint="Năm"
-            app:errorEnabled="true"
-            >
-
+            app:errorEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                />
+                android:inputType="number"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnThongKeDoanhThu2"

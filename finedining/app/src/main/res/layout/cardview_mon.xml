@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/mCardview"
+    style="@style/mCardViewSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -29,28 +29,51 @@
                 android:layout_height="wrap_content"
                 android:text="Tên món"/>
 
-            <TextView
-                android:id="@+id/tvCardviewTenLoaiMon"
-                style="@style/mNormalText"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hải sản"/>
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mLabelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loại: "/>
+                <TextView
+                    android:id="@+id/tvCardviewTenLoaiMon"
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tên loại món"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvCardviewGiaMon"
-                style="@style/mNormalText"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giá: "/>
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mLabelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Giá: "/>
+                <TextView
+                    android:id="@+id/tvCardviewGiaMon"
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="200"/>
+                <TextView
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" vnd"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvCardviewTrangThaiMon"
-                style="@style/mNormalText"
+                style="@style/mBoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Còn dùng"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"/>
+                android:text="Còn dùng"/>
         </LinearLayout>
 
         <ImageButton

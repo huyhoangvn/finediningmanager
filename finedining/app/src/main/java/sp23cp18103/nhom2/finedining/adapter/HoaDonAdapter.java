@@ -68,7 +68,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
         tthd.getMaHD();
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
-        holder.tvSoLuongKhach.setText(""+tthd.getSoLuongKhachHang());
+//        holder.tvSoLuongKhach.setText(""+tthd.getSoLuongKhachHang());
         holder.tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
 
         holder.tvTrangThai.setText((tthd.getTrangThai()==1) ?"Đã Thanh Toán":"Chưa Thanh Toán");
@@ -87,7 +87,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 TextView tv_tenKhach = view.findViewById(R.id.tv_tenKhach_dialog_hoaDon_chiTiet);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 TextView tv_tenNhanVien = view.findViewById(R.id.tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet);
-                TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
+//                TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
                 TextView tvThoiGianXuat = view.findViewById(R.id.tv_thoiGianXuat_dialog_hoaDon_chiTiet);
                 RecyclerView rcv_mon = view.findViewById(R.id.rcv_mon_dialog_hoaDon_chiTiet);
                 TextView tv_ban = view.findViewById(R.id.tv_danhSachBan_dialog_hoaDon_chiTiet);
@@ -96,7 +96,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
                 tv_tenNhanVien.setText(tthd.getTenNhanVien());
                 tv_tenKhach.setText(tthd.getTenKhachHang());
-                tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
+//                tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
                 tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
                 tvTrangThai.setText((tthd.getTrangThai()==1) ?"Đã Thanh Toán":"Chưa Thanh Toán");
 
@@ -136,7 +136,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
             imgBill = itemView.findViewById(R.id.imgBill);
             imgEdit = itemView.findViewById(R.id.imgBtn_edit_CardView_HoaDon);
             tv_tenKhach = itemView.findViewById(R.id.tv_tenKhach_CardView_HoaDon);
-            tvSoLuongKhach = itemView.findViewById(R.id.tv_soLuongKhach_CardView_HoaDon);
+//            tvSoLuongKhach = itemView.findViewById(R.id.tv_soLuongKhach_CardView_HoaDon);
             tvThoiGianXuat = itemView.findViewById(R.id.tv_thoiGianXuat_CardView_HoaDon);
             tvTrangThai = itemView.findViewById(R.id.tv_trangThai_CardView_HoaDon);
 

@@ -136,11 +136,11 @@ public class ThemHoaDonFragment extends Fragment {
                 Dialog dialog = builder.create();
 
                 RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
-                TextInputEditText inputSoLuongChonMon = view.findViewById(R.id.input_SoLuong_dialog_chonMon_FragmentThemHoaDon);
+//                TextInputEditText inputSoLuongChonMon = view.findViewById(R.id.input_SoLuong_dialog_chonMon_FragmentThemHoaDon);
                 TextView tvMonDaChon = view.findViewById(R.id.tvMonDaChon_dialog_chonMon_FragmentThemHoaDon);
                 AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-                AppCompatButton btnChon = view.findViewById(R.id.btnChon_SoLuongMon);
+//                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+//                AppCompatButton btnChon = view.findViewById(R.id.btnChon_SoLuongMon);
 
                 monList2 = monDAO.timKiem(PreferencesHelper.getId(getContext()),"");
                 DatMonAdapter adapter = new DatMonAdapter(getContext(), monList2, new InterfaceDatMon() {
@@ -155,15 +155,15 @@ public class ThemHoaDonFragment extends Fragment {
                 rcv_chonMon.setAdapter(adapter);
 
                 tvMonDaChon.setText("");
-                btnChon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int soLuong = Integer.parseInt(inputSoLuongChonMon.getText().toString());
-                        thongTindatMon.setSoLuong(soLuong);
-                        listDatMon.add(thongTindatMon);
-                        tvMonDaChon.setText(listDatMon.toString());
-                    }
-                });
+//                btnChon.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        int soLuong = Integer.parseInt(inputSoLuongChonMon.getText().toString());
+//                        thongTindatMon.setSoLuong(soLuong);
+//                        listDatMon.add(thongTindatMon);
+//                        tvMonDaChon.setText(listDatMon.toString());
+//                    }
+//                });
 
                 btnLuuChonMon.setOnClickListener(new View.OnClickListener() {
                     @Override
