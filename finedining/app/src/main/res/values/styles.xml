@@ -93,7 +93,12 @@
     <style name="mTabLayout">
         <item name="tabGravity">fill</item>
         <item name="tabMaxWidth">0dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
         <item name="android:backgroundTint">?attr/colorPrimaryContainer</item>
+        <item name="android:background">@drawable/tablayout_background</item>
         <!--        <item name="android:textColor">@color/...</item>-->
         <!--        <item name="tabIconTint">@color/...</item>-->
         <!--        <item name="tabIndicatorColor">@color/...</item>-->

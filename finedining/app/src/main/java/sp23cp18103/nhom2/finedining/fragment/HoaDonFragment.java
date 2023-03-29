@@ -1,11 +1,7 @@
 package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,24 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import sp23cp18103.nhom2.finedining.Interface.IEditListener;
 import sp23cp18103.nhom2.finedining.Interface.IEditListenerHoaDon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.HoaDonAdapter;
 import sp23cp18103.nhom2.finedining.database.ThongTinHoaDonDAO;
-import sp23cp18103.nhom2.finedining.model.HoaDon;
-import sp23cp18103.nhom2.finedining.model.NhaHang;
-import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 

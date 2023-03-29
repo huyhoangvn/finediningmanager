@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import sp23cp18103.nhom2.finedining.Interface.IEditListener;
 import sp23cp18103.nhom2.finedining.Interface.IEditListenerHoaDon;
 import sp23cp18103.nhom2.finedining.R;
-import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
-import sp23cp18103.nhom2.finedining.fragment.ThemHoaDonFragment;
-import sp23cp18103.nhom2.finedining.model.Ban;
-import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 

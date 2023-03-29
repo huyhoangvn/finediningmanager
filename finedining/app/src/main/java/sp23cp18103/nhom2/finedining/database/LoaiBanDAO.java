@@ -89,6 +89,10 @@ public class LoaiBanDAO {
         Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLB)});
         return c.getCount();
     }
+
+    /*
+    * Cái này trả về số lượng bàn đây muốn tìm số bàn trống thì lấy tổng số bàn trừ đi
+    * */
    @SuppressLint("Range")
    public int getSoLuongBan(int maLB, int maNV){
         String sql="select count(b.maBan) AS DemSoLuong from ban b  " +
@@ -104,8 +108,6 @@ public class LoaiBanDAO {
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
         if (c.moveToNext()){
-            Log.d("TAG", "getSoLuongBan: "+c.getInt(c.getColumnIndex("DemSoLuong")));
-            Log.d("TAG", "getSoLuongBan: IN ");
             return c.getInt(c.getColumnIndex("DemSoLuong"));
         }
         return 0;
