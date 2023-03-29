@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -55,6 +56,7 @@ public class HoaDonFragment extends Fragment {
     TextInputEditText edTimKiem;
     CheckBox chkFragmentHoaDon;
     TextInputLayout inputTimKiemHoaDon;
+    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat;
 
     Context context;
     @Override
@@ -70,13 +72,13 @@ public class HoaDonFragment extends Fragment {
         rcv_HoaDon = view.findViewById(R.id.rcv_hoaDon);
         inputTimKiemHoaDon = view.findViewById(R.id.inputTimKiemHoaDon);
         edTimKiem = view.findViewById(R.id.input_01_hoaDon_timHoaDon);
-        chkFragmentHoaDon = view.findViewById(R.id.chkFragmentHoaDon);
+        tvChoThanhToan = view.findViewById(R.id.tvChoThanhToan_hoaDon);
+        tvDaThanhToan = view.findViewById(R.id.tvDaThanhToan_hoaDon);
+        tvDangDuocDat = view.findViewById(R.id.tvDangDatTruoc_hoaDon);
         thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
         context = getContext();
-//        timKiemHoaDon();
-
-
-        thongTinHoaDonList =  thongTinHoaDonDAO.getTrangThaiHoaDon(PreferencesHelper.getId(context),(chkFragmentHoaDon.isChecked())?1:2,edTimKiem.getText().toString());
+        timKiemHoaDon();
+        thongTinHoaDonList =  thongTinHoaDonDAO.getThongTinHoaDon(PreferencesHelper.getId(context));
         hoaDonAdapter = new HoaDonAdapter(getContext(), thongTinHoaDonList, new IEditListenerHoaDon() {
             @Override
             public void showEditFragment(int maHD) {
@@ -91,16 +93,45 @@ public class HoaDonFragment extends Fragment {
         });
         rcv_HoaDon.setAdapter(hoaDonAdapter);
         khoiTaoFragmentManager();
-        chkFragmentHoaDon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        trangThaiThanhToan();
+    }
+
+    public void trangThaiThanhToan(){
+        tvDaThanhToan.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                hienThiDanhSachHoaDon();
+            public void onClick(View v) {
+                tvDaThanhToan.setBackgroundColor(Color.GREEN);
+                thongTinHoaDonList.clear();
+                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),1));
+                hoaDonAdapter.notifyDataSetChanged();
             }
         });
-
-
-
+        tvChoThanhToan.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View v) {
+                tvChoThanhToan.setBackgroundColor(Color.GREEN);
+                tvDaThanhToan.setBackgroundColor(Color.TRANSPARENT);
+                thongTinHoaDonList.clear();
+                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),2));
+                hoaDonAdapter.notifyDataSetChanged();
+            }
+        });
+        tvDangDuocDat.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View v) {
+                tvDangDuocDat.setBackgroundColor(Color.GREEN);
+                tvChoThanhToan.setBackgroundColor(Color.TRANSPARENT);
+                tvDaThanhToan.setBackgroundColor(Color.TRANSPARENT);
+                thongTinHoaDonList.clear();
+                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),3));
+                hoaDonAdapter.notifyDataSetChanged();
+            }
+        });
     }
+
 
     public void timKiemHoaDon(){
         edTimKiem.addTextChangedListener(new TextWatcher() {
