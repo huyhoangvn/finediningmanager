@@ -137,7 +137,7 @@ public class ThemHoaDonFragment extends Fragment {
 
                 RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
 //                TextInputEditText inputSoLuongChonMon = view.findViewById(R.id.input_SoLuong_dialog_chonMon_FragmentThemHoaDon);
-                TextView tvMonDaChon = view.findViewById(R.id.tvMonDaChon_dialog_chonMon_FragmentThemHoaDon);
+//                TextView tvMonDaChon = view.findViewById(R.id.tvMonDaChon_dialog_chonMon_FragmentThemHoaDon);
                 AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
 //                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
 //                AppCompatButton btnChon = view.findViewById(R.id.btnChon_SoLuongMon);
@@ -154,7 +154,7 @@ public class ThemHoaDonFragment extends Fragment {
                 });
                 rcv_chonMon.setAdapter(adapter);
 
-                tvMonDaChon.setText("");
+//                tvMonDaChon.setText("");
 //                btnChon.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {

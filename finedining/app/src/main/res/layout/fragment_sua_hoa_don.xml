@@ -22,7 +22,7 @@
             android:focusable="true">
 
             <TextView
-                android:id="@+id/tv_tieuDe_FragmentThemHoaDon"
+                android:id="@+id/tv_tieuDe_FragmentSuaHoaDon"
                 style="@style/mHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 app:errorEnabled="true"
                 android:hint="Tên chủ hóa đơn">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_tenKhachHang_them_FragmentThemHoaDon"
+                    android:id="@+id/input_tenKhachHang_sua_FragmentSuaHoaDon"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 app:endIconDrawable="@drawable/ic_chon_ngay"
                 app:endIconMode="custom">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_soLuongKhach_them_FragmentThemHoaDon"
+                    android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 app:errorEnabled="true"
                 android:hint="Số lượng khách mời">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_thoiGianDat_them_FragmentThemHoaDon"
+                    android:id="@+id/input_thoiGianDat_sua_FragmentSuaHoaDon"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_mon_them_FragmentThemHoaDon"
+                android:id="@+id/input_mon_sua_FragmentSuaHoaDon"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_ban_them_FragmentThemHoaDon"
+                android:id="@+id/input_ban_Sua_FragmentSuaHoaDon"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,14 +167,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnThem_FragmentThemHoaDon"
+                    android:id="@+id/btnSua_FragmentSuaHoaDon"
                     style="@style/mButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Lưu"/>
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnHuy_FragmentThemHoaDon"
+                    android:id="@+id/btnHuy_FragmentSuaHoaDon"
                     style="@style/mButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
