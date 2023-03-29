@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         tools:ignore="UselessParent"
@@ -24,7 +24,7 @@
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:text="Sửa hóa đơn"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -55,6 +55,48 @@
                 android:inputType="number"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="4"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputChonNgay_SuaHoaDon"
+                style="@style/mInputLayout"
+                android:layout_weight="1.7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chọn Ngày"
+                app:endIconDrawable="@drawable/ic_chon_ngay"
+                app:endIconMode="custom">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_01_SuahoaDon_ChonNgay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:enabled="false"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputChonGio_SuaHoaDon"
+                style="@style/mInputLayout"
+                android:layout_weight="2.3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chọn Giờ"
+                app:endIconDrawable="@drawable/ic_chon_ngay"
+                app:endIconMode="custom">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_01_SuaHoaDon_ChonGio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:enabled="false"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_mon_Sua_FragmentSuaHoaDon"
@@ -94,6 +136,54 @@
                 android:inputType="text"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/rdoDangDat_themHoaDon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Đang Đặt"
+                android:layout_marginLeft="10dp"
+                />
+            <RadioButton
+                android:id="@+id/rdoChoThanhToan_themHoaDon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Chờ Thanh Toán"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/rdoDaThanhToan_themHoaDon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.35 "
+                android:text="Đã thanh toán"
+                android:layout_marginLeft="10dp"
+                />
+            <RadioButton
+                android:id="@+id/rdoHuy_themHoaDon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy"
+                android:layout_marginRight="10dp"
+
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
