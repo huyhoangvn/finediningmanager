@@ -45,6 +45,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_lyt_thoiGianDat_sua_FragmentSuaHoaDon"
                 style="@style/mInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
                 app:endIconDrawable="@drawable/ic_chon_ngay"
                 app:endIconMode="custom">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
+                    android:id="@+id/input_thoiGianDat_sua_FragmentSuaHoaDon"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
                 app:errorEnabled="true"
                 android:hint="Số lượng khách mời">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_thoiGianDat_sua_FragmentSuaHoaDon"
+                    android:id="@+id/input_soLuongKhach_sua_FragmentSuaHoaDon"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

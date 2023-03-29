@@ -76,11 +76,14 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
             holder.tvTrangThai.setText("Đã Thanh Toán");
         }else if (tthd.getTrangThai()==2){
             holder.tvTrangThai.setText("Chưa Thanh Toán");
-        }else {
+        }else if (tthd.getTrangThai()==3){
             holder.tvTrangThai.setText("Đang Đặt");
+        }else if (tthd.getTrangThai()==0){
+            holder.tvTrangThai.setText("Hủy");
         }
 
         holder.imgBill.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -93,8 +96,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 TextView tv_tenKhach = view.findViewById(R.id.tv_tenKhach_dialog_hoaDon_chiTiet);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 TextView tv_tenNhanVien = view.findViewById(R.id.tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet);
-//                TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
+                TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
                 TextView tvThoiGianXuat = view.findViewById(R.id.tv_thoiGianXuat_dialog_hoaDon_chiTiet);
+                TextView tvThoiGianDat = view.findViewById(R.id.tv_thoiGianDat_dialog_hoaDon_chiTiet);
                 RecyclerView rcv_mon = view.findViewById(R.id.rcv_mon_dialog_hoaDon_chiTiet);
                 TextView tv_ban = view.findViewById(R.id.tv_danhSachBan_dialog_hoaDon_chiTiet);
                 TextView tv_tongTien = view.findViewById(R.id.tv_tongTien_dialog_hoaDon_chiTiet);
@@ -102,14 +106,18 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
                 tv_tenNhanVien.setText(tthd.getTenNhanVien());
                 tv_tenKhach.setText(tthd.getTenKhachHang());
-//                tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
+                tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
                 tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
+                tvThoiGianDat.setText(""+tthd.getThoiGianDat());
+
                 if (tthd.getTrangThai()==1){
                     tvTrangThai.setText("Đã Thanh Toán");
                 }else if (tthd.getTrangThai()==2){
                     tvTrangThai.setText("Chưa Thanh Toán");
-                }else {
+                }else if (tthd.getTrangThai()==3){
                     tvTrangThai.setText("Đang Đặt");
+                }else if (tthd.getTrangThai()==0){
+                    tvTrangThai.setText("Hủy");
                 }
 
                 ThongTinChiTietDatMonDAO thongTinChiTietDatMonDAO = new ThongTinChiTietDatMonDAO(context);

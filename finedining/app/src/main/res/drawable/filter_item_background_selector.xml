@@ -2,13 +2,13 @@
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
     android:enterFadeDuration="@integer/material_motion_duration_short_1"
     android:exitFadeDuration="@integer/material_motion_duration_short_1">
-    <item android:state_pressed="true">
-        <shape>
-            <solid android:color="?attr/colorPrimary"/>
-            <corners android:radius="100dp"/>
-            <padding android:top="10dp" android:bottom="10dp" android:right="10dp" android:left="10dp"/>
-        </shape>
-    </item>
+<!--    <item android:state_pressed="true">-->
+<!--        <shape>-->
+<!--            <solid android:color="?attr/colorPrimary"/>-->
+<!--            <corners android:radius="100dp"/>-->
+<!--            <padding android:top="10dp" android:bottom="10dp" android:right="10dp" android:left="10dp"/>-->
+<!--        </shape>-->
+<!--    </item>-->
     <item android:state_pressed="false">
         <shape>
             <solid android:color="?attr/colorSecondary"/>
