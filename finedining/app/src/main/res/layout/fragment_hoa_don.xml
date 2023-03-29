@@ -118,14 +118,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <!--Xóa cái checkbox này-->
-        <CheckBox
-            android:id="@+id/chkFragmentHoaDon"
-            style="@style/mCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đã Hủy"/>
-
     </LinearLayout>
 
 </FrameLayout>
