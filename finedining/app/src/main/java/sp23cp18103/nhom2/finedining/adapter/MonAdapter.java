@@ -74,7 +74,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         loaiMonDAO = new LoaiMonDAO(context);
         LoaiMon lm = loaiMonDAO.getId(String.valueOf(m.getMaLM()));
         holder.tvCardviewTenLoaiMon.setText(lm.getTenLoai());
-        holder.tvCardviewGiaMon.setText(m.getGia()+"vnđ");
+        holder.tvCardviewGiaMon.setText(String.valueOf(m.getGia()));
         if(m.getTrangThai()==1){
             holder.tvCardviewTrangThaiMon.setText("Còn dùng");
             holder.tvCardviewTrangThaiMon.setTextColor(Color.BLUE);

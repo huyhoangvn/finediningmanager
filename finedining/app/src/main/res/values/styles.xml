@@ -14,6 +14,15 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
+    <!--mRecyclerView-->
+    <style name="mRecyclerViewLinear">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+    </style>
+
+    <style name="mRecyclerViewGrid">
+        <item name="layoutManager">androidx.recyclerview.widget.GridLayoutManager</item>
+    </style>
+
     <!--Cardview-->
     <style name="mCardview" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">5dp</item>
@@ -77,11 +86,19 @@
         <item name="android:padding">5dp</item>
     </style>
 
+    <style name="mEditText">
+        <item name="android:textSize">16sp</item>
+    </style>
     <!--Tab layout-->
     <style name="mTabLayout">
         <item name="tabGravity">fill</item>
         <item name="tabMaxWidth">0dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
         <item name="android:backgroundTint">?attr/colorPrimaryContainer</item>
+        <item name="android:background">@drawable/tablayout_background</item>
         <!--        <item name="android:textColor">@color/...</item>-->
         <!--        <item name="tabIconTint">@color/...</item>-->
         <!--        <item name="tabIndicatorColor">@color/...</item>-->
@@ -91,7 +108,10 @@
     <style name="mToolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">?attr/colorPrimary</item>
+        <item name="titleTextColor">?attr/colorOnPrimary</item>
+        <item name="android:layout_margin">5dp</item>
+<!--        <item name="android:background">?attr/colorPrimary</item>-->
+        <item name="android:background">@drawable/toolbar_background</item>
     </style>
     
     <!--Navigation View-->
@@ -101,22 +121,33 @@
         <item name="itemIconTint">?attr/colorPrimary</item>
         <item name="backgroundColor">?attr/colorSurface</item>
     </style>
+
     <!--Text-->
+        <!--Chữ cực to cho các tiêu đề activity-->
     <style name="mTitleText" >
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
+        <!--chữ tiêu đề đầu các dialog, fragment -->
     <style name="mHeaderText">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+        <!--Chữ cho nhãn của các trường-->
+    <style name="mLabelText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+        <!--chữ thường -->
     <style name="mNormalText">
         <item name="android:textSize">16sp</item>
     </style>
 
+        <!--chữ thường mà in đậm thường dùng cho trạng thái-->
     <style name="mBoldText">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
@@ -125,6 +156,7 @@
     <!--Check Box-->
     <style name="mCheckBox">
         <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
         <item name="android:padding">5dp</item>
         <!--        <item name="buttonTint">?attr/...</item>-->
         <!--        <item name="android:textColor">?attr/...</item>-->
@@ -137,4 +169,41 @@
     <style name="mProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint">?attr/colorPrimary</item>
     </style>
+
+    <!--Dialog-->
+    <style name="mDialog">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="background">?attr/colorSurface</item>
+    </style>
+
+    <!--Spinner-->
+    <style name="mSpinnerItem">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="mSpinner">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+    </style>
+
+    <!--Fragment -->
+    <style name="mFragment">
+        <item name="android:padding">5dp</item>
+        <item name="android:background">?attr/colorSurface</item>
+    </style>
+
+    <!-- Filter Items -->
+        <!--Các đối tượng ấn vào dùng để lọc dữ liệu-->
+    <style name="mFilterItem">
+        <item name="android:background">@drawable/filter_item_background_selector</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:clickable">true</item>
+   </style>
 </resources>

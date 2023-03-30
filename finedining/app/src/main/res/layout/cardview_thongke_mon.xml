@@ -33,7 +33,7 @@
                     />
                 <TextView
                     android:id="@+id/tv_tieude_soluong_monhot"
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name_monhot"
@@ -50,7 +50,7 @@
                     />
                 <TextView
                     android:id="@+id/tv_tieude_doanhthu_monhot"
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_tieude_soluong_monhot"
@@ -77,9 +77,9 @@
 
             <TextView
                 android:id="@+id/tv_xephang_monhot"
+                style="@style/mTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/mTitleText"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:text="#1"/>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mFragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,24 +22,27 @@
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edTimKiemMon"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvMon"
+            style="@style/mRecyclerViewLinear"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="5dp"/>
+
         <CheckBox
             android:id="@+id/chkFragmentMon"
             style="@style/mCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Không còn dùng"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvMon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </LinearLayout>
 

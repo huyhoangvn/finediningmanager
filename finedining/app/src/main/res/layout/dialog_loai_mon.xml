@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
-    android:padding="5dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,6 +26,7 @@
             android:hint="Tên loại món">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edTenLoaiMon"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -35,12 +35,11 @@
 
         <CheckBox
             android:id="@+id/chkDialogTrangThaiLoaiMon"
-            style="@style/mNormalText"
+            style="@style/mCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Còn sử dụng?"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"/>
+            android:layout_gravity="start"/>
 
         <LinearLayout
             android:layout_width="match_parent"

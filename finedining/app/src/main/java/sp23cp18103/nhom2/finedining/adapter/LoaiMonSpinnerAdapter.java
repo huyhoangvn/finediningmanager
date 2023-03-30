@@ -31,12 +31,12 @@ public class LoaiMonSpinnerAdapter extends ArrayAdapter<LoaiMon> {
         View v = convertView;
         if(v == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.spinner_loai_mon, parent, false);
+            v = inflater.inflate(R.layout.item_spinner_loaimon, parent, false);
         }
         LoaiMon lm = list.get(position);
         if(lm!=null){
             tvSpinnerMaLoaiMon = v.findViewById(R.id.tvSpinnerMaLoaiMon);
-            tvSpinnerMaLoaiMon.setText(lm.getMaLM()+". ");
+            tvSpinnerMaLoaiMon.setText(String.valueOf(lm.getMaLM()));
             tvSpinnerTenLoaiMon = v.findViewById(R.id.tvSpinnerTenLoaiMon);
             tvSpinnerTenLoaiMon.setText(lm.getTenLoai());
         }
@@ -48,12 +48,12 @@ public class LoaiMonSpinnerAdapter extends ArrayAdapter<LoaiMon> {
         View v = convertView;
         if(v == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.spinner_loai_mon, parent, false);
+            v = inflater.inflate(R.layout.item_spinner_loaimon, parent, false);
         }
         LoaiMon lm = list.get(position);
         if(lm!=null){
             tvSpinnerMaLoaiMon = v.findViewById(R.id.tvSpinnerMaLoaiMon);
-            tvSpinnerMaLoaiMon.setText(lm.getMaLM()+". ");
+            tvSpinnerMaLoaiMon.setText(String.valueOf(lm.getMaLM()));
             tvSpinnerTenLoaiMon = v.findViewById(R.id.tvSpinnerTenLoaiMon);
             tvSpinnerTenLoaiMon.setText(lm.getTenLoai());
         }

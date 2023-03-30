@@ -182,6 +182,10 @@ public class LoginActivity extends AppCompatActivity{
         HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
         DatBanDAO datBanDAO = new DatBanDAO(this);
         DatMonDAO datMonDAO = new DatMonDAO(this);
+
+        datBanDAO.insertDatBan(new DatBan(5,3,1));
+
+
         //Nhà hàng
         if (nhaHangDAO.checknhahang("Fine Dining")){
             return;
@@ -243,6 +247,9 @@ public class LoginActivity extends AppCompatActivity{
 
         datBanDAO.insertDatBan(new DatBan(1,1,1));
         datBanDAO.insertDatBan(new DatBan(2,3,1));
+
+
+
 
         datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
 

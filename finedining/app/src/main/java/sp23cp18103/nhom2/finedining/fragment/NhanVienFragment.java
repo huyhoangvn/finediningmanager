@@ -29,7 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 
 import sp23cp18103.nhom2.finedining.R;
-import sp23cp18103.nhom2.finedining.Interface.IEditListener;
+import sp23cp18103.nhom2.finedining.Interface.IEditListenerNhanVien;
 import sp23cp18103.nhom2.finedining.adapter.NhanVienAdapter;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
@@ -117,7 +117,7 @@ public class NhanVienFragment extends Fragment {
         listNhanVien = (ArrayList<NhanVien>) nhanVienDAO.getAllNhanVien(PreferencesHelper.getId(context),
                 (chkNhanVienDangLam.isChecked())?0:1,
                 edTimNhanVien.getText().toString().trim());
-        adpNhanVien = new NhanVienAdapter(context, listNhanVien, new IEditListener() {
+        adpNhanVien = new NhanVienAdapter(context, listNhanVien, new IEditListenerNhanVien() {
             /*
             * Hiển thị màn hình sửa nhân viên khi ấn vào nút sửa trên cardview
             * */

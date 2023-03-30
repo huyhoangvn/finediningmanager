@@ -5,17 +5,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
 import sp23cp18103.nhom2.finedining.R;
-import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 
 public class BanSpinnerAdapter extends BaseAdapter {
@@ -49,7 +44,7 @@ public class BanSpinnerAdapter extends BaseAdapter {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         if (convertView == null){
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.ban_item_spinner,null);
+            convertView = inflater.inflate(R.layout.item_spinner_loaiban, parent, false);
             viewHolder.tvMaBanSP = convertView.findViewById(R.id.tvMaBanSP);
             viewHolder.tvTenBanSP = convertView.findViewById(R.id.tvTenBanSP);
             convertView.setTag(viewHolder);
@@ -59,8 +54,8 @@ public class BanSpinnerAdapter extends BaseAdapter {
         }
         LoaiBan loaiBan = list.get(position);
 
-        viewHolder.tvMaBanSP.setText(""+loaiBan.getMaLB()+".");
-        viewHolder.tvTenBanSP.setText(loaiBan.getTenLoai()+".");
+        viewHolder.tvMaBanSP.setText(String.valueOf(loaiBan.getMaLB()));
+        viewHolder.tvTenBanSP.setText(loaiBan.getTenLoai());
         return convertView;
     }
     public final class ViewHolder{

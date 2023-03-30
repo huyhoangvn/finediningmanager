@@ -18,7 +18,7 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tvViTri"
-                style="@style/mHeaderText"
+                style="@style/mLabelText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Vị trí"/>
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Loại: "/>
@@ -37,7 +37,7 @@
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="VIP"/>
+                    android:text="Tên loại bàn"/>
             </LinearLayout>
 
             <TextView
