@@ -112,7 +112,7 @@ public class DateHelper {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "0000-00-00";
+        return "";
     }
 
     /*

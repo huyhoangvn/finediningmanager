@@ -76,16 +76,15 @@ public class HoaDon {
         return thoiGianDat;
     }
 
-    public void setThoiGianDat(String thoiGianĐat) {
+    public void setThoiGianDat(String thoiGianDat) {
         this.thoiGianDat = thoiGianDat;
     }
-
 
     /*
      * Trả về tên của của trạng thái
      * 1:"Đã thanh toán", 2:"Chưa thanh toán", 0:"Hủy"
      * */
-    public String getTenGioiTinh(){
+    public String getTenTrangThai(){
         if ( this.trangThai == 3 ) {
             return "Đã thanh toán";
         } else if ( this.trangThai == 2 ) {

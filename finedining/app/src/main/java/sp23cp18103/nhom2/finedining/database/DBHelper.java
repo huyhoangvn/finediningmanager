@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "QuanLyNhaHang";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 3;
 
     public DBHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
@@ -37,7 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNV INTEGER NOT NULL REFERENCES nhanvien(maNV)," +
                 "soLuongKhach INTEGER NOT NULL," +
                 "thoiGianXuat TEXT NOT NULL," +
-                "thoiGianDat TEXT," +
+                "thoiGianDat TEXT NOT NULL," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai >= 0 AND trangThai <= 3))";
         db.execSQL(sql);
     }

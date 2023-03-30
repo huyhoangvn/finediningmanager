@@ -214,11 +214,13 @@ public class LoginActivity extends AppCompatActivity{
                 "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/200f2910774061.560eac1cd606c.png"));
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
                 "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://i.pinimg.com/originals/91/de/1e/91de1e48020787761c1906c9fcde86cd.jpg"));
+        khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
-        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04", "2023/05/04",1));
+        khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
+        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
 
-        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, "2023/05/06", "2023/05/04",1));
-        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, "2023/05/06", "2023/05/04",2));
+        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
+        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
@@ -230,9 +232,7 @@ public class LoginActivity extends AppCompatActivity{
 
         monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
 
-        khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
-        khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
 
         banDAO.insertban(new Ban(1,1,"A1",1));
         banDAO.insertban(new Ban(2,1,"A2",1));
