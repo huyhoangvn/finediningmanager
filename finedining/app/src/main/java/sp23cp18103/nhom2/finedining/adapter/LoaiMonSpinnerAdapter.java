@@ -31,7 +31,7 @@ public class LoaiMonSpinnerAdapter extends ArrayAdapter<LoaiMon> {
         View v = convertView;
         if(v == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.spinner_loai_mon, null);
+            v = inflater.inflate(R.layout.spinner_loai_mon, parent, false);
         }
         LoaiMon lm = list.get(position);
         if(lm!=null){
@@ -48,7 +48,7 @@ public class LoaiMonSpinnerAdapter extends ArrayAdapter<LoaiMon> {
         View v = convertView;
         if(v == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.spinner_loai_mon, null);
+            v = inflater.inflate(R.layout.spinner_loai_mon, parent, false);
         }
         LoaiMon lm = list.get(position);
         if(lm!=null){
