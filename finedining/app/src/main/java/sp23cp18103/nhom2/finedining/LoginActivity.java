@@ -183,9 +183,6 @@ public class LoginActivity extends AppCompatActivity{
         DatBanDAO datBanDAO = new DatBanDAO(this);
         DatMonDAO datMonDAO = new DatMonDAO(this);
 
-        datBanDAO.insertDatBan(new DatBan(5,3,1));
-
-
         //Nhà hàng
         if (nhaHangDAO.checknhahang("Fine Dining")){
             return;
@@ -243,13 +240,13 @@ public class LoginActivity extends AppCompatActivity{
         banDAO.insertban(new Ban(4,1,"A4",1));
 
 
-        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
+        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,1));
 
         datBanDAO.insertDatBan(new DatBan(1,1,1));
         datBanDAO.insertDatBan(new DatBan(2,3,1));
 
 
-
+        datBanDAO.insertDatBan(new DatBan(5,3,1));
 
         datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
 
