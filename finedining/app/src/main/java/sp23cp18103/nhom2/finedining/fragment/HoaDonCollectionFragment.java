@@ -40,7 +40,8 @@ public class HoaDonCollectionFragment extends Fragment {
 
         btnThemHoaDon_collection.setOnClickListener(v -> {
             fragmentManager.beginTransaction()
-                    .add(R.id.frame_collection_hoadon, new ThemHoaDonFragment())
+                    .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left, R.anim.anim_slide_in_left, R.anim.anim_slide_out_left)
+                    .replace(R.id.frame_collection_hoadon, new ThemHoaDonFragment())
                     .addToBackStack(null)
                     .commit();
             btnThemHoaDon_collection.hide();

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -115,10 +117,14 @@ public class SuaHoaDonFragment extends Fragment {
         goiDialogNgayDat();
         goiDiaLogGioDat();
         luuHoaDon();
+        khoiTaoListener();
+    }
+
+    private void khoiTaoListener() {
         input_ngayDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                input_lyt_ngayDat.setError(null);
+                    input_lyt_ngayDat.setError(null);
             }
         });
         input_GioDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -127,8 +133,14 @@ public class SuaHoaDonFragment extends Fragment {
                 input_lyt_giaDat.setError(null);
             }
         });
-
-
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager.popBackStack();
+                FloatingActionButton ftbtnThemNhanVien = getActivity().findViewById(R.id.fbtn_them_hoaDon_collection);
+                ftbtnThemNhanVien.show();
+            }
+        });
     }
 
     private void luuHoaDon(){
@@ -162,8 +174,7 @@ public class SuaHoaDonFragment extends Fragment {
                     hoaDon.setTrangThai(0);
                 }
                 hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
-                hoaDon.setThoiGianDat(input_ngayDat.getText().toString().trim()+" "+input_GioDat.getText().toString());
-
+                hoaDon.setThoiGianDat(input_ngayDat.getText().toString().trim()+" "+input_GioDat.getText().toString().trim());
 
                 if (hoaDonDAO.updateHoaDon(hoaDon)>0){
                     Toast.makeText(getContext(), "hinh nhu la thanh cong", Toast.LENGTH_SHORT).show();
@@ -232,6 +243,7 @@ public class SuaHoaDonFragment extends Fragment {
        input_soLuongKhach.setText(""+soLuongKhach);
 
        String thoiGianDat = hoaDonDAO.getNgayDat(maHD);
+        Log.d("TAG", ":" + thoiGianDat + ":");
        String ngayDat = thoiGianDat.substring(0,10);
        String gioDat = thoiGianDat.substring(10,16);
        input_ngayDat.setText(""+ngayDat);
@@ -314,11 +326,11 @@ public class SuaHoaDonFragment extends Fragment {
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
 
-
+        int maHoaDonSapThem = -1;
         banList = banDAO.gettimKiem(PreferencesHelper.getId(getContext()),"");
-        DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, new InterfaceDatBan() {
+        DatBanAdapter adapter = new DatBanAdapter(getContext(), (ArrayList<Ban>) banList, listDatban, maHoaDonSapThem, new InterfaceDatBan() {
             @Override
-            public int getMaBan(int maBan) {
+            public int getMaBan(int maBan, CardView cardView) {
                 String viTri = banDAO.getViTri(maBan);
                 thongTindatBan.setViTri(viTri);
                 thongTindatBan.setMaBan(maBan);
@@ -334,7 +346,9 @@ public class SuaHoaDonFragment extends Fragment {
         btnLuuChonBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_ban.getEditText().setText(listDatban.toString());
+                input_ban.getEditText().setText(listDatban.toString()
+                        .replace("[", "")
+                        .replace("]", ""));
                 dialog.dismiss();
             }
         });

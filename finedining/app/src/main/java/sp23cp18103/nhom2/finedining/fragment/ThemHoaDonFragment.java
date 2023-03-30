@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -80,9 +82,10 @@ public class ThemHoaDonFragment extends Fragment {
     HoaDon hoaDon;
     List<Mon> monList2;
 
-    List<Ban> banList;
+    ArrayList<Ban> banList;
     ArrayList<ThongTinDatMon> listDatMon = new ArrayList<>();
-    ArrayList<ThongTinDatBan> listDatban = new ArrayList<>();
+    ArrayList<ThongTinDatBan> listDatbanCu = new ArrayList<>();
+    ArrayList<ThongTinDatBan> listDatbanMoi = new ArrayList<>();
     int maHoaDonSapThem;
     int maKHSapThem;
     KhachDAO khachDAO;
@@ -94,7 +97,6 @@ public class ThemHoaDonFragment extends Fragment {
     DatBan datBan;
     DatMon datMon;
     ThongTinDatMon thongTindatMon;
-    ThongTinDatBan thongTindatBan ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,11 +110,65 @@ public class ThemHoaDonFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
         khoiTao();
+        khoiTaoDefault();
+        khoiTaoListenerTimKiemThoiGian();
+        khoiTaoListenerDatMon();
+        khoiTaoListenerDatBan();
+        khoiTaoListenerThemHoaDon();
+    }
+
+    private void anhXa(View view) {
+        input_tenKH = view.findViewById(R.id.input_tenKhachHang_them_FragmentThemHoaDon);
+        input_soLuongKhach = view.findViewById(R.id.input_soLuongKhach_them_FragmentThemHoaDon);
+        input_ban = view.findViewById(R.id.input_ban_them_FragmentThemHoaDon);
+        input_mon = view.findViewById(R.id.input_mon_them_FragmentThemHoaDon);
+        btnLuu = view.findViewById(R.id.btnThem_FragmentThemHoaDon);
+        btnHuy = view.findViewById(R.id.btnHuy_FragmentThemHoaDon);
+        tvTieuDe = view.findViewById(R.id.tv_tieuDe_FragmentThemHoaDon);
+        rdoChuaThanhToan = view.findViewById(R.id.rdoChoThanhToan_ThemHoaDon);
+        rdoDangDuocDat = view.findViewById(R.id.rdoDangDuocDat_ThemHoaDon);
+        input_thoiGianDat = view.findViewById(R.id.input_thoiGianDat_them_FragmentThemHoaDon);
+        input_lyt_thoiGianDat = view.findViewById(R.id.input_lyt_thoiGianDat_them_FragmentThemHoaDon);
+        input_lyt_gioDat = view.findViewById(R.id.input_lyt_gioDat_them_FragmentThemHoaDon);
+        input_gioDat = view.findViewById(R.id.input_gioDat_them_FragmentThemHoaDon);
+        input_lyt_tenKH = view.findViewById(R.id.input_tenKhachHang_lyt_them_FragmentThemHoaDon);
+        input_lyt_soLuongKhach = view.findViewById(R.id.input_soLuongKhach_lyt_them_FragmentThemHoaDon);
+        tvTieuDe.setText("Thêm Hóa Đơn");
+    }
+
+    private void khoiTao() {
+        fragmentManager = getParentFragmentManager();
+        thongTindatMon = new ThongTinDatMon();
+        hoaDonDAO = new HoaDonDAO(getContext());
+        maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
+        thongTindatMon.setMaHD(maHoaDonSapThem);
+        thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
+        monDAO = new MonDAO(getContext());
+        datMonDAO = new DatMonDAO(getContext());
+        banDAO = new BanDAO(getContext());
+        datBan = new ThongTinDatBan();
+        datBanDAO = new DatBanDAO(getContext());
+        datMon = new DatMon();
+        datBan = new DatBan();
+        hoaDon = new HoaDon();
+    }
+
+    /*
+    * Khởi tạo giá trị mặc định cho thời gian
+    * */
+    private void khoiTaoDefault() {
+        String thoiGianHientai = DateHelper.getDateTimeVietnamNow();
+        String ngayXuat = thoiGianHientai.substring(0,10);
+        input_thoiGianDat.setText(ngayXuat);
+        String gioXuat = thoiGianHientai.substring(10,16);
+        input_gioDat.setText(gioXuat);
+    }
+
+    private void khoiTaoListenerTimKiemThoiGian() {
         input_thoiGianDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 input_lyt_thoiGianDat.setError(null);
-
             }
         });
         input_gioDat.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +189,113 @@ public class ThemHoaDonFragment extends Fragment {
                 DateHelper.showDatePickerVietnam(getContext(),input_thoiGianDat);
             }
         });
+    }
+
+    private void khoiTaoListenerThemHoaDon() {
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearError();
+
+                if (!validate()){
+                    return;
+                }
+
+
+                //Khach
+                khachDAO = new KhachDAO(getContext());
+                maKHSapThem = khachDAO.getMaKhanhHangTiepTheo();
+                KhachHang kh = new KhachHang();
+                kh.setTenKH(input_tenKH.getText().toString().trim());
+                khachDAO.insert(kh);
+                //Hoa don
+                HoaDon hoaDon = new HoaDon();
+                //get ma khach tiep theo;
+                hoaDon.setMaKH(maKHSapThem);
+                hoaDon.setSoLuongKhach(Integer.parseInt(input_soLuongKhach.getText().toString().trim()));
+                hoaDon.setMaNV(PreferencesHelper.getId(getContext()));
+
+                if (rdoChuaThanhToan.isChecked()){
+                    hoaDon.setTrangThai(2);
+                }
+                if(rdoDangDuocDat.isChecked()){
+                    hoaDon.setTrangThai(1);
+                }
+
+                hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
+
+                hoaDon.setThoiGianDat(DateHelper.getDateSql(input_thoiGianDat.getText().toString().trim())+" "+input_gioDat.getText().toString().trim());
+                hoaDonDAO.insertHoaDon(hoaDon);
+
+                themDatBan();
+
+                Toast.makeText(getContext(), "luu thanh cong", Toast.LENGTH_SHORT).show();
+                input_tenKH.setText("");
+                input_soLuongKhach.setText("");
+                input_thoiGianDat.setText("");
+                input_gioDat.setText("");
+                input_ban.getEditText().setText("");
+            }
+
+            private void clearError() {
+                input_lyt_tenKH.setError(null);
+                input_lyt_soLuongKhach.setError(null);
+                input_lyt_thoiGianDat.setError(null);
+                input_lyt_gioDat.setError(null);
+            }
+        });
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager.popBackStack();
+                FloatingActionButton ftbtnThemNhanVien = getActivity().findViewById(R.id.fbtn_them_hoaDon_collection);
+                ftbtnThemNhanVien.show();
+            }
+        });
+    }
+
+    private void themDatBan() {
+        for(int i = 0; i < listDatbanCu.size(); i++){
+            datBanDAO.insertDatBan(listDatbanCu.get(i));
+        }
+    }
+
+    public Boolean validate() {
+        //them Hoa Don
+        if (input_tenKH.getText().toString().trim().equals("")){
+            input_lyt_tenKH.setError("Chưa nhập tên khách hàng");
+            return false;
+        }
+        if (input_soLuongKhach.getText().toString().trim().equals("")){
+            input_lyt_soLuongKhach.setError("Chưa nhập Số Lượng");
+            return false;
+        }
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = sdf.parse(input_thoiGianDat.getText().toString().trim());
+            assert date != null;
+            if (!input_thoiGianDat.getText().toString().trim().equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            input_lyt_thoiGianDat.setError("Định dạng ngày sai");
+            return false;
+        }
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date date = sdf.parse(input_gioDat.getText().toString().trim());
+            assert date != null;
+            if (!input_gioDat.getText().toString().trim().equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            input_lyt_gioDat.setError("Định dạng ngày sai");
+            return false;
+        }
+        return true;
+    }
+
+    private void khoiTaoListenerDatMon() {
         input_mon.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,233 +346,72 @@ public class ThemHoaDonFragment extends Fragment {
                 dialog.show();
             }
         });
+    }
 
-        String thoiGianHientai = DateHelper.getDateTimeVietnamNow();
-        String ngayXuat = thoiGianHientai.substring(0,10);
-        input_thoiGianDat.setText(ngayXuat);
-        String gioXuat = thoiGianHientai.substring(10,16);
-        input_gioDat.setText(gioXuat);
-
+    private void khoiTaoListenerDatBan() {
         input_ban.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                LayoutInflater inflater=((Activity)getActivity()).getLayoutInflater();
-                View view=inflater.inflate(R.layout.dialog_dat_ban,null);
-                builder.setView(view);
-                Dialog dialog = builder.create();
-
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-                RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-                TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-                AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
-
-
-                banList = banDAO.gettimKiem(PreferencesHelper.getId(getContext()),"");
-                DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, new InterfaceDatBan() {
-                    @Override
-                    public int getMaBan(int maBan) {
-                        String viTri = banDAO.getViTri(maBan);
-                        thongTindatBan.setViTri(viTri);
-                        thongTindatBan.setMaBan(maBan);
-                        thongTindatBan.setMaHD(maHoaDonSapThem);
-                        listDatban.add(thongTindatBan);
-                        tvBanDaChon.setText(listDatban.toString());
-                        return 0;
-                    }
-                });
-
-                rcv_ban.setAdapter(adapter);
-
-                tvBanDaChon.setText("");
-                btnLuuChonBan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        input_ban.getEditText().setText(listDatban.toString());
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                showDialogDatBan();
             }
-
         });
-        btnLuu.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void showDialogDatBan() {
+        //Khởi tạo dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater=((Activity)getActivity()).getLayoutInflater();
+        View view=inflater.inflate(R.layout.dialog_dat_ban,null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        //Ánh xạ
+        RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
+        TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
+        AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
+        //Khởi tạo biến
+        listDatbanMoi.clear();
+        listDatbanMoi.addAll(listDatbanCu);
+        tvBanDaChon.setText(listDatbanMoi.toString()
+                .replace("[", "")
+                .replace("]", ""));
+        maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
+
+        //Khởi tạo adapter
+        banList = (ArrayList<Ban>) banDAO.getDanhSachBan(PreferencesHelper.getId(getContext()));
+        DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, listDatbanCu, maHoaDonSapThem, new InterfaceDatBan() {
+            @Override
+            public int getMaBan(int maBan, CardView cardView) {
+                ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
+                thongTinDatBan.setMaBan(maBan);
+                thongTinDatBan.setMaHD(maHoaDonSapThem);
+                if(!listDatbanMoi.contains(thongTinDatBan)){
+                    thongTinDatBan.setViTri(banDAO.getViTri(maBan));
+                    thongTinDatBan.setTrangThai(1);
+                    listDatbanMoi.add(thongTinDatBan);
+                    cardView.setCardBackgroundColor(MaterialColors.getColor(view, com.google.android.material.R.attr.colorPrimary));
+                } else {
+                    listDatbanMoi.remove(thongTinDatBan);
+                    cardView.setCardBackgroundColor(MaterialColors.getColor(view, com.google.android.material.R.attr.colorSecondaryContainer));
+                }
+                tvBanDaChon.setText(listDatbanMoi.toString()
+                        .replace("[", "")
+                        .replace("]", ""));
+                return 0;
+            }
+        });
+        rcv_ban.setAdapter(adapter);
+        //Thêm danh sách bàn đã chọn vào hóa đơn hiện tại
+        btnLuuChonBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearError();
-
-                if (!validate()){
-                    return;
-                }
-
-                // thêm đặt bàn , đặt mon fixx
-
-//                for (int i = 0; i < listDatMon.size(); i++){
-//                    datMon.setMaMon(listDatMon.get(i).getMaMon());
-//                    datMon.setSoLuong(listDatMon.get(i).getSoLuong());
-//                    datMon.setMaHD(listDatMon.get(i).getMaHD());
-//                    datMon.setTrangThai(1);
-//                    if (datMonDAO.insertDatMon(datMon) > 0){
-//                        Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-
-
-//                listDatban.size();
-//                for (int i = 0; i < listDatban.size(); i++){
-//                    datBan.setMaBan(listDatban.get(i).getMaBan());
-//                    datBan.setMaHD(listDatban.get(i).getMaHD());
-//                    datBan.setTrangThai(1);
-//                    if (datBanDAO.insertDatBan(datBan) > 0){
-//                        Toast.makeText(getContext(), "Thành công", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        Toast.makeText(getContext(), "khong thanh cong ", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-
-
-                //Khach
-                khachDAO = new KhachDAO(getContext());
-                maKHSapThem = khachDAO.getMaKhanhHangTiepTheo();
-                KhachHang kh = new KhachHang();
-                kh.setTenKH(input_tenKH.getText().toString().trim());
-                khachDAO.insert(kh);
-                //Hoa don
-                HoaDon hoaDon = new HoaDon();
-                //get ma khach tiep theo;
-                hoaDon.setMaKH(maKHSapThem);
-                hoaDon.setSoLuongKhach(Integer.parseInt(input_soLuongKhach.getText().toString().trim()));
-                hoaDon.setMaNV(PreferencesHelper.getId(getContext()));
-
-                if (rdoChuaThanhToan.isChecked()){
-                    hoaDon.setTrangThai(2);
-                }
-                if(rdoDangDuocDat.isChecked()){
-                    hoaDon.setTrangThai(1);
-                }
-
-                hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
-
-                hoaDon.setThoiGianDat(DateHelper.getDateSql(input_thoiGianDat.getText().toString().trim())+" "+input_gioDat.getText().toString());
-                Log.d("ngocvu", "onClick: " + input_thoiGianDat.getText().toString().trim()+" "+input_gioDat.getText().toString());
-                hoaDonDAO.insertHoaDon(hoaDon);
-
-                Toast.makeText(getContext(), "luu thanh cong", Toast.LENGTH_SHORT).show();
-                input_tenKH.setText("");
-                input_soLuongKhach.setText("");
-                input_thoiGianDat.setText("");
-                input_gioDat.setText("");
-
-            }
-
-            private void clearError() {
-                input_lyt_tenKH.setError(null);
-                input_lyt_soLuongKhach.setError(null);
-                input_lyt_thoiGianDat.setError(null);
-                input_lyt_gioDat.setError(null);
+                listDatbanCu.clear();
+                listDatbanCu.addAll(listDatbanMoi);
+                input_ban.getEditText().setText(listDatbanCu.toString()
+                        .replace("[", "")
+                        .replace("]", ""));
+                dialog.dismiss();
             }
         });
-//        btnHuy.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                handleOnBackPressed();
-//            }
-//        });
-
-
+        dialog.show();
     }
-
-    private void khoiTao() {
-        fragmentManager = getParentFragmentManager();
-        thongTindatMon = new ThongTinDatMon();
-        hoaDonDAO = new HoaDonDAO(getContext());
-        maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
-        thongTindatMon.setMaHD(maHoaDonSapThem);
-        thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
-        monDAO = new MonDAO(getContext());
-        datMonDAO = new DatMonDAO(getContext());
-        banDAO = new BanDAO(getContext());
-        thongTindatBan = new ThongTinDatBan();
-        datBan = new ThongTinDatBan();
-        datBanDAO = new DatBanDAO(getContext());
-        datMon = new DatMon();
-        datBan = new DatBan();
-        hoaDon = new HoaDon();
-    }
-
-    private void anhXa(View view) {
-        input_tenKH = view.findViewById(R.id.input_tenKhachHang_them_FragmentThemHoaDon);
-        input_soLuongKhach = view.findViewById(R.id.input_soLuongKhach_them_FragmentThemHoaDon);
-        input_ban = view.findViewById(R.id.input_ban_them_FragmentThemHoaDon);
-        input_mon = view.findViewById(R.id.input_mon_them_FragmentThemHoaDon);
-        btnLuu = view.findViewById(R.id.btnThem_FragmentThemHoaDon);
-        btnHuy = view.findViewById(R.id.btnHuy_FragmentThemHoaDon);
-        tvTieuDe = view.findViewById(R.id.tv_tieuDe_FragmentThemHoaDon);
-        rdoChuaThanhToan = view.findViewById(R.id.rdoChoThanhToan_ThemHoaDon);
-        rdoDangDuocDat = view.findViewById(R.id.rdoDangDuocDat_ThemHoaDon);
-        input_thoiGianDat = view.findViewById(R.id.input_thoiGianDat_them_FragmentThemHoaDon);
-        input_lyt_thoiGianDat = view.findViewById(R.id.input_lyt_thoiGianDat_them_FragmentThemHoaDon);
-        input_lyt_gioDat = view.findViewById(R.id.input_lyt_gioDat_them_FragmentThemHoaDon);
-        input_gioDat = view.findViewById(R.id.input_gioDat_them_FragmentThemHoaDon);
-        input_lyt_tenKH = view.findViewById(R.id.input_tenKhachHang_lyt_them_FragmentThemHoaDon);
-        input_lyt_soLuongKhach = view.findViewById(R.id.input_soLuongKhach_lyt_them_FragmentThemHoaDon);
-        tvTieuDe.setText("Thêm Hóa Đơn");
-    }
-
-    private void handleOnBackPressed() {
-        requireActivity().getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if(isEnabled()){
-                    fragmentManager.popBackStack();
-                }
-            }
-        });
-    }
-    private void khoiTaoFragmentManager() {
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.frame_collection_hoadon,new HoaDonFragment())
-                .commit();
-    }
-    public Boolean validate() {
-        //them Hoa Don
-        if (input_tenKH.getText().toString().trim().equals("")){
-            input_lyt_tenKH.setError("Chưa nhập tên khách hàng");
-            return false;
-        }
-        if (input_soLuongKhach.getText().toString().trim().equals("")){
-            input_lyt_soLuongKhach.setError("Chưa nhập Số Lượng");
-            return false;
-        }
-        try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = sdf.parse(input_thoiGianDat.getText().toString().trim());
-            assert date != null;
-            if (!input_thoiGianDat.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
-            }
-        } catch (ParseException ex) {
-            input_lyt_thoiGianDat.setError("Định dạng ngày sai");
-            return false;
-        }
-        try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Date date = sdf.parse(input_gioDat.getText().toString().trim());
-            assert date != null;
-            if (!input_gioDat.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
-            }
-        } catch (ParseException ex) {
-            input_lyt_gioDat.setError("Định dạng ngày sai");
-            return false;
-        }
-        return true;
-    }
-
-
 }
