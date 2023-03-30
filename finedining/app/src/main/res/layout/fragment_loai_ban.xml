@@ -30,11 +30,10 @@
         </com.google.android.material.textfield.TextInputLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_loaiban"
-            style="@style/mRecyclerViewGrid"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:spanCount="2"/>
+            android:layout_weight="1"/>
         <CheckBox
             android:id="@+id/chk_fLoaiBan_conDung"
             android:layout_width="wrap_content"

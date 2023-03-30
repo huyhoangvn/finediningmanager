@@ -31,9 +31,9 @@
                     style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Số chỗ: "/>
+                    android:text="Số bàn: "/>
                 <TextView
-                    android:id="@+id/tv_SoChoNgoi"
+                    android:id="@+id/tv_SoBan"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                     style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bàn trống: "/>
+                    android:text="Số bàn trống: "/>
                 <TextView
                     android:id="@+id/tv_SoBanTrongBan"
                     style="@style/mNormalText"
