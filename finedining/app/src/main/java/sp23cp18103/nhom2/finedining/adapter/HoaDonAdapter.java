@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
 import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
+import sp23cp18103.nhom2.finedining.utils.DateHelper;
 
 /*
  * Adapter để hiển thị danh sách hóa đơn trong HoaDonFragment
@@ -60,16 +62,13 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
         tthd.getMaHD();
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
-//        holder.tvSoLuongKhach.setText(""+tthd.getSoLuongKhachHang());
-        holder.tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
-
-
+        holder.tvThoiGianXuat.setText(""+tthd.getThoiGianDat());
         if (tthd.getTrangThai()==1){
-            holder.tvTrangThai.setText("Đã Thanh Toán");
-        }else if (tthd.getTrangThai()==2){
-            holder.tvTrangThai.setText("Chưa Thanh Toán");
-        }else if (tthd.getTrangThai()==3){
             holder.tvTrangThai.setText("Đang Đặt");
+        }else if (tthd.getTrangThai()==2){
+            holder.tvTrangThai.setText("Chờ Thanh Toán");
+        }else if (tthd.getTrangThai()==3){
+            holder.tvTrangThai.setText("Đã thanh toán");
         }else if (tthd.getTrangThai()==0){
             holder.tvTrangThai.setText("Hủy");
         }
@@ -99,17 +98,17 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tv_tenNhanVien.setText(tthd.getTenNhanVien());
                 tv_tenKhach.setText(tthd.getTenKhachHang());
                 tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
-                tvThoiGianXuat.setText(""+tthd.getThoiGianXuat());
-                tvThoiGianDat.setText(""+tthd.getThoiGianDat());
+                tvThoiGianXuat.setText(""+DateHelper.getDateVietnam(tthd.getThoiGianXuat()));
+                tvThoiGianDat.setText(""+ DateHelper.getDateVietnam(tthd.getThoiGianDat()));
 
                 if (tthd.getTrangThai()==1){
-                    tvTrangThai.setText("Đã Thanh Toán");
+                   tvTrangThai.setText("Đang Đặt");
                 }else if (tthd.getTrangThai()==2){
-                    tvTrangThai.setText("Chưa Thanh Toán");
+                   tvTrangThai.setText("Chờ Thanh Toán");
                 }else if (tthd.getTrangThai()==3){
-                    tvTrangThai.setText("Đang Đặt");
+                    tvTrangThai.setText("Đã thanh toán");
                 }else if (tthd.getTrangThai()==0){
-                    tvTrangThai.setText("Hủy");
+                   tvTrangThai.setText("Hủy");
                 }
 
                 ThongTinChiTietDatMonDAO thongTinChiTietDatMonDAO = new ThongTinChiTietDatMonDAO(context);

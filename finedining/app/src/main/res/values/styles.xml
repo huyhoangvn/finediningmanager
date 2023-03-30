@@ -199,11 +199,12 @@
     <!-- Filter Items -->
         <!--Các đối tượng ấn vào dùng để lọc dữ liệu-->
     <style name="mFilterItem">
+        <item name="android:padding">15dp</item>
         <item name="android:background">@drawable/filter_item_background_selector</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
         <item name="android:clickable">true</item>
+        <item name="android:focusableInTouchMode">false</item>
    </style>
 </resources>

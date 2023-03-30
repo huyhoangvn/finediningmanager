@@ -29,11 +29,12 @@
                 android:text="Thêm/Sửa hóa đơn"/>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_tenKhachHang_lyt_them_FragmentThemHoaDon"
                 style="@style/mInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                android:hint="Số lượng khách">
+                android:hint="Tên chủ hóa đơn">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_tenKhachHang_them_FragmentThemHoaDon"
                     style="@style/mEditText"
@@ -44,11 +45,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_soLuongKhach_lyt_them_FragmentThemHoaDon"
                 style="@style/mInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                android:hint="Tên chủ hóa đơn">
+                android:hint="Số Lượng khách">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_soLuongKhach_them_FragmentThemHoaDon"
                     style="@style/mEditText"
@@ -161,6 +163,7 @@
                     android:id="@+id/rdoChoThanhToan_ThemHoaDon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="Chờ thanh toán"/>
                 <RadioButton
                     android:id="@+id/rdoDangDuocDat_ThemHoaDon"

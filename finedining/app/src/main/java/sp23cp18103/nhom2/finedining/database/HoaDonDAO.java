@@ -77,6 +77,24 @@ public class HoaDonDAO{
         }
         return -1;
     }
+    @SuppressLint("Range")
+    public String getNgayDat(int maHD) {
+        String sql = "SELECT thoiGianDat FROM hoadon WHERE maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("thoiGianDat"));
+        }
+        return "";
+    }
+    @SuppressLint("Range")
+    public int getTrangThai(int maHD) {
+        String sql = "SELECT trangThai FROM hoadon WHERE maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("trangThai"));
+        }
+        return -1;
+    }
 
     @SuppressLint("Range")
     public int getMaHoaDonTiepTheo(){
@@ -100,7 +118,6 @@ public class HoaDonDAO{
             hd.setSoLuongKhach(c.getInt(c.getColumnIndex("soLuongKhach")));
             hd.setThoiGianXuat(c.getString(c.getColumnIndex("thoiGianXuat")));
             hd.setThoiGianDat(c.getString(c.getColumnIndex("thoiGianDat")));
-
             hd.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(hd);
         }
