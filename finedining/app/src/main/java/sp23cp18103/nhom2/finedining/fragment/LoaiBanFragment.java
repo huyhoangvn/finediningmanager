@@ -50,11 +50,10 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
  * Hiển thị danh sách loại bàn và thêm, sửa
  * */
 public class LoaiBanFragment extends Fragment {
-    List<LoaiBan> mListOld;
     RecyclerView rcv_loaiban;
-    ArrayList<LoaiBan> list, list2, list3;
+    ArrayList<LoaiBan> list;
     LoaiBanDAO loaiBanDAO;
-    EditText edTenLoaiBan, edSoChoNgoi;
+    EditText edTenLoaiBan;
     CheckBox chk_TrangThai_LoaiBan;
     Button btn_ShaveLoaiBan, btn_CancelLoaiBan;
     CheckBox chk_fLoaiBan_conDung;
@@ -112,7 +111,6 @@ public class LoaiBanFragment extends Fragment {
         builder.setView(view);
 
         edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
-        edSoChoNgoi = view.findViewById(R.id.edSoChoNgoi);
         tvTieuDeLoaiBan = view.findViewById(R.id.tvTieuDeLoaiBan);
         tvTieuDeLoaiBan.setText("Thêm loại bàn");
         chk_TrangThai_LoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
@@ -122,7 +120,6 @@ public class LoaiBanFragment extends Fragment {
         Dialog dialog = builder.create();
         if (type != 0) {
             edTenLoaiBan.setText(loaiBan.getTenLoai());
-            edSoChoNgoi.setText(String.valueOf(loaiBan.getSoChoNgoi()));
             if (loaiBan.getTrangThai() == 1) {
                 chk_TrangThai_LoaiBan.setChecked(true);
             } else {
@@ -146,7 +143,6 @@ public class LoaiBanFragment extends Fragment {
 
                     loaiBan = new LoaiBan();
                     loaiBan.setTenLoai(edTenLoaiBan.getText().toString());
-                    loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
                     loaiBan.setMaNV(maNV);
                     if (chk_TrangThai_LoaiBan.isChecked()) {
                         loaiBan.setTrangThai(1);
@@ -180,15 +176,7 @@ public class LoaiBanFragment extends Fragment {
         int check = 1;
         if (tenLoai.isEmpty() || soChoNgoi.isEmpty()) {
             edTenLoaiBan.setError("Không được để trống");
-            edSoChoNgoi.setError("Không được để trống");
             check = -1;
-        } else {
-            try {
-                Integer.parseInt(edSoChoNgoi.getText().toString());
-            } catch (Exception e) {
-                edSoChoNgoi.setError("Giá không hợp lệ");
-                check = -1;
-            }
         }
         return check;
     }
