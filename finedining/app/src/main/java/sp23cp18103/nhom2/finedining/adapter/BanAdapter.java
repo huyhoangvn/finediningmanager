@@ -30,6 +30,7 @@ import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách bàn trong BanFragment
@@ -70,7 +71,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         holder.tvLoaiBan.setText(""+loaiBan.getTenLoai());
 //        holder.tvTrangThaiBan.setText((banDAO.getKiemTraConTrong(position)==1) ?"Trống":"Đầy");
 
-        if(banDAO.getKiemTraConTrong(position)==1){
+        if(banDAO.getKiemTraConTrong(PreferencesHelper.getId(context), ban.getMaBan())==1){
             holder.tvTrangThaiBan.setText("Đầy");
             holder.tvTrangThaiBan.setTextColor(Color.BLUE);
         }else{

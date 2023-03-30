@@ -9,25 +9,43 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.color.MaterialColors;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatBan;
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
+import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
+import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanViewHolder> {
+    private Context context;
+    private ArrayList<Ban> banList;
+    private ArrayList<ThongTinDatBan> datBanHienTaiList;
+    private InterfaceDatBan interfaceDatBan;
+    public int maHoaDonSapThem;
+    private BanDAO banDAO;
 
-    Context context;
-    List<Ban> banList;
-    InterfaceDatBan interfaceDatBan;
-
-    public DatBanAdapter(Context context, List<Ban> banList, InterfaceDatBan interfaceDatBan) {
+    public DatBanAdapter(Context context, ArrayList<Ban> banList, ArrayList<ThongTinDatBan> datBanHienTaiList,
+                         int maHoaDonSapThem, InterfaceDatBan interfaceDatBan) {
         this.context = context;
         this.banList = banList;
+        this.datBanHienTaiList = datBanHienTaiList;
+        this.maHoaDonSapThem = maHoaDonSapThem;
         this.interfaceDatBan = interfaceDatBan;
+        //Khoi tao
+        khoiTaoDAO();
+    }
+
+    private void khoiTaoDAO() {
+        this.banDAO = new BanDAO(context);
     }
 
     @NonNull
@@ -36,27 +54,28 @@ public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanView
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.cardview_datban,parent,false);
         DatBanAdapter.DatBanViewHolder viewHolder = new DatBanAdapter.DatBanViewHolder(view);
-
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DatBanViewHolder holder, int position) {
-        final int viTri = position;
-
         Ban ban = banList.get(position);
-        holder.tvViTri.setText(""+ban.getViTri());
-        holder.tvTrangThai.setText((ban.getTrangThai()==1)?"Còn Trống ":"Hết");
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.linearDatBan.setBackgroundColor(Color.GREEN);
-                interfaceDatBan.getMaBan(ban.getMaBan());
-            }
-        });
-
-
+        int trangThaiDay = banDAO.getKiemTraConTrong(PreferencesHelper.getId(context), ban.getMaBan());
+        holder.tvViTri.setText(ban.getViTri());
+        holder.tvTrangThai.setText((trangThaiDay==1)?"Đầy ":"Trống");
+        if(datBanHienTaiList.contains(new ThongTinDatBan(ban.getMaBan(), maHoaDonSapThem, 1, ""))){
+            holder.cardDatBan.setCardBackgroundColor(MaterialColors.getColor(holder.itemView, com.google.android.material.R.attr.colorPrimary));
+        }
+        if(trangThaiDay!=1){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    interfaceDatBan.getMaBan(ban.getMaBan(), holder.cardDatBan);
+                }
+            });
+        } else {
+            holder.cardDatBan.setAlpha(0.5f);
+        }
     }
 
     @Override
@@ -66,12 +85,12 @@ public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanView
 
     class DatBanViewHolder extends RecyclerView.ViewHolder{
         TextView tvViTri,tvTrangThai;
-        LinearLayout linearDatBan;
+        CardView cardDatBan;
         public DatBanViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTrangThai  = itemView.findViewById(R.id.tv_trangthai_DatBan);
             tvViTri = itemView.findViewById(R.id.tv_vitri_DatBan);
-            linearDatBan = itemView.findViewById(R.id.linearDatBan);
+            cardDatBan = itemView.findViewById(R.id.card_DatBan);
 
         }
     }
