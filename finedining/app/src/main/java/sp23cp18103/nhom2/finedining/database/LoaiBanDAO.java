@@ -100,7 +100,7 @@ public class LoaiBanDAO {
                 "where nv.maNH = " +
                 "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
                 "AND b.trangThai = 1 " +
-                "And  hd.trangThai <> 2 " +
+                "And  hd.trangThai = 2 " +
                 "And lb.maLB = ? ";
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
