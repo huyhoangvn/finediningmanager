@@ -74,7 +74,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         loaiMonDAO = new LoaiMonDAO(context);
         LoaiMon lm = loaiMonDAO.getId(String.valueOf(m.getMaLM()));
         holder.tvCardviewTenLoaiMon.setText(lm.getTenLoai());
-        holder.tvCardviewGiaMon.setText(m.getGia()+"vnđ");
+        holder.tvCardviewGiaMon.setText(String.valueOf(m.getGia()));
         if(m.getTrangThai()==1){
             holder.tvCardviewTrangThaiMon.setText("Còn dùng");
             holder.tvCardviewTrangThaiMon.setTextColor(Color.BLUE);
@@ -146,11 +146,22 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                         if(!giaMon.isEmpty()){
                             m.setGia(Integer.parseInt(giaMon));
                         }
-                        m.setHinh(String.valueOf(R.drawable.default_avatar));
+                        if(galleryHelper.getCurrentImageUrl() == null){
+                            m.setHinh(m.getHinh());
+                        }else{
+                            m.setHinh(galleryHelper.getCurrentImageUrl());
+                        }
                         m.setMaLM(maLoaiMon);
                         if(chkTrangThaiMon.isChecked()){
-                            m.setTrangThai(1);
+                            if(dao.getTuDongChuyenTrangThai(m.getMaMon(), maNV)>0){
+                                Toast.makeText(context, "tu dong chuyen trang thai thanh cong", Toast.LENGTH_SHORT).show();
+                                m.setTrangThai(1);
+                            }else{
+                                m.setTrangThai(1);
+                            }
                         }else{
+                            //Update tat ca dat mon cua tat ca hoa don co mon nay
+                            // trong trang thai cho thanh toan
                             m.setTrangThai(0);
                         }
                         for(int i = 0; i<listLoaiMon.size(); i++){

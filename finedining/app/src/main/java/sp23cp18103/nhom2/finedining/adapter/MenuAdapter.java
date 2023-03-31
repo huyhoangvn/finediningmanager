@@ -30,7 +30,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.carview_menu,null);
+        View view = inflater.inflate(R.layout.carview_menu,parent,false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

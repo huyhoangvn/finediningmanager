@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,10 @@ import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiMonFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách loại món trong LoaiMonFragment
@@ -34,7 +37,6 @@ import sp23cp18103.nhom2.finedining.model.LoaiMon;
 public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonViewHolder>{
     Context context;
     List<LoaiMon> list;
-    LoaiMonFragment fragment;
     TextInputEditText edTenLoaiMon;
     Button btnDialogLuuLoaiMon, btnDialogHuyLoaiMon;
     CheckBox chkDialogTrangThaiLoaiMon;
@@ -81,6 +83,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                 btnDialogHuyLoaiMon = view.findViewById(R.id.btnDialogHuyLoaiMon);
                 edTenLoaiMon.setText(lm.getTenLoai());
                 Dialog dialog= builder.create();
+                int maNV = PreferencesHelper.getId(context);
                 if(lm.getTrangThai()==1){
                     chkDialogTrangThaiLoaiMon.setChecked(true);
                 }else{
@@ -92,9 +95,18 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                         String tenLoai = edTenLoaiMon.getText().toString().trim();
                         lm.setTenLoai(tenLoai);
                         if(chkDialogTrangThaiLoaiMon.isChecked()){
+                            Log.d("TAG", "onClick: " + "Checked");
                             lm.setTrangThai(1);
                         }else{
-                            lm.setTrangThai(0);
+                            Log.d("TAG", "onClick: " + dao.getLienKetTrangThai(lm.getMaLM(),maNV));
+                            if(dao.getLienKetTrangThai(lm.getMaLM(),maNV)>0){
+                                Log.d("TAG", "onClick: " + "Un Checked 1");
+                                Toast.makeText(context, "Khong cho sua", Toast.LENGTH_SHORT).show();
+                                return;
+                            }else{
+                                Log.d("TAG", "onClick: " + "Un Checked 0");
+                                lm.setTrangThai(0);
+                            }
                         }
                         if(tenLoai.isEmpty()){
                             edTenLoaiMon.setError("Không được để trống");

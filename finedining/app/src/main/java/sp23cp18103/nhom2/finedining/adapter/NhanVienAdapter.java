@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import sp23cp18103.nhom2.finedining.Interface.IEditListener;
+import sp23cp18103.nhom2.finedining.Interface.IEditListenerNhanVien;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
@@ -31,14 +31,14 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     private Context context;
     private NhanVienAdapter adpNhanVien;
     private ArrayList<NhanVien> listNhanVien;
-    private IEditListener iEditListener;
+    private IEditListenerNhanVien iEditListenerNhanVien;
     //Database
     private NhanVienDAO nhanVienDAO;
 
-    public NhanVienAdapter(Context context, ArrayList<NhanVien> listNhanVien, IEditListener iEditListener) {
+    public NhanVienAdapter(Context context, ArrayList<NhanVien> listNhanVien, IEditListenerNhanVien iEditListenerNhanVien) {
         this.context = context;
         this.listNhanVien = listNhanVien;
-        this.iEditListener = iEditListener;
+        this.iEditListenerNhanVien = iEditListenerNhanVien;
 
         khoiTaoDAO();
     }
@@ -95,7 +95,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         holder.imgbtnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iEditListener.showEditFragment(nhanVien.getMaNV());
+                iEditListenerNhanVien.showEditFragment(nhanVien.getMaNV());
             }
         });
     }

@@ -24,7 +24,7 @@ public class DatBanDAO {
         ContentValues  values = new ContentValues();
         values.put("maBan",dBan.getMaBan());
         values.put("maHD",dBan.getMaHD());
-        values.put("thoiGianDat",dBan.getThoiGianDat());
+        values.put("trangThai",dBan.getTrangThai());
 
         return db.insert("datban",null,values);
     }
@@ -32,7 +32,7 @@ public class DatBanDAO {
         ContentValues  values = new ContentValues();
         values.put("maBan",dBan.getMaBan());
         values.put("maHD",dBan.getMaHD());
-        values.put("thoiGianDat",dBan.getThoiGianDat());
+        values.put("trangThai",dBan.getTrangThai());
 
         return db.update("datban",values,"maBan=?",new String[]{String.valueOf(dBan.getMaBan())});
     }
@@ -60,7 +60,7 @@ public class DatBanDAO {
             DatBan dBan = new DatBan();
             dBan.setMaBan(c.getInt(c.getColumnIndex("maBan")));
             dBan.setMaHD(c.getInt(c.getColumnIndex("maHD")));
-            dBan.setThoiGianDat(c.getString(c.getColumnIndex("thoiGianDat")));
+            dBan.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
 
             list.add(dBan);
         }

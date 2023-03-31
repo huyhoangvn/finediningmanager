@@ -38,14 +38,14 @@
                 style="@style/mHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="01-10-2000"/>
+                android:text="01-10-2000 20:10"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Người trả: "/>
@@ -57,29 +57,12 @@
                     android:text="Nguyễn Huy Hoàng"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    style="@style/mNormalText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Số lượng khách: "/>
-                <TextView
-                    android:id="@+id/tv_soLuongKhach_CardView_HoaDon"
-                    style="@style/mNormalText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10"/>
-            </LinearLayout>
-
             <TextView
                 android:id="@+id/tv_trangThai_CardView_HoaDon"
                 style="@style/mBoldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đã thanh toán"/>
+                android:text="Chờ thanh toán"/>
 
         </LinearLayout>
 

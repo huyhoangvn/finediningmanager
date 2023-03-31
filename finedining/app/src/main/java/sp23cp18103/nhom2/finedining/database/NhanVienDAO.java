@@ -174,7 +174,7 @@ public class NhanVienDAO {
         String sql = "SELECT * FROM nhanvien nv " +
                 "WHERE nv.maNH = ( SELECT maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND nv.tenNV LIKE ? " +
-                "AND nv.trangThai >= ? " +
+                "AND nv.trangThai = ? " +
                 "ORDER BY nv.trangThai DESC, nv.phanQuyen DESC, nv.tenNV ASC";
         return getThongTin(sql, String.valueOf(maNV), String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai));
     }

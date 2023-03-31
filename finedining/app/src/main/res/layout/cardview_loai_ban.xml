@@ -28,16 +28,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Số chỗ: "/>
+                    android:text="Số bàn: "/>
                 <TextView
-                    android:id="@+id/tv_SoChoNgoi"
+                    android:id="@+id/tv_SoBan"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mLabelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Số bàn trống: "/>
+                <TextView
+                    android:id="@+id/tv_SoBanTrongBan"
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3"/>
             </LinearLayout>
 
             <TextView

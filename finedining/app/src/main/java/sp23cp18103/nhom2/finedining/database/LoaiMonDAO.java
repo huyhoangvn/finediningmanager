@@ -37,11 +37,22 @@ public class LoaiMonDAO {
         String sql = "Select lm.maLM, lm.maNV, lm.tenLoai, lm.trangThai from loaimon lm " +
                 "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
                 "WHERE nv.maNH = " +
-                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNH = ? ) " +
-                "AND lm.trangThai >= ? " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lm.trangThai = ? " +
                 "AND lm.tenLoai LIKE ? " +
                 "ORDER BY lm.trangThai DESC, lm.tenLoai ASC";
         return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"));
+    }
+    public int getLienKetTrangThai(int maLM, int maNV) {
+        String sql = "Select m.maMon, lm.maLM from mon m " +
+                "JOIN loaimon lm ON m.maLM = lm.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND m.trangThai = 1 " +
+                "AND m.maLM = ? " ;
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLM)});
+        return c.getCount();
     }
     public LoaiMon getId(String id){
         String sql = "select * from loaimon where maLM = ?";

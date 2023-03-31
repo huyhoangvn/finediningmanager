@@ -21,34 +21,7 @@ public class DatMonDAO {
         db = dbHelper.getWritableDatabase();
 
     }
-//    public long insertDatMon(DatMon dm){
-//        ContentValues values = new ContentValues();
-//        values.put("maMon",dm.getMaMon());
-//        values.put("maHD",dm.getMaHD());
-//        values.put("soLuong",dm.getSoLuong());
-//        return db.insert("datmon",null,values);
-//    }
-public long insertDatMon(DatMon dm) {
-    ContentValues values = new ContentValues();
-    values.put("maMon", dm.getMaMon());
-    values.put("maHD", dm.getMaHD());
-    values.put("soLuong", dm.getSoLuong());
-    long result = -1;
-    Cursor cursor = db.query("datmon", null, "maHD = ? AND maMon = ?", new String[]{String.valueOf(dm.getMaHD()), String.valueOf(dm.getMaMon())}, null, null, null);
 
-    if (cursor.moveToFirst()) {
-        @SuppressLint("Range") int soLuong = cursor.getInt(cursor.getColumnIndex("soLuong"));
-        int newSoLuong = soLuong + dm.getSoLuong();
-        ContentValues updateValues = new ContentValues();
-        updateValues.put("soLuong", newSoLuong);
-        result = db.update("datmon", updateValues, "maHD = ? AND maMon = ?", new String[]{String.valueOf(dm.getMaHD()), String.valueOf(dm.getMaMon())});
-    } else {
-        result = db.insert("datmon", null, values);
-    }
-
-    cursor.close();
-    return result;
-}
     public int updateDatMon(DatMon dm, int maHD) {
         ContentValues values = new ContentValues();
         values.put("soLuong", dm.getSoLuong());
@@ -56,8 +29,23 @@ public long insertDatMon(DatMon dm) {
 
         String[] selectionArgs = {String.valueOf(maHD), String.valueOf(dm.getMaMon())};
 
-        return db.update("datmon", values, selection, selectionArgs);
+    public long insertDatMon(DatMon dm){
+        ContentValues values = new ContentValues();
+        values.put("maMon",dm.getMaMon());
+        values.put("maHD",dm.getMaHD());
+        values.put("soLuong",dm.getSoLuong());
+        values.put("trangThai",dm.getTrangThai());
+        return db.insert("datmon",null,values);
     }
+
+ //   public int updateDatMon(DatMon dm){
+ //      ContentValues values = new ContentValues();
+ //       values.put("soLuong",dm.getSoLuong());
+ //       values.put("trangThai",dm.getTrangThai());
+ //       values.put("trangThai",dm.getTrangThai());
+ //       return db.update("datmon",values,"maMon=? AND maHD=?",new String[]{String.valueOf(dm.getMaMon()),String.valueOf(dm.getMaHD())});
+ //       return db.update("datmon", values, selection, selectionArgs);
+ //   }
 
 
     public boolean checkDatMonExist(int maHD, int maMon) {
@@ -120,6 +108,7 @@ public long insertDatMon(DatMon dm) {
             dm.setMaMon(c.getInt(c.getColumnIndex("maMon")));
             dm.setMaHD(c.getInt(c.getColumnIndex("maHD")));
             dm.setSoLuong(c.getInt(c.getColumnIndex("soLuong")));
+            dm.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(dm);
 
         }

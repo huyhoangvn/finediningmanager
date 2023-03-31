@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách bàn trong BanFragment
@@ -61,6 +63,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BanViewHolder holder, int position) {
+        int manv = PreferencesHelper.getId(context);
         Ban ban = list.get(position);
 
         LoaiBanDAO loaiBanDAO = new LoaiBanDAO(context);
@@ -68,13 +71,13 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         banDAO=new BanDAO(context);
         holder.tvViTri.setText(ban.getViTri());
         holder.tvLoaiBan.setText(""+loaiBan.getTenLoai());
-        holder.tvTrangThaiBan.setText(""+ban.getTrangThai());
+//        holder.tvTrangThaiBan.setText((banDAO.getKiemTraConTrong(position)==1) ?"Trống":"Đầy");
 
-        if(ban.getTrangThai()==1){
-            holder.tvTrangThaiBan.setText("Dùng");
+        if(banDAO.getKiemTraConTrong(manv,ban.getMaBan())==1){
+            holder.tvTrangThaiBan.setText("Đầy");
             holder.tvTrangThaiBan.setTextColor(Color.BLUE);
         }else{
-            holder.tvTrangThaiBan.setText("Không dùng");
+            holder.tvTrangThaiBan.setText("Trống");
             holder.tvTrangThaiBan.setTextColor(Color.RED);
         }
 
@@ -124,6 +127,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int manv= PreferencesHelper.getId(context);
                 LoaiBan loaiBan = (LoaiBan) spnrBan.getSelectedItem();
                 ban.setMaLB(loaiBan.getMaLB());
                 String viTri = edViTriBan.getText().toString().trim();
@@ -132,7 +136,13 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
 
                 if (chkTrangThaiBan.isChecked()) {
-                    ban.setTrangThai(1);
+                    if(banDAO.getTuDongChuyenTrangThai(ban.getMaBan(),manv)>0){
+                        Toast.makeText(context, "tu dong chuyen trang thai thanh cong", Toast.LENGTH_SHORT).show();
+                        ban.setTrangThai(1);
+                    }else{
+                        ban.setTrangThai(1);
+                    }
+
                 } else {
                     ban.setTrangThai(0);
                 }
@@ -185,4 +195,5 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             }
         }
     }
+
 }

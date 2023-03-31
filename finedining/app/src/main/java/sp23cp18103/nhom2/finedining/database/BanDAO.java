@@ -90,9 +90,54 @@ public class BanDAO {
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND b.vitri LIKE ? " +
-                "AND b.trangThai >= ?";
+                "AND b.trangThai = ?";
         return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
 
+    /*
+    * Lấy danh sách bàn cả còn đầy và trống
+    * */
+    public List<Ban> getDanhSachBan(int maNV){
+        String sql = "Select b.maBan, b.maLB, b.viTri, b.trangThai " +
+                "FROM ban b " +
+                "JOIN loaiban lb ON lb.maLB = b.maLB " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.trangThai = 1";
+        return getDaTa(sql, String.valueOf(maNV));
+    }
 
+    /*
+    * Trả về bằng 1 là bàn đầy còn 0 là bàn trống
+    * */
+   public int getKiemTraConTrong(int maNV, int maBan){
+        String sql = "Select * from ban b " +
+                "JOIN datban db on db.maBan = b.maBan " +
+                "JOIN hoadon hd on db.maHD = hd.maHD " +
+                "JOIN nhanvien nv on nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.maBan = ? " +
+                "AND hd.trangThai = 2 " +
+                "AND db.trangThai = 1 ";
+        return getDaTa(sql, String.valueOf(maNV) ,String.valueOf(maBan)).size();
+   }
+   
+    @SuppressLint("Range")
+    public int getTuDongChuyenTrangThai(int maBan, int maNV){
+        String sql = "SELECT lb.maLB FROM loaiban lb " +
+                "JOIN ban b ON b.maLB = lb.maLB " +
+                "JOIN nhanvien nv ON nv.maNV = lb.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lb.trangThai = 0 " +
+                "AND lb.maLB = ( SELECT b2.maLB FROM ban b2 WHERE b2.maBan = ? ) " ;
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maBan)});
+        int maLB = 0;
+        if(c.moveToNext()){
+            maLB =  c.getInt(c.getColumnIndex("maLB"));
+        }
+        ContentValues values = new ContentValues();
+        values.put("trangThai", 1 );
+        return db.update("loaiban", values,"maLB = ?", new String[]{String.valueOf(maLB)} );
+    }
 }

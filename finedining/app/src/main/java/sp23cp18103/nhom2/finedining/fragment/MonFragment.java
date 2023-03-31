@@ -36,14 +36,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
-import sp23cp18103.nhom2.finedining.adapter.LoaiMonAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.MonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
-import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -63,6 +63,7 @@ public class MonFragment extends Fragment {
     int maLoaiMon, positionLM;
     LoaiMonSpinnerAdapter loaiMonSpinnerAdapter;
     LoaiMonDAO loaiMonDAO;
+    GalleryHelper galleryHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +75,8 @@ public class MonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        context = getContext();
+        galleryHelper = new GalleryHelper(getContext());
         rcvMon = view.findViewById(R.id.rcvMon);
         fabMon = view.findViewById(R.id.fbtnAddMon);
         edTimKiemMon = view.findViewById(R.id.edTimKiemMon);
@@ -81,6 +84,7 @@ public class MonFragment extends Fragment {
         chkFragmentMon = view.findViewById(R.id.chkFragmentMon);
         dao = new MonDAO(getContext());
         loaiMonDAO = new LoaiMonDAO(getContext());
+        Mon m = new Mon();
         timKiemMon();
         capNhat();
         chkFragmentMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -118,7 +122,6 @@ public class MonFragment extends Fragment {
                 listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, trangThai, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
-                Mon m = new Mon();
                 for(int i = 0; i<listLoaiMon.size(); i++){
                     if(m.getMaMon() == (listLoaiMon.get(i).getMaLM())){
                         positionLM = i;
@@ -134,6 +137,13 @@ public class MonFragment extends Fragment {
 
                     }
                 });
+                ImageHelper.loadAvatar(getContext(), imgDialogMon, m.getHinh());
+                imgDialogMon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        galleryHelper.getImageFromGallery(imgDialogMon);
+                    }
+                });
                 btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -144,6 +154,7 @@ public class MonFragment extends Fragment {
                         if(!giaMon.isEmpty()){
                             m.setGia(Integer.parseInt(giaMon));
                         }
+                        m.setHinh(galleryHelper.getCurrentImageUrl());
                         m.setHinh(String.valueOf(R.drawable.default_avatar));
                         if(chkTrangThaiMon.isChecked()){
                             m.setTrangThai(1);
