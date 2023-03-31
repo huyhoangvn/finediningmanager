@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private void createTableDatban(SQLiteDatabase db) {
         String sql = "CREATE TABLE datban(" +
                 "maHD INTEGER NOT NULL REFERENCES hoadon(maHD)," +
-                "maBan INTEGER NOT NULL UNIQUE REFERENCES ban(maBan)," +
+                "maBan INTEGER NOT NULL REFERENCES ban(maBan)," +
                 "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "PRIMARY KEY (maHD, maBan))";
         db.execSQL(sql);
