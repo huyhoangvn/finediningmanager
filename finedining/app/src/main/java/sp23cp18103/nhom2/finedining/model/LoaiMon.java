@@ -8,7 +8,7 @@ public class LoaiMon {
     private int maNV;//Nhân viên quản lý
     private int trangThai;
 
-    public LoaiMon(int maLM, String tenLoai, int maNV, int trangThai) {
+    public LoaiMon(int maLM,String tenLoai, int maNV, int trangThai) {
         this.maLM = maLM;
         this.tenLoai = tenLoai;
         this.maNV = maNV;

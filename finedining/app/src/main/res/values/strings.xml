@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">finedining</string>
+    <string name="app_name">Fine Dinning</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="naviOpen">Open Menu</string>
+    <string name="naviClose">Close Menu</string>
 </resources>

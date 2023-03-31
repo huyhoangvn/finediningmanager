@@ -11,6 +11,7 @@ import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.HoaDon;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
+import sp23cp18103.nhom2.finedining.model.NhanVien;
 
 public class LoaiMonDAO {
     SQLiteDatabase db;
@@ -32,10 +33,33 @@ public class LoaiMonDAO {
         values.put("trangThai", lm.getTrangThai());
         return db.update("loaimon", values,"maLM = ?", new String[]{String.valueOf(lm.getMaLM())});
     }
-    public List<LoaiMon> getAllLoaiMon(){
-        String sql ="SELECT *FROM loaimon";
-        return getData(sql);
+    public List<LoaiMon> trangThaiLoaiMon(int maNV, int trangThai, String timKiem) {
+        String sql = "Select lm.maLM, lm.maNV, lm.tenLoai, lm.trangThai from loaimon lm " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lm.trangThai = ? " +
+                "AND lm.tenLoai LIKE ? " +
+                "ORDER BY lm.trangThai DESC, lm.tenLoai ASC";
+        return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"));
     }
+    public int getLienKetTrangThai(int maLM, int maNV) {
+        String sql = "Select m.maMon, lm.maLM from mon m " +
+                "JOIN loaimon lm ON m.maLM = lm.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND m.trangThai = 1 " +
+                "AND m.maLM = ? " ;
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLM)});
+        return c.getCount();
+    }
+    public LoaiMon getId(String id){
+        String sql = "select * from loaimon where maLM = ?";
+        List<LoaiMon> list = getData(sql,id);
+        return list.get(0);
+    }
+
     @SuppressLint("Range")
     public List<LoaiMon> getData(String sql, String...SelectArgs){
         List<LoaiMon> list = new ArrayList<>();
@@ -49,5 +73,10 @@ public class LoaiMonDAO {
             list.add(lm);
         }
         return list;
+    }
+    public boolean checkloaimon(String loaimon){
+        String sql = String.format("select * from loaimon where tenLoai = '%s' ",loaimon);
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor.getCount() > 0;
     }
 }

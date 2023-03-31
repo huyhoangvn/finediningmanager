@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mFragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_timkiemloaiban"
+            android:id="@+id/inputTimKiemLoaiBan"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,20 +21,25 @@
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTimKiemLoaiBan"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_loaiban"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <CheckBox
+            android:id="@+id/chk_fLoaiBan_conDung"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
+            style="@style/mCheckBox"
+            android:text="Không còn trống"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="ContentDescription,RtlHardcoded,SpeakableTextPresentCheck" />
+
 </FrameLayout>
 
     <!--Hiện danh sách bàn-->

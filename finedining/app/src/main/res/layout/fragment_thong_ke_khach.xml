@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mFragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -54,10 +55,11 @@
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="date"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,10 +73,11 @@
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="date"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -96,12 +99,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_ThongKeKhach"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            android:layout_weight="1"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            android:layout_weight="1"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_nam_ThongKeKhach"
@@ -114,7 +115,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"/>
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -18,7 +18,6 @@ public class HoaDonDAO{
         DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
 
-
     }
     /*insert hóa đơn*/
     public long insertHoaDon(HoaDon hd){
@@ -27,6 +26,7 @@ public class HoaDonDAO{
         values.put("maNV",hd.getMaNV());
         values.put("soLuongKhach",hd.getSoLuongKhach());
         values.put("thoiGianXuat",hd.getThoiGianXuat());
+        values.put("thoiGianDat",hd.getThoiGianDat());
         values.put("trangThai",hd.getTrangThai());
 
         return db.insert("hoadon",null,values);
@@ -39,9 +39,10 @@ public class HoaDonDAO{
         values.put("maNV",hd.getMaNV());
         values.put("soLuongKhach",hd.getSoLuongKhach());
         values.put("thoiGianXuat",hd.getThoiGianXuat());
+        values.put("thoiGianDat",hd.getThoiGianDat());
         values.put("trangThai",hd.getTrangThai());
 
-        return db.update("hoadon",null,"maHD=?",new String[]{String.valueOf(hd.getMaHD())});
+        return db.update("hoadon",values,"maHD=?",new String[]{String.valueOf(hd.getMaHD())});
 
     }
     /*getAll danh sach hóa đơn*/
@@ -49,15 +50,62 @@ public class HoaDonDAO{
         String sql ="SELECT *FROM hoadon";
         return getData(sql);
     }
+    @SuppressLint("Range")
+    public int getMaKhachHang(int maHD){
+        String sql = "SELECT maKH FROM hoadon WHERE maHD = ? ";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("maKH"));
+        }
+        return -1;
+    }
     /* hóa đơn*/
     public HoaDon getID(String id){
-        String sql = "SELECT *FROM hoadon WHERE maHD=?";
+        String sql = "SELECT * FROM hoadon WHERE maHD = ? ";
         List<HoaDon> list = getData(sql,id);
         if(list==null){
             return null;
         }else
             return list.get(0);
     }
+    @SuppressLint("Range")
+    public int getSoLuongKhach(int maHD) {
+        String sql = "SELECT soLuongKhach FROM hoadon WHERE maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("soLuongKhach"));
+        }
+        return -1;
+    }
+    @SuppressLint("Range")
+    public String getNgayDat(int maHD) {
+        String sql = "SELECT thoiGianDat FROM hoadon WHERE maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("thoiGianDat"));
+        }
+        return "";
+    }
+    @SuppressLint("Range")
+    public int getTrangThai(int maHD) {
+        String sql = "SELECT trangThai FROM hoadon WHERE maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("trangThai"));
+        }
+        return -1;
+    }
+
+    @SuppressLint("Range")
+    public int getMaHoaDonTiepTheo(){
+        String sql = " SELECT seq FROM sqlite_sequence WHERE name LIKE 'hoadon' ";
+        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
+        if(c.moveToNext()){
+            return c.getInt(c.getColumnIndex("seq")) + 1;
+        }
+        return -1;
+    }
+
     @SuppressLint("Range")
     public List<HoaDon> getData(String sql, String...SelectArgs){
         List<HoaDon> list = new ArrayList<>();
@@ -69,10 +117,9 @@ public class HoaDonDAO{
             hd.setMaNV(c.getInt(c.getColumnIndex("maNV")));
             hd.setSoLuongKhach(c.getInt(c.getColumnIndex("soLuongKhach")));
             hd.setThoiGianXuat(c.getString(c.getColumnIndex("thoiGianXuat")));
+            hd.setThoiGianDat(c.getString(c.getColumnIndex("thoiGianDat")));
             hd.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
-
             list.add(hd);
-
         }
         return list;
     }

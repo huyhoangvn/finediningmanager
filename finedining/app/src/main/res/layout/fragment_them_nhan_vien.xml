@@ -1,154 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.ThemNhanVienFragment">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent">
-            <LinearLayout
+    tools:context=".fragment.ThemNhanVienFragment"
+    android:background="?android:colorBackground"
+    android:descendantFocusability="afterDescendants">
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                tools:ignore="UselessParent">
 
-                <ImageButton
-                    android:id="@+id/imgbtn_fragThemNhanVien_themAnh"
-                    style="@style/mAvatarImageButton"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/default_avatar"
-                    tools:ignore="ContentDescription" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_fragThemNhanVien_taiKhoan"
-                    style="@style/mInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tài Khoản"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:errorEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:maxLines="1"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_fThemNhanVien_matKhau"
-                    style="@style/mInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Mật khẩu"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:errorEnabled="true"
-                    app:passwordToggleEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:maxLines="1"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_fThemNhanVien_tenNV"
-                    style="@style/mInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Tên nhân viên"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:errorEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:maxLines="1"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_fThemNhanVien_ngaySinh"
-                    style="@style/mInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Ngày sinh"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:errorEnabled="true"
-                    app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/ic_chon_ngay">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:enabled="false"
-                        android:maxLines="1"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_fThemNhanVien_sdt"
-                    style="@style/mInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Số điện thoại"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:errorEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:maxLines="1"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <RadioGroup
-                    android:id="@+id/group_fThemNhanVien_gioiTinh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-                    <RadioButton
-                        android:id="@+id/rdo_fThemNhanVien_nam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Nam"
-                        android:layout_weight="1"/>
-                    <RadioButton
-                        android:id="@+id/rdo_fThemNhanVien_nu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Nữ"
-                        android:layout_weight="1"/>
-                    <RadioButton
-                        android:id="@+id/rdo_fThemNhanVien_khac"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Khác"
-                        android:checked="true"
-                        android:layout_weight="1"/>
-                </RadioGroup>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_fThemNhanVien_luu"
-                        style="@style/mButton"
-                        android:layout_width="0dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/tv_fThemNhanVien_title"
+                        style="@style/mHeaderText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="Thêm Tài Khoản Nhân Viên"/>
+
+                    <ImageButton
+                        android:id="@+id/imgbtn_fragThemNhanVien_themAnh"
+                        style="@style/mAvatarImageButton"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/default_avatar"
+                        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_fThemNhanVien_taiKhoan"
+                        style="@style/mInputLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Lưu"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_fThemNhanVien_huy"
-                        style="@style/mButton"
-                        android:layout_width="0dp"
+                        android:hint="Tài Khoản"
+                        app:boxBackgroundColor="@android:color/transparent"
+                        app:errorEnabled="true">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_taiKhoan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_fThemNhanVien_matKhau"
+                        style="@style/mInputLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Hủy"/>
+                        android:hint="Mật khẩu"
+                        app:errorEnabled="true"
+                        app:passwordToggleEnabled="true">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_matKhau"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:maxLines="1"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_fThemNhanVien_tenNV"
+                        style="@style/mInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Tên nhân viên"
+                        app:errorEnabled="true">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_tenNV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_fThemNhanVien_sdt"
+                        style="@style/mInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Số điện thoại"
+                        app:errorEnabled="true">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_sdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:maxLines="1"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_fThemNhanVien_ngaySinh"
+                        style="@style/mInputLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ngày sinh"
+                        app:errorEnabled="true"
+                        app:endIconMode="custom"
+                        app:endIconDrawable="@drawable/ic_chon_ngay">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ed_fThemNhanVien_ngaySinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:maxLines="1"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <RadioGroup
+                        android:id="@+id/group_fThemNhanVien_gioiTinh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+                        <TextView
+                            style="@style/mNormalText"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Giới tính: "
+                            android:padding="5dp"
+                            android:textStyle="bold"/>
+                        <RadioButton
+                            android:id="@+id/rdo_fThemNhanVien_nam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nam"
+                            android:layout_weight="1"/>
+                        <RadioButton
+                            android:id="@+id/rdo_fThemNhanVien_nu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nữ"
+                            android:layout_weight="1"/>
+                        <RadioButton
+                            android:id="@+id/rdo_fThemNhanVien_khac"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Khác"
+                            android:checked="true"
+                            android:layout_weight="1"/>
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:id="@+id/lyt_fThemNhanVien_trangThai"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+                        <TextView
+                            style="@style/mNormalText"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Trạng thái: "
+                            android:padding="5dp"
+                            android:textStyle="bold"/>
+                        <CheckBox
+                            android:id="@+id/chk_fThemNhanVien_trangThai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đang làm"
+                            android:checked="true"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fThemNhanVien_luu"
+                            style="@style/mButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Lưu"/>
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_fThemNhanVien_huy"
+                            style="@style/mButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Quay về"/>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
 </FrameLayout>
 
     <!--Thêm tài khoản nhân viên mới-->

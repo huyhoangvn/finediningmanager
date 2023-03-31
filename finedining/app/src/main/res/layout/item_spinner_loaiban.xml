@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mSpinnerItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tvMaBanSP"
+        style="@style/mNormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mã loại bàn"/>
+
+    <TextView
+        style="@style/mNormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=". "/>
+
+    <TextView
+        android:id="@+id/tvTenBanSP"
+        style="@style/mNormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên loại bàn"/>
+
+
+</LinearLayout>

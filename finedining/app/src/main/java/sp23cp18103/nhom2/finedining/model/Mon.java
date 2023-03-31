@@ -8,15 +8,26 @@ public class Mon {
     private int maMon;
     private int maLM;
     private String tenMon;
+
+    private int gia;
     private int trangThai; // 1:"Dùng"; 0:"Không dùng"
     private String hinh;
 
-    public Mon(int maMon, int maLM, String tenMon, int trangThai, String hinh) {
+    public Mon(int maMon,int maLM , String tenMon , int gia, int trangThai, String hinh) {
         this.maMon = maMon;
         this.maLM = maLM;
         this.tenMon = tenMon;
+        this.gia = gia;
         this.trangThai = trangThai;
         this.hinh = hinh;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
     }
 
     public Mon() {
@@ -81,11 +92,5 @@ public class Mon {
     @Override
     public int hashCode() {
         return Objects.hash(maMon);
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return getTenMon();
     }
 }

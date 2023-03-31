@@ -16,15 +16,27 @@ public class NumberHelper {
         return df.format(money);
     }
 
-    public static String getNumberWithDecimal(String money){
-        return getNumberWithDecimal(money);
+    /*
+     * Trả về định dạng số không có dấu phẩy phân cách
+     * VD: 1,000,000 > 1000000
+     * */
+    public static int getMoneyWithoutDecimal(String moneyWithDecimal){
+        return Integer.parseInt(moneyWithDecimal.replace(",", ""));
     }
 
     /*
-     * Trả về định dạng số không có dấu phẩy phân cách
-     * VD: 1,000,000 (String) > 1000000 (int)
+     * Trả về định dạng số điện thoại có cách
+     * VD: 09330300888 -> 0933 0300 888
      * */
-    public static int getMoneyWithoutDecimal(String money){
-        return Integer.parseInt(money.replace(",", ""));
+    public static String getReadablePhoneNumber(String phoneNumber){
+        return phoneNumber.replaceFirst("(\\d{4})(\\d{3})(\\d{3})", "$1 $2 $3");   //1230-567-900
+    }
+
+    /*
+     * Trả về định dạng số điện thoại không có cách
+     * VD: 0933 0300 888 -> 09330300888
+     * */
+    public static String getPhoneNumber(String readablePhoneNumber){
+        return readablePhoneNumber.replace(" ", "");
     }
 }

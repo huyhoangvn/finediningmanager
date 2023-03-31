@@ -20,24 +20,87 @@ public class MonDAO {
     }
     public long insertMon(Mon mon){
         ContentValues values = new ContentValues();
-        values.put("maNV",mon.getMaLM());
-        values.put("tenLoai", mon.getTenMon());
+        values.put("maLM", mon.getMaLM());
+        values.put("tenMon",mon.getTenMon());
+        values.put("gia",mon.getGia());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
-        return db.insert("mon", null, values);
+        return db. insert("mon", null, values);
     }
     public int updateMon(Mon mon){
         ContentValues values = new ContentValues();
-        values.put("maNV",mon.getMaLM());
-        values.put("tenLoai", mon.getTenMon());
+        values.put("maLM", mon.getMaLM());
+        values.put("tenMon",mon.getTenMon());
+        values.put("gia",mon.getGia());
         values.put("trangThai", mon.getTrangThai());
         values.put("hinh", mon.getHinh());
         return db.update("mon", values,"maMon = ?", new String[]{String.valueOf(mon.getMaMon())});
     }
-    public List<Mon> getAllMon(){
-        String sql ="SELECT *FROM mon";
-        return getData(sql);
+    public List<Mon> trangThaiLoaiMon(int maNV, int trangThai, String timKiem) {
+        String sql = "Select m.maMon, m.maLM, m.tenMon, m.gia, m.trangThai, m.hinh from mon m " +
+                "JOIN loaimon lm ON m.maLM = lm.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND m.trangThai >= ? " +
+                "AND m.tenMon LIKE ? " +
+                "ORDER BY m.trangThai DESC, m.tenMon ASC";
+        return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"));
     }
+    public int getSoLuongMon(int maLM, int maNV) {
+        String sql = "Select m.maMon from mon m " +
+                "JOIN loaimon lm ON m.maLM = lm.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) ";
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLM)});
+        return c.getCount();
+    }
+    @SuppressLint("Range")
+    public int getTuDongChuyenTrangThai(int maMon, int maNV){
+        String sql = "SELECT lm.maLM FROM loaimon lm " +
+                "JOIN mon m ON m.maLM = lm.maLM " +
+                "JOIN nhanvien nv ON nv.maNV = lm.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lm.trangThai = 0 " +
+                "AND lm.maLM = ( SELECT m2.maLM FROM mon m2 WHERE m2.maMon = ? ) " ;
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maMon)});
+        int maLM = 0;
+        if(c.moveToNext()){
+           maLM =  c.getInt(c.getColumnIndex("maLM"));
+        }
+        ContentValues values = new ContentValues();
+        values.put("trangThai", 1 );
+        return db.update("loaimon", values,"maLM = ?", new String[]{String.valueOf(maLM)} );
+    }
+    public List<Mon> timKiem(int maNV, String tenmon ){
+        String sql = "Select * from mon m " +
+                "JOIN loaimon lm ON lm.maLM = m.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND m.tenMon LIKE ? ";
+        return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
+    }
+    
+    @SuppressLint("Range")
+    public String getTenMon(int maMon) {
+        String sql = "SELECT tenMon From mon " +
+                "WHERE maMon = ? ";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maMon)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("tenMon"));
+        }
+        return "";
+    }
+
+    public boolean checkmon(String tenmon){
+        String sql = String.format("select * from mon where tenMon = '%s' ",tenmon);
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor.getCount() > 0;
+    }
+
     @SuppressLint("Range")
     public List<Mon> getData(String sql, String...SelectArgs){
         List<Mon> list = new ArrayList<>();
@@ -47,10 +110,13 @@ public class MonDAO {
             mon.setMaMon(c.getInt(c.getColumnIndex("maMon")));
             mon.setMaLM(c.getInt(c.getColumnIndex("maLM")));
             mon.setTenMon(c.getString(c.getColumnIndex("tenMon")));
+            mon.setGia(c.getInt(c.getColumnIndex("gia")));
             mon.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             mon.setHinh(c.getString(c.getColumnIndex("hinh")));
             list.add(mon);
         }
         return list;
     }
+
+
 }

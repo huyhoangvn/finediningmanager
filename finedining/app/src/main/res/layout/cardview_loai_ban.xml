@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/mCardview"
+    style="@style/mCardviewMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/tv_tenLB"
+                android:id="@+id/tv_TenLoaiBan"
                 style="@style/mHeaderText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,31 +28,46 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Số chỗ: "/>
+                    android:text="Số bàn: "/>
                 <TextView
-                    android:id="@+id/tv_sochongoi"
+                    android:id="@+id/tv_SoBan"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="4"/>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/mLabelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Số bàn trống: "/>
+                <TextView
+                    android:id="@+id/tv_SoBanTrongBan"
+                    style="@style/mNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3"/>
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/tv_trangthai_LB"
-                style="@style/mNormalText"
+                android:id="@+id/tv_TrangThai_LoaiBan"
+                style="@style/mBoldText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Còn dùng"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"
-                />
+                android:text="Còn dùng"/>
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/img_sua_LB"
+            android:id="@+id/img_Sua_LoaiBan"
             style="@style/mImageButton"
             android:src="@drawable/ic_sua_thongtin"
             tools:ignore="ContentDescription,SpeakableTextPresentCheck"

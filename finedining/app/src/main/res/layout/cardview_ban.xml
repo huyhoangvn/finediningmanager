@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/mCardview"
+    style="@style/mCardviewMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,8 +17,8 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/tv_vitri"
-                style="@style/mHeaderText"
+                android:id="@+id/tvViTri"
+                style="@style/mLabelText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Vị trí"/>
@@ -28,35 +28,33 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
-                    style="@style/mNormalText"
+                    style="@style/mLabelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Loại: "/>
                 <TextView
-                    android:id="@+id/tv_loaiban"
+                    android:id="@+id/tvLoaiBan"
                     style="@style/mNormalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="VIP"/>
+                    android:text="Tên loại bàn"/>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_trangthai"
-                style="@style/mNormalText"
+                android:id="@+id/tvTrangThai"
+                style="@style/mBoldText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Còn dùng"
-                android:textStyle="bold"
-                android:textColor="@android:color/holo_green_dark"
+                android:text="Trống"
                 />
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/img_sua"
+            android:id="@+id/imgSua"
             style="@style/mImageButton"
             android:src="@drawable/ic_sua_thongtin"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

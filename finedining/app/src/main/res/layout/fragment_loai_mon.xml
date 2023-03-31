@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,7 +13,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_Tim_Kiem_Loai_Mon"
+            android:id="@+id/inputTimKiemLoaiMon"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +21,8 @@
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTimKiemLoaiMon"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -27,17 +30,23 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_Loai_Mon"
+            android:id="@+id/rcvLoaiMon"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
+        <CheckBox
+            android:id="@+id/chkFragmentLoaiMon"
+            style="@style/mCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không còn dùng"/>
     </LinearLayout>
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbtn_add_Loai_Mon"
+        android:id="@+id/fbtnAddLoaiMon"
         style="@style/mFloatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ public class NhaHang {
         this.diaChi = diaChi;
         this.hinh = hinh;
     }
+//
 
     public NhaHang() {
     }

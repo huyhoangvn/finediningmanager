@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/mDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_margin="10dp"
-    android:padding="5dp">
+    android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
         <TextView
-            android:id="@+id/tv_tieude_loaiban"
+            android:id="@+id/tvTieuDeLoaiBan"
             style="@style/mHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,20 +25,8 @@
             app:errorEnabled="true"
             android:hint="Tên loại bàn">
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_soChoNgoi"
-            style="@style/mInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            android:hint="Tên loại bàn">
-            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTenLoaiBan"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -47,27 +34,26 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
-            android:id="@+id/chk_trangthai_ban"
-            style="@style/mNormalText"
+            android:id="@+id/chkTrangThaiLoaiBan"
+            style="@style/mCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Còn sử dụng?"
             android:layout_gravity="start"
-            android:layout_marginStart="10dp"/>
+            android:text="Còn sử dụng?"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_shaveban"
+                android:id="@+id/btn_ShaveLoaiBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_cancelban"
+                android:id="@+id/btn_CancelLoaiBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

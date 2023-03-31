@@ -7,9 +7,29 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!--Light theme match logo -->
-    <color name="light_Primary">#9c4400</color>
-    <color name="light_Secondary">#765848</color>
-    <color name="light_Tertiary">#636032</color>
-    <color name="light_Background">#fffbff</color>
+    <!--Light theme-->
+    <color name="Light_Primary">#C0580C</color>
+    <color name="Light_OnPrimary">#ffffff</color>
+    <color name="Light_PrimaryContainer">#ffdbca</color>
+    <color name="Light_OnPrimaryContainer">#331200</color>
+    <color name="Light_Secondary">#ac8978</color>
+    <color name="Light_OnSecondary">#ffffff</color>
+    <color name="Light_SecondaryContainer">#FAF1F2</color>
+    <color name="Light_OnSecondaryContainer">#2b160a</color>
+    <color name="Light_Tertiary">#636032</color>
+    <color name="Light_OnTertiary">#ffffff</color>
+    <color name="Light_TertiaryContainer">#ebe5ab</color>
+    <color name="Light_OnTertiaryContainer">#1e1c00</color>
+    <color name="Light_Error">#ba1a1a</color>
+    <color name="Light_OnError">#ffffff</color>
+    <color name="Light_ErrorContainer">#ffdad6</color>
+    <color name="Light_OnErrorContainer">#410002</color>
+    <color name="Light_Background">#fffbff</color>
+    <color name="Light_OnBackground">#201a17</color>
+    <color name="Light_Surface">#fffbff</color>
+    <color name="Light_OnSurface">#201a17</color>
+    <color name="Light_Outline">#85746b</color>
+    <color name="Light_SurfaceVariant">#f4ded4</color>
+    <color name="Light_OnSurfaceVariant">#52443d</color>
+    <!--Dark Theme-->
 </resources>

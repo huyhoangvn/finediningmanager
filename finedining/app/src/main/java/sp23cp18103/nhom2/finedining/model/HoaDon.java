@@ -8,14 +8,16 @@ public class HoaDon {
     private int maNV;
     private int soLuongKhach;
     private String thoiGianXuat;//YYYY-mm-dd hh:mm
-    private int trangThai;// 1:"Đã thanh toán"; 2:"Chưa thanh toán"; 3:"Hủy"
+    private String thoiGianDat;//YYYY-mm-dd hh:mm
+    private int trangThai;// 1:"Đang đặt"; 2:"Chờ thanh toán"; 3:"Đã thanh toán"; 0:"Hủy"
 
-    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, int trangThai) {
+    public HoaDon(int maHD, int maKH, int maNV, int soLuongKhach, String thoiGianXuat, String thoiGianDat, int trangThai) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.soLuongKhach = soLuongKhach;
         this.thoiGianXuat = thoiGianXuat;
+        this.thoiGianDat = thoiGianDat;
         this.trangThai = trangThai;
     }
 
@@ -70,15 +72,25 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
+    public String getThoiGianDat() {
+        return thoiGianDat;
+    }
+
+    public void setThoiGianDat(String thoiGianDat) {
+        this.thoiGianDat = thoiGianDat;
+    }
+
     /*
      * Trả về tên của của trạng thái
      * 1:"Đã thanh toán", 2:"Chưa thanh toán", 0:"Hủy"
      * */
-    public String getTenGioiTinh(){
-        if ( this.trangThai == 1 ) {
+    public String getTenTrangThai(){
+        if ( this.trangThai == 3 ) {
             return "Đã thanh toán";
         } else if ( this.trangThai == 2 ) {
-            return "Chưa thanh toán";
+            return "Chờ thanh toán";
+        } else if ( this.trangThai == 1 ) {
+            return "Đang đặt";
         } else {
             return "Hủy";
         }

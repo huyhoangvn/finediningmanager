@@ -1,76 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/mDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp"
     android:gravity="center">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/mHeaderText"
-        android:text="Chọn món"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_dialog_chonMon_FragmentThemHoaDon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        android:text="Đặt món"
+        android:layout_margin="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_SoLuong_dialog_chonMon_FragmentThemHoaDon"
-            style="@style/mInputLayout"
+        <TextView
+            style="@style/mBoldText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Số Lượng"
-            app:boxBackgroundColor="@android:color/transparent">
+            android:text="Tên món "
+            android:layout_marginStart="5dp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/btnChon_dialog_chonMon_FragmentThemHoaDon"
-            style="@style/mImageButton"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_sua_thongtin"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
         <TextView
-            style="@style/mNormalText"
+            style="@style/mBoldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Món Đã Chọn: "/>
+            android:text="Số lượng"
+            android:layout_marginEnd="5dp"/>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvMonDaChon_dialog_chonMon_FragmentThemHoaDon"
-            style="@style/mNormalText"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        tools:ignore="UselessLeaf">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_dialog_chonMon_FragmentThemHoaDon"
+            style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cải xào x 3, Rau muống x 1,..."/>
-    </LinearLayout>
+            android:orientation="vertical"/>
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLuu_dialog_chonMon_FragmentThemHoaDon"

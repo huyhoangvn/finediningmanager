@@ -2,15 +2,19 @@ package sp23cp18103.nhom2.finedining.model;
 
 import java.util.Objects;
 
+import sp23cp18103.nhom2.finedining.database.MonDAO;
+
 public class DatMon {
     private int maMon;
     private int maHD;
     private int soLuong;
+    private int trangThai;//1: "Còn dùng; 0: "Hủy"
 
-    public DatMon(int maMon, int maHD, int soLuong) {
+    public DatMon(int maMon, int maHD, int soLuong, int trangThai) {
         this.maMon = maMon;
         this.maHD = maHD;
         this.soLuong = soLuong;
+        this.trangThai = trangThai;
     }
 
     public DatMon() {
@@ -40,6 +44,14 @@ public class DatMon {
         this.soLuong = soLuong;
     }
 
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,5 +63,11 @@ public class DatMon {
     @Override
     public int hashCode() {
         return Objects.hash(maMon, maHD);
+    }
+
+    @Override
+    public String toString() {
+        return ""+ maMon +"x"+ soLuong
+                ;
     }
 }

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.DatBan;
+import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
+import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 
 public class DatBanDAO {
     private SQLiteDatabase db;
@@ -22,7 +24,7 @@ public class DatBanDAO {
         ContentValues  values = new ContentValues();
         values.put("maBan",dBan.getMaBan());
         values.put("maHD",dBan.getMaHD());
-        values.put("thoiGianXuat",dBan.getThoiGianDat());
+        values.put("trangThai",dBan.getTrangThai());
 
         return db.insert("datban",null,values);
     }
@@ -30,9 +32,20 @@ public class DatBanDAO {
         ContentValues  values = new ContentValues();
         values.put("maBan",dBan.getMaBan());
         values.put("maHD",dBan.getMaHD());
-        values.put("thoiGianXuat",dBan.getThoiGianDat());
+        values.put("trangThai",dBan.getTrangThai());
 
         return db.update("datban",values,"maBan=?",new String[]{String.valueOf(dBan.getMaBan())});
+    }
+
+    @SuppressLint("Range")
+    public ThongTinDatBan getBan(int maHD) {
+        ThongTinDatBan datBan = new ThongTinDatBan();
+        String sql = "SELECT ban.viTri FROM ban JOIN datban on ban.maban = datban.maban WHERE datban.maHD = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        if (cursor.moveToNext()) {
+            datBan.setViTri(cursor.getString(cursor.getColumnIndex("viTri")));
+        }
+        return datBan;
     }
 
     public List<DatBan> getAllDatBan(){
@@ -47,7 +60,7 @@ public class DatBanDAO {
             DatBan dBan = new DatBan();
             dBan.setMaBan(c.getInt(c.getColumnIndex("maBan")));
             dBan.setMaHD(c.getInt(c.getColumnIndex("maHD")));
-            dBan.setThoiGianDat(c.getString(c.getColumnIndex("thoiGianXuat")));
+            dBan.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
 
             list.add(dBan);
         }
