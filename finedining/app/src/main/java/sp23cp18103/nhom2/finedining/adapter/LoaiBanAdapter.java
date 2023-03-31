@@ -64,6 +64,9 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
         LoaiBan loaiBan = mListLoaiBan.get(position);
         dao = new LoaiBanDAO(context);
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
+
+        holder.tv_SoBan.setText(""+dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
+
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
 
         holder.tv_SoBanTrongBan.setText(""+dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
@@ -153,13 +156,13 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     }
 
     public class LoaiBanViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan,tv_SoBanTrongBan;
+        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan,tv_SoBanTrongBan,tv_SoBan;
         ImageButton img_Sua_LoaiBan;
 
         public LoaiBanViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_TenLoaiBan = itemView.findViewById(R.id.tv_TenLoaiBan);
-
+            tv_SoBan = itemView.findViewById(R.id.tv_SoBan);
             tv_SoBanTrongBan = itemView.findViewById(R.id.tv_SoBanTrongBan);
             tv_TrangThai_LoaiBan = itemView.findViewById(R.id.tv_TrangThai_LoaiBan);
             img_Sua_LoaiBan = itemView.findViewById(R.id.img_Sua_LoaiBan);

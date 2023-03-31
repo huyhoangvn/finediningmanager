@@ -109,4 +109,19 @@ public class LoaiBanDAO {
         }
         return 0;
    }
+   @SuppressLint("Range")
+   public int getTongBan(int maLB, int maNV){
+       String sql="select Sum(b.maLB) AS TongSoLuong FROM loaiban lb " +
+               "Join ban b on b.maLB = lb.maLB " +
+               "Join nhanvien nv on nv.maNV = lb.maNV " +
+               "where nv.maNH = " +
+               "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+               "AND b.trangThai = 1 " +
+               "AND lb.maLB = ?";
+       Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
+       if (c.moveToNext()){
+           return c.getInt(c.getColumnIndex("TongSoLuong"));
+       }
+       return 0;
+   }
 }
