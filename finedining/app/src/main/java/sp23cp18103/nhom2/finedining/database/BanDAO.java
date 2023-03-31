@@ -117,6 +117,7 @@ public class BanDAO {
                 "JOIN nhanvien nv on nv.maNV = hd.maNV " +
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND b.maBan = ? " +
+                "AND hd.trangThai = 2 " +
                 "AND db.trangThai = 1 ";
         return getDaTa(sql, String.valueOf(maNV) ,String.valueOf(maBan)).size();
    }
