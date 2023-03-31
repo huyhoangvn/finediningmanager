@@ -111,14 +111,14 @@ public class BanDAO {
     * Trả về bằng 1 là bàn đầy còn 0 là bàn trống
     * */
    public int getKiemTraConTrong(int maNV, int maBan){
-        String sql="Select * from ban b " +
+        String sql = "Select * from ban b " +
                 "JOIN datban db on db.maBan = b.maBan " +
                 "JOIN hoadon hd on db.maHD = hd.maHD " +
-                "WHERE hd.trangThai = 2 " +
-                "AND hd.maNV = ? " +
+                "JOIN nhanvien nv on nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND b.maBan = ? " +
                 "AND db.trangThai = 1 ";
-        return getDaTa(sql, String.valueOf(maNV), String.valueOf(maBan)).size();
+        return getDaTa(sql, String.valueOf(maNV) ,String.valueOf(maBan)).size();
    }
    
     @SuppressLint("Range")

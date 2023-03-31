@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,7 +60,7 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 
 public class SuaHoaDonFragment extends Fragment {
-
+    Context context;
 
     TextInputEditText input_tenKH,input_soLuongKhach,input_ngayDat,input_GioDat;
     TextInputLayout input_mon,input_ban,input_lyt_ngayDat,input_lyt_giaDat,input_lyt_tenKH,input_lyt_soLuongKhach;
@@ -77,7 +78,8 @@ public class SuaHoaDonFragment extends Fragment {
     List<Ban> banList;
     List<HoaDon> HoaDonList;
     ArrayList<ThongTinDatMon> listDatMon ;
-    ArrayList<ThongTinDatBan> listDatban ;
+    ArrayList<ThongTinDatBan> listDatban;
+    ArrayList<ThongTinDatBan> listDatbanMoi;
 
     KhachDAO khachDAO;
     HoaDonDAO hoaDonDAO;
@@ -92,6 +94,8 @@ public class SuaHoaDonFragment extends Fragment {
     private int maHD;
     KhachHang kh;
     HoaDon hoaDon;
+
+
 
     private FragmentManager fragmentManager;
 
@@ -109,6 +113,8 @@ public class SuaHoaDonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        context = getContext();
+
         anhXa(view);
         khoiTao();
         getTTHoaDon();
@@ -177,9 +183,9 @@ public class SuaHoaDonFragment extends Fragment {
                 hoaDon.setThoiGianDat(input_ngayDat.getText().toString().trim()+" "+input_GioDat.getText().toString().trim());
 
                 if (hoaDonDAO.updateHoaDon(hoaDon)>0){
-                    Toast.makeText(getContext(), "hinh nhu la thanh cong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sửa thành công", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(getContext(), "meo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sửa thất bại", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -300,7 +306,6 @@ public class SuaHoaDonFragment extends Fragment {
             @Override
             public void onClick(View v) {
               goiDiaLogMon();
-
             }
         });
     }
@@ -318,16 +323,13 @@ public class SuaHoaDonFragment extends Fragment {
         View view=inflater.inflate(R.layout.dialog_dat_ban,null);
         builder.setView(view);
         Dialog dialog = builder.create();
-
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        //Ánh xạ
         RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
 
-        int maHoaDonSapThem = -1;
-        banList = banDAO.gettimKiem(PreferencesHelper.getId(getContext()),"");
+        int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
+        banList = banDAO.getDanhSachBan(PreferencesHelper.getId(context));
         DatBanAdapter adapter = new DatBanAdapter(getContext(), (ArrayList<Ban>) banList, listDatban, maHoaDonSapThem, new InterfaceDatBan() {
             @Override
             public int getMaBan(int maBan, CardView cardView) {
