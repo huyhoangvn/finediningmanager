@@ -28,6 +28,8 @@ public class DatMonDAO {
         String selection = "maHD = ? AND maMon = ?";
 
         String[] selectionArgs = {String.valueOf(maHD), String.valueOf(dm.getMaMon())};
+        return db.update("datmon", values, selection, selectionArgs);
+    }
 
     public long insertDatMon(DatMon dm){
         ContentValues values = new ContentValues();

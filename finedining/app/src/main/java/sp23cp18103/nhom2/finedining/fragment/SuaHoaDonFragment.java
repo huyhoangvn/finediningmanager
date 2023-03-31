@@ -324,7 +324,7 @@ public class SuaHoaDonFragment extends Fragment {
         input_mon.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              goiDiaLogMon();
+                goiDiaLogChonMon();
             }
         });
     }
@@ -376,23 +376,6 @@ public class SuaHoaDonFragment extends Fragment {
         });
         dialog.show();
 
-    }
-
-    void evClickChonMon(){
-        input_mon.setEndIconOnClickListener(new View.OnClickListener() {
-        RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
-//        TextInputEditText inputSoLuongChonMon = view.findViewById(R.id.input_SoLuong_dialog_chonMon_FragmentThemHoaDon);
-//        TextView tvMonDaChon = view.findViewById(R.id.tvMonDaChon_dialog_chonMon_FragmentThemHoaDon);
-        AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
-//        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-//        AppCompatButton btnChon = view.findViewById(R.id.btnChon_SoLuongMon);
-        monList = monDAO.timKiem(PreferencesHelper.getId(getContext()),"");
-        DatMonAdapter adapter = new DatMonAdapter(getContext(), monList, new InterfaceDatMon() {
-            @Override
-            public void onClick(View v) {
-                goiDiaLogChonMon();
-            }
-        });
     }
 
 
