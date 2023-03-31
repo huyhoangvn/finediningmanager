@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +72,7 @@ public class SuaHoaDonFragment extends Fragment {
     TextInputEditText input_tenKH,input_soLuongKhach,input_ngayDat,input_GioDat;
     TextInputLayout input_mon,input_ban,input_lyt_ngayDat,input_lyt_giaDat,input_lyt_tenKH,input_lyt_soLuongKhach;
 
+    RadioGroup groupTrangThai;
     RadioButton rdoDaThanhToan,rdoChuaThanhToan,rdoHuy,rdoDat;
 
     AppCompatButton btnLuu,btnHuy;
@@ -114,6 +120,7 @@ public class SuaHoaDonFragment extends Fragment {
         anhXa(view);
         khoiTao();
         getTTHoaDon();
+        khoiTaoListenerTrangThai();
         evClickChonMon();
         evClickChonBan();
         goiDialogNgayDat();
@@ -153,6 +160,31 @@ public class SuaHoaDonFragment extends Fragment {
                 clearError();
                 if (!validate()){
                     return;
+                }
+
+                //Trường hợp đổi trạng thái từ đặt trước sang chờ thanh toán
+                Log.d("TAG", "luuDatBanVaoHoaDon: " + rdoChuaThanhToan.isChecked() + "/" + hoaDonDAO.getTrangThai(maHD));
+                if(rdoChuaThanhToan.isChecked() && hoaDonDAO.getTrangThai(maHD)==1){
+                    ArrayList<ThongTinDatBan> danhSachDatTruocBanDay
+                            = datBanDAO.layDanhSachDatTruocBanDay(PreferencesHelper.getId(getContext()), maHD);
+                    if(danhSachDatTruocBanDay.size() > 0 && !Collections.disjoint(listDatbanCu, danhSachDatTruocBanDay)){
+                        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+                        builder.setTitle("Bàn Đặt Hiện Đang Sử Dụng");
+                        builder.setMessage(danhSachDatTruocBanDay.toString().replace("[","").replace("]",""));
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Bỏ đặt bàn đầy", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                listDatbanCu.removeAll(danhSachDatTruocBanDay);
+                                input_ban.getEditText().setText(listDatbanCu.toString()
+                                        .replace("[", "")
+                                        .replace("]", ""));
+                            }
+                        });
+                        builder.setNegativeButton("Hủy", null);
+                        builder.create().show();
+                        return;
+                    }
                 }
 
                 kh.setTenKH(input_tenKH.getText().toString().trim());
@@ -244,6 +276,7 @@ public class SuaHoaDonFragment extends Fragment {
      * Lưu danh sách đặt bàn vào hóa đơn
      * */
     private void luuDatBanVaoHoaDon() {
+        //Trường hợp không đổi trạng thái hoặc chỉ đổi từ chờ thanh toán sang đặt trước
         ArrayList<ThongTinDatBan> listLichSuDatBan = (ArrayList<ThongTinDatBan>) datBanDAO.getLichSuDatBan(PreferencesHelper.getId(context), maHD);
         for(int i = 0; i < listDatbanCu.size(); i++){
             ThongTinDatBan temp = listDatbanCu.get(i);
@@ -297,7 +330,6 @@ public class SuaHoaDonFragment extends Fragment {
        input_soLuongKhach.setText(""+soLuongKhach);
 
        String thoiGianDat = hoaDonDAO.getNgayDat(maHD);
-        Log.d("TAG", ":" + thoiGianDat + ":");
        String ngayDat = thoiGianDat.substring(0,10);
        String gioDat = thoiGianDat.substring(10,16);
        input_ngayDat.setText(""+ngayDat);
@@ -368,11 +400,32 @@ public class SuaHoaDonFragment extends Fragment {
     /*
     * Đặt listener cho chọn bàn
     * */
-    void evClickChonBan(){
+    private void khoiTaoListenerTrangThai(){
+        groupTrangThai.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                hienThiBanDaDat();
+                if(rdoDaThanhToan.isChecked() || rdoHuy.isChecked()){
+                    input_ban.setClickable(false);
+                }
+                if(rdoDat.isChecked() || rdoChuaThanhToan.isChecked()){
+                    input_ban.setClickable(true);
+                }
+            }
+        });
+    }
+
+
+    private void evClickChonBan() {
         input_ban.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goiDiaLogBan();
+                if(rdoDat.isChecked()){
+                    goiDiaLogBan(1);
+                }
+                if(rdoChuaThanhToan.isChecked()){
+                    goiDiaLogBan(2);
+                }
             }
         });
     }
@@ -380,7 +433,7 @@ public class SuaHoaDonFragment extends Fragment {
     /*
     * Gọi dialog chọn bàn
     * */
-    void goiDiaLogBan(){
+    void goiDiaLogBan(int trangThai){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater=(getActivity()).getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_dat_ban,null);
@@ -397,7 +450,7 @@ public class SuaHoaDonFragment extends Fragment {
                 .replace("[", "")
                 .replace("]", ""));
         banList = banDAO.getDanhSachBan(PreferencesHelper.getId(context));
-        DatBanAdapter adapter = new DatBanAdapter(getContext(), (ArrayList<Ban>) banList, listDatbanCu, maHD, new InterfaceDatBan() {
+        DatBanAdapter adapter = new DatBanAdapter(getContext(), (ArrayList<Ban>) banList, listDatbanCu, maHD, trangThai, new InterfaceDatBan() {
             @Override
             public int getMaBan(int maBan, CardView cardView) {
                 ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
@@ -517,7 +570,7 @@ public class SuaHoaDonFragment extends Fragment {
         rdoDat = view.findViewById(R.id.rdoDatBan_SuaHoaDon);
         input_lyt_tenKH = view.findViewById(R.id.input_lyt_tenKhachHang_sua_FragmentSuaHoaDon);
         input_lyt_soLuongKhach = view.findViewById(R.id.input_lyt_soLuongKhach_sua_FragmentSuaHoaDon);
-
+        groupTrangThai = view.findViewById(R.id.groupTrangThai_SuaHoaDon);
     }
 
     public Boolean validate() {

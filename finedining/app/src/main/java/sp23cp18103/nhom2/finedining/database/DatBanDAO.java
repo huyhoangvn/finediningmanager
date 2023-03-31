@@ -101,4 +101,37 @@ public class DatBanDAO {
                 "AND trangThai = 1 ";
         return getData(sql, new String[]{String.valueOf(maBan), String.valueOf(maHD)}).size();
     }
+
+    @SuppressLint("Range")
+    public ArrayList<ThongTinDatBan> layDanhSachDatTruocBanDay(int maNV, int maHD) {
+        ArrayList<ThongTinDatBan> list = new ArrayList<>();
+        String sql = "SELECT b.viTri, db.maBan, db.maHD, db.trangThai FROM datban db " +
+                "JOIN ban b ON b.maBan = db.maBan " +
+                "JOIN hoadon hd ON hd.maHD = db.maHD " +
+                "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND hd.maHD = ? " +
+                "AND hd.trangThai = 1 " +
+                "AND db.trangThai = 1 " +
+                "AND b.trangThai = 1 " +
+                "AND db.maBan IN ( " +
+                "   SELECT b2.maBan FROM ban b2 " +
+                "   JOIN datban db2 on db2.maBan = b2.maBan " +
+                "   JOIN hoadon hd2 on db2.maHD = hd2.maHD " +
+                "   JOIN nhanvien nv2 on nv2.maNV = hd2.maNV " +
+                "   WHERE nv2.maNH = (SELECT nvht2.maNH FROM nhanvien nvht2 WHERE nvht2.maNV = ? ) " +
+                "   AND hd2.trangThai = 2 " +
+                "   AND db2.trangThai = 1" +
+                ") ";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maHD), String.valueOf(maNV)});
+        while (cursor.moveToNext()){
+            ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
+            thongTinDatBan.setViTri(cursor.getString(cursor.getColumnIndex("viTri")));
+            thongTinDatBan.setMaBan(cursor.getInt(cursor.getColumnIndex("maBan")));
+            thongTinDatBan.setMaHD(cursor.getInt(cursor.getColumnIndex("maHD")));
+            thongTinDatBan.setTrangThai(cursor.getInt(cursor.getColumnIndex("trangThai")));
+            list.add(thongTinDatBan);
+        }
+        return list;
+    }
 }
