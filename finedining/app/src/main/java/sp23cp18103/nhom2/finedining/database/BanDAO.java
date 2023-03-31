@@ -120,5 +120,23 @@ public class BanDAO {
                 "AND db.trangThai = 1 ";
         return getDaTa(sql, String.valueOf(maNV), String.valueOf(maBan)).size();
    }
-
+   
+    @SuppressLint("Range")
+    public int getTuDongChuyenTrangThai(int maBan, int maNV){
+        String sql = "SELECT lb.maLB FROM loaiban lb " +
+                "JOIN ban b ON b.maLB = lb.maLB " +
+                "JOIN nhanvien nv ON nv.maNV = lb.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lb.trangThai = 0 " +
+                "AND lb.maLB = ( SELECT b2.maLB FROM ban b2 WHERE b2.maBan = ? ) " ;
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maBan)});
+        int maLB = 0;
+        if(c.moveToNext()){
+            maLB =  c.getInt(c.getColumnIndex("maLB"));
+        }
+        ContentValues values = new ContentValues();
+        values.put("trangThai", 1 );
+        return db.update("loaiban", values,"maLB = ?", new String[]{String.valueOf(maLB)} );
+    }
 }

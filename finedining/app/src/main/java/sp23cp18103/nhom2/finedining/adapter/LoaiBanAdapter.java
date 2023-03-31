@@ -110,8 +110,10 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                     @Override
                     public void onClick(View v) {
                         int maNV= PreferencesHelper.getId(context);
+
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
-                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
+//                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
+
                         loaiBan.setTenLoai(tenLoai);
                         if (chkDialogTrangThaiLoaiBan.isChecked()) {
                             loaiBan.setTrangThai(1);
@@ -124,7 +126,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                                 loaiBan.setTrangThai(0);
                             }
                         }
-                        if (tenLoai.isEmpty() || soChoNgoi.isEmpty()) {
+                        if (tenLoai.isEmpty() ) {
                             edTenLoaiBan.setError("Không được để trống");
                             edSoChoNgoi.setError("Không được để trống");
                             return;
@@ -157,6 +159,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
         public LoaiBanViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_TenLoaiBan = itemView.findViewById(R.id.tv_TenLoaiBan);
+
             tv_SoBanTrongBan = itemView.findViewById(R.id.tv_SoBanTrongBan);
             tv_TrangThai_LoaiBan = itemView.findViewById(R.id.tv_TrangThai_LoaiBan);
             img_Sua_LoaiBan = itemView.findViewById(R.id.img_Sua_LoaiBan);
