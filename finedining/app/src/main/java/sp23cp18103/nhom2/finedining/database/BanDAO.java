@@ -90,19 +90,37 @@ public class BanDAO {
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND b.vitri LIKE ? " +
-                "AND b.trangThai >= ?";
+                "AND b.trangThai = ?";
         return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
-   public int getKiemTraConTrong(int maBan,int maNV){
+
+    /*
+    * Lấy danh sách bàn cả còn đầy và trống
+    * */
+    public List<Ban> getDanhSachBan(int maNV){
+        String sql = "Select b.maBan, b.maLB, b.viTri, b.trangThai " +
+                "FROM ban b " +
+                "JOIN loaiban lb ON lb.maLB = b.maLB " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.trangThai = 1";
+        return getDaTa(sql, String.valueOf(maNV));
+    }
+
+    /*
+    * Trả về bằng 1 là bàn đầy còn 0 là bàn trống
+    * */
+   public int getKiemTraConTrong(int maNV, int maBan){
         String sql="Select * from ban b " +
-               "JOIN datban db on db.maBan = b.maBan " +
-               "JOIN hoadon hd on db.maHD = hd.maHD " +
-               "WHERE hd.trangThai = 2 " +
-               "AND hd.maNV = ? " +
-               "AND b.maBan = ? " +
-               "AND db.trangThai = 1 ";
-        return getDaTa(sql,String.valueOf(maBan),String.valueOf(maNV)).size();
+                "JOIN datban db on db.maBan = b.maBan " +
+                "JOIN hoadon hd on db.maHD = hd.maHD " +
+                "WHERE hd.trangThai = 2 " +
+                "AND hd.maNV = ? " +
+                "AND b.maBan = ? " +
+                "AND db.trangThai = 1 ";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf(maBan)).size();
    }
+   
     @SuppressLint("Range")
     public int getTuDongChuyenTrangThai(int maBan, int maNV){
         String sql = "SELECT lb.maLB FROM loaiban lb " +

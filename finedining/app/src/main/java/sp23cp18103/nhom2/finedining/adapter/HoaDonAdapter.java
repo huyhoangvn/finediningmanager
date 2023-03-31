@@ -83,9 +83,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 builder.setView(view);
                 Dialog dialog = builder.create();
 
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 TextView tv_tenKhach = view.findViewById(R.id.tv_tenKhach_dialog_hoaDon_chiTiet);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 TextView tv_tenNhanVien = view.findViewById(R.id.tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet);
                 TextView tv_SoluongKhach = view.findViewById(R.id.tv_soLuongKhach_dialog_hoaDon_chiTiet);
                 TextView tvThoiGianXuat = view.findViewById(R.id.tv_thoiGianXuat_dialog_hoaDon_chiTiet);
@@ -98,8 +96,8 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tv_tenNhanVien.setText(tthd.getTenNhanVien());
                 tv_tenKhach.setText(tthd.getTenKhachHang());
                 tv_SoluongKhach.setText(""+tthd.getSoLuongKhachHang());
-                tvThoiGianXuat.setText(""+DateHelper.getDateVietnam(tthd.getThoiGianXuat()));
-                tvThoiGianDat.setText(""+ DateHelper.getDateVietnam(tthd.getThoiGianDat()));
+                tvThoiGianXuat.setText(""+DateHelper.getDateTimeVietnam(tthd.getThoiGianXuat()));
+                tvThoiGianDat.setText(""+ DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
 
                 if (tthd.getTrangThai()==1){
                    tvTrangThai.setText("Đang Đặt");
@@ -116,7 +114,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 HoaDonChiTietMonAdapter hoaDonChiTietAdapter = new HoaDonChiTietMonAdapter(context,thongTinChiTietDatMonList);
                 rcv_mon.setAdapter(hoaDonChiTietAdapter);
 
-                tv_ban.setText(""+thongTinChiTietDatMonDAO.getBan(tthd.getMaHD()));
+                tv_ban.setText(""+thongTinChiTietDatMonDAO.getBan(tthd.getMaHD()).toString()
+                        .replace("[", "")
+                        .replace("]", ""));
                 tv_tongTien.setText(""+thongTinChiTietDatMonDAO.getTongSoTien(tthd.getMaHD()));
 
                 dialog.show();
@@ -147,7 +147,6 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
             imgBill = itemView.findViewById(R.id.imgBill);
             imgEdit = itemView.findViewById(R.id.imgBtn_edit_CardView_HoaDon);
             tv_tenKhach = itemView.findViewById(R.id.tv_tenKhach_CardView_HoaDon);
-//            tvSoLuongKhach = itemView.findViewById(R.id.tv_soLuongKhach_CardView_HoaDon);
             tvThoiGianXuat = itemView.findViewById(R.id.tv_thoiGianXuat_CardView_HoaDon);
             tvTrangThai = itemView.findViewById(R.id.tv_trangThai_CardView_HoaDon);
 

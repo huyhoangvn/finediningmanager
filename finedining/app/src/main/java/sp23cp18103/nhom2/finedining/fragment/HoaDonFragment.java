@@ -51,7 +51,7 @@ public class HoaDonFragment extends Fragment {
     TextInputLayout inputTimKiemHoaDon;
     TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy;
     FloatingActionButton fbtnThemHoaDon;
-    int trangThaiHienTai=2;
+    int trangThaiHienTai;
 
     Context context;
     @Override
@@ -67,6 +67,7 @@ public class HoaDonFragment extends Fragment {
         anhXa(view);
         thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
         context = getContext();
+        trangThaiHienTai = 2;
         timKiemHoaDon();
         dialogChonNgay();
         diaLogChonGio();
@@ -119,9 +120,7 @@ public class HoaDonFragment extends Fragment {
                 if(isEnabled()){
                     fmHoaDon.popBackStack();
                     fbtnThemHoaDon.show();
-                    hienThiDanhSachHoaDon();
-                    }
-
+                }
             }
         });
     }
@@ -236,27 +235,40 @@ public class HoaDonFragment extends Fragment {
             }
         });
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void hienThiHoaDon(){
-        int maNV = PreferencesHelper.getId(getContext());
+        int maNV = PreferencesHelper.getId(context);
         String timKiem = edTimKiem.getText().toString().trim();
         String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
         String gio = input_gio.getText().toString().trim();
-        thongTinHoaDonList = thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio);
-        hoaDonAdapter = new HoaDonAdapter(getActivity(), thongTinHoaDonList,null);
-        rcv_HoaDon.setAdapter(hoaDonAdapter);
+        thongTinHoaDonList.clear();
+        thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio));
+        hoaDonAdapter.notifyDataSetChanged();
+//        hoaDonAdapter = new HoaDonAdapter(getActivity(), thongTinHoaDonList,null);
+//        rcv_HoaDon.setAdapter(hoaDonAdapter);
 
     }
     private void khoiTaoFragmentManager() {
         fmHoaDon = getParentFragmentManager();
+        fmHoaDon.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                hienThiHoaDon();
+            }
+        });
     }
 
     public void hienThiDanhSachHoaDon(){
-        thongTinHoaDonList =  thongTinHoaDonDAO.getThongTinHoaDon(PreferencesHelper.getId(context));
-        hoaDonAdapter = new HoaDonAdapter(getContext(), thongTinHoaDonList, new IEditListenerHoaDon() {
+        int maNV = PreferencesHelper.getId(context);
+        String timKiem = edTimKiem.getText().toString().trim();
+        String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
+        String gio = input_gio.getText().toString().trim();
+        thongTinHoaDonList =  thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio);
+        hoaDonAdapter = new HoaDonAdapter(context, thongTinHoaDonList, new IEditListenerHoaDon() {
             @Override
             public void showEditFragment(int maHD) {
                 fmHoaDon.beginTransaction()
-                        .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_right, R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+                        .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left, R.anim.anim_slide_in_left, R.anim.anim_slide_out_left)
                         .add(R.id.frame_collection_hoadon, new SuaHoaDonFragment(maHD))
                         .addToBackStack(null)
                         .commit();
