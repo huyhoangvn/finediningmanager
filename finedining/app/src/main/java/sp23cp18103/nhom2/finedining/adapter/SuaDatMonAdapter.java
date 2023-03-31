@@ -5,7 +5,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.DatMonDAO;
-import sp23cp18103.nhom2.finedining.fragment.ThemHoaDonFragment;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 
@@ -29,7 +27,7 @@ import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
  * Adapter để hiển thị danh sách đặt món trong hóa đơn chi tiết
  * Đặt bàn chỉ cần hiển thị list các vị trí là được nên không cần adapter
  * */
-public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonViewHolder> {
+public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatMonViewHolder> {
     Context context;
     List<Mon> monList;
     List<ThongTinDatMon> listThongTinMon;
@@ -48,7 +46,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
         this.maHD = maHD;
     }
 
-    public DatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
+    public SuaDatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
         this.context = context;
         this.monList = monList;
         this.interfaceDatMon = interfaceDatMon;
@@ -59,7 +57,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     }
 
 
-    public DatMonAdapter(List<ThongTinDatMon> listThongTinMon) {
+    public SuaDatMonAdapter(List<ThongTinDatMon> listThongTinMon) {
         this.listThongTinMon = listThongTinMon;
     }
 
@@ -71,19 +69,27 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     @Override
     public DatMonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview_chonmon, parent, false);
-        DatMonAdapter.DatMonViewHolder viewHolder = new DatMonAdapter.DatMonViewHolder(view);
+        View view = inflater.inflate(R.layout.cardview_chonmon,parent, false);
+        SuaDatMonAdapter.DatMonViewHolder viewHolder = new SuaDatMonAdapter.DatMonViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
         DatMonDAO datMonDAO = new DatMonDAO(context);
+        List<ThongTinDatMon> list =  datMonDAO.getDatMonTheoHoaDon(maHD);
         Mon mon = monList.get(position);
         holder.tvTen.setText("" + mon.getTenMon());
         holder.tvGia.setText("" + mon.getGia());
-//        datMonDAO.getDatMonTheoHoaDon()
-        holder.edSoLuongMon.setText("0");
+        list.toString();
+            for (int i = 0; i < list.size(); i++){
+                if (list.get(i).getTenMon().equalsIgnoreCase(mon.getTenMon())){
+                    holder.edSoLuongMon.setText("" + list.get(i).getSoLuong());
+                }
+        }
+
+
+
 
         holder.edSoLuongMon.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,14 +105,19 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
             @Override
             public void afterTextChanged(Editable s) {
                 // Sau khi thay đổi văn bản
-                String text = s.toString();
+//                for (int i = 0; i < list.size(); i++){
+//                    if (list.get(i).getTenMon().equalsIgnoreCase(mon.getTenMon())){
+//                        holder.edSoLuongMon.setText("" + list.get(i).getSoLuong());
+//                    }
+//                }
+                String text = holder.edSoLuongMon.getText().toString();
                 if (!TextUtils.isEmpty(text)) {
                     if (interfaceDatMon != null) {
                         interfaceDatMon.getMaMon(mon.getMaMon(), text);
                     }
                 }
                 else {
-                    // Xóa văn bản đã thay đổi trước đó
+//                     Xóa văn bản đã thay đổi trước đó
                     holder.edSoLuongMon.removeTextChangedListener(this);
                     holder.edSoLuongMon.setText("");
                     holder.edSoLuongMon.addTextChangedListener(this);
@@ -118,12 +129,6 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
         if (listThongTinMon != null){
              listThongTinMon.toString();
         }
-
-
-
-
-
-
     }
 
     @Override
@@ -132,7 +137,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     }
 
     class DatMonViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTen;
+        TextView tvTen,tvGia;
         LinearLayout lnChonMon;
         EditText edSoLuongMon;
 

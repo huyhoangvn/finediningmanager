@@ -19,11 +19,11 @@ public class ThongTinMonDAO {
     }
 
     public List<ThongTinMon> getTopMon(){
-        String sql = "SELECT mon.tenMon, SUM(datmon.soLuong) AS soluongmon, SUM(datmon.soLuong * mon.gia) AS doanhThumon\n" +
+        String sql = "SELECT mon.hinh, mon.tenMon, SUM(datmon.soLuong) AS soluongmon, SUM(datmon.soLuong * mon.gia) AS doanhThumon\n" +
                 "FROM mon \n" +
                 "INNER JOIN datmon ON mon.maMon = datmon.maMon \n" +
                 "INNER JOIN hoadon ON datmon.maHD = hoadon.maHD \n" +
-//                "WHERE strftime('yyyy', hoadon.thoiGianXuat) = '2023'" +
+                "WHERE strftime('%Y', hoadon.thoiGianXuat) LIKE '2023' " +
                 "GROUP BY mon.tenMon\n" +
                 "ORDER BY soLuong DESC \n" +
                 "LIMIT 10;";
@@ -36,6 +36,7 @@ public class ThongTinMonDAO {
         Cursor cursor = db.rawQuery(sql,SelectArgs);
         while (cursor.moveToNext()){
             ThongTinMon ttMon = new ThongTinMon();
+            ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
             ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));

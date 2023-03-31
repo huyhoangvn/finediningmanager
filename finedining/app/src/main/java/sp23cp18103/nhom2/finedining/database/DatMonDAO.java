@@ -18,9 +18,17 @@ public class DatMonDAO {
 
     public DatMonDAO(Context context){
         DBHelper dbHelper = new DBHelper(context);
-        db =dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
 
     }
+
+    public int updateDatMon(DatMon dm, int maHD) {
+        ContentValues values = new ContentValues();
+        values.put("soLuong", dm.getSoLuong());
+        String selection = "maHD = ? AND maMon = ?";
+
+        String[] selectionArgs = {String.valueOf(maHD), String.valueOf(dm.getMaMon())};
+
     public long insertDatMon(DatMon dm){
         ContentValues values = new ContentValues();
         values.put("maMon",dm.getMaMon());
@@ -30,39 +38,67 @@ public class DatMonDAO {
         return db.insert("datmon",null,values);
     }
 
-    public int updateDatMon(DatMon dm){
-        ContentValues values = new ContentValues();
-        values.put("soLuong",dm.getSoLuong());
-        values.put("trangThai",dm.getTrangThai());
-        values.put("trangThai",dm.getTrangThai());
-        return db.update("datmon",values,"maMon=? AND maHD=?",new String[]{String.valueOf(dm.getMaMon()),String.valueOf(dm.getMaHD())});
+ //   public int updateDatMon(DatMon dm){
+ //      ContentValues values = new ContentValues();
+ //       values.put("soLuong",dm.getSoLuong());
+ //       values.put("trangThai",dm.getTrangThai());
+ //       values.put("trangThai",dm.getTrangThai());
+ //       return db.update("datmon",values,"maMon=? AND maHD=?",new String[]{String.valueOf(dm.getMaMon()),String.valueOf(dm.getMaHD())});
+ //       return db.update("datmon", values, selection, selectionArgs);
+ //   }
 
-    }
 
-    @SuppressLint("Range")
-    public ThongTinDatMon getMon(int maHD) {
-        ThongTinDatMon datMon = new ThongTinDatMon();
-        String sql = "SELECT mon.tenMon,datmon.soLuong FROM datmon JOIN mon on mon.maMon = datmon.maMon WHERE datmon.maHD = ?";
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
-        if (cursor.moveToNext()) {
-             datMon.setSoLuong(cursor.getInt(cursor.getColumnIndex("soLuong")));
-             datMon.setTenMon(cursor.getString(cursor.getColumnIndex("tenMon")));
-        }
-        return datMon;
+    public boolean checkDatMonExist(int maHD, int maMon) {
+        String query = "SELECT * FROM datmon WHERE maHD = ? AND maMon = ?";
+        String[] selectionArgs = {String.valueOf(maHD), String.valueOf(maMon)};
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
     }
+//    @SuppressLint("Range")
+//    public List<ThongTinDatMon> getSlMon(int maHD) {
+//        List<ThongTinDatMon> list = new ArrayList<>();
+//        String sql = "SELECT datmon.soLuong FROM datmon JOIN mon on mon.maMon = datmon.maMon WHERE datmon.maHD = ?";
+//        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+//        if (cursor.moveToNext()) {
+//            ThongTinDatMon datMon = new ThongTinDatMon();
+//            datMon.setSoLuong(cursor.getInt(cursor.getColumnIndex("soLuong")));
+//            list.add(datMon);
+//        }
+//        return list;
+//    }
+
     @SuppressLint("Range")
     public List<ThongTinDatMon> getDatMonTheoHoaDon(int maHD) {
-        ThongTinDatMon datMon = new ThongTinDatMon();
         List<ThongTinDatMon> list = new ArrayList<>();
         String sql = "SELECT mon.tenMon,datmon.soLuong FROM datmon JOIN mon on mon.maMon = datmon.maMon WHERE datmon.maHD = ?";
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
         while (cursor.moveToNext()) {
+            ThongTinDatMon datMon = new ThongTinDatMon();
             datMon.setSoLuong(cursor.getInt(cursor.getColumnIndex("soLuong")));
             datMon.setTenMon(cursor.getString(cursor.getColumnIndex("tenMon")));
             list.add(datMon);
         }
+        cursor.close();
         return list;
     }
+
+
+//    @SuppressLint("Range")
+//    public List<ThongTinDatMon> getDatMonTheoHoaDon(int maHD) {
+//        List<ThongTinDatMon> list = new ArrayList<>();
+//        String sql = "SELECT mon.tenMon,datmon.soLuong FROM datmon JOIN mon on mon.maMon = datmon.maMon WHERE datmon.maHD = ?";
+//        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
+//        while (cursor.moveToNext()) {
+//            ThongTinDatMon datMon = new ThongTinDatMon();
+//            datMon.setSoLuong(cursor.getInt(cursor.getColumnIndex("soLuong")));
+//            datMon.setTenMon(cursor.getString(cursor.getColumnIndex("tenMon")));
+//            list.add(datMon);
+//        }
+//        cursor.close();
+//        return list;
+//    }
     @SuppressLint("Range")
     public List<DatMon> getData(String sql, String...SelectArgs){
         List<DatMon> list = new ArrayList<>();
