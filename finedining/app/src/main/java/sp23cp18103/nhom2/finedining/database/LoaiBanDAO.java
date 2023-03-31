@@ -99,8 +99,9 @@ public class LoaiBanDAO {
                 "Join nhanvien nv on nv.maNV = lb.maNV " +
                 "where nv.maNH = " +
                 "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+                "AND db.trangThai = 1 " +
                 "AND b.trangThai = 1 " +
-                "And  hd.trangThai = 2 " +
+                "And hd.trangThai = 2 " +
                 "And lb.maLB = ? ";
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});

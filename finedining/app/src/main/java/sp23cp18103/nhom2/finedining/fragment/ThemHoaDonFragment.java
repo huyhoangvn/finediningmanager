@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -123,6 +124,7 @@ public class ThemHoaDonFragment extends Fragment {
         khoiTao();
         khoiTaoDefault();
         khoiTaoListenerTimKiemThoiGian();
+        khoiTaoListenerTrangThai();
         khoiTaoListenerDatBan();
         goiDiaLogChonMon();
         khoiTaoListenerThemHoaDon();
@@ -198,6 +200,24 @@ public class ThemHoaDonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DateHelper.showDatePickerVietnam(getContext(),input_thoiGianDat);
+            }
+        });
+    }
+
+    private void khoiTaoListenerTrangThai() {
+        rdoChuaThanhToan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                input_ban.getEditText().setText("");
+                listDatbanCu.clear();
+                khoiTaoDefault();
+            }
+        });
+        rdoDangDuocDat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                input_ban.getEditText().setText("");
+                listDatbanCu.clear();
             }
         });
     }
@@ -381,18 +401,27 @@ public class ThemHoaDonFragment extends Fragment {
         return true;
     }
 
-
-
+    /*
+    * Khởi tạo nút đặt bàn
+    * */
     private void khoiTaoListenerDatBan() {
         input_ban.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogDatBan();
+                if(rdoChuaThanhToan.isChecked()){
+                    showDialogDatBan(2);
+                }
+                if(rdoDangDuocDat.isChecked()){
+                    showDialogDatBan(1);
+                }
             }
         });
     }
 
-    private void showDialogDatBan() {
+    /*
+    * Hiển thị dialog đặt bàn tùy theo trạng thái chờ thanh toán hoặc đang đặt
+    * */
+    private void showDialogDatBan(int trangThai) {
         //Khởi tạo dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater=((Activity)getActivity()).getLayoutInflater();
@@ -413,7 +442,7 @@ public class ThemHoaDonFragment extends Fragment {
 
         //Khởi tạo adapter
         banList = (ArrayList<Ban>) banDAO.getDanhSachBan(PreferencesHelper.getId(getContext()));
-        DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, listDatbanCu, maHoaDonSapThem, new InterfaceDatBan() {
+        DatBanAdapter adapter = new DatBanAdapter(getContext(), banList, listDatbanCu, maHoaDonSapThem, trangThai, new InterfaceDatBan() {
             @Override
             public int getMaBan(int maBan, CardView cardView) {
                 ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
@@ -431,7 +460,7 @@ public class ThemHoaDonFragment extends Fragment {
                 tvBanDaChon.setText(listDatbanMoi.toString()
                         .replace("[", "")
                         .replace("]", ""));
-                return 0;
+                return 1;
             }
         });
         rcv_ban.setAdapter(adapter);
