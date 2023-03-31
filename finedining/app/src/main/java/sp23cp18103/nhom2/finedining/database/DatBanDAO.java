@@ -25,33 +25,15 @@ public class DatBanDAO {
         values.put("maBan",dBan.getMaBan());
         values.put("maHD",dBan.getMaHD());
         values.put("trangThai",dBan.getTrangThai());
-
         return db.insert("datban",null,values);
     }
     public int updateDatBan(DatBan dBan){
         ContentValues  values = new ContentValues();
-        values.put("maBan",dBan.getMaBan());
-        values.put("maHD",dBan.getMaHD());
         values.put("trangThai",dBan.getTrangThai());
-
-        return db.update("datban",values,"maBan=?",new String[]{String.valueOf(dBan.getMaBan())});
+        return db.update("datban",values," maBan = ? and maHD = ? ",
+                new String[]{String.valueOf(dBan.getMaBan()), String.valueOf(dBan.getMaHD())});
     }
 
-    @SuppressLint("Range")
-    public ThongTinDatBan getBan(int maHD) {
-        ThongTinDatBan datBan = new ThongTinDatBan();
-        String sql = "SELECT ban.viTri FROM ban JOIN datban on ban.maban = datban.maban WHERE datban.maHD = ?";
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maHD)});
-        if (cursor.moveToNext()) {
-            datBan.setViTri(cursor.getString(cursor.getColumnIndex("viTri")));
-        }
-        return datBan;
-    }
-
-    public List<DatBan> getAllDatBan(){
-        String sql = "SELECT *FROM datban";
-        return getData(sql);
-    }
     @SuppressLint("Range")
     public List<DatBan> getData(String sql, String...SelectArgs){
         List<DatBan> list = new ArrayList<>();
@@ -65,7 +47,58 @@ public class DatBanDAO {
             list.add(dBan);
         }
         return list;
+    }
 
+    @SuppressLint("Range")
+    public List<ThongTinDatBan> getLichSuDatBan(int maNV, int maHD) {
+        ArrayList<ThongTinDatBan> list = new ArrayList<>();
+        String sql = "SELECT b.viTri, db.maBan, db.maHD, db.trangThai FROM datban db " +
+                "JOIN ban b ON b.maBan = db.maBan " +
+                "JOIN hoadon hd ON hd.maHD = db.maHD " +
+                "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND hd.maHD = ? " +
+                "AND b.trangThai = 1 ";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maHD)});
+        while (cursor.moveToNext()){
+            ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
+            thongTinDatBan.setViTri(cursor.getString(cursor.getColumnIndex("viTri")));
+            thongTinDatBan.setMaBan(cursor.getInt(cursor.getColumnIndex("maBan")));
+            thongTinDatBan.setMaHD(cursor.getInt(cursor.getColumnIndex("maHD")));
+            thongTinDatBan.setTrangThai(cursor.getInt(cursor.getColumnIndex("trangThai")));
+            list.add(thongTinDatBan);
+        }
+        return list;
+    }
 
+    @SuppressLint("Range")
+    public List<ThongTinDatBan> getDanhSachBanDaDat(int maNV, int maHD) {
+        ArrayList<ThongTinDatBan> list = new ArrayList<>();
+        String sql = "SELECT b.viTri, db.maBan, db.maHD, db.trangThai FROM datban db " +
+                "JOIN ban b ON b.maBan = db.maBan " +
+                "JOIN hoadon hd ON hd.maHD = db.maHD " +
+                "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND hd.maHD = ? " +
+                "AND db.trangThai = 1 " +
+                "AND b.trangThai = 1 ";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maHD)});
+        while (cursor.moveToNext()){
+            ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
+            thongTinDatBan.setViTri(cursor.getString(cursor.getColumnIndex("viTri")));
+            thongTinDatBan.setMaBan(cursor.getInt(cursor.getColumnIndex("maBan")));
+            thongTinDatBan.setMaHD(cursor.getInt(cursor.getColumnIndex("maHD")));
+            thongTinDatBan.setTrangThai(cursor.getInt(cursor.getColumnIndex("trangThai")));
+            list.add(thongTinDatBan);
+        }
+        return list;
+    }
+
+    public int getKiemTraBanThuocHoaDon(int maBan, int maHD) {
+        String sql = "SELECT * FROM datban db " +
+                "WHERE maBan = ? " +
+                "AND maHD = ? " +
+                "AND trangThai = 1 ";
+        return getData(sql, new String[]{String.valueOf(maBan), String.valueOf(maHD)}).size();
     }
 }

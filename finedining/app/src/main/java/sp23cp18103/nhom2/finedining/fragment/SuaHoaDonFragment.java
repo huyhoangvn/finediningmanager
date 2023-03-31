@@ -23,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -76,8 +77,8 @@ public class SuaHoaDonFragment extends Fragment {
     List<HoaDon> HoaDonList;
 
     ArrayList<ThongTinDatMon> listDatMon = new ArrayList<>();
-    ArrayList<ThongTinDatBan> listDatban;
-    ArrayList<ThongTinDatBan> listDatbanMoi;
+    ArrayList<ThongTinDatBan> listDatbanCu;//Để giữ cái danh sách thêm bàn ở fragment sửa hóa đơn
+    ArrayList<ThongTinDatBan> listDatbanMoi;//Để giữ cái danh sách thêm bàn ở dialog sửa chọn bàn
 
     KhachDAO khachDAO;
     HoaDonDAO hoaDonDAO;
@@ -206,7 +207,6 @@ public class SuaHoaDonFragment extends Fragment {
                     }
                 }
 
-
 //                for (int i = 0; i < listDatMon.size(); i++){
 //                    datMon = new DatMon();
 //                    if (!listDatMon.equals(listDatMon.get(i).getTenMon())){
@@ -231,21 +231,47 @@ public class SuaHoaDonFragment extends Fragment {
 //                    }
 //
 //                }
-            }
-            //QUYET
 
-            private void clearError() {
-                input_lyt_tenKH.setError(null);
-                input_lyt_soLuongKhach.setError(null);
-                input_lyt_ngayDat.setError(null);
-                input_lyt_giaDat.setError(null);
+                /*
+                * Lưu danh sách đặt bàn vào hóa đơn
+                * */
+                luuDatBanVaoHoaDon();
             }
         });
     }
 
+    /*
+     * Lưu danh sách đặt bàn vào hóa đơn
+     * */
+    private void luuDatBanVaoHoaDon() {
+        ArrayList<ThongTinDatBan> listLichSuDatBan = (ArrayList<ThongTinDatBan>) datBanDAO.getLichSuDatBan(PreferencesHelper.getId(context), maHD);
+        for(int i = 0; i < listDatbanCu.size(); i++){
+            ThongTinDatBan temp = listDatbanCu.get(i);
+            if(listLichSuDatBan.contains(temp)){
+                temp.setTrangThai(1);
+                datBanDAO.updateDatBan(temp);
+                listLichSuDatBan.remove(temp);
+            } else {
+                datBanDAO.insertDatBan(temp);
+            }
+        }
+        for(int i = 0; i < listLichSuDatBan.size(); i++){
+            ThongTinDatBan temp = listLichSuDatBan.get(i);
+            temp.setTrangThai(0);
+            datBanDAO.updateDatBan(temp);
+        }
+    }
+
+    private void clearError() {
+        input_lyt_tenKH.setError(null);
+        input_lyt_soLuongKhach.setError(null);
+        input_lyt_ngayDat.setError(null);
+        input_lyt_giaDat.setError(null);
+    }
 
     private void khoiTao() {
         fragmentManager = getParentFragmentManager();
+        datBanDAO = new DatBanDAO(getContext());
         monDAO = new MonDAO(getContext());
         banDAO = new BanDAO(getContext());
         khachDAO = new KhachDAO(getContext());
@@ -256,7 +282,8 @@ public class SuaHoaDonFragment extends Fragment {
         datMon = new DatMon();
         thongTindatMon = new ThongTinDatMon();
         thongTindatBan = new ThongTinDatBan();
-        listDatban = new ArrayList<>();
+        listDatbanCu = new ArrayList<>();
+        listDatbanMoi = new ArrayList<>();
         listDatMon = new ArrayList<>();
 
     }
@@ -281,10 +308,8 @@ public class SuaHoaDonFragment extends Fragment {
        List<ThongTinDatMon> list = datMonDAO.getDatMonTheoHoaDon(maHD);
        input_mon.getEditText().setText(list.toString());
 
-       datBanDAO = new DatBanDAO(getContext());
-       ThongTinDatBan thongTinDatBan = datBanDAO.getBan(maHD);
-       String viTri = thongTinDatBan.getViTri();
-       input_ban.getEditText().setText(viTri);
+       //Hiển thị danh sách bàn đã đặt của hóa đơn hiện tại lên edit text chọn bàn
+       hienThiBanDaDat();
 
         int trangThai = hoaDonDAO.getTrangThai(maHD);
         if (trangThai==1){
@@ -303,6 +328,17 @@ public class SuaHoaDonFragment extends Fragment {
 
 
     }
+
+    /*
+    * Hiển thị danh sách bàn đã đặt của hóa đơn hiện tại lên edit text chọn bàn
+    * */
+    private void hienThiBanDaDat() {
+        listDatbanCu = (ArrayList<ThongTinDatBan>) datBanDAO.getDanhSachBanDaDat(PreferencesHelper.getId(context), maHD);
+        input_ban.getEditText().setText(listDatbanCu.toString()
+                .replace("[", "")
+                .replace("]", ""));
+    }
+
     void goiDialogNgayDat(){
         input_lyt_ngayDat.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -328,7 +364,10 @@ public class SuaHoaDonFragment extends Fragment {
             }
         });
     }
-    
+
+    /*
+    * Đặt listener cho chọn bàn
+    * */
     void evClickChonBan(){
         input_ban.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,45 +376,65 @@ public class SuaHoaDonFragment extends Fragment {
             }
         });
     }
+
+    /*
+    * Gọi dialog chọn bàn
+    * */
     void goiDiaLogBan(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater=(getActivity()).getLayoutInflater();
         View view=inflater.inflate(R.layout.dialog_dat_ban,null);
         builder.setView(view);
-        Dialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
         //Ánh xạ
         RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
         TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
         AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
-
-        int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
+        //KhoiTao
+        listDatbanMoi.clear();
+        listDatbanMoi.addAll(listDatbanCu);
+        tvBanDaChon.setText(listDatbanMoi.toString()
+                .replace("[", "")
+                .replace("]", ""));
         banList = banDAO.getDanhSachBan(PreferencesHelper.getId(context));
-        DatBanAdapter adapter = new DatBanAdapter(getContext(), (ArrayList<Ban>) banList, listDatban, maHoaDonSapThem, new InterfaceDatBan() {
+        DatBanAdapter adapter = new DatBanAdapter(getContext(), (ArrayList<Ban>) banList, listDatbanCu, maHD, new InterfaceDatBan() {
             @Override
             public int getMaBan(int maBan, CardView cardView) {
-                String viTri = banDAO.getViTri(maBan);
-                thongTindatBan.setViTri(viTri);
-                thongTindatBan.setMaBan(maBan);
-                listDatban.add(thongTindatBan);
-                tvBanDaChon.setText(listDatban.toString());
+                ThongTinDatBan thongTinDatBan = new ThongTinDatBan();
+                thongTinDatBan.setMaBan(maBan);
+                thongTinDatBan.setMaHD(maHD);
+                if(!listDatbanMoi.contains(thongTinDatBan)){
+                    thongTinDatBan.setViTri(banDAO.getViTri(maBan));
+                    thongTinDatBan.setTrangThai(1);
+                    listDatbanMoi.add(thongTinDatBan);
+                    cardView.setCardBackgroundColor(MaterialColors.getColor(view, com.google.android.material.R.attr.colorPrimary));
+                } else {
+                    listDatbanMoi.remove(thongTinDatBan);
+                    cardView.setCardBackgroundColor(MaterialColors.getColor(view, com.google.android.material.R.attr.colorSecondaryContainer));
+                }
+                tvBanDaChon.setText(listDatbanMoi.toString()
+                        .replace("[", "")
+                        .replace("]", ""));
                 return 0;
             }
         });
-
         rcv_ban.setAdapter(adapter);
 
-        tvBanDaChon.setText("");
+        /*
+        * Lưu lại vào danh sách chọn của hóa đơn hiện tại
+        * */
         btnLuuChonBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_ban.getEditText().setText(listDatban.toString()
+                listDatbanCu.clear();
+                listDatbanCu.addAll(listDatbanMoi);
+                input_ban.getEditText().setText(listDatbanCu.toString()
                         .replace("[", "")
                         .replace("]", ""));
                 dialog.dismiss();
             }
         });
         dialog.show();
-
     }
 
 
