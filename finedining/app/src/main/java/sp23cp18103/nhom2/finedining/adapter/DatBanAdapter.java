@@ -21,24 +21,26 @@ import sp23cp18103.nhom2.finedining.Interface.InterfaceDatBan;
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
+import sp23cp18103.nhom2.finedining.database.DatBanDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
-public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanViewHolder> {
+public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanViewHolder>{
     private Context context;
     private ArrayList<Ban> banList;
     private ArrayList<ThongTinDatBan> datBanHienTaiList;
     private InterfaceDatBan interfaceDatBan;
-    public int maHoaDonSapThem;
+    public int maHD;
     private BanDAO banDAO;
+    private DatBanDAO datBanDAO;
 
     public DatBanAdapter(Context context, ArrayList<Ban> banList, ArrayList<ThongTinDatBan> datBanHienTaiList,
-                         int maHoaDonSapThem, InterfaceDatBan interfaceDatBan) {
+                         int maHD, InterfaceDatBan interfaceDatBan) {
         this.context = context;
         this.banList = banList;
         this.datBanHienTaiList = datBanHienTaiList;
-        this.maHoaDonSapThem = maHoaDonSapThem;
+        this.maHD= maHD;
         this.interfaceDatBan = interfaceDatBan;
         //Khoi tao
         khoiTaoDAO();
@@ -46,6 +48,7 @@ public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanView
 
     private void khoiTaoDAO() {
         this.banDAO = new BanDAO(context);
+        this.datBanDAO = new DatBanDAO(context);
     }
 
     @NonNull
@@ -61,12 +64,17 @@ public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanView
     public void onBindViewHolder(@NonNull DatBanViewHolder holder, int position) {
         Ban ban = banList.get(position);
         int trangThaiDay = banDAO.getKiemTraConTrong(PreferencesHelper.getId(context), ban.getMaBan());
+        int banThuocHoaDon = datBanDAO.getKiemTraBanThuocHoaDon(ban.getMaBan(), maHD);
         holder.tvViTri.setText(ban.getViTri());
-        holder.tvTrangThai.setText((trangThaiDay==1)?"Đầy ":"Trống");
-        if(datBanHienTaiList.contains(new ThongTinDatBan(ban.getMaBan(), maHoaDonSapThem, 1, ""))){
+        if(banThuocHoaDon == 1){
+            holder.tvTrangThai.setText("Đã Đặt");
+        } else {
+            holder.tvTrangThai.setText((trangThaiDay==1)?"Đầy":"Trống");
+        }
+        if(datBanHienTaiList.contains(new ThongTinDatBan(ban.getMaBan(), maHD, 1, ""))){
             holder.cardDatBan.setCardBackgroundColor(MaterialColors.getColor(holder.itemView, com.google.android.material.R.attr.colorPrimary));
         }
-        if(trangThaiDay!=1){
+        if(trangThaiDay != 1 || banThuocHoaDon == 1){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

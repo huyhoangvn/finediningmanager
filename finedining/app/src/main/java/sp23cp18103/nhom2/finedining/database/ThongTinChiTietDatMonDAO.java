@@ -30,7 +30,10 @@ public class ThongTinChiTietDatMonDAO {
     @SuppressLint("Range")
     public int getTongSoTien(int maHD){
         String sql = "SELECT sum(mon.gia * datmon.soLuong) as thanhTien " +
-                " FROM mon JOIN datmon ON datmon.maMon = mon.maMon WHERE datmon.maHD = ? GROUP BY datmon.maHD ";
+                " FROM mon JOIN datmon ON datmon.maMon = mon.maMon " +
+                "WHERE datmon.maHD = ? " +
+                "AND datmon.trangThai = 1 " +
+                "GROUP BY datmon.maHD ";
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maHD)});
         if (c.moveToNext()){
@@ -41,7 +44,9 @@ public class ThongTinChiTietDatMonDAO {
     @SuppressLint("Range")
     public List<Ban> getBan(int maHD){
         String sql = "SELECT ban.viTri FROM " +
-                "ban JOIN datban ON datban.maBan = ban.maBan WHERE datban.maHD =? ";
+                "ban JOIN datban ON datban.maBan = ban.maBan " +
+                "WHERE datban.maHD =? " +
+                "AND datban.trangThai = 1 ";
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maHD)});
         List<Ban> list = new ArrayList<>();
