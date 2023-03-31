@@ -71,12 +71,6 @@
             android:layout_gravity="start"
             android:padding="5dp"
             android:layout_marginStart="10dp"/>
-        <Button
-            android:id="@+id/btn_ShowMap"
-            style="@style/mButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Xem Map"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

@@ -126,24 +126,6 @@ public class ThemHoaDonFragment extends Fragment {
         khoiTaoListenerDatBan();
         goiDiaLogChonMon();
         khoiTaoListenerThemHoaDon();
-        
-        *
-                    //mon
-                for (int i = 0; i < listDatMon.size(); i++) {
-                    datMon = new DatMon();
-                    datMon.setMaMon(listDatMon.get(i).getMaMon());
-                    datMon.setSoLuong(listDatMon.get(i).getSoLuong());
-                    datMon.setMaHD(listDatMon.get(i).getMaHD());
-                    if (datMonDAO.insertDatMon(datMon) > 0) {
-                        Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-                listDatMon.clear();
-
-        *
     }
 
     private void anhXa(View view) {
@@ -257,6 +239,20 @@ public class ThemHoaDonFragment extends Fragment {
                 hoaDonDAO.insertHoaDon(hoaDon);
 
                 themDatBan();
+
+                for (int i = 0; i < listDatMon.size(); i++) {
+                    datMon = new DatMon();
+                    datMon.setMaMon(listDatMon.get(i).getMaMon());
+                    datMon.setSoLuong(listDatMon.get(i).getSoLuong());
+                    datMon.setMaHD(listDatMon.get(i).getMaHD());
+                    if (datMonDAO.insertDatMon(datMon) > 0) {
+                        Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                listDatMon.clear();
 
                 Toast.makeText(getContext(), "luu thanh cong", Toast.LENGTH_SHORT).show();
                 input_tenKH.setText("");

@@ -68,26 +68,26 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
         anhXa();
         insertTest();
-//        login();
-        nhanVienDAO = new NhanVienDAO(this);
-        if (nhanVienDAO.checkDangnhap("myadmin","admin")){
-            int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan("myadmin","admin");
-            int trangthai = nhanVienDAO.getTrangThaiNV(maNV);
-            if (trangthai == 0){
-                Toast.makeText(LoginActivity.this, "Nhân Viên Nghỉ Làm", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
-            // gọi PreferencesHelperđể lưu
-            PreferencesHelper.saveSharedPref(LoginActivity.this,"myadmin","admin",chkRemeber.isChecked());
-            // fix delay
-            loading();
-            //chuyển activity
-            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-            // animation chuyển
-            overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
-        }
-        saveTaiKhoanMatKhau();
+        login();
+//        nhanVienDAO = new NhanVienDAO(this);
+//        if (nhanVienDAO.checkDangnhap("myadmin","admin")){
+//            int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan("myadmin","admin");
+//            int trangthai = nhanVienDAO.getTrangThaiNV(maNV);
+//            if (trangthai == 0){
+//                Toast.makeText(LoginActivity.this, "Nhân Viên Nghỉ Làm", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+//            // gọi PreferencesHelperđể lưu
+//            PreferencesHelper.saveSharedPref(LoginActivity.this,"myadmin","admin",chkRemeber.isChecked());
+//            // fix delay
+//            loading();
+//            //chuyển activity
+//            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+//            // animation chuyển
+//            overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+//        }
+//        saveTaiKhoanMatKhau();
     }
     
     private void login() {

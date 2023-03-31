@@ -133,6 +133,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
 
     class DatMonViewHolder extends RecyclerView.ViewHolder{
         TextView tvTen;
+        TextView tvGia;
         LinearLayout lnChonMon;
         EditText edSoLuongMon;
 
