@@ -15,6 +15,7 @@ import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
     List<Mon> listMon;
@@ -38,7 +39,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Mon mon = listMon.get(position);
         holder.tvTenMon.setText(mon.getTenMon());
-        holder.imgAnhMon.setImageResource(R.drawable.default_banner);
+        ImageHelper.loadAvatar(context,holder.imgAnhMon,mon.getHinh());
     }
 
     @Override

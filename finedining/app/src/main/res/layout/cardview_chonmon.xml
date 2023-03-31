@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/tvTenMon_Cardview_datMon"
@@ -26,11 +26,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"/>
+
             <TextView
                 style="@style/mNormalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" vnd"/>
+
+            <EditText
+                style="@style/mNormalText"
+                android:id="@+id/ed_SoLuong_MonDat"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="center"
+                android:inputType="number"/>
+
         </LinearLayout>
 
 </androidx.cardview.widget.CardView>

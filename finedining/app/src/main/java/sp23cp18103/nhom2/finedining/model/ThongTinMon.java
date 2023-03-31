@@ -1,6 +1,7 @@
 package sp23cp18103.nhom2.finedining.model;
 
 public class ThongTinMon {
+    String hinhMon;
     String tenMonThongKe;
     int soLuongMon;
     int doanhThuMon;
@@ -12,6 +13,14 @@ public class ThongTinMon {
     }
 
     public ThongTinMon() {
+    }
+
+    public String getHinhMon() {
+        return hinhMon;
+    }
+
+    public void setHinhMon(String hinhMon) {
+        this.hinhMon = hinhMon;
     }
 
     public String getTenMonThongKe() {

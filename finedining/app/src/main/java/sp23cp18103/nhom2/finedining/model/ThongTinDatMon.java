@@ -3,7 +3,7 @@ package sp23cp18103.nhom2.finedining.model;
 public class ThongTinDatMon extends DatMon{
     private String tenMon;
 
-    public ThongTinDatMon(String tenMon) {
+    public ThongTinDatMon(int maMon, int maHoaDonSapThem, int soLuong, String tenMon) {
         this.tenMon = tenMon;
     }
 
@@ -12,7 +12,7 @@ public class ThongTinDatMon extends DatMon{
 
     @Override
     public String toString() {
-        return ""+getTenMon()+"x"+getSoLuong();
+        return ""+getTenMon()+" x "+getSoLuong();
     }
 
     public String getTenMon() {

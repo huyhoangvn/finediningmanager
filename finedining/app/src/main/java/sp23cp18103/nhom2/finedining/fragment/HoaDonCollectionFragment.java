@@ -41,7 +41,6 @@ public class HoaDonCollectionFragment extends Fragment {
         btnThemHoaDon_collection.setOnClickListener(v -> {
             fragmentManager.beginTransaction()
                     .add(R.id.frame_collection_hoadon, new ThemHoaDonFragment())
-
                     .commit();
             btnThemHoaDon_collection.hide();
         });

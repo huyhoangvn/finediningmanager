@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/mHeaderText"
-        android:text="Chọn món"/>
+        android:text="Chọn món"
+        />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -30,53 +31,27 @@
         android:layout_height="wrap_content"
         android:weightSum="4"
         android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/mInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.8"
-            android:hint="Số Lượng"
-            app:boxBackgroundColor="@android:color/transparent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_SoLuong_dialog_chonMon_FragmentThemHoaDon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnChon_SoLuongMon"
-            android:layout_width="0dp"
-            android:layout_height="65dp"
-            android:layout_weight="1.2"
-            android:text="Chọn"/>
-
-
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <TextView
-            style="@style/mNormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Món Đã Chọn: "/>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_margin="10dp">-->
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            style="@style/mNormalText"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="Món Đã Chọn: "/>&ndash;&gt;-->
 
-        <TextView
-            android:id="@+id/tvMonDaChon_dialog_chonMon_FragmentThemHoaDon"
-            style="@style/mNormalText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cải xào x 3, Rau muống x 1,..."/>
-    </LinearLayout>
+<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/tvMonDaChon_dialog_chonMon_FragmentThemHoaDon"&ndash;&gt;-->
+<!--&lt;!&ndash;            style="@style/mNormalText"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:text="Cải xào x 3, Rau muống x 1,..."/>&ndash;&gt;-->
+<!--    </LinearLayout>-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLuu_dialog_chonMon_FragmentThemHoaDon"
