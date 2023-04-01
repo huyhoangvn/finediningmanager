@@ -65,9 +65,9 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
         dao = new LoaiBanDAO(context);
         int tongSoBan = dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
         int soBanDay = dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
+
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
         holder.tv_SoBan.setText(String.valueOf(tongSoBan));
-
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
 
         holder.tv_SoBanTrongBan.setText(String.valueOf(tongSoBan-soBanDay));
