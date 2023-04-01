@@ -62,7 +62,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
 
         tthd.getMaHD();
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
-        holder.tvThoiGianXuat.setText(""+tthd.getThoiGianDat());
+        holder.tvThoiGianXuat.setText(DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
         if (tthd.getTrangThai()==1){
             holder.tvTrangThai.setText("Đang Đặt");
         }else if (tthd.getTrangThai()==2){
