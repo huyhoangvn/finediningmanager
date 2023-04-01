@@ -5,6 +5,7 @@
         <item name="android:layout_height">150dp</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:src">@drawable/ic_logo</item>
+        <item name="tint">?attr/colorPrimary</item>
     </style>
 
     <style name="mAvatarImage">
