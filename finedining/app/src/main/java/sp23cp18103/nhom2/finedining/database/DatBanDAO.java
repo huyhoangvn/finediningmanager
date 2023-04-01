@@ -134,4 +134,27 @@ public class DatBanDAO {
         }
         return list;
     }
+
+    @SuppressLint("Range")
+   public void  getHuyTrangThaiDatBan(int maBan, int maNV){
+
+        String sql=" Select b.maBan, db.maHD, hd.trangThai, db.trangThai from ban b " +
+                " JOIN datban db on db.maBan = b.maBan " +
+                " Join hoadon  hd on hd.maHD = db.maHD " +
+                " Join nhanvien nv on hd.maNV = nv.maNV " +
+                " WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                " AND DB.maBan= ? " +
+
+                " AND (hd.trangThai=1 or hd.trangThai=2)" ;
+        Cursor cursor = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maBan)});
+        while (cursor.moveToNext()){
+            DatBan dBan=new DatBan();
+            ContentValues  values = new ContentValues();
+            values.put("trangThai",0);
+            dBan.setMaBan(cursor.getInt(cursor.getColumnIndex("maBan")));
+            dBan.setMaHD(cursor.getInt(cursor.getColumnIndex("maHD")));
+            db.update("datban",values," maBan = ? and maHD = ? ",
+                    new String[]{String.valueOf(dBan.getMaBan()), String.valueOf(dBan.getMaHD())});
+        }
+    }
 }
