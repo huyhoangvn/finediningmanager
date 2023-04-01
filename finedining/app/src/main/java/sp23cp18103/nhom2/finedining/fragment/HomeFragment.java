@@ -104,26 +104,26 @@ public class HomeFragment extends Fragment {
         // có internet
         if (isConnected) {
             // Hiển thị ProgressDialog
-            progressDialog = new CustomProgressDialog(getContext());
-            progressDialog.show();
-            Window window = progressDialog.getWindow();
-            if (window == null) {
-                return;
-            }
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            progressDialog = new CustomProgressDialog(getContext());
+//            progressDialog.show();
+//            Window window = progressDialog.getWindow();
+//            if (window == null) {
+//                return;
+//            }
+//            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 //                        Tải bản đồ
                     geoLocate();
 //                        Sau khi tải xong, ẩn ProgressDialog
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                        }
-                    });
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            progressDialog.dismiss();
+//                        }
+//                    });
                 }
             }).start();
             // nếu k có internet

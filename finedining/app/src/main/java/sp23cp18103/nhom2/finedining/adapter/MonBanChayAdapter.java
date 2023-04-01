@@ -33,7 +33,7 @@ public class MonBanChayAdapter extends RecyclerView.Adapter<MonBanChayAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.cardview_thongke_mon,null);
+        View view = inflater.inflate(R.layout.cardview_thongke_mon, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
