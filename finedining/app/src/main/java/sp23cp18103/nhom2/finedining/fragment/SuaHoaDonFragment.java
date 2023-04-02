@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -215,27 +216,27 @@ public class SuaHoaDonFragment extends Fragment {
                     Toast.makeText(getContext(), "Sửa thất bại", Toast.LENGTH_SHORT).show();
                 }
 
-                //QUYET
-                for (int i = 0; i < listDatMon.size(); i++) {
-                    DatMon datMon = listDatMon.get(i);
-                    if (datMonDAO.checkDatMonExist(maHD, datMon.getMaMon())) {
-                        // Update món đã tồn tại trong hóa đơn
-                        if (datMonDAO.updateDatMon(datMon, maHD) > 0) {
-                            Toast.makeText(getContext(), "Cập nhật món thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } else {
-                        // Thêm món mới vào hóa đơn
-                        if (datMonDAO.insertDatMon(datMon) > 0) {
-                            Toast.makeText(getContext(), "Thêm món mới thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "Thêm món mới thất bại", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                }
+//                //QUYET
+//                for (int i = 0; i < listDatMon.size(); i++) {
+//                    DatMon datMon = listDatMon.get(i);
+//                    if (datMonDAO.checkDatMonExist(maHD, datMon.getMaMon())) {
+//                        // Update món đã tồn tại trong hóa đơn
+//                        if (datMonDAO.updateDatMon(datMon, maHD) > 0) {
+//                            Toast.makeText(getContext(), "Cập nhật món thành công", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(getContext(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    } else {
+//                        // Thêm món mới vào hóa đơn
+//                        if (datMonDAO.insertDatMon(datMon) > 0) {
+//                            Toast.makeText(getContext(), "Thêm món mới thành công", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(getContext(), "Thêm món mới thất bại", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    }
+//                }
 
 //                for (int i = 0; i < listDatMon.size(); i++){
 //                    datMon = new DatMon();
@@ -523,73 +524,69 @@ public class SuaHoaDonFragment extends Fragment {
         }
     }
     void goiDiaLogChonMon() {
-        input_mon.setEndIconOnClickListener(new View.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_dat_mon, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
+        AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
+        List<Mon> listMon = monDAO.timKiem(PreferencesHelper.getId(getContext()), "");
+        DatMonDAO datMonDAO = new DatMonDAO(context);
+        SuaDatMonAdapter adapter = new SuaDatMonAdapter(getContext(), listMon,listDatMon, new InterfaceDatMon() {
             @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View view = inflater.inflate(R.layout.dialog_dat_mon, null);
-                builder.setView(view);
-                Dialog dialog = builder.create();
-                RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
-                AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
-                List<Mon> listMon = monDAO.timKiem(PreferencesHelper.getId(getContext()), "");
-                DatMonDAO datMonDAO = new DatMonDAO(context);
-                SuaDatMonAdapter adapter = new SuaDatMonAdapter(getContext(), listMon,listDatMon, new InterfaceDatMon() {
-                    @Override
-                    public int getMaMon(int maMon, String soluong) {
-                        int soLuong = Integer.parseInt(soluong);
+            public int getMaMon(int maMon, String soluong) {
+                int soLuong = Integer.parseInt(soluong);
 
-                       // Nếu nhập số lượng là 0, xoá món đó khỏi danh sách.
-                        if (soLuong == 0) {
-                            for (ThongTinDatMon thongTinDatMon : listDatMon) {
-                                if (thongTinDatMon.getMaMon() == maMon) {
-                                    listDatMon.remove(thongTinDatMon);
-                                    break;
-                                }
-                            }
-                        } else {
-                            String tenMon = monDAO.getTenMon(maMon);
-                            // kiểm tra xem món đã có trong danh sách hay chưa
-                            boolean isAlreadyInList = false;
-                            for (ThongTinDatMon thongTinDatMon : listDatMon) {
-                                if (thongTinDatMon.getMaMon() == maMon) {
-                                    // nếu món đã có trong danh sách thì chỉ cập nhật số lượng
-                                    thongTinDatMon.setSoLuong(soLuong);
-                                    isAlreadyInList = true;
-                                    break;
-                                }
-                            }
-                            // nếu món chưa có trong danh sách thì thêm mới
-                            if (!isAlreadyInList) {
-                                thongTindatMon = new ThongTinDatMon();
-                                thongTindatMon.setMaMon(maMon);
-                                thongTindatMon.setTenMon(tenMon);
-                                thongTindatMon.setSoLuong(soLuong);
-                                thongTindatMon.setMaHD(maHD);
-                                thongTindatMon.setTrangThai(1);
-                                listDatMon.add(thongTindatMon);
-                            }
+               // Nếu nhập số lượng là 0, xoá món đó khỏi danh sách.
+                if (soLuong == 0) {
+                    for (ThongTinDatMon thongTinDatMon : listDatMon) {
+                        if (thongTinDatMon.getMaMon() == maMon) {
+                            listDatMon.remove(thongTinDatMon);
+                            break;
                         }
-                        return 0;
                     }
-                });
-                adapter.setMaHD(maHD);
-                adapter.getMaHD();
-
-                btnLuuChonMon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        saveListSua(listDatMon);
-                        input_mon.getEditText().setText(listDatMon.toString().replace("[", "")
-                                .replace("]", ""));
-                        dialog.dismiss();
+                } else {
+                    String tenMon = monDAO.getTenMon(maMon);
+                    // kiểm tra xem món đã có trong danh sách hay chưa
+                    boolean isAlreadyInList = false;
+                    for (ThongTinDatMon thongTinDatMon : listDatMon) {
+                        if (thongTinDatMon.getMaMon() == maMon) {
+                            // nếu món đã có trong danh sách thì chỉ cập nhật số lượng
+                            thongTinDatMon.setSoLuong(soLuong);
+                            isAlreadyInList = true;
+                            break;
+                        }
                     }
-                });
-                rcv_chonMon.setAdapter(adapter);
-                dialog.show();
+                    // nếu món chưa có trong danh sách thì thêm mới
+                    if (!isAlreadyInList) {
+                        thongTindatMon = new ThongTinDatMon();
+                        thongTindatMon.setMaMon(maMon);
+                        thongTindatMon.setTenMon(tenMon);
+                        thongTindatMon.setSoLuong(soLuong);
+                        thongTindatMon.setMaHD(maHD);
+                        thongTindatMon.setTrangThai(1);
+                        listDatMon.add(thongTindatMon);
+                    }
+                }
+                return 0;
             }
         });
+        adapter.setMaHD(maHD);
+        adapter.getMaHD();
+
+        btnLuuChonMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveListSua(listDatMon);
+                input_mon.getEditText().setText(listDatMon.toString().replace("[", "")
+                        .replace("]", ""));
+                dialog.dismiss();
+            }
+        });
+        rcv_chonMon.setAdapter(adapter);
+        dialog.show();
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE| WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     }
 
 
