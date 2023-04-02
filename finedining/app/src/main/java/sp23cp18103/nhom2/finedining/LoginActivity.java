@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
         anhXa();
         insertTest();
+        saveTaiKhoanMatKhau();
         login();
         saveTaiKhoanMatKhau();
 //        nhanVienDAO = new NhanVienDAO(this);

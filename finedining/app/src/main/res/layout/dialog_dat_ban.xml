@@ -15,6 +15,14 @@
         android:text="Đặt bàn"
         android:layout_margin="10dp"/>
 
+    <TextView
+        style="@style/mNormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Vị trí: "
+        android:layout_gravity="start"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="200dp"

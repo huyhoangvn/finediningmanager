@@ -63,13 +63,14 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     public void onBindViewHolder(@NonNull LoaiBanViewHolder holder, int position) {
         LoaiBan loaiBan = mListLoaiBan.get(position);
         dao = new LoaiBanDAO(context);
+        int tongSoBan = dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
+        int soBanDay = dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
+
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
-
-        holder.tv_SoBan.setText(""+dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
-
+        holder.tv_SoBan.setText(String.valueOf(tongSoBan));
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
 
-        holder.tv_SoBanTrongBan.setText(""+dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
+        holder.tv_SoBanTrongBan.setText(String.valueOf(tongSoBan-soBanDay));
 
         if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText("Dùng");
