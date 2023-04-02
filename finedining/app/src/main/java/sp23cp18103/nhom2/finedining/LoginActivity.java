@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity{
         anhXa();
         insertTest();
         login();
+        saveTaiKhoanMatKhau();
 //        nhanVienDAO = new NhanVienDAO(this);
 //        if (nhanVienDAO.checkDangnhap("myadmin","admin")){
 //            int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan("myadmin","admin");
@@ -196,7 +197,6 @@ public class LoginActivity extends AppCompatActivity{
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
         hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
-
         hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
         hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
 

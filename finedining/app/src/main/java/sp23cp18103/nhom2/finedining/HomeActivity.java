@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.BanCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
@@ -37,6 +38,7 @@ import sp23cp18103.nhom2.finedining.fragment.ThongKeDoanhThuFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeMonFragment;
 import sp23cp18103.nhom2.finedining.utils.BetterActivityResult;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -69,8 +71,9 @@ public class HomeActivity extends AppCompatActivity {
         // mởmenu
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.naviOpen,R.string.naviClose);
         drawerLayout.addDrawerListener(toggle);
-
+        upDateImg();
         toggle.syncState();
+
         //set icon
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -101,8 +104,6 @@ public class HomeActivity extends AppCompatActivity {
                                         .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left, R.anim.anim_slide_in_left, R.anim.anim_slide_out_left)
                                         .replace(R.id.linear,fragment)
                                         .commit();
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-
                                 navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
                                 toolbar.setTitle(item.getTitle());
                                 break;
@@ -205,6 +206,7 @@ public class HomeActivity extends AppCompatActivity {
                                                 Intent intent =  new Intent(HomeActivity.this,LoginActivity.class);
                                                 startActivity(intent);
                                                 overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+                                                PreferencesHelper.clearId(getApplicationContext());
                                             }
                                         })
                                         .setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -245,11 +247,17 @@ public class HomeActivity extends AppCompatActivity {
         View view = navigationView.getHeaderView(0);
         TextView tvTenNV = view.findViewById(R.id.tv_tenNhanVien);
         TextView tvChucVu = view.findViewById(R.id.tv_chucvu);
+        CircleImageView imgAvt = view.findViewById(R.id.img_avt);
+
+
+
 
         nhanVienDAO = new NhanVienDAO(this);
         int maNV = PreferencesHelper.getId(this);
+        String hinh = nhanVienDAO.hinh(maNV);
         String name = nhanVienDAO.getTenNV(maNV);
         int chuVu = nhanVienDAO.getPhanQuyen(maNV);
+        ImageHelper.loadAvatar(this,imgAvt,hinh);
         //set name header
         tvTenNV.setText(name);
 
@@ -269,5 +277,20 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tool_bar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navi_menu);
+    }
+
+    void upDateImg(){
+        View view = navigationView.getHeaderView(0);
+        int maNV = PreferencesHelper.getId(this);
+        nhanVienDAO = new NhanVienDAO(this);
+        String hinh = nhanVienDAO.hinh(maNV);
+        CircleImageView imgAvt = view.findViewById(R.id.img_avt);
+        ImageHelper.loadAvatar(this,imgAvt,hinh);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferencesHelper.clearId(getApplicationContext());
     }
 }

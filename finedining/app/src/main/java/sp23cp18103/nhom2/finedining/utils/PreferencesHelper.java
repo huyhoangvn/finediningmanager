@@ -51,6 +51,8 @@ public class PreferencesHelper {
         editor.apply();
     }
 
+
+
     /*
      * Lấy ghi nhớ tài khoản
      * */
@@ -90,4 +92,6 @@ public class PreferencesHelper {
         SharedPreferences sharedPreferences = getSharedPref(context);
         sharedPreferences.edit().putInt("maThuThu", -1).apply();
     }
+
+
 }

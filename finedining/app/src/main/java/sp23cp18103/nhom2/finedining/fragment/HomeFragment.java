@@ -154,10 +154,12 @@ public class HomeFragment extends Fragment {
         }
     }
     private void loadAnh() {
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
         NhaHangDAO nhaHangDAO = new NhaHangDAO(getContext());
-        Glide.with(this)
-                .load("https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/images%2Fma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg?alt=media&token=f88c9bfc-695a-4cfd-82d1-82e38d952231")
-                .into(imgnhaHang);
+        int maNV = PreferencesHelper.getId(getContext());
+        int maNH = nhanVienDAO.getMaNH(maNV);
+        String hinhNH = nhaHangDAO.getHinhNH(maNH);
+        Glide.with(this).load(hinhNH).into(imgnhaHang);
     }
     void getNameDiachiNH() {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
@@ -169,6 +171,10 @@ public class HomeFragment extends Fragment {
         tvTenNhaHang.setText(tenNhaHang);
         tvDiaChi.setText("Địa chỉ: " + diachi);
     }
+
+
+
+
 
     private void anhXa(View view) {
         rcv_menu = view.findViewById(R.id.rcv_menu);
