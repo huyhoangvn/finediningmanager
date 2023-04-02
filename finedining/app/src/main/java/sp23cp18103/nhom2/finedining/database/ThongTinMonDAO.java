@@ -8,33 +8,31 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinMon;
 
 public class ThongTinMonDAO {
     private SQLiteDatabase db;
 
-    public ThongTinMonDAO(Context context){
-        DBHelper dbHelper =new DBHelper(context);
+    public ThongTinMonDAO(Context context) {
+        DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
     }
-
-    public List<ThongTinMon> getTopMon(){
-        String sql = "SELECT mon.hinh, mon.tenMon, SUM(datmon.soLuong) AS soluongmon, SUM(datmon.soLuong * mon.gia) AS doanhThumon\n" +
-                "FROM mon \n" +
-                "INNER JOIN datmon ON mon.maMon = datmon.maMon \n" +
-                "INNER JOIN hoadon ON datmon.maHD = hoadon.maHD \n" +
-                "WHERE strftime('%Y', hoadon.thoiGianXuat) LIKE '2023' " +
-                "GROUP BY mon.tenMon\n" +
-                "ORDER BY soLuong DESC \n" +
-                "LIMIT 10;";
-       return getDaTa(sql);
-    }
-
     @SuppressLint("Range")
-    public List<ThongTinMon> getDaTa(String sql, String...SelectArgs){
+    public List<ThongTinMon> gettopmonTheoNam(String nam) {
         List<ThongTinMon> list = new ArrayList<>();
-        Cursor cursor = db.rawQuery(sql,SelectArgs);
-        while (cursor.moveToNext()){
+        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
+                " FROM mon m" +
+                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
+                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
+                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%Y', hd.thoiGianXuat) LIKE ?" +
+                " GROUP BY m.tenMon " +
+                " ORDER BY soLuong DESC " +
+                " LIMIT 10;";
+        Cursor cursor = db.rawQuery(sql, new String[]{nam});
+        while (cursor.moveToNext()) {
             ThongTinMon ttMon = new ThongTinMon();
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
@@ -42,6 +40,35 @@ public class ThongTinMonDAO {
             ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
+        cursor.close();
+        return list;
+    }
+
+    @SuppressLint("Range")
+    public List<ThongTinMon> gettopmonThangNam( String thang,String nam) {
+        List<ThongTinMon> list = new ArrayList<>();
+        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
+                " FROM mon m" +
+                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
+                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
+                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%m', hd.thoiGianXuat) LIKE ?" +
+                " AND strftime('%Y', hd.thoiGianXuat) LIKE ?" +
+                " GROUP BY m.tenMon " +
+                " ORDER BY soLuong DESC " +
+                " LIMIT 10;";
+        Cursor cursor = db.rawQuery(sql, new String[]{thang,nam});
+        while (cursor.moveToNext()) {
+            ThongTinMon ttMon = new ThongTinMon();
+            ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
+            ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
+            ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
+            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            list.add(ttMon);
+        }
+        cursor.close();
         return list;
     }
 }
+

@@ -11,13 +11,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
-        <ImageView
-            android:id="@+id/img_nhaHang"
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:src="@drawable/default_banner"
-            android:scaleType="fitXY"
-            tools:ignore="ContentDescription" />
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp">
+            <ImageView
+                android:id="@+id/img_nhaHang"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/default_banner"
+                android:scaleType="fitXY"
+                tools:ignore="ContentDescription" />
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/tv_fragHome_tenNH"
@@ -78,7 +85,6 @@
             android:layout_margin="10dp"
             android:id="@+id/carMap"
             >
-
             <FrameLayout
                 android:id="@+id/map_01_Main_showMap"
                 android:layout_width="match_parent"

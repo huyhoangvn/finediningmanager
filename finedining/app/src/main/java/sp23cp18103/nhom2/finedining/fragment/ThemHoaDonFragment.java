@@ -4,9 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -15,10 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,27 +36,25 @@ import com.google.android.material.color.MaterialColors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatBan;
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.DatBanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.DatMonAdapter;
-import sp23cp18103.nhom2.finedining.adapter.SuaDatMonAdapter;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.DatBanDAO;
 import sp23cp18103.nhom2.finedining.database.DatMonDAO;
 import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
 import sp23cp18103.nhom2.finedining.database.KhachDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
-import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinHoaDonDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.DatBan;
@@ -62,10 +62,8 @@ import sp23cp18103.nhom2.finedining.model.DatMon;
 import sp23cp18103.nhom2.finedining.model.HoaDon;
 import sp23cp18103.nhom2.finedining.model.KhachHang;
 import sp23cp18103.nhom2.finedining.model.Mon;
-import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
-import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
@@ -81,11 +79,8 @@ public class ThemHoaDonFragment extends Fragment {
     AppCompatButton btnLuu, btnHuy;
     private FragmentManager fragmentManager;
     ThongTinHoaDonDAO thongTinHoaDonDAO;
-
     MonDAO monDAO;
     HoaDon hoaDon;
-    List<Mon> monList2;
-
     ArrayList<Ban> banList;
     ArrayList<ThongTinDatMon> listDatMon = new ArrayList<>();
     ArrayList<ThongTinDatBan> listDatbanCu = new ArrayList<>();
@@ -101,15 +96,6 @@ public class ThemHoaDonFragment extends Fragment {
     DatBan datBan;
     DatMon datMon;
     ThongTinDatMon thongTindatMon;
-
-    public ArrayList<ThongTinDatMon> getListDatMon() {
-        return listDatMon;
-    }
-
-    public void setListDatMon(ArrayList<ThongTinDatMon> listDatMon) {
-        this.listDatMon = listDatMon;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,14 +107,18 @@ public class ThemHoaDonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
+        clearListChon();
         khoiTao();
         khoiTaoDefault();
         khoiTaoListenerTimKiemThoiGian();
         khoiTaoListenerTrangThai();
         khoiTaoListenerDatBan();
-        goiDiaLogChonMon();
+        khoiTaoListenerDatMon();
         khoiTaoListenerThemHoaDon();
+
     }
+
+
 
     private void anhXa(View view) {
         input_tenKH = view.findViewById(R.id.input_tenKhachHang_them_FragmentThemHoaDon);
@@ -165,6 +155,7 @@ public class ThemHoaDonFragment extends Fragment {
         datBan = new DatBan();
         hoaDon = new HoaDon();
     }
+
 
     /*
     * Khởi tạo giá trị mặc định cho thời gian
@@ -254,25 +245,11 @@ public class ThemHoaDonFragment extends Fragment {
                 }
 
                 hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
-
                 hoaDon.setThoiGianDat(DateHelper.getDateSql(input_thoiGianDat.getText().toString().trim())+" "+input_gioDat.getText().toString().trim());
                 hoaDonDAO.insertHoaDon(hoaDon);
 
                 themDatBan();
-
-                for (int i = 0; i < listDatMon.size(); i++) {
-                    datMon = new DatMon();
-                    datMon.setMaMon(listDatMon.get(i).getMaMon());
-                    datMon.setSoLuong(listDatMon.get(i).getSoLuong());
-                    datMon.setMaHD(listDatMon.get(i).getMaHD());
-                    if (datMonDAO.insertDatMon(datMon) > 0) {
-                        Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-                listDatMon.clear();
+                themDatMon();
 
                 Toast.makeText(getContext(), "luu thanh cong", Toast.LENGTH_SHORT).show();
                 input_tenKH.setText("");
@@ -294,6 +271,7 @@ public class ThemHoaDonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 fragmentManager.popBackStack();
+                clearListChon();
                 FloatingActionButton ftbtnThem = getActivity().findViewById(R.id.fbtn_them_hoaDon_collection);
                 ftbtnThem.show();
             }
@@ -301,9 +279,6 @@ public class ThemHoaDonFragment extends Fragment {
     }
 
     void goiDiaLogChonMon() {
-        input_mon.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_dat_mon, null);
@@ -315,9 +290,40 @@ public class ThemHoaDonFragment extends Fragment {
                 DatMonAdapter adapter = new DatMonAdapter(getContext(), listMon, new InterfaceDatMon() {
                     @Override
                     public int getMaMon(int maMon, String soluong) {
+//                        int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
+//                        int soLuong = Integer.parseInt(soluong);
+//                        if (soLuong != 0) {
+//                            String tenMon = monDAO.getTenMon(maMon);
+//                            // kiểm tra xem món đã có trong danh sách hay chưa
+//                            boolean isAlreadyInList = false;
+//                            for (ThongTinDatMon thongTinDatMon : listDatMon) {
+//                                if (thongTinDatMon.getMaMon() == maMon) {
+//                                    // nếu món đã có trong danh sách thì chỉ cập nhật số lượng
+//                                    thongTinDatMon.setSoLuong(soLuong);
+//                                    isAlreadyInList = true;
+//                                    break;
+//                                }
+//                            }
+//                            // nếu món chưa có trong danh sách thì thêm mới
+//                            if (!isAlreadyInList) {
+//                                thongTindatMon = new ThongTinDatMon();
+//                                thongTindatMon.setMaMon(maMon);
+//                                thongTindatMon.setTenMon(tenMon);
+//                                thongTindatMon.setSoLuong(soLuong);
+//                                thongTindatMon.setMaHD(maHoaDonSapThem);
+//                                listDatMon.add(thongTindatMon);
+//                            }
                         int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
                         int soLuong = Integer.parseInt(soluong);
-                        if (soLuong != 0) {
+                        // Nếu nhập số lượng là 0, xoá món đó khỏi danh sách.
+                        if (soLuong == 0) {
+                            for (ThongTinDatMon thongTinDatMon : listDatMon) {
+                                if (thongTinDatMon.getMaMon() == maMon) {
+                                    listDatMon.remove(thongTinDatMon);
+                                    break;
+                                }
+                            }
+                        } else {
                             String tenMon = monDAO.getTenMon(maMon);
                             // kiểm tra xem món đã có trong danh sách hay chưa
                             boolean isAlreadyInList = false;
@@ -336,34 +342,55 @@ public class ThemHoaDonFragment extends Fragment {
                                 thongTindatMon.setTenMon(tenMon);
                                 thongTindatMon.setSoLuong(soLuong);
                                 thongTindatMon.setMaHD(maHoaDonSapThem);
+                                thongTindatMon.setTrangThai(1);
                                 listDatMon.add(thongTindatMon);
                             }
                         }
+
                         return 0;
                     }
                 });
-                adapter.setListThongTinMon(listDatMon);
                 btnLuuChonMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        adapter.getListThongTinMon();
-                        input_mon.getEditText().setText(listDatMon.toString());
-                        List<ThongTinDatMon> list = listDatMon;
-                        list.toString();
+                        saveListChon(listDatMon);
+                        input_mon.getEditText().setText(listDatMon.toString()
+                                .replace("[", "")
+                                .replace("]", ""));
                         dialog.dismiss();
                     }
                 });
                 rcv_chonMon.setAdapter(adapter);
                 dialog.show();
-            }
-        });
     }
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     private void themDatBan() {
         for(int i = 0; i < listDatbanCu.size(); i++){
             datBanDAO.insertDatBan(listDatbanCu.get(i));
         }
+    }
+    private void themDatMon(){
+        for (int i = 0; i < listDatMon.size(); i++) {
+            datMon = new DatMon();
+            datMon.setMaMon(listDatMon.get(i).getMaMon());
+            datMon.setSoLuong(listDatMon.get(i).getSoLuong());
+            datMon.setMaHD(listDatMon.get(i).getMaHD());
+            datMon.setTrangThai(1);
+            if (datMonDAO.insertDatMon(datMon) > 0) {
+                Toast.makeText(getContext(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Thêm món Không thành công", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        listDatMon.clear();
     }
 
     public Boolean validate() {
@@ -399,6 +426,16 @@ public class ThemHoaDonFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+
+    private void khoiTaoListenerDatMon() {
+        input_mon.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goiDiaLogChonMon();
+            }
+        });
     }
 
     /*
@@ -477,5 +514,22 @@ public class ThemHoaDonFragment extends Fragment {
             }
         });
         dialog.show();
+
     }
+
+
+    void saveListChon(List<ThongTinDatMon> listDatMon){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MySharedPrefSaveListDat", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String jsonListDatMon = new Gson().toJson(listDatMon);
+        editor.putString("listDatMon", jsonListDatMon);
+        editor.apply();
+    }
+    void clearListChon(){
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MySharedPrefSaveListDat", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("listDatMon");
+        editor.apply();
+    }
+
 }

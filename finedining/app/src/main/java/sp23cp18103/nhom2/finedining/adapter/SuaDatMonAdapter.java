@@ -2,6 +2,7 @@ package sp23cp18103.nhom2.finedining.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,13 +16,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.DatMonDAO;
+import sp23cp18103.nhom2.finedining.model.DatMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách đặt món trong hóa đơn chi tiết
@@ -30,10 +38,13 @@ import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatMonViewHolder> {
     Context context;
     List<Mon> monList;
-    List<ThongTinDatMon> listThongTinMon;
+    List<ThongTinDatMon> listDatMonMoi;
+    List<ThongTinDatMon> listDatMonCu;
     InterfaceDatMon interfaceDatMon;
 
     ThongTinDatMon thongTinDatMon;
+
+
 
 
     int maHD;
@@ -46,23 +57,18 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
         this.maHD = maHD;
     }
 
-    public SuaDatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
+//    public SuaDatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
+//        this.context = context;
+//        this.monList = monList;
+//        this.interfaceDatMon = interfaceDatMon;
+//    }
+
+
+    public SuaDatMonAdapter(Context context, List<Mon> monList, List<ThongTinDatMon> listDatMonCu, InterfaceDatMon interfaceDatMon) {
         this.context = context;
         this.monList = monList;
+        this.listDatMonCu = listDatMonCu;
         this.interfaceDatMon = interfaceDatMon;
-    }
-
-    public void setListThongTinMon(List<ThongTinDatMon> listThongTinMon) {
-        this.listThongTinMon = listThongTinMon;
-    }
-
-
-    public SuaDatMonAdapter(List<ThongTinDatMon> listThongTinMon) {
-        this.listThongTinMon = listThongTinMon;
-    }
-
-    public  List<ThongTinDatMon> getListThongTinMon() {
-        return listThongTinMon;
     }
 
     @NonNull
@@ -76,19 +82,41 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
 
     @Override
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        DatMonDAO datMonDAO = new DatMonDAO(context);
-        List<ThongTinDatMon> list =  datMonDAO.getDatMonTheoHoaDon(maHD);
+//        DatMonDAO datMonDAO = new DatMonDAO(context);
+//        listDatMonCu =  datMonDAO.getDatMonTheoHoaDon(maHD, PreferencesHelper.getId(context));
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPrefSaveListSua", Context.MODE_PRIVATE);
+        String jsonListDatMon = sharedPreferences.getString("listSuaMon", "");
+        Type type = new TypeToken<ArrayList<ThongTinDatMon>>(){}.getType();
+        listDatMonMoi = new Gson().fromJson(jsonListDatMon, type);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         Mon mon = monList.get(position);
         holder.tvTen.setText("" + mon.getTenMon());
         holder.tvGia.setText("" + mon.getGia());
-        list.toString();
-            for (int i = 0; i < list.size(); i++){
-                if (list.get(i).getTenMon().equalsIgnoreCase(mon.getTenMon())){
-                    holder.edSoLuongMon.setText("" + list.get(i).getSoLuong());
+
+        if (listDatMonCu != null) {
+            for (int i = 0; i < listDatMonCu.size(); i++){
+                DatMon datMon = listDatMonCu.get(i);
+                if (listDatMonCu.get(i).getTenMon().equalsIgnoreCase(mon.getTenMon())){
+                    holder.edSoLuongMon.setText("" + datMon.getSoLuong());
+                    interfaceDatMon.getMaMon(mon.getMaMon(), String.valueOf(datMon.getSoLuong()));
                 }
+            }
         }
 
-
+        if (listDatMonMoi != null){
+            for (ThongTinDatMon datMon : listDatMonMoi) {
+                if (datMon.getMaHD() == maHD) {
+                    if (datMon.getMaHD() == maHD && datMon.getTenMon().equalsIgnoreCase(mon.getTenMon())) {
+                        holder.edSoLuongMon.setText("" + datMon.getSoLuong());
+                        interfaceDatMon.getMaMon(mon.getMaMon(), String.valueOf(datMon.getSoLuong()));
+                    }
+                } else if (maHD != sharedPreferences.getInt("maHD", 0)) {
+                    editor.remove("listSuaMon");
+                    editor.apply();
+                }
+            }
+        }
 
 
         holder.edSoLuongMon.addTextChangedListener(new TextWatcher() {
@@ -105,30 +133,21 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
             @Override
             public void afterTextChanged(Editable s) {
                 // Sau khi thay đổi văn bản
-//                for (int i = 0; i < list.size(); i++){
-//                    if (list.get(i).getTenMon().equalsIgnoreCase(mon.getTenMon())){
-//                        holder.edSoLuongMon.setText("" + list.get(i).getSoLuong());
-//                    }
-//                }
                 String text = holder.edSoLuongMon.getText().toString();
                 if (!TextUtils.isEmpty(text)) {
                     if (interfaceDatMon != null) {
                         interfaceDatMon.getMaMon(mon.getMaMon(), text);
                     }
-                }
-                else {
-//                     Xóa văn bản đã thay đổi trước đó
+                } else {
                     holder.edSoLuongMon.removeTextChangedListener(this);
-                    holder.edSoLuongMon.setText("");
+                    holder.edSoLuongMon.setText(""); // set dữ liệu ở đây
                     holder.edSoLuongMon.addTextChangedListener(this);
                 }
             }
-        });
 
-       listThongTinMon = getListThongTinMon();
-        if (listThongTinMon != null){
-             listThongTinMon.toString();
-        }
+
+
+        });
     }
 
     @Override
@@ -148,5 +167,7 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
             edSoLuongMon = itemView.findViewById(R.id.ed_SoLuong_MonDat);
             lnChonMon = itemView.findViewById(R.id.linearChonMon);
         }
+
     }
+
 }
