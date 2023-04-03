@@ -185,7 +185,12 @@ public class LoginActivity extends AppCompatActivity{
 
         datBanDAO.insertDatBan(new DatBan(5,3,1));
 
+        //Đặt món
+        datMonDAO.insertDatMon(new DatMon(1,1,2,1));
 
+        datMonDAO.insertDatMon(new DatMon(1,2,2,1));
+
+        datMonDAO.insertDatMon(new DatMon(3,1,2,0));
         //Nhà hàng
         if (nhaHangDAO.checknhahang("Fine Dining")){
             return;

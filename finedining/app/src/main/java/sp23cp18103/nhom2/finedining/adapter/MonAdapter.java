@@ -118,7 +118,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 }
                 int maNV = PreferencesHelper.getId(context);
                 int trangThai = (chkTrangThaiMon.isChecked())?1:0;
-                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, trangThai, "");
+                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
                 for(int i = 0; i<listLoaiMon.size(); i++){
@@ -160,9 +160,13 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                                 m.setTrangThai(1);
                             }
                         }else{
-                            //Update tat ca dat mon cua tat ca hoa don co mon nay
-                            // trong trang thai cho thanh toan
-                            m.setTrangThai(0);
+                            int maMon = m.getMaMon();
+                            int maNV = PreferencesHelper.getId(context);
+                            if(dao.getTrangThaiDatMon(maMon, maNV)>0){
+                                m.setTrangThai(0);
+                            }else{
+                                m.setTrangThai(0);
+                            }
                         }
                         for(int i = 0; i<listLoaiMon.size(); i++){
                             if(m.getMaMon() == (listLoaiMon.get(i).getMaLM())){

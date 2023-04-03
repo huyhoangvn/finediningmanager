@@ -42,19 +42,10 @@ public class MonDAO {
                 "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND m.trangThai >= ? " +
+                "AND m.trangThai = ? " +
                 "AND m.tenMon LIKE ? " +
                 "ORDER BY m.trangThai DESC, m.tenMon ASC";
         return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"));
-    }
-    public int getSoLuongMon(int maLM, int maNV) {
-        String sql = "Select m.maMon from mon m " +
-                "JOIN loaimon lm ON m.maLM = lm.maLM " +
-                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
-                "WHERE nv.maNH = " +
-                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) ";
-        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLM)});
-        return c.getCount();
     }
     @SuppressLint("Range")
     public int getTuDongChuyenTrangThai(int maMon, int maNV){
@@ -73,6 +64,30 @@ public class MonDAO {
         ContentValues values = new ContentValues();
         values.put("trangThai", 1 );
         return db.update("loaimon", values,"maLM = ?", new String[]{String.valueOf(maLM)} );
+    }
+    @SuppressLint("Range")
+    public int getTrangThaiDatMon(int maMon, int maNV){
+        int check = 0;
+        String sql = "SELECT dm.maHD, dm.maMon, dm.soLuong, dm.trangThai  FROM datmon dm " +
+                "JOIN hoadon hd ON hd.maHD = dm.maHD " +
+                "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND dm.maMon = ? " +
+                "AND dm.trangThai = 1 " +
+                "AND (hd.trangThai = 1 OR hd.trangThai = 2) ";
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maMon), String.valueOf(maNV)});
+        if(c.moveToNext()){
+            int tempMaMon = 0;
+            int tempMaHD = 0;
+            tempMaMon = c.getInt(c.getColumnIndex("maMon"));
+            tempMaHD = c.getInt(c.getColumnIndex("maHD"));
+            ContentValues values = new ContentValues();
+            values.put("trangThai", 0);
+            db.update("datmon", values, "maMon = ? and maHD = ?", new String[]{String.valueOf(tempMaMon), String.valueOf(tempMaHD)});
+            check++;
+        }
+        return check;
     }
     public List<Mon> timKiem(int maNV, String tenmon ){
         String sql = "Select * from mon m " +
