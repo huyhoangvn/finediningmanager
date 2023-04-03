@@ -102,7 +102,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 Dialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 if (loaiBan.getTrangThai() == 1) {
-                    chkDialogTrangThaiLoaiBan.setChecked(true);
+                    chkTrangThaiLoaiBan.setChecked(true);
                 } else {
                     chkTrangThaiLoaiBan.setChecked(false);
                 }

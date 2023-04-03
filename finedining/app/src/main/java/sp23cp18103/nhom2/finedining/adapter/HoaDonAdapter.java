@@ -82,6 +82,12 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
             holder.imgThongBao.setVisibility(View.GONE);
         }
 
+        if (tthd.getTrangThai() == 3 || tthd.getTrangThai() == 0){
+            holder.imgEdit.setVisibility(View.GONE);
+        } else {
+            holder.imgEdit.setVisibility(View.VISIBLE);
+        }
+
 
         holder.imgBill.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
