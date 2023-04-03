@@ -52,7 +52,8 @@
                 android:id="@+id/imgCardviewSuaLoaiMon"
                 style="@style/mImageButton"
                 android:src="@drawable/ic_sua_thongtin"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                android:layout_gravity="center"/>
         </LinearLayout>
 </androidx.cardview.widget.CardView>
 

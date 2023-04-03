@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            style="@style/mHeaderText"
+            style="@style/mImportantHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tổng doanh thu"
@@ -22,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_margin="10dp"
             android:gravity="center">
             <TextView
                 style="@style/mHeaderText"
@@ -37,13 +36,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1,000,000,000,000"
-                android:textColor="@android:color/holo_green_dark"/>
+                android:textColor="@color/Positive"/>
             <TextView
                 style="@style/mHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" vnd"
-                android:textColor="@android:color/holo_green_dark"/>
+                android:textColor="@color/Positive"/>
         </LinearLayout>
 
         <LinearLayout
@@ -57,9 +56,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Ngày bắt đầu"
+                android:hint="Bắt đầu"
                 app:boxBackgroundColor="@android:color/transparent"
                 app:endIconMode="custom"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/mEditText"
@@ -75,9 +76,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Ngày kết thúc"
+                android:hint="Kết thúc"
                 app:boxBackgroundColor="@android:color/transparent"
                 app:endIconMode="custom"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/mEditText"
@@ -98,7 +101,7 @@
 
         <TextView
             android:id="@+id/tv_fragHome_tenNH"
-            style="@style/mHeaderText"
+            style="@style/mImportantHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Doanh thu theo tháng"

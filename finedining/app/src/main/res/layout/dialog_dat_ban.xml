@@ -9,11 +9,8 @@
     android:gravity="center">
 
     <TextView
-        style="@style/mHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đặt bàn"
-        android:layout_margin="10dp"/>
+        style="@style/mDialogHeaderText"
+        android:text="Đặt bàn"/>
 
     <TextView
         style="@style/mNormalText"

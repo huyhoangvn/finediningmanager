@@ -14,10 +14,8 @@
 
         <TextView
             android:id="@+id/tvTieuDeBan"
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thêm/sửa  bàn"/>
+            style="@style/mDialogHeaderText"
+            android:text="Thêm/sửa bàn"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/mInputLayout"
