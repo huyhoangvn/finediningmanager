@@ -284,7 +284,7 @@ public class MonFragment extends Fragment {
                     int maNV = PreferencesHelper.getId(getContext());
                     int trangThai = (chkFragmentMon.isChecked())?0:1;
                     list.clear();
-//                    list.addAll(dao.getLocLoaiMon(maNV, trangThai, edTimKiemMon.getText().toString().trim(), tenLoaiMon));
+                    list.addAll(dao.getLocLoaiMon(maNV, trangThai, edTimKiemMon.getText().toString().trim(), tenLoaiMon));
                     adapter.notifyDataSetChanged();
                 }
             }
