@@ -143,8 +143,7 @@ public class DatBanDAO {
                 " Join hoadon  hd on hd.maHD = db.maHD " +
                 " Join nhanvien nv on hd.maNV = nv.maNV " +
                 " WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                " AND DB.maBan= ? " +
-
+                " AND db.maBan= ? " +
                 " AND (hd.trangThai=1 or hd.trangThai=2)" ;
         Cursor cursor = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maBan)});
         while (cursor.moveToNext()){

@@ -42,6 +42,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiBanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -64,7 +65,7 @@ public class LoaiBanFragment extends Fragment {
     TextView tvTieuDeLoaiBan;
     EditText edTimKhiemLoaiBan;
     TextInputLayout inputTimKiemLoaiBan;
-
+    NhanVienDAO nhanVienDAO;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,8 +79,6 @@ public class LoaiBanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         chk_fLoaiBan_conDung = view.findViewById(R.id.chk_fLoaiBan_conDung);
         rcv_loaiban = view.findViewById(R.id.rcv_loaiban);
         fab = view.findViewById(R.id.ftbtn_them_loaiban);
@@ -88,12 +87,11 @@ public class LoaiBanFragment extends Fragment {
 
         loaiBanDAO = new LoaiBanDAO(getContext());
         context = getContext();
-
+        loaiBanAdapter=new LoaiBanAdapter(list,getContext());
+        anChucNang();
         khoiTaoRecyclerView();
         khoiTaoCheckboxListener();
         khoiTaoTimKiem();
-
-
         CapNhat();
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -172,9 +170,9 @@ public class LoaiBanFragment extends Fragment {
 
     public int validate() {
         String tenLoai = edTenLoaiBan.getText().toString();
-        String soChoNgoi = edTenLoaiBan.getText().toString();
+//        String soChoNgoi = edTenLoaiBan.getText().toString();
         int check = 1;
-        if (tenLoai.isEmpty() || soChoNgoi.isEmpty()) {
+        if (tenLoai.isEmpty()) {
             edTenLoaiBan.setError("Không được để trống");
             check = -1;
         }
@@ -249,5 +247,12 @@ public class LoaiBanFragment extends Fragment {
                 edTimKhiemLoaiBan.getText().toString().trim(),
                 String.valueOf((chk_fLoaiBan_conDung.isChecked())?0:1)));
         loaiBanAdapter.notifyDataSetChanged();
+    }
+    void anChucNang(){
+        nhanVienDAO = new NhanVienDAO(context);
+        int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(getContext()));
+        if(phanQuyen == 0){
+            fab.setVisibility(View.GONE);
+        }
     }
 }

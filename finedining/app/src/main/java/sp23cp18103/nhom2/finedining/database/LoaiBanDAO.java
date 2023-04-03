@@ -112,7 +112,7 @@ public class LoaiBanDAO {
    }
    @SuppressLint("Range")
    public int getTongBan(int maLB, int maNV){
-       String sql="select Sum(b.maLB) AS TongSoLuong FROM loaiban lb " +
+       String sql="select Count(DISTINCT b.maBan) AS TongSoBan FROM loaiban lb " +
                "Join ban b on b.maLB = lb.maLB " +
                "Join nhanvien nv on nv.maNV = lb.maNV " +
                "where nv.maNH = " +
@@ -121,7 +121,7 @@ public class LoaiBanDAO {
                "AND lb.maLB = ?";
        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
        if (c.moveToNext()){
-           return c.getInt(c.getColumnIndex("TongSoLuong"));
+           return c.getInt(c.getColumnIndex("TongSoBan"));
        }
        return 0;
    }
