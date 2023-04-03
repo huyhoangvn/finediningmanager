@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -61,7 +62,8 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         final int vitri = position;
 
         ThongTinHoaDon tthd = ThongTinHoaDonList.get(position);
-
+        String ngayHienTai = tthd.getThoiGianDat();
+        String ngay =ngayHienTai.substring(0,10);
         tthd.getMaHD();
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
         holder.tvThoiGianXuat.setText(DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
@@ -74,6 +76,12 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         }else if (tthd.getTrangThai()==0){
             holder.tvTrangThai.setText("Hủy");
         }
+        if (ngay.equals(DateHelper.getDateSQLNow()) && tthd.getTrangThai() == 1){
+            holder.imgThongBao.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgThongBao.setVisibility(View.GONE);
+        }
+
 
         holder.imgBill.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
@@ -143,10 +151,12 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
     class HoaDonViewHolder extends RecyclerView.ViewHolder{
         ImageButton imgEdit;
         AppCompatButton imgBill;
+        ImageView imgThongBao;
 
         TextView tv_tenKhach,tvSoLuongKhach,tvThoiGianXuat,tvTrangThai,tvTenKhachHang;
         public HoaDonViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgThongBao = itemView.findViewById(R.id.img_thongbao_CardView_HoaDon);
             imgBill = itemView.findViewById(R.id.imgBill);
             imgEdit = itemView.findViewById(R.id.imgBtn_edit_CardView_HoaDon);
             tv_tenKhach = itemView.findViewById(R.id.tv_tenKhach_CardView_HoaDon);
