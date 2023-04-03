@@ -23,7 +23,10 @@ public class ThongTinChiTietDatMonDAO {
 
     public List<ThongTinChiTietDatMon> getThongTinHoaDonChiTietDatMon(int maHD){
         String sql = "SELECT mon.tenMon,datmon.soLuong,mon.gia,(mon.gia * datmon.soLuong) as thanhTien " +
-                " FROM mon JOIN datmon ON datmon.maMon = mon.maMon WHERE datmon.maHD = ? AND datmon.trangthai = 1";
+                " FROM mon " +
+                "JOIN datmon ON datmon.maMon = mon.maMon " +
+                "WHERE datmon.maHD = ? " +
+                "AND datmon.trangthai = 1";
         return getDaTa(sql,String.valueOf(maHD));
     }
 
