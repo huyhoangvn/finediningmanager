@@ -130,8 +130,8 @@ public class MonFragment extends Fragment {
                 Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
                 tv_tieude_mon.setText("Thêm món");
-                Dialog dialog = builder.create();
                 chkTrangThaiMon.setVisibility(View.GONE);
+                Dialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int maNV = PreferencesHelper.getId(getContext());
                 listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
@@ -271,13 +271,21 @@ public class MonFragment extends Fragment {
     }
     //hàm cập nhật listFilter
     private void hienThiFilter() {
-
         int maNV = PreferencesHelper.getId(getContext());
         listFilter = loaiMonDAO.getFilterMon(maNV);
+        listFilter.add(0,"Tất cả");
         loaiMonFilterAdapter = new LoaiMonFilterAdapter(getContext(), listFilter, new ILoaiMonFilter(){
             @Override
             public void locMon(String tenLoaiMon) {
-
+                if(tenLoaiMon.equalsIgnoreCase("Tất cả")){
+                    capNhat();
+                }else{
+                    int maNV = PreferencesHelper.getId(getContext());
+                    int trangThai = (chkFragmentMon.isChecked())?0:1;
+                    list = dao.trangThaiLoaiMon(maNV, trangThai, tenLoaiMon);
+                    adapter = new MonAdapter(getContext(), list);
+                    rcvMon.setAdapter(adapter);
+                }
             }
         });
         rcvFilter.setAdapter(loaiMonFilterAdapter);
