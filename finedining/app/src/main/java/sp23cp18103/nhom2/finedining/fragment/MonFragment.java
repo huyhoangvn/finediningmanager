@@ -10,10 +10,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
+import sp23cp18103.nhom2.finedining.adapter.LoaiMonFilterAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.MonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
@@ -51,7 +54,7 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 * */
 public class MonFragment extends Fragment {
     Context context;
-    RecyclerView rcvMon;
+    RecyclerView rcvMon, rcvFilter;
     FloatingActionButton fabMon;
     List<Mon> list;
     MonDAO dao;
@@ -59,12 +62,14 @@ public class MonFragment extends Fragment {
     TextInputEditText edTimKiemMon, edDialogTenMon, edDialogGia;
     TextInputLayout inputTimKiemMon;
     ArrayList<LoaiMon> listLoaiMon;
-    CheckBox chkFragmentMon;
+    CheckBox chkFragmentMon,chkTrangThaiMon;
     int maLoaiMon, positionLM;
     LoaiMonSpinnerAdapter loaiMonSpinnerAdapter;
     LoaiMonDAO loaiMonDAO;
     GalleryHelper galleryHelper;
-
+    LoaiMonFilterAdapter loaiMonFilterAdapter;
+    List<String> listFilter;
+    FragmentManager fragmentManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,16 +88,22 @@ public class MonFragment extends Fragment {
         inputTimKiemMon = view.findViewById(R.id.inputTimKiemMon);
         chkFragmentMon = view.findViewById(R.id.chkFragmentMon);
         dao = new MonDAO(getContext());
+        rcvFilter = view.findViewById(R.id.rcvFilter);
         loaiMonDAO = new LoaiMonDAO(getContext());
         Mon m = new Mon();
         timKiemMon();
         capNhat();
+        hienThiFilter();
+
+
+
+
         chkFragmentMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 list.clear();
                 list.addAll(dao.trangThaiLoaiMon(PreferencesHelper.getId(getContext()),
-                        (chkFragmentMon.isChecked())?1:0,
+                        (chkFragmentMon.isChecked())?0:1,
                         edTimKiemMon.getText().toString().trim()));
                 adapter.notifyDataSetChanged();
             }
@@ -111,15 +122,15 @@ public class MonFragment extends Fragment {
                 edDialogGia = view.findViewById(R.id.edDialogGia);
                 @SuppressLint({"MissingInflatedId", "LocalSuppress"})
                 Spinner spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
-                CheckBox chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
+                chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
                 Button btnDialogLuuMon = view.findViewById(R.id.btnDialogLuuMon);
                 Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
                 tv_tieude_mon.setText("Thêm món");
                 Dialog dialog = builder.create();
                 int maNV = PreferencesHelper.getId(getContext());
-                int trangThai = (chkTrangThaiMon.isChecked())?1:0;
-                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, trangThai, "");
+                int trangThai = (chkTrangThaiMon.isChecked())?0:1;
+                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
                 for(int i = 0; i<listLoaiMon.size(); i++){
@@ -182,6 +193,9 @@ public class MonFragment extends Fragment {
             }
         });
     }
+
+
+
     //hàm tìm kiếm món
     public void timKiemMon(){
         edTimKiemMon.addTextChangedListener(new TextWatcher() {
@@ -241,25 +255,33 @@ public class MonFragment extends Fragment {
     //hàm cập nhật recycleview tìm kiếm
     public void hienThiDanhSachMon(){
         int maNV = PreferencesHelper.getId(getContext());
-        int trangThai = (chkFragmentMon.isChecked())?1:0;
+        int trangThai = (chkFragmentMon.isChecked())?0:1;
         String timKiem = edTimKiemMon.getText().toString().trim();
-        if(timKiem.isEmpty()){
-            list = dao.trangThaiLoaiMon(maNV, trangThai, "");
-            adapter = new MonAdapter(getActivity(), list);
-            rcvMon.setAdapter(adapter);
-            return ;
-        }else{
             list = dao.trangThaiLoaiMon(maNV, trangThai, timKiem);
             adapter = new MonAdapter(getActivity(), list);
             rcvMon.setAdapter(adapter);
-        }
     }
     //hàm cập nhật recycleview
     void capNhat(){
         int maNV = PreferencesHelper.getId(getContext());
-        int trangThai = (chkFragmentMon.isChecked())?1:0;
+        int trangThai = (chkFragmentMon.isChecked())?0:1;
         list = dao.trangThaiLoaiMon(maNV, trangThai, "");
         adapter = new MonAdapter(getContext(), list);
         rcvMon.setAdapter(adapter);
+    }
+    //hàm cập nhật listFilter
+    private void hienThiFilter() {
+        int maNV = PreferencesHelper.getId(getContext());
+        listFilter = loaiMonDAO.getFilterMon(maNV);
+        loaiMonFilterAdapter = new LoaiMonFilterAdapter(getContext(), listFilter);
+        rcvFilter.setAdapter(loaiMonFilterAdapter);
+    }
+    //hàm cập nhật fragment
+
+    @Override
+    public void onResume() {
+        capNhat();
+        hienThiFilter();
+        super.onResume();
     }
 }

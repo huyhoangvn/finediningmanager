@@ -68,6 +68,9 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             holder.tvTrangThai.setText("Không dùng");
             holder.tvTrangThai.setTextColor(Color.RED);
         }
+//        int maLM = lm.getMaLM();
+        int maNV = PreferencesHelper.getId(context);
+        holder.tvCardviewSoMon.setText( String.valueOf(dao.getSoLuongMon(maNV, lm.getMaLM())));
         holder.imgSuaTenLoaiMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +145,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
 
 
     class loaiMonViewHolder extends RecyclerView.ViewHolder {
-        TextView tvtenLoaiMon, tvTrangThai;
+        TextView tvtenLoaiMon, tvTrangThai, tvCardviewSoMon;
         ImageView imgSuaTenLoaiMon;
 
         public loaiMonViewHolder(@NonNull View itemView) {
@@ -150,6 +153,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             tvtenLoaiMon = itemView.findViewById(R.id.tvCarviewTenLoaiMon);
             imgSuaTenLoaiMon = itemView.findViewById(R.id.imgCardviewSuaLoaiMon);
             tvTrangThai = itemView.findViewById(R.id.tvCardviewTrangThaiLM);
+            tvCardviewSoMon = itemView.findViewById(R.id.tvCardviewSoMon);
         }
     }
 }

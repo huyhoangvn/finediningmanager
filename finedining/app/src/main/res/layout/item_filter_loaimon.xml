@@ -3,8 +3,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/tvFilterLoaiMon"
         style="@style/mFilterItem"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="100dp"
         android:text="Loại món"/>
 </LinearLayout>
