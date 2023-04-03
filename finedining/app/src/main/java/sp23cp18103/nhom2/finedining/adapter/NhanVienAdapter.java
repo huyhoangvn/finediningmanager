@@ -19,6 +19,7 @@ import sp23cp18103.nhom2.finedining.Interface.IEditListenerNhanVien;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.NumberHelper;
@@ -73,9 +74,9 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         holder.tvGioiTinh.setText(nhanVien.getTenGioiTinh());
         holder.tvTrangThai.setText(nhanVien.getTenTrangThai());
         if(nhanVien.getTrangThai() == 1){
-            holder.tvTrangThai.setTextColor(Color.GREEN);
+            holder.tvTrangThai.setTextColor(ColorHelper.getPositiveColor(context));
         } else {
-            holder.tvTrangThai.setTextColor(Color.RED);
+            holder.tvTrangThai.setTextColor(ColorHelper.getNegativeColor(context));
         }
         ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
         holder.tvPhanQuyen.setText(nhanVien.getTenPhanQuyen());

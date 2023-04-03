@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -100,7 +102,9 @@ public class LoaiMonFragment extends Fragment {
                 btnDialogLuuLoaiMon = view.findViewById(R.id.btnDialogLuuLoaiMon);
                 tvTieuDeLoaiMon = view.findViewById(R.id.tvTieuDeLoaiMon);
                 tvTieuDeLoaiMon.setText("Thêm loại món ");
+                chkDialogTrangThaiLoaiMon.setVisibility(View.GONE);
                 Dialog dialog= builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,11 +112,7 @@ public class LoaiMonFragment extends Fragment {
                         int maNV = PreferencesHelper.getId(getContext());
                         lm.setMaNV(maNV);
                         lm.setTenLoai(edTenLoaiMon.getText().toString().trim());
-                        if(chkDialogTrangThaiLoaiMon.isChecked()){
-                            lm.setTrangThai(1);
-                        }else{
-                            lm.setTrangThai(0);
-                        }
+                        lm.setTrangThai(1);
                         if(ValidateLM()>0){
                             if(dao.insertLoaiMon(lm)>0){
                                 Toast.makeText(getActivity(), "Thêm thành công ", Toast.LENGTH_SHORT).show();

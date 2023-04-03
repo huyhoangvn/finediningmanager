@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity{
         insertTest();
         saveTaiKhoanMatKhau();
         login();
+        saveTaiKhoanMatKhau();
 //        nhanVienDAO = new NhanVienDAO(this);
 //        if (nhanVienDAO.checkDangnhap("myadmin","admin")){
 //            int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan("myadmin","admin");
@@ -196,10 +197,12 @@ public class LoginActivity extends AppCompatActivity{
         khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
+        
 //        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
 //
 //        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
 //        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
+
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 

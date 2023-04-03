@@ -119,6 +119,16 @@ public class NhanVienDAO {
         return "";
     }
 
+    @SuppressLint("Range")
+    public String hinh(int maNV) {
+        String sql = "SELECT hinh FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("hinh"));
+        }
+        return "";
+    }
+
 
 
     /*

@@ -33,6 +33,8 @@
         <item name="colorOnSurfaceVariant">@color/Light_OnSurfaceVariant</item>
         <!--Status bar color-->
         <item name="android:statusBarColor">@color/Light_Secondary</item>
+        <!--Custom-->
+        <item name="android:windowBackground">@drawable/dialog_background</item>
     </style>
 </resources>
 

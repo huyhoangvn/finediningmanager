@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,7 +50,7 @@ public class HoaDonFragment extends Fragment {
     TextInputLayout input_lyt_ngay,input_lyt_gio;
     CheckBox chkFragmentHoaDon;
     TextInputLayout inputTimKiemHoaDon;
-    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy;
+    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy,tvTatCa;
     FloatingActionButton fbtnThemHoaDon;
     int trangThaiHienTai;
 
@@ -64,10 +65,10 @@ public class HoaDonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        anhXa(view);
-        thongTinHoaDonDAO = new ThongTinHoaDonDAO(getContext());
         context = getContext();
-        trangThaiHienTai = 2;
+        thongTinHoaDonDAO = new ThongTinHoaDonDAO(context);
+
+        anhXa(view);
         timKiemHoaDon();
         dialogChonNgay();
         diaLogChonGio();
@@ -110,6 +111,8 @@ public class HoaDonFragment extends Fragment {
         input_lyt_ngay = view.findViewById(R.id.inputChonNgay_hoaDon);
         input_gio = view.findViewById(R.id.input_01_hoaDon_ChonGio);
         input_lyt_gio = view.findViewById(R.id.inputChonGio_hoaDon);
+        tvTatCa = view.findViewById(R.id.tvTatCa_hoaDon);
+
     }
 
     private void handleOnBackPressed() {
@@ -126,34 +129,41 @@ public class HoaDonFragment extends Fragment {
     }
 
     public void trangThaiThanhToan(){
+        tvTatCa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chuyenChon(trangThaiHienTai,-1);
+                trangThaiHienTai = -1;
+                hienThiTatCa();
+            }
+        });
+
         tvDaThanhToan.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
+                chuyenChon(trangThaiHienTai, 3);
                 trangThaiHienTai = 3;
-                thongTinHoaDonList.clear();
-                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),trangThaiHienTai));
-                hoaDonAdapter.notifyDataSetChanged();
+                capNhatHoaDon();
+
             }
         });
         tvChoThanhToan.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
+                chuyenChon(trangThaiHienTai, 2);
                 trangThaiHienTai=2;
-                thongTinHoaDonList.clear();
-                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),trangThaiHienTai));
-                hoaDonAdapter.notifyDataSetChanged();
+                capNhatHoaDon();
             }
         });
         tvDangDuocDat.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
+                chuyenChon(trangThaiHienTai, 1);
                 trangThaiHienTai=1;
-                thongTinHoaDonList.clear();
-                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),trangThaiHienTai));
-                hoaDonAdapter.notifyDataSetChanged();
+                capNhatHoaDon();
             }
 
         });
@@ -161,14 +171,48 @@ public class HoaDonFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View v) {
+                chuyenChon(trangThaiHienTai, 0);
                 trangThaiHienTai=0;
-                thongTinHoaDonList.clear();
-                thongTinHoaDonList.addAll( thongTinHoaDonDAO.getTrangThai(PreferencesHelper.getId(context),trangThaiHienTai));
-                hoaDonAdapter.notifyDataSetChanged();
+                capNhatHoaDon();
             }
         });
     }
 
+    /*
+    * Thay đổi nền của nút khi chuyển đổi qua lại giữa các lựa chọn trạng thái hóa đơn
+    * */
+    private void chuyenChon(int trangThaiHienTai, int i) {
+        if (trangThaiHienTai==-1){
+            tvTatCa.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
+        if(trangThaiHienTai == 1){
+            tvDangDuocDat.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
+        if(trangThaiHienTai == 2){
+            tvChoThanhToan.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
+        if(trangThaiHienTai == 3){
+            tvDaThanhToan.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
+        if(trangThaiHienTai == 0){
+            tvDaHuy.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
+        if (i==-1){
+            tvTatCa.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
+        }
+        if(i == 1){
+            tvDangDuocDat.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
+        }
+        if(i == 2){
+            tvChoThanhToan.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
+        }
+        if(i == 3){
+            tvDaThanhToan.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
+        }
+        if(i == 0){
+            tvDaHuy.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
+        }
+    }
 
     public void timKiemHoaDon(){
         input_gio.addTextChangedListener(new TextWatcher() {
@@ -184,8 +228,7 @@ public class HoaDonFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                hienThiHoaDon();
-
+                capNhatHoaDon();
             }
         });
         input_ngay.addTextChangedListener(new TextWatcher() {
@@ -201,8 +244,7 @@ public class HoaDonFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                hienThiHoaDon();
-
+                capNhatHoaDon();
             }
         });
         edTimKiem.addTextChangedListener(new TextWatcher() {
@@ -214,7 +256,11 @@ public class HoaDonFragment extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                hienThiHoaDon();
+                if(trangThaiHienTai==-1){
+                    hienThiTatCa();
+                } else {
+                    capNhatHoaDon();
+                }
             }
         });
         edTimKiem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -222,8 +268,11 @@ public class HoaDonFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_SEARCH){
-                    hienThiHoaDon();
-                    return true;
+                    if(trangThaiHienTai==-1){
+                        hienThiTatCa();
+                    } else {
+                        capNhatHoaDon();
+                    }                    return true;
                 }
                 return false;
             }
@@ -231,12 +280,16 @@ public class HoaDonFragment extends Fragment {
         inputTimKiemHoaDon.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hienThiHoaDon();
+                if(trangThaiHienTai==-1){
+                    hienThiTatCa();
+                } else {
+                    capNhatHoaDon();
+                }
             }
         });
     }
     @SuppressLint("NotifyDataSetChanged")
-    public void hienThiHoaDon(){
+    public void capNhatHoaDon(){
         int maNV = PreferencesHelper.getId(context);
         String timKiem = edTimKiem.getText().toString().trim();
         String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
@@ -244,26 +297,35 @@ public class HoaDonFragment extends Fragment {
         thongTinHoaDonList.clear();
         thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio));
         hoaDonAdapter.notifyDataSetChanged();
-//        hoaDonAdapter = new HoaDonAdapter(getActivity(), thongTinHoaDonList,null);
-//        rcv_HoaDon.setAdapter(hoaDonAdapter);
-
+    }
+    public void hienThiTatCa(){
+        int maNV = PreferencesHelper.getId(context);
+        String timKiem = edTimKiem.getText().toString().trim();
+        String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
+        String gio = input_gio.getText().toString().trim();
+        thongTinHoaDonList.clear();
+        thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTatCa(maNV, timKiem,ngay,gio));
+        hoaDonAdapter.notifyDataSetChanged();
     }
     private void khoiTaoFragmentManager() {
         fmHoaDon = getParentFragmentManager();
         fmHoaDon.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                hienThiHoaDon();
+                trangThaiHienTai = -1;
+                hienThiTatCa();
             }
         });
     }
 
     public void hienThiDanhSachHoaDon(){
+        trangThaiHienTai = -1;
+        chuyenChon(trangThaiHienTai, -1);
         int maNV = PreferencesHelper.getId(context);
         String timKiem = edTimKiem.getText().toString().trim();
         String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
         String gio = input_gio.getText().toString().trim();
-        thongTinHoaDonList =  thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio);
+        thongTinHoaDonList =  thongTinHoaDonDAO.getTatCa(maNV, timKiem,ngay,gio);
         hoaDonAdapter = new HoaDonAdapter(context, thongTinHoaDonList, new IEditListenerHoaDon() {
             @Override
             public void showEditFragment(int maHD) {
