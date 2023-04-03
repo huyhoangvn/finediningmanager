@@ -50,7 +50,7 @@ public class HoaDonFragment extends Fragment {
     TextInputLayout input_lyt_ngay,input_lyt_gio;
     CheckBox chkFragmentHoaDon;
     TextInputLayout inputTimKiemHoaDon;
-    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy;
+    TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy,tvTatCa;
     FloatingActionButton fbtnThemHoaDon;
     int trangThaiHienTai;
 
@@ -111,6 +111,8 @@ public class HoaDonFragment extends Fragment {
         input_lyt_ngay = view.findViewById(R.id.inputChonNgay_hoaDon);
         input_gio = view.findViewById(R.id.input_01_hoaDon_ChonGio);
         input_lyt_gio = view.findViewById(R.id.inputChonGio_hoaDon);
+        tvTatCa = view.findViewById(R.id.tvTatCa_hoaDon);
+
     }
 
     private void handleOnBackPressed() {
@@ -127,6 +129,15 @@ public class HoaDonFragment extends Fragment {
     }
 
     public void trangThaiThanhToan(){
+        tvTatCa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chuyenChon(trangThaiHienTai,-1);
+                trangThaiHienTai = -1;
+                hienThiTatCa();
+            }
+        });
+
         tvDaThanhToan.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -171,6 +182,9 @@ public class HoaDonFragment extends Fragment {
     * Thay đổi nền của nút khi chuyển đổi qua lại giữa các lựa chọn trạng thái hóa đơn
     * */
     private void chuyenChon(int trangThaiHienTai, int i) {
+        if (trangThaiHienTai==-1){
+            tvTatCa.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
         if(trangThaiHienTai == 1){
             tvDangDuocDat.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
         }
@@ -182,6 +196,9 @@ public class HoaDonFragment extends Fragment {
         }
         if(trangThaiHienTai == 0){
             tvDaHuy.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_normal_background));
+        }
+        if (i==-1){
+            tvTatCa.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
         }
         if(i == 1){
             tvDangDuocDat.setBackground(AppCompatResources.getDrawable(context, R.drawable.filter_item_clicked_background));
@@ -270,24 +287,34 @@ public class HoaDonFragment extends Fragment {
         thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio));
         hoaDonAdapter.notifyDataSetChanged();
     }
+    public void hienThiTatCa(){
+        int maNV = PreferencesHelper.getId(context);
+        String timKiem = edTimKiem.getText().toString().trim();
+        String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
+        String gio = input_gio.getText().toString().trim();
+        thongTinHoaDonList.clear();
+        thongTinHoaDonList.addAll(thongTinHoaDonDAO.getTatCa(maNV, timKiem,ngay,gio));
+        hoaDonAdapter.notifyDataSetChanged();
+    }
     private void khoiTaoFragmentManager() {
         fmHoaDon = getParentFragmentManager();
         fmHoaDon.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
-                capNhatHoaDon();
+                trangThaiHienTai = -1;
+                hienThiTatCa();
             }
         });
     }
 
     public void hienThiDanhSachHoaDon(){
-        trangThaiHienTai = 2;
-        chuyenChon(trangThaiHienTai, 2);
+        trangThaiHienTai = -1;
+        chuyenChon(trangThaiHienTai, -1);
         int maNV = PreferencesHelper.getId(context);
         String timKiem = edTimKiem.getText().toString().trim();
         String ngay = DateHelper.getDateSql(input_ngay.getText().toString().trim());
         String gio = input_gio.getText().toString().trim();
-        thongTinHoaDonList =  thongTinHoaDonDAO.getTrangThaiHoaDon(maNV, timKiem, trangThaiHienTai,ngay,gio);
+        thongTinHoaDonList =  thongTinHoaDonDAO.getTatCa(maNV, timKiem,ngay,gio);
         hoaDonAdapter = new HoaDonAdapter(context, thongTinHoaDonList, new IEditListenerHoaDon() {
             @Override
             public void showEditFragment(int maHD) {

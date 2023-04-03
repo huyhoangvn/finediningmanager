@@ -319,6 +319,24 @@ public class SuaHoaDonFragment extends Fragment {
             rdoHuy.setChecked(true);
         }
     }
+    private void getTTHoaDonSua() {
+        khachDAO = new KhachDAO(getContext());
+        String tenKhach = khachDAO.getTenKhach(maHD);
+        input_tenKH.setText(tenKhach);
+
+        hoaDonDAO = new HoaDonDAO(getContext());
+        int soLuongKhach = hoaDonDAO.getSoLuongKhach(maHD);
+        input_soLuongKhach.setText("" + soLuongKhach);
+
+        String thoiGianDat = hoaDonDAO.getNgayDat(maHD);
+        String ngayDat = thoiGianDat.substring(0, 10);
+        String gioDat = thoiGianDat.substring(10, 16);
+        input_ngayDat.setText("" + ngayDat);
+        input_GioDat.setText("" + gioDat);
+    }
+
+
+
 
     /*
     * Hiển thị danh sách bàn đã đặt của hóa đơn hiện tại lên edit text chọn bàn
@@ -362,6 +380,7 @@ public class SuaHoaDonFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 hienThiBanDaDat();
                 hienThiMonDaDat();
+                getTTHoaDonSua();
                 if(rdoDaThanhToan.isChecked() || rdoHuy.isChecked()){
                     input_ban.setClickable(false);
                     input_mon.setClickable(false);
@@ -526,7 +545,7 @@ public class SuaHoaDonFragment extends Fragment {
             }
         });
         dialog.show();
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE| WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
     }
 
     void upDateMon() {
