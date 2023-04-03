@@ -256,7 +256,11 @@ public class HoaDonFragment extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                capNhatHoaDon();
+                if(trangThaiHienTai==-1){
+                    hienThiTatCa();
+                } else {
+                    capNhatHoaDon();
+                }
             }
         });
         edTimKiem.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -264,8 +268,11 @@ public class HoaDonFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_SEARCH){
-                    capNhatHoaDon();
-                    return true;
+                    if(trangThaiHienTai==-1){
+                        hienThiTatCa();
+                    } else {
+                        capNhatHoaDon();
+                    }                    return true;
                 }
                 return false;
             }
@@ -273,7 +280,11 @@ public class HoaDonFragment extends Fragment {
         inputTimKiemHoaDon.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                capNhatHoaDon();
+                if(trangThaiHienTai==-1){
+                    hienThiTatCa();
+                } else {
+                    capNhatHoaDon();
+                }
             }
         });
     }
