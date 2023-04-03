@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <RadioGroup
-        android:id="@+id/group_fThemNhanVien_gioiTinh"
+        android:id="@+id/group_Thogke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

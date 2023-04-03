@@ -13,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
@@ -37,40 +41,84 @@ public class ThongKeMonFragment extends Fragment {
     List<ThongTinMon> list;
     RecyclerView rcvMonHot;
     MonBanChayAdapter adapter;
-
     TextInputLayout inputLayoutThang,inputLayoutNam;
     AppCompatButton btnTim;
     RadioButton rdoTkDoanhThu,rdoTkSoLuong;
+    RadioGroup groupThongKe;
     ThongTinMonDAO tinMonDAO;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
-//        evRcvTk();
+        khoiTaoistenergroupThongKe();
         evTim();
     }
 
+    private void khoiTaoistenergroupThongKe() {
+        rdoTkSoLuong.setChecked(true);
+        evRcvTkMonSoLuong();
+        groupThongKe.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (rdoTkSoLuong.isChecked()){
+                    evRcvTkMonSoLuong();
+                }
+                if (rdoTkDoanhThu.isChecked()){
+                    evRcvTkMonDoanhthu();
+                }
+
+
+            }
+        });
+    }
     private void evTim() {
         btnTim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nhapNgayNam();
+                if (rdoTkSoLuong.isChecked()) {
+                    thongKeNhapNgayNamSoLuong();
+                } else if (rdoTkDoanhThu.isChecked()) {
+                    thongKeNhapNgayNamDoanhthu();
+                }
             }
         });
     }
 
-    void nhapNgayNam(){
+
+    void thongKeNhapNgayNamSoLuong(){
+        list.clear();
         tinMonDAO = new ThongTinMonDAO(getContext());
         String thang = inputLayoutThang.getEditText().getText().toString();
+        thang = String.format("%02d", Integer.parseInt(thang));
         String nam = inputLayoutNam.getEditText().getText().toString();
-        list = tinMonDAO.gettopmonThangNam(thang,nam);
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam);
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
     }
 
-    private void evRcvTk() {
+    void thongKeNhapNgayNamDoanhthu(){
+        list.clear();
         tinMonDAO = new ThongTinMonDAO(getContext());
-        list = tinMonDAO.gettopmonTheoNam("2023");
+        String thang = inputLayoutThang.getEditText().getText().toString();
+        thang = String.format("%02d", Integer.parseInt(thang));
+        String nam = inputLayoutNam.getEditText().getText().toString();
+        list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
+        adapter = new MonBanChayAdapter(getContext(),list);
+        rcvMonHot.setAdapter(adapter);
+
+    }
+
+    private void evRcvTkMonSoLuong() {
+        tinMonDAO = new ThongTinMonDAO(getContext());
+        list = tinMonDAO.getTop10MonSoLuongCaoNhat();
+        adapter = new MonBanChayAdapter(getContext(),list);
+        rcvMonHot.setAdapter(adapter);
+    }
+
+    private void evRcvTkMonDoanhthu() {
+        list.clear();
+        tinMonDAO = new ThongTinMonDAO(getContext());
+        list = tinMonDAO.getTop10MonDoanhThuCaoNhat();
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
     }
@@ -82,5 +130,6 @@ public class ThongKeMonFragment extends Fragment {
         btnTim = view.findViewById(R.id.btn_tim_TkMon);
         rdoTkDoanhThu = view.findViewById(R.id.rdo_thongke_mon_DoanhThu);
         rdoTkSoLuong = view.findViewById(R.id.rdo_thongke_mon_SoLuong);
+        groupThongKe = view.findViewById(R.id.group_Thogke);
     }
 }
