@@ -11,6 +11,7 @@ import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.model.Mon;
 
 
 public class BanDAO {
@@ -41,10 +42,7 @@ public class BanDAO {
         return db.delete("ban", "maBan=?", new String[]{id});
     }
 
-    public List<Ban> getAllBan() {
-        String sql = "select*from ban";
-        return getDaTa(sql);
-    }
+
 
     @SuppressLint("Range")
     public String getViTri(int maBan) {
@@ -81,10 +79,20 @@ public class BanDAO {
         }
         return list;
     }
+    public List<Ban> trangThaiBan(int maNV, int trangThai, String timKiem) {
+        String sql = "Select b.maBan,b.maLB, b.trangThai, b.viTri from ban b " +
+                "JOIN loaiban lb ON lb.maLB = lb.maLB " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.trangThai >= ? " +
+                "AND b.maBan ? " +
+                "ORDER BY b.trangThai DESC, b.maBan ASC";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"));
+    }
 
 
-
-    public List<Ban> gettimKiem(int maNV, String timKiem, String trangThai) {
+    public List<Ban> gettimKiem(int maNV, String timKiem, int trangThai) {
         String sql = "Select b.maBan,b.maLB,b.viTri,b.trangThai from ban b " +
                 "JOIN loaiban lb ON lb.maLB = b.maLB " +
                 "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
@@ -141,5 +149,6 @@ public class BanDAO {
         values.put("trangThai", 1);
         return db.update("loaiban", values, "maLB = ?", new String[]{String.valueOf(maLB)});
     }
+
 
 }
