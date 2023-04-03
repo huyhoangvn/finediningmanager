@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +84,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 View view=inflater.inflate(R.layout.dialog_hoadon_chitiet,null);
                 builder.setView(view);
                 Dialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 TextView tv_tenKhach = view.findViewById(R.id.tv_tenKhach_dialog_hoaDon_chiTiet);
                 TextView tv_tenNhanVien = view.findViewById(R.id.tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet);

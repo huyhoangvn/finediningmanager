@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/mCheckBox"
-            android:text="Không còn trống"/>
+            android:text="Không còn dùng"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

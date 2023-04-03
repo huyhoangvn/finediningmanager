@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,8 +100,9 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
 
                 Dialog dialog = builder.create();
-                if (chkTrangThaiLoaiBan.isChecked()) {
-                    chkTrangThaiLoaiBan.setChecked(true);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                if (loaiBan.getTrangThai() == 1) {
+                    chkDialogTrangThaiLoaiBan.setChecked(true);
                 } else {
                     chkTrangThaiLoaiBan.setChecked(false);
                 }

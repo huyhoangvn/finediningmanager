@@ -2,10 +2,10 @@ package sp23cp18103.nhom2.finedining.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +16,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.DatMonDAO;
+import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
 import sp23cp18103.nhom2.finedining.fragment.ThemHoaDonFragment;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
@@ -36,6 +42,10 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     InterfaceDatMon interfaceDatMon;
 
     ThongTinDatMon thongTinDatMon;
+
+    HoaDonDAO hoaDonDAO;
+
+    List<ThongTinDatMon> listDatMonMoi;
 
 
     int maHD;
@@ -78,12 +88,32 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
 
     @Override
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        DatMonDAO datMonDAO = new DatMonDAO(context);
         Mon mon = monList.get(position);
         holder.tvTen.setText("" + mon.getTenMon());
         holder.tvGia.setText("" + mon.getGia());
-//        datMonDAO.getDatMonTheoHoaDon()
         holder.edSoLuongMon.setText("0");
+
+        hoaDonDAO = new HoaDonDAO(context);
+        int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPrefSaveListDat", Context.MODE_PRIVATE);
+        String jsonListDatMon = sharedPreferences.getString("listDatMon", "");
+        Type type = new TypeToken<ArrayList<ThongTinDatMon>>(){}.getType();
+        listDatMonMoi = new Gson().fromJson(jsonListDatMon, type);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (listDatMonMoi != null){
+            for (ThongTinDatMon datMon : listDatMonMoi) {
+                if (datMon.getMaHD() == maHoaDonSapThem) {
+                    if (datMon.getMaHD() == maHoaDonSapThem && datMon.getTenMon().equalsIgnoreCase(mon.getTenMon())) {
+                        holder.edSoLuongMon.setText("" + datMon.getSoLuong());
+                        interfaceDatMon.getMaMon(mon.getMaMon(), String.valueOf(datMon.getSoLuong()));
+                    }
+                } else if (maHoaDonSapThem != sharedPreferences.getInt("maHD", 0)) {
+                    editor.remove("listDatMon");
+                    editor.apply();
+                }
+            }
+        }
 
         holder.edSoLuongMon.addTextChangedListener(new TextWatcher() {
             @Override
@@ -118,12 +148,6 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
         if (listThongTinMon != null){
              listThongTinMon.toString();
         }
-
-
-
-
-
-
     }
 
     @Override

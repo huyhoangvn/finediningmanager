@@ -33,7 +33,7 @@
                         android:layout_height="wrap_content"
                         android:text="Số món: "/>
                     <TextView
-                        android:id="@+id/tv_SoBanTrong"
+                        android:id="@+id/tvCardviewSoMon"
                         style="@style/mNormalText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -52,7 +52,8 @@
                 android:id="@+id/imgCardviewSuaLoaiMon"
                 style="@style/mImageButton"
                 android:src="@drawable/ic_sua_thongtin"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                android:layout_gravity="center"/>
         </LinearLayout>
 </androidx.cardview.widget.CardView>
 

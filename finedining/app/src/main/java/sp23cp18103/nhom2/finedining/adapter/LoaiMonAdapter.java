@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,9 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             holder.tvTrangThai.setText("Không dùng");
             holder.tvTrangThai.setTextColor(Color.RED);
         }
+//        int maLM = lm.getMaLM();
+        int maNV = PreferencesHelper.getId(context);
+        holder.tvCardviewSoMon.setText( String.valueOf(dao.getSoLuongMon(maNV, lm.getMaLM())));
         holder.imgSuaTenLoaiMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +87,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                 btnDialogHuyLoaiMon = view.findViewById(R.id.btnDialogHuyLoaiMon);
                 edTenLoaiMon.setText(lm.getTenLoai());
                 Dialog dialog= builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int maNV = PreferencesHelper.getId(context);
                 if(lm.getTrangThai()==1){
                     chkDialogTrangThaiLoaiMon.setChecked(true);
@@ -142,7 +147,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
 
 
     class loaiMonViewHolder extends RecyclerView.ViewHolder {
-        TextView tvtenLoaiMon, tvTrangThai;
+        TextView tvtenLoaiMon, tvTrangThai, tvCardviewSoMon;
         ImageView imgSuaTenLoaiMon;
 
         public loaiMonViewHolder(@NonNull View itemView) {
@@ -150,6 +155,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             tvtenLoaiMon = itemView.findViewById(R.id.tvCarviewTenLoaiMon);
             imgSuaTenLoaiMon = itemView.findViewById(R.id.imgCardviewSuaLoaiMon);
             tvTrangThai = itemView.findViewById(R.id.tvCardviewTrangThaiLM);
+            tvCardviewSoMon = itemView.findViewById(R.id.tvCardviewSoMon);
         }
     }
 }

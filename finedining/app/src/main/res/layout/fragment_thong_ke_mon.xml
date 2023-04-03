@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_nam_thongKeDoanhThu"
+            android:id="@+id/input_thongkeMon_thang"
             style="@style/mInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,6 +27,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_thongkeMon_Nam"
             style="@style/mInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,6 +43,7 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_tim_TkMon"
         style="@style/mButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,24 +59,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <RadioGroup
-        android:id="@+id/group_fThemNhanVien_gioiTinh"
+        android:id="@+id/group_Thogke"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
         <RadioButton
-            android:id="@+id/rdo_fThemNhanVien_nam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Doanh thu"
-            android:layout_weight="1"/>
-        <RadioButton
-            android:id="@+id/rdo_fThemNhanVien_nu"
+            android:id="@+id/rdo_thongke_mon_SoLuong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Số lượng"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/rdo_thongke_mon_DoanhThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Doanh thu"
             android:layout_weight="1"/>
     </RadioGroup>
 </LinearLayout>

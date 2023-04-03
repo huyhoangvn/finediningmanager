@@ -4,13 +4,22 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
@@ -32,15 +41,95 @@ public class ThongKeMonFragment extends Fragment {
     List<ThongTinMon> list;
     RecyclerView rcvMonHot;
     MonBanChayAdapter adapter;
+    TextInputLayout inputLayoutThang,inputLayoutNam;
+    AppCompatButton btnTim;
+    RadioButton rdoTkDoanhThu,rdoTkSoLuong;
+    RadioGroup groupThongKe;
+    ThongTinMonDAO tinMonDAO;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcvMonHot = view.findViewById(R.id.rcv_monhot);
-        ThongTinMonDAO tinMonDAO = new ThongTinMonDAO(getContext());
-        list = tinMonDAO.getTopMon();
-        list.toString();
+        anhXa(view);
+        khoiTaoistenergroupThongKe();
+        evTim();
+    }
+
+    private void khoiTaoistenergroupThongKe() {
+        rdoTkSoLuong.setChecked(true);
+        evRcvTkMonSoLuong();
+        groupThongKe.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (rdoTkSoLuong.isChecked()){
+                    evRcvTkMonSoLuong();
+                }
+                if (rdoTkDoanhThu.isChecked()){
+                    evRcvTkMonDoanhthu();
+                }
+
+
+            }
+        });
+    }
+    private void evTim() {
+        btnTim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rdoTkSoLuong.isChecked()) {
+                    thongKeNhapNgayNamSoLuong();
+                } else if (rdoTkDoanhThu.isChecked()) {
+                    thongKeNhapNgayNamDoanhthu();
+                }
+            }
+        });
+    }
+
+
+    void thongKeNhapNgayNamSoLuong(){
+        list.clear();
+        tinMonDAO = new ThongTinMonDAO(getContext());
+        String thang = inputLayoutThang.getEditText().getText().toString();
+        thang = String.format("%02d", Integer.parseInt(thang));
+        String nam = inputLayoutNam.getEditText().getText().toString();
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam);
+        adapter = new MonBanChayAdapter(getContext(),list);
+        rcvMonHot.setAdapter(adapter);
+    }
+
+    void thongKeNhapNgayNamDoanhthu(){
+        list.clear();
+        tinMonDAO = new ThongTinMonDAO(getContext());
+        String thang = inputLayoutThang.getEditText().getText().toString();
+        thang = String.format("%02d", Integer.parseInt(thang));
+        String nam = inputLayoutNam.getEditText().getText().toString();
+        list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
 
+    }
+
+    private void evRcvTkMonSoLuong() {
+        tinMonDAO = new ThongTinMonDAO(getContext());
+        list = tinMonDAO.getTop10MonSoLuongCaoNhat();
+        adapter = new MonBanChayAdapter(getContext(),list);
+        rcvMonHot.setAdapter(adapter);
+    }
+
+    private void evRcvTkMonDoanhthu() {
+        list.clear();
+        tinMonDAO = new ThongTinMonDAO(getContext());
+        list = tinMonDAO.getTop10MonDoanhThuCaoNhat();
+        adapter = new MonBanChayAdapter(getContext(),list);
+        rcvMonHot.setAdapter(adapter);
+    }
+
+    private void anhXa(View view) {
+        inputLayoutNam = view.findViewById(R.id.input_thongkeMon_Nam);
+        inputLayoutThang = view.findViewById(R.id.input_thongkeMon_thang);
+        rcvMonHot = view.findViewById(R.id.rcv_monhot);
+        btnTim = view.findViewById(R.id.btn_tim_TkMon);
+        rdoTkDoanhThu = view.findViewById(R.id.rdo_thongke_mon_DoanhThu);
+        rdoTkSoLuong = view.findViewById(R.id.rdo_thongke_mon_SoLuong);
+        groupThongKe = view.findViewById(R.id.group_Thogke);
     }
 }

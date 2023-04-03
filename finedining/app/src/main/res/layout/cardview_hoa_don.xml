@@ -1,76 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/mCardviewMedium"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        style="@style/mCardviewMedium"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/imgBill"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="5dp"
-            android:layout_gravity="center"
-            android:text="Chi tiết"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:drawableTop="@drawable/ic_chitiet_hoadon"
-            android:drawableTint="@color/Light_Secondary"
-            android:textColor="?attr/colorSecondary"
-            android:background="@android:color/transparent"
-            android:backgroundTint="?attr/colorSecondaryContainer"
-            tools:ignore="UnusedAttribute" />
-
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/tv_thoiGianXuat_CardView_HoaDon"
-                style="@style/mHeaderText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="01-10-2000 20:10"/>
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/imgBill"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center"
+                android:text="Chi tiết"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:drawableTop="@drawable/ic_chitiet_hoadon"
+                android:drawableTint="@color/Light_Secondary"
+                android:textColor="?attr/colorSecondary"
+                android:background="@android:color/transparent"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                tools:ignore="UnusedAttribute" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_weight="1">
                 <TextView
-                    style="@style/mLabelText"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_thoiGianXuat_CardView_HoaDon"
+                    style="@style/mHeaderText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Người trả: "/>
+                    android:text="01-10-2000 20:10"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/mLabelText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Người trả: "/>
+                    <TextView
+                        android:id="@+id/tv_tenKhach_CardView_HoaDon"
+                        style="@style/mNormalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nguyễn Huy Hoàng"/>
+                </LinearLayout>
+
                 <TextView
-                    android:id="@+id/tv_tenKhach_CardView_HoaDon"
-                    style="@style/mNormalText"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_trangThai_CardView_HoaDon"
+                    style="@style/mBoldText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nguyễn Huy Hoàng"/>
+                    android:text="Chờ thanh toán"/>
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_trangThai_CardView_HoaDon"
-                style="@style/mBoldText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chờ thanh toán"/>
-
+            <ImageButton
+                android:id="@+id/imgBtn_edit_CardView_HoaDon"
+                style="@style/mImageButton"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_sua_thongtin"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-        <ImageButton
-            android:id="@+id/imgBtn_edit_CardView_HoaDon"
-            style="@style/mImageButton"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_sua_thongtin"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/img_thongbao_CardView_HoaDon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_thongbao_datban"
+        app:tint="@color/Negative"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:translationZ="20dp"
+        android:visibility="gone"
+        tools:ignore="ContentDescription"/>
+</RelativeLayout>

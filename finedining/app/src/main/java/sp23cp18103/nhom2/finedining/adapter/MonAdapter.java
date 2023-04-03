@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     int maLoaiMon, positionLM;
     TextInputEditText edDialogTenMon, edDialogGia;
     GalleryHelper galleryHelper;
+    NhanVienDAO nhanVienDAO;
 
     public MonAdapter( Context context, List<Mon> list) {
         this.context = context;
@@ -69,6 +71,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     public void onBindViewHolder(@NonNull MonViewHolder holder, int position) {
         hideFloatingButton(holder);
         Mon m =list.get(position);
+        nhanVienDAO = new NhanVienDAO(context);
         dao = new MonDAO(context);
         holder.tvCardviewTenMon.setText(m.getTenMon());
         loaiMonDAO = new LoaiMonDAO(context);
@@ -86,6 +89,12 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         holder.imgcardviewSuaMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context));
+                if(phanQuyen == 1){
+                    holder.imgcardviewSuaMon.setVisibility(View.VISIBLE);
+                }else{
+                    holder.imgcardviewSuaMon.setVisibility(View.INVISIBLE);
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 LayoutInflater inflater=((Activity)context).getLayoutInflater();
                 View view=inflater.inflate(R.layout.dialog_mon,null);
@@ -101,6 +110,8 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
                 tv_tieude_mon.setText("Sửa món");
+                Dialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 edDialogTenMon.setText(m.getTenMon());
                 edDialogGia.setText(String.valueOf(m.getGia()));
                 imgDialogMon.setOnClickListener(new View.OnClickListener() {
@@ -110,15 +121,15 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                     }
                 });
                 ImageHelper.loadAvatar(context,imgDialogMon,m.getHinh());
-                Dialog dialog = builder.create();
+
                 if(m.getTrangThai()==1){
                     chkTrangThaiMon.setChecked(true);
                 }else{
                     chkTrangThaiMon.setChecked(false);
                 }
                 int maNV = PreferencesHelper.getId(context);
-                int trangThai = (chkTrangThaiMon.isChecked())?1:0;
-                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, trangThai, "");
+                int trangThai = (chkTrangThaiMon.isChecked())?0:1;
+                listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
                 for(int i = 0; i<listLoaiMon.size(); i++){
@@ -160,9 +171,13 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                                 m.setTrangThai(1);
                             }
                         }else{
-                            //Update tat ca dat mon cua tat ca hoa don co mon nay
-                            // trong trang thai cho thanh toan
-                            m.setTrangThai(0);
+                            int maMon = m.getMaMon();
+                            int maNV = PreferencesHelper.getId(context);
+                            if(dao.getTrangThaiDatMon(maMon, maNV)>0){
+                                m.setTrangThai(0);
+                            }else{
+                                m.setTrangThai(0);
+                            }
                         }
                         for(int i = 0; i<listLoaiMon.size(); i++){
                             if(m.getMaMon() == (listLoaiMon.get(i).getMaLM())){
