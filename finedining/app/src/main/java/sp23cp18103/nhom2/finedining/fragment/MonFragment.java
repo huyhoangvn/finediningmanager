@@ -275,6 +275,7 @@ public class MonFragment extends Fragment {
         listFilter = loaiMonDAO.getFilterMon(maNV);
         listFilter.add(0,"Tất cả");
         loaiMonFilterAdapter = new LoaiMonFilterAdapter(getContext(), listFilter, new ILoaiMonFilter(){
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void locMon(String tenLoaiMon) {
                 if(tenLoaiMon.equalsIgnoreCase("Tất cả")){
@@ -282,9 +283,9 @@ public class MonFragment extends Fragment {
                 }else{
                     int maNV = PreferencesHelper.getId(getContext());
                     int trangThai = (chkFragmentMon.isChecked())?0:1;
-                    list = dao.trangThaiLoaiMon(maNV, trangThai, tenLoaiMon);
-                    adapter = new MonAdapter(getContext(), list);
-                    rcvMon.setAdapter(adapter);
+                    list.clear();
+                    list.addAll(dao.trangThaiLoaiMon(maNV, trangThai, tenLoaiMon));
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
