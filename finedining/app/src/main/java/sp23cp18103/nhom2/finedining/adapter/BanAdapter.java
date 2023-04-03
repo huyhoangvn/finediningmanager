@@ -31,6 +31,7 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.DatBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -46,13 +47,11 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
     CheckBox chkTrangThaiBan;
     AppCompatButton btnShaveBan, btnCancelBan;
     Spinner spnrBan;
-    List<LoaiBan> listloaiban;
     LoaiBanDAO loaiBanDAO;
     LoaiBan loaiBan;
     BanSpinnerAdapter banSpinnerAdapter;
     DatBanDAO datBanDAO;
-    int positionLB;
-
+    NhanVienDAO nhanVienDAO;
     public BanAdapter(Context context, List<Ban> list) {
         this.context = context;
         this.list = list;
@@ -67,6 +66,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BanViewHolder holder, int position) {
+        anChucNang(holder);
         int manv = PreferencesHelper.getId(context);
         Ban ban = list.get(position);
         datBanDAO = new DatBanDAO(context);
@@ -100,7 +100,6 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_ban, null);
         builder.setView(view);
-
         TextView tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
         tvTieuDeBan.setText("Sửa loại loại bàn");
 
@@ -150,8 +149,6 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
                 } else {
                     ban.setTrangThai(0);
                 }
-
-
                 ban.setViTri((edViTriBan.getText().toString()));
                 if (banDAO.updateban(ban) > 0) {
                     Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
@@ -160,6 +157,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
                 } else {
                     Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
                 }
+
                 if (ban.getTrangThai()==0){
                     datBanDAO.getHuyTrangThaiDatBan(ban.getMaBan(),manv);
                 }
@@ -201,5 +199,12 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             }
         }
     }
+    void anChucNang(BanViewHolder holder){
 
+        nhanVienDAO = new NhanVienDAO(context);
+        int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context));
+        if(phanQuyen == 0){
+            holder.imgSua.setVisibility(View.GONE);
+        }
+    }
 }

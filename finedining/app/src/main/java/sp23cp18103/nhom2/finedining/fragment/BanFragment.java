@@ -46,6 +46,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiBanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.NhanVienAdapter;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
@@ -74,14 +75,12 @@ public class BanFragment extends Fragment {
     LoaiBanDAO loaiBanDAO;
     TextInputLayout inputTimKiemViTri;
     EditText edTimBan;
-
+    NhanVienDAO nhanVienDAO;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ban, container, false);
-
-        return view;
+       return inflater.inflate(R.layout.fragment_ban, container, false);
     }
 
     @Override
@@ -96,12 +95,12 @@ public class BanFragment extends Fragment {
         fab = view.findViewById(R.id.fbtnBan);
         banDAO = new BanDAO(getContext());
         context = getContext();
-
-
-        khoiTaoRecyclerView();
+        anChucNang();
         khoiTaoCheckboxListener();
+        khoiTaoRecyclerView();
         khoiTaoTimKiem();
         CapNhat();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +127,7 @@ public class BanFragment extends Fragment {
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
         btnCancelBan = view.findViewById(R.id.btnCancelBan);
         Dialog dialog = builder.create();
+        chkTrangThaiBan.setChecked(true);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         banDAO = new BanDAO(getContext());
         loaiBanDAO = new LoaiBanDAO(getContext());
@@ -159,6 +159,7 @@ public class BanFragment extends Fragment {
                     ban.setMaLB(loaiBan.getMaLB());
                     ban.setViTri(edViTriBan.getText().toString());
                     // ban.setMaNV(maNV);
+                    ;
                     if (chkTrangThaiBan.isChecked()) {
                         ban.setTrangThai(1);
                     } else {
@@ -265,4 +266,11 @@ public class BanFragment extends Fragment {
         banAdapter.notifyDataSetChanged();
     }
 
+    void anChucNang(){
+        nhanVienDAO = new NhanVienDAO(context);
+         int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(getContext()));
+        if(phanQuyen == 0){
+            fab.setVisibility(View.GONE);
+        }
+    }
 }

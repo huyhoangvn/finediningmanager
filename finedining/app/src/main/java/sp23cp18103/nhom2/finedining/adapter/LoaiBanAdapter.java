@@ -31,6 +31,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiBanFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -44,10 +45,10 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     LoaiBanFragment fragment;
     TextInputEditText edTenLoaiBan;
     TextInputEditText edSoChoNgoi;
-    CheckBox chkDialogTrangThaiLoaiBan;
+    CheckBox chkTrangThaiLoaiBan;
     AppCompatButton btn_ShaveLoaiBan, btn_CancelLoaiBan;
     LoaiBanDAO dao;
-
+    NhanVienDAO nhanVienDAO;
     public LoaiBanAdapter(List<LoaiBan> mListLoaiBan, Context context) {
         this.mListLoaiBan = mListLoaiBan;
         this.context = context;
@@ -62,16 +63,17 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
 
     @Override
     public void onBindViewHolder(@NonNull LoaiBanViewHolder holder, int position) {
+        anChucNang(holder);
         LoaiBan loaiBan = mListLoaiBan.get(position);
         dao = new LoaiBanDAO(context);
-        int tongSoBan = dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
-        int soBanDay = dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
+        int tongSoBan = dao.getTongBan(loaiBan.getMaLB(), PreferencesHelper.getId(context));
+        int soBanDay = dao.getSoLuongBan(loaiBan.getMaLB(), PreferencesHelper.getId(context));
 
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
         holder.tv_SoBan.setText(String.valueOf(tongSoBan));
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
 
-        holder.tv_SoBanTrongBan.setText(String.valueOf(tongSoBan-soBanDay));
+        holder.tv_SoBanTrongBan.setText(String.valueOf(tongSoBan - soBanDay));
 
         if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText("Dùng");
@@ -92,7 +94,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 tv_tieude_loaiban.setText("Sửa loại loại bàn");
 
                 edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
-                chkDialogTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
+                chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
                 btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
                 btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
@@ -102,7 +104,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 if (loaiBan.getTrangThai() == 1) {
                     chkDialogTrangThaiLoaiBan.setChecked(true);
                 } else {
-                    chkDialogTrangThaiLoaiBan.setChecked(false);
+                    chkTrangThaiLoaiBan.setChecked(false);
                 }
 
                 btn_CancelLoaiBan.setOnClickListener(new View.OnClickListener() {
@@ -115,36 +117,32 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 btn_ShaveLoaiBan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int maNV= PreferencesHelper.getId(context);
-
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
-//                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
+                        if (tenLoai.isEmpty()) {
+                            edTenLoaiBan.setError("Không được để trống");
 
+                            return;
+                        }
+                        // thuc hien chuc nang
+                        int maNV = PreferencesHelper.getId(context);
                         loaiBan.setTenLoai(tenLoai);
-                        if (chkDialogTrangThaiLoaiBan.isChecked()) {
+                        if (loaiBan.getTrangThai()==1) {
                             loaiBan.setTrangThai(1);
                         } else {
-                            if (dao.getlienKetTrangThai(loaiBan.getMaLB(),maNV)>0){
+                            if (dao.getlienKetTrangThai(loaiBan.getMaLB(), maNV) > 0) {
                                 Toast.makeText(context, "Còn tồn tại bàn", Toast.LENGTH_SHORT).show();
                                 return;
-                            }
-                            else {
+                            } else {
                                 loaiBan.setTrangThai(0);
                             }
                         }
-                        if (tenLoai.isEmpty() ) {
-                            edTenLoaiBan.setError("Không được để trống");
-                            edSoChoNgoi.setError("Không được để trống");
-                            return;
-                        } else {
 //                            loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
-                            if (dao.updateloaiban(loaiBan) > 0) {
-                                Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            } else {
-                                Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
-                            }
+                        if (dao.updateloaiban(loaiBan) > 0) {
+                            Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -159,7 +157,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     }
 
     public class LoaiBanViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan,tv_SoBanTrongBan,tv_SoBan;
+        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan, tv_SoBanTrongBan, tv_SoBan;
         ImageButton img_Sua_LoaiBan;
 
         public LoaiBanViewHolder(@NonNull View itemView) {
@@ -173,5 +171,12 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
         }
     }
 
+    void anChucNang(LoaiBanViewHolder holder){
 
+        nhanVienDAO = new NhanVienDAO(context);
+        int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context));
+        if(phanQuyen == 0){
+            holder.img_Sua_LoaiBan.setVisibility(View.GONE);
+        }
+    }
 }
