@@ -26,26 +26,25 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.Interface.InterfaceDatMon;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.DatMonDAO;
-import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
-import sp23cp18103.nhom2.finedining.fragment.ThemHoaDonFragment;
+import sp23cp18103.nhom2.finedining.model.DatMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách đặt món trong hóa đơn chi tiết
  * Đặt bàn chỉ cần hiển thị list các vị trí là được nên không cần adapter
  * */
-public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonViewHolder> {
+public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatMonViewHolder> {
     Context context;
     List<Mon> monList;
-    List<ThongTinDatMon> listThongTinMon;
+    List<ThongTinDatMon> listDatMonMoi;
+    List<ThongTinDatMon> listDatMonCu;
     InterfaceDatMon interfaceDatMon;
 
     ThongTinDatMon thongTinDatMon;
 
-    HoaDonDAO hoaDonDAO;
 
-    List<ThongTinDatMon> listDatMonMoi;
 
 
     int maHD;
@@ -58,62 +57,67 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
         this.maHD = maHD;
     }
 
-    public DatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
+//    public SuaDatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
+//        this.context = context;
+//        this.monList = monList;
+//        this.interfaceDatMon = interfaceDatMon;
+//    }
+
+
+    public SuaDatMonAdapter(Context context, List<Mon> monList, List<ThongTinDatMon> listDatMonCu, InterfaceDatMon interfaceDatMon) {
         this.context = context;
         this.monList = monList;
+        this.listDatMonCu = listDatMonCu;
         this.interfaceDatMon = interfaceDatMon;
-    }
-
-    public void setListThongTinMon(List<ThongTinDatMon> listThongTinMon) {
-        this.listThongTinMon = listThongTinMon;
-    }
-
-
-    public DatMonAdapter(List<ThongTinDatMon> listThongTinMon) {
-        this.listThongTinMon = listThongTinMon;
-    }
-
-    public  List<ThongTinDatMon> getListThongTinMon() {
-        return listThongTinMon;
     }
 
     @NonNull
     @Override
     public DatMonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.cardview_chonmon, parent, false);
-        DatMonAdapter.DatMonViewHolder viewHolder = new DatMonAdapter.DatMonViewHolder(view);
+        View view = inflater.inflate(R.layout.cardview_chonmon,parent, false);
+        SuaDatMonAdapter.DatMonViewHolder viewHolder = new SuaDatMonAdapter.DatMonViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Mon mon = monList.get(position);
-        holder.tvTen.setText("" + mon.getTenMon());
-        holder.tvGia.setText("" + mon.getGia());
-        holder.edSoLuongMon.setText("0");
-
-        hoaDonDAO = new HoaDonDAO(context);
-        int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
-
-        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPrefSaveListDat", Context.MODE_PRIVATE);
-        String jsonListDatMon = sharedPreferences.getString("listDatMon", "");
+//        DatMonDAO datMonDAO = new DatMonDAO(context);
+//        listDatMonCu =  datMonDAO.getDatMonTheoHoaDon(maHD, PreferencesHelper.getId(context));
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPrefSaveListSua", Context.MODE_PRIVATE);
+        String jsonListDatMon = sharedPreferences.getString("listSuaMon", "");
         Type type = new TypeToken<ArrayList<ThongTinDatMon>>(){}.getType();
         listDatMonMoi = new Gson().fromJson(jsonListDatMon, type);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Mon mon = monList.get(position);
+        holder.tvTen.setText("" + mon.getTenMon());
+        holder.tvGia.setText("" + mon.getGia());
+
+        if (listDatMonCu != null) {
+            for (int i = 0; i < listDatMonCu.size(); i++){
+                DatMon datMon = listDatMonCu.get(i);
+                if (listDatMonCu.get(i).getTenMon().equalsIgnoreCase(mon.getTenMon())){
+                    holder.edSoLuongMon.setText("" + datMon.getSoLuong());
+                    interfaceDatMon.getMaMon(mon.getMaMon(), String.valueOf(datMon.getSoLuong()));
+                }
+            }
+        }
+
         if (listDatMonMoi != null){
             for (ThongTinDatMon datMon : listDatMonMoi) {
-                if (datMon.getMaHD() == maHoaDonSapThem) {
-                    if (datMon.getMaHD() == maHoaDonSapThem && datMon.getTenMon().equalsIgnoreCase(mon.getTenMon())) {
+                if (datMon.getMaHD() == maHD) {
+                    if (datMon.getMaHD() == maHD && datMon.getTenMon().equalsIgnoreCase(mon.getTenMon())) {
                         holder.edSoLuongMon.setText("" + datMon.getSoLuong());
                         interfaceDatMon.getMaMon(mon.getMaMon(), String.valueOf(datMon.getSoLuong()));
                     }
-                } else if (maHoaDonSapThem != sharedPreferences.getInt("maHD", 0)) {
-                    editor.remove("listDatMon");
+                } else if (maHD != sharedPreferences.getInt("maHD", 0)) {
+                    editor.remove("listSuaMon");
                     editor.apply();
                 }
             }
         }
+
 
         holder.edSoLuongMon.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,25 +133,21 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
             @Override
             public void afterTextChanged(Editable s) {
                 // Sau khi thay đổi văn bản
-                String text = s.toString();
+                String text = holder.edSoLuongMon.getText().toString();
                 if (!TextUtils.isEmpty(text)) {
                     if (interfaceDatMon != null) {
                         interfaceDatMon.getMaMon(mon.getMaMon(), text);
                     }
-                }
-                else {
-                    // Xóa văn bản đã thay đổi trước đó
+                } else {
                     holder.edSoLuongMon.removeTextChangedListener(this);
-                    holder.edSoLuongMon.setText("");
+                    holder.edSoLuongMon.setText(""); // set dữ liệu ở đây
                     holder.edSoLuongMon.addTextChangedListener(this);
                 }
             }
-        });
 
-       listThongTinMon = getListThongTinMon();
-        if (listThongTinMon != null){
-             listThongTinMon.toString();
-        }
+
+
+        });
     }
 
     @Override
@@ -156,8 +156,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     }
 
     class DatMonViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTen;
-        TextView tvGia;
+        TextView tvTen,tvGia;
         LinearLayout lnChonMon;
         EditText edSoLuongMon;
 
@@ -168,5 +167,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
             edSoLuongMon = itemView.findViewById(R.id.ed_SoLuong_MonDat);
             lnChonMon = itemView.findViewById(R.id.linearChonMon);
         }
+
     }
+
 }

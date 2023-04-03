@@ -24,23 +24,26 @@ public class ThongTinHoaDonDAO {
     public List<ThongTinHoaDon> getThongTinHoaDon(int maNV) {
         String sql = "SELECT hd.maHD,nv.tenNV,kh.tenKH,hd.soLuongKhach,hd.thoiGianXuat,hd.thoiGianDat,hd.trangThai " +
                 "FROM hoadon as hd " +
-                "JOIN khachhang as kh ON hd.maKH = kh.maKH " +
+                "LEFT JOIN khachhang as kh ON hd.maKH = kh.maKH " +
                 "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?) ";
         return getDaTa(sql, String.valueOf(maNV));
     }
-    public List<ThongTinHoaDon> getTrangThaiHoaDon(int maNV, int trangThai, String tenKH){
+    public List<ThongTinHoaDon> getTrangThaiHoaDon(int maNV, String tenKH, int trangThai,String ngay,String gio){
         String sql = "SELECT hd.maHD,nv.tenNV,kh.tenKH,hd.soLuongKhach,hd.thoiGianXuat,hd.thoiGianDat,hd.trangThai " +
                 "FROM hoadon as hd " +
                 "JOIN khachhang as kh ON hd.maKH = kh.maKH " +
                 "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?) " +
-                " AND hd.trangThai >= ? " +
-                " AND  hd.trangThai <> 0 " +
+                " AND hd.trangThai = ? " +
                 " AND kh.tenKH LIKE ? " +
-                " ORDER BY hd.trangThai DESC, kh.tenKH ASC ";
+                "AND strftime('%Y-%m-%d',hd.thoiGianDat) LIKE ? " +
+                "AND strftime('%H:%M',hd.thoiGianDat) LIKE ? "+
+                " ORDER BY hd.thoiGianDat ASC ";
         String tim = "%" + tenKH + "%";
-        return getDaTa(sql, String.valueOf(maNV),String.valueOf(trangThai),tim);
+        String ngayTim = "%" + ngay + "%";
+        String gioTim = "%" + gio + "%";
+        return getDaTa(sql, String.valueOf(maNV),String.valueOf(trangThai),tim,ngayTim,gioTim);
 
     }
     public List<ThongTinHoaDon> getTrangThai(int maNV, int trangThai){
@@ -50,7 +53,6 @@ public class ThongTinHoaDonDAO {
                 "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?) " +
                 " AND hd.trangThai = ? " +
-                " AND hd.trangThai <> 0 " +
                 " ORDER BY hd.trangThai DESC";
 
         return getDaTa(sql, String.valueOf(maNV),String.valueOf(trangThai));

@@ -8,14 +8,14 @@ public class LoaiBan {
     private int maLB;
     private String tenLoai;
     private int maNV;//Nhân viên quản lý
-    private int soChoNgoi;
+//    private int soChoNgoi;
     private int trangThai;// 1:"Dùng"; 0:"Không dùng"
 
-    public LoaiBan(int maLB, String tenLoai, int maNV, int soChoNgoi, int trangThai) {
+    public LoaiBan(int maLB, String tenLoai, int maNV, int trangThai) {
         this.maLB = maLB;
         this.tenLoai = tenLoai;
         this.maNV = maNV;
-        this.soChoNgoi = soChoNgoi;
+//        this.soChoNgoi = soChoNgoi;
         this.trangThai = trangThai;
     }
 
@@ -38,13 +38,13 @@ public class LoaiBan {
         this.tenLoai = tenLoai;
     }
 
-    public int getSoChoNgoi() {
-        return soChoNgoi;
-    }
-
-    public void setSoChoNgoi(int soChoNgoi) {
-        this.soChoNgoi = soChoNgoi;
-    }
+//    public int getSoChoNgoi() {
+//        return soChoNgoi;
+//    }
+//
+//    public void setSoChoNgoi(int soChoNgoi) {
+//        this.soChoNgoi = soChoNgoi;
+//    }
 
     public int getTrangThai() {
         return trangThai;

@@ -95,9 +95,11 @@ public class MonDAO {
                 "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND m.tenMon LIKE ? ";
+                "AND m.tenMon LIKE ? AND m.trangThai = 1";
         return getData(sql, String.valueOf(maNV), String.valueOf(tenmon + "%"));
     }
+
+
     
     @SuppressLint("Range")
     public String getTenMon(int maMon) {

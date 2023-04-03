@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_DatBan"
     style="@style/mCardViewSmall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,11 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:gravity="center">
             <TextView
                 android:id="@+id/tv_vitri_DatBan"
                 style="@style/mNormalText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:lines="1"
@@ -24,7 +26,7 @@
             <TextView
                 android:id="@+id/tv_trangthai_DatBan"
                 style="@style/mBoldText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:lines="1"

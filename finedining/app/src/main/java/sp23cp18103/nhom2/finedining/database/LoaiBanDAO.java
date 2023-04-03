@@ -26,7 +26,6 @@ public class LoaiBanDAO {
         ContentValues values = new ContentValues();
         values.put("maNV", obj.getMaNV());
         values.put("tenLoai", obj.getTenLoai());
-        values.put("soChoNgoi", obj.getSoChoNgoi());
         values.put("trangThai", obj.getTrangThai());
         return db.insert("loaiban", null, values);
     }
@@ -35,7 +34,6 @@ public class LoaiBanDAO {
         ContentValues values = new ContentValues();
         values.put("maNV", obj.getMaNV());
         values.put("tenLoai", obj.getTenLoai());
-        values.put("soChoNgoi", obj.getSoChoNgoi());
         values.put("trangThai", obj.getTrangThai());
         return db.update("loaiban", values, "maLB=?", new String[]{String.valueOf(obj.getMaLB())});
     }
@@ -55,7 +53,6 @@ public class LoaiBanDAO {
             obj.setMaLB(c.getInt(c.getColumnIndex("maLB")));
             obj.setMaNV((c.getInt(c.getColumnIndex("maNV"))));
             obj.setTenLoai(c.getString(c.getColumnIndex("tenLoai")));
-            obj.setSoChoNgoi(c.getInt(c.getColumnIndex("soChoNgoi")));
             obj.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(obj);
         }
@@ -70,7 +67,7 @@ public class LoaiBanDAO {
 
     // tìm kiếm tương đối theo nhân viên và tên loại bàn
     public List<LoaiBan> getTimKiem(int maNV, String timKiem ,String trangThai  ) {
-        String sql = "Select  lb.maLB,lb.maNV,lb.tenLoai,lb.soChoNgoi,lb.trangThai from loaiban lb " +
+        String sql = "Select  lb.maLB,lb.maNV,lb.tenLoai,lb.trangThai from loaiban lb " +
                 "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
@@ -102,8 +99,9 @@ public class LoaiBanDAO {
                 "Join nhanvien nv on nv.maNV = lb.maNV " +
                 "where nv.maNH = " +
                 "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+                "AND db.trangThai = 1 " +
                 "AND b.trangThai = 1 " +
-                "And  hd.trangThai = 2 " +
+                "And hd.trangThai = 2 " +
                 "And lb.maLB = ? ";
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
@@ -111,5 +109,20 @@ public class LoaiBanDAO {
             return c.getInt(c.getColumnIndex("DemSoLuong"));
         }
         return 0;
+   }
+   @SuppressLint("Range")
+   public int getTongBan(int maLB, int maNV){
+       String sql="select Sum(b.maLB) AS TongSoLuong FROM loaiban lb " +
+               "Join ban b on b.maLB = lb.maLB " +
+               "Join nhanvien nv on nv.maNV = lb.maNV " +
+               "where nv.maNH = " +
+               "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+               "AND b.trangThai = 1 " +
+               "AND lb.maLB = ?";
+       Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
+       if (c.moveToNext()){
+           return c.getInt(c.getColumnIndex("TongSoLuong"));
+       }
+       return 0;
    }
 }

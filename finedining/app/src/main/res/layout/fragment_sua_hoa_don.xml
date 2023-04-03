@@ -27,9 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Thêm/Sửa hóa đơn"/>
+                android:text="Sửa hóa đơn"/>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_lyt_tenKhachHang_sua_FragmentSuaHoaDon"
                 style="@style/mInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_lyt_soLuongKhach_sua_FragmentSuaHoaDon"
                 style="@style/mInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +67,7 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_lyt_thoiGianDat_sua_FragmentSuaHoaDon"
+                    android:id="@+id/input_lyt_ngayDat_sua_FragmentSuaHoaDon"
                     style="@style/mInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -74,9 +76,9 @@
                     app:endIconDrawable="@drawable/ic_chon_ngay"
                     app:endIconMode="custom"
                     android:layout_marginEnd="0dp"
-                    android:layout_weight="2">
+                    android:layout_weight="1.8">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_thoiGianDat_sua_FragmentSuaHoaDon"
+                        android:id="@+id/input_ngayDat_sua_FragmentSuaHoaDon"
                         style="@style/mEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +96,7 @@
                     app:endIconDrawable="@drawable/ic_chon_ngay"
                     app:endIconMode="custom"
                     android:layout_marginStart="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1.2">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_gioDat_sua_FragmentSuaHoaDon"
                         style="@style/mEditText"
@@ -154,24 +156,29 @@
                 android:textStyle="bold"/>
 
             <RadioGroup
+                android:id="@+id/groupTrangThai_SuaHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
                     <RadioButton
+                        android:id="@+id/rdoDatBan_SuaHoaDon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Đặt bàn"/>
                     <RadioButton
+                        android:id="@+id/rdoChuaThanhToan_SuaHoaDon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Chờ thanh toán"/>
                     <RadioButton
+                        android:id="@+id/rdoDaThanhToan_SuaHoaDon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Đã thanh toán"/>
                     <RadioButton
+                        android:id="@+id/rdoHuy_SuaHoaDon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Hủy"/>

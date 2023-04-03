@@ -68,8 +68,28 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.activity_login);
         anhXa();
         insertTest();
+        saveTaiKhoanMatKhau();
         login();
         saveTaiKhoanMatKhau();
+//        nhanVienDAO = new NhanVienDAO(this);
+//        if (nhanVienDAO.checkDangnhap("myadmin","admin")){
+//            int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan("myadmin","admin");
+//            int trangthai = nhanVienDAO.getTrangThaiNV(maNV);
+//            if (trangthai == 0){
+//                Toast.makeText(LoginActivity.this, "Nhân Viên Nghỉ Làm", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
+//            // gọi PreferencesHelperđể lưu
+//            PreferencesHelper.saveSharedPref(LoginActivity.this,"myadmin","admin",chkRemeber.isChecked());
+//            // fix delay
+//            loading();
+//            //chuyển activity
+//            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+//            // animation chuyển
+//            overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+//        }
+//        saveTaiKhoanMatKhau();
     }
     
     private void login() {
@@ -101,9 +121,15 @@ public class LoginActivity extends AppCompatActivity{
                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                 // nếu có mạng
                 if (isConnected) {
+
                     //Check tài khoản mật khẩu
                     if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
                         int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
+                        int trangthai = nhanVienDAO.getTrangThaiNV(maNV);
+                        if (trangthai == 0){
+                            Toast.makeText(LoginActivity.this, "Nhân Viên Nghỉ Làm", Toast.LENGTH_SHORT).show();
+                         return;
+                        }
                         PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
                         // gọi PreferencesHelperđể lưu
                         PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
@@ -119,52 +145,6 @@ public class LoginActivity extends AppCompatActivity{
                 } else {
                     Toast.makeText(getApplicationContext(), "Kiếm Tra kết nối internet và thử lại", Toast.LENGTH_SHORT).show();
                 }
-
-                // test đừng xoá
-//                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//
-//                if (networkInfo != null && networkInfo.isConnected()) {
-//                    // Thiết bị đã kết nối Internet
-//                    if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                        if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
-//                        int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
-//                        PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
-//                        // gọi PreferencesHelperđể lưu
-//                        PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
-//                        // fix delay
-//                        loading();
-//                        //chuyển activity
-//                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-//                        // animation chuyển
-//                        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
-//                    }else {
-//                        Toast.makeText(LoginActivity.this, "Thông tin tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
-//                    }
-//                        Toast.makeText(getApplicationContext(), "Kết nối Internet qua dữ liệu di động", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        // Thiết bị kết nối qua WiFi hoặc kết nối khác
-//                        Toast.makeText(getApplicationContext(), "Kết nối Internet qua WiFi hoặc kết nối khác", Toast.LENGTH_SHORT).show();
-//                        if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
-//                        int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
-//                        PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
-//                        // gọi PreferencesHelperđể lưu
-//                        PreferencesHelper.saveSharedPref(LoginActivity.this,taikhoan,matkhau,chkRemeber.isChecked());
-//                        // fix delay
-//                        loading();
-//                        //chuyển activity
-//                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-//                        // animation chuyển
-//                        overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
-//                    }else {
-//                        Toast.makeText(LoginActivity.this, "Thông tin tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
-//                    }
-//                    }
-//                } else {
-//                    // Thiết bị không kết nối Internet
-//                    Toast.makeText(getApplicationContext(), "Không có kết nối Internet", Toast.LENGTH_SHORT).show();
-//                }
-
             }
         });
     }
@@ -183,14 +163,6 @@ public class LoginActivity extends AppCompatActivity{
         DatBanDAO datBanDAO = new DatBanDAO(this);
         DatMonDAO datMonDAO = new DatMonDAO(this);
 
-        datBanDAO.insertDatBan(new DatBan(5,3,1));
-
-        //Đặt món
-        datMonDAO.insertDatMon(new DatMon(1,1,2,1));
-
-        datMonDAO.insertDatMon(new DatMon(1,2,2,1));
-
-        datMonDAO.insertDatMon(new DatMon(3,1,2,0));
         //Nhà hàng
         if (nhaHangDAO.checknhahang("Fine Dining")){
             return;
@@ -222,11 +194,12 @@ public class LoginActivity extends AppCompatActivity{
                 "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/200f2910774061.560eac1cd606c.png"));
         nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
                 "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://i.pinimg.com/originals/91/de/1e/91de1e48020787761c1906c9fcde86cd.jpg"));
+        khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
-        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, "2023/05/04", "2023/05/04",1));
-
-        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, "2023/05/06", "2023/05/04",1));
-        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, "2023/05/06", "2023/05/04",2));
+        khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
+        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
+        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
+        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
@@ -234,13 +207,11 @@ public class LoginActivity extends AppCompatActivity{
 
         monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
 
-        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
+        monDAO.insertMon(new Mon(2,1,"thịt Em",700,1,null));
 
         monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
 
-        khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
 
-        khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
 
         banDAO.insertban(new Ban(1,1,"A1",1));
         banDAO.insertban(new Ban(2,1,"A2",1));
@@ -248,13 +219,12 @@ public class LoginActivity extends AppCompatActivity{
         banDAO.insertban(new Ban(4,1,"A4",1));
 
 
-        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,3,1));
+        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,1));
 
         datBanDAO.insertDatBan(new DatBan(1,1,1));
         datBanDAO.insertDatBan(new DatBan(2,3,1));
 
-
-
+        datBanDAO.insertDatBan(new DatBan(5,3,1));
 
         datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
 

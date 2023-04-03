@@ -22,14 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
+import sp23cp18103.nhom2.finedining.database.DatBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách bàn trong BanFragment
@@ -40,13 +43,15 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
     BanDAO banDAO;
     EditText edViTriBan;
     CheckBox chkTrangThaiBan;
-    AppCompatButton btnShaveBan,btnCancelBan;
+    AppCompatButton btnShaveBan, btnCancelBan;
     Spinner spnrBan;
     List<LoaiBan> listloaiban;
     LoaiBanDAO loaiBanDAO;
     LoaiBan loaiBan;
     BanSpinnerAdapter banSpinnerAdapter;
+    DatBanDAO datBanDAO;
     int positionLB;
+
     public BanAdapter(Context context, List<Ban> list) {
         this.context = context;
         this.list = list;
@@ -61,19 +66,20 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BanViewHolder holder, int position) {
+        int manv = PreferencesHelper.getId(context);
         Ban ban = list.get(position);
-
+        datBanDAO = new DatBanDAO(context);
         LoaiBanDAO loaiBanDAO = new LoaiBanDAO(context);
         loaiBan = loaiBanDAO.getID(ban.getMaLB());
-        banDAO=new BanDAO(context);
+        banDAO = new BanDAO(context);
         holder.tvViTri.setText(ban.getViTri());
-        holder.tvLoaiBan.setText(""+loaiBan.getTenLoai());
+        holder.tvLoaiBan.setText("" + loaiBan.getTenLoai());
 //        holder.tvTrangThaiBan.setText((banDAO.getKiemTraConTrong(position)==1) ?"Trống":"Đầy");
 
-        if(banDAO.getKiemTraConTrong(position)==1){
+        if (banDAO.getKiemTraConTrong(manv, ban.getMaBan()) == 1) {
             holder.tvTrangThaiBan.setText("Đầy");
             holder.tvTrangThaiBan.setTextColor(Color.BLUE);
-        }else{
+        } else {
             holder.tvTrangThaiBan.setText("Trống");
             holder.tvTrangThaiBan.setTextColor(Color.RED);
         }
@@ -84,10 +90,11 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
                 goidialog(ban);
             }
         });
-        
+
     }
 
-    void goidialog(Ban ban){
+    void goidialog(Ban ban) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_ban, null);
@@ -99,7 +106,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         banDAO = new BanDAO(context);
 
         edViTriBan = view.findViewById(R.id.edViTriBan);
-        spnrBan=view.findViewById(R.id.spnrBan);
+        spnrBan = view.findViewById(R.id.spnrBan);
         chkTrangThaiBan = view.findViewById(R.id.chkTrangThaiBan);
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
         btnCancelBan = view.findViewById(R.id.btnCancelBan);
@@ -121,35 +128,41 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             }
 
         });
+
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String viTri = edViTriBan.getText().toString().trim();
+                if (viTri.isEmpty()) {
+                    edViTriBan.setError("Không được để trống");
+                    return;
+                }
+                // thuc hien chuc nang
+                int manv = PreferencesHelper.getId(context);
                 LoaiBan loaiBan = (LoaiBan) spnrBan.getSelectedItem();
                 ban.setMaLB(loaiBan.getMaLB());
-                String viTri = edViTriBan.getText().toString().trim();
                 ban.setViTri(viTri);
-
-
 
                 if (chkTrangThaiBan.isChecked()) {
                     ban.setTrangThai(1);
                 } else {
                     ban.setTrangThai(0);
                 }
-                if (viTri.isEmpty() ) {
-                    edViTriBan.setError("Không được để trống");
-                    return;
+
+
+                ban.setViTri((edViTriBan.getText().toString()));
+                if (banDAO.updateban(ban) > 0) {
+                    Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                    dialog.dismiss();
                 } else {
-                    ban.setViTri((edViTriBan.getText().toString()));
-                    if (banDAO.updateban(ban) > 0) {
-                        Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
-                        dialog.dismiss();
-                    } else {
-                        Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
+                }
+                if (ban.getTrangThai()==0){
+                    datBanDAO.getHuyTrangThaiDatBan(ban.getMaBan(),manv);
                 }
             }
+
         });
         dialog.show();
     }
@@ -171,11 +184,12 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             imgSua = itemView.findViewById(R.id.imgSua);
         }
     }
+
     void evSpiner(Ban ban) {
         loaiBanDAO = new LoaiBanDAO(context);
         List<LoaiBan> list2;
-        list2 =  loaiBanDAO.getAllLoaiBan();
-        banSpinnerAdapter  = new BanSpinnerAdapter(context, (ArrayList<LoaiBan>) list2);
+        list2 = loaiBanDAO.getAllLoaiBan();
+        banSpinnerAdapter = new BanSpinnerAdapter(context, (ArrayList<LoaiBan>) list2);
         spnrBan.setAdapter(banSpinnerAdapter);
         for (int i = 0; i < list2.size(); i++) {
             LoaiBan lb = list2.get(i);

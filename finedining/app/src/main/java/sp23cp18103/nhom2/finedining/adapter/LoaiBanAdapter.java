@@ -41,7 +41,8 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     Context context;
     List<LoaiBan> mListLoaiBan;
     LoaiBanFragment fragment;
-    TextInputEditText edTenLoaiBan, edSoChoNgoi;
+    TextInputEditText edTenLoaiBan;
+    TextInputEditText edSoChoNgoi;
     CheckBox chkDialogTrangThaiLoaiBan;
     AppCompatButton btn_ShaveLoaiBan, btn_CancelLoaiBan;
     LoaiBanDAO dao;
@@ -62,11 +63,14 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     public void onBindViewHolder(@NonNull LoaiBanViewHolder holder, int position) {
         LoaiBan loaiBan = mListLoaiBan.get(position);
         dao = new LoaiBanDAO(context);
+        int tongSoBan = dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
+        int soBanDay = dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context));
+
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
-        holder.tv_SoChoNgoi.setText(String.valueOf(loaiBan.getSoChoNgoi()));
+        holder.tv_SoBan.setText(String.valueOf(tongSoBan));
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
 
-        holder.tv_SoBanTrongBan.setText(""+dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
+        holder.tv_SoBanTrongBan.setText(String.valueOf(tongSoBan-soBanDay));
 
         if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText("Dùng");
@@ -87,12 +91,10 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 tv_tieude_loaiban.setText("Sửa loại loại bàn");
 
                 edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
-                edSoChoNgoi = view.findViewById(R.id.edSoChoNgoi);
                 chkDialogTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
                 btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
                 btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
-                edSoChoNgoi.setText(String.valueOf(loaiBan.getSoChoNgoi()));
 
                 Dialog dialog = builder.create();
                 if (loaiBan.getTrangThai() == 1) {
@@ -112,8 +114,10 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                     @Override
                     public void onClick(View v) {
                         int maNV= PreferencesHelper.getId(context);
+
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
-                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
+//                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
+
                         loaiBan.setTenLoai(tenLoai);
                         if (chkDialogTrangThaiLoaiBan.isChecked()) {
                             loaiBan.setTrangThai(1);
@@ -126,12 +130,12 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                                 loaiBan.setTrangThai(0);
                             }
                         }
-                        if (tenLoai.isEmpty() || soChoNgoi.isEmpty()) {
+                        if (tenLoai.isEmpty() ) {
                             edTenLoaiBan.setError("Không được để trống");
                             edSoChoNgoi.setError("Không được để trống");
                             return;
                         } else {
-                            loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
+//                            loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
                             if (dao.updateloaiban(loaiBan) > 0) {
                                 Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
@@ -153,13 +157,13 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     }
 
     public class LoaiBanViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_TenLoaiBan, tv_SoChoNgoi, tv_TrangThai_LoaiBan,tv_SoBanTrongBan;
+        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan,tv_SoBanTrongBan,tv_SoBan;
         ImageButton img_Sua_LoaiBan;
 
         public LoaiBanViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_TenLoaiBan = itemView.findViewById(R.id.tv_TenLoaiBan);
-            tv_SoChoNgoi = itemView.findViewById(R.id.tv_SoChoNgoi);
+            tv_SoBan = itemView.findViewById(R.id.tv_SoBan);
             tv_SoBanTrongBan = itemView.findViewById(R.id.tv_SoBanTrongBan);
             tv_TrangThai_LoaiBan = itemView.findViewById(R.id.tv_TrangThai_LoaiBan);
             img_Sua_LoaiBan = itemView.findViewById(R.id.img_Sua_LoaiBan);

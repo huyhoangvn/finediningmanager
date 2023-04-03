@@ -32,4 +32,27 @@
     <color name="Light_SurfaceVariant">#f4ded4</color>
     <color name="Light_OnSurfaceVariant">#52443d</color>
     <!--Dark Theme-->
+    <color name="Dark_Primary">#ffb68f</color>
+    <color name="Dark_OnPrimary">#542100</color>
+    <color name="Dark_PrimaryContainer">#773200</color>
+    <color name="Dark_OnPrimaryContainer">#ffdbca</color>
+    <color name="Dark_Secondary">#e6beab</color>
+    <color name="Dark_OnSecondary">#432b1d</color>
+    <color name="Dark_SecondaryContainer">#5c4132</color>
+    <color name="Dark_OnSecondaryContainer">#ffdbca</color>
+    <color name="Dark_Tertiary">#cec891</color>
+    <color name="Dark_OnTertiary">#343108</color>
+    <color name="Dark_TertiaryContainer">#4b481d</color>
+    <color name="Dark_OnTertiaryContainer">#ebe5ab</color>
+    <color name="Dark_Error">#ffb4ab</color>
+    <color name="Dark_OnError">#690005</color>
+    <color name="Dark_ErrorContainer">#93000a</color>
+    <color name="Dark_OnErrorContainer">#ffdad6</color>
+    <color name="Dark_Background">#201a17</color>
+    <color name="Dark_OnBackground">#ece0db</color>
+    <color name="Dark_Surface">#201a17</color>
+    <color name="Dark_OnSurface">#ece0db</color>
+    <color name="Dark_Outline">#9f8d84</color>
+    <color name="Dark_SurfaceVariant">#52443d</color>
+    <color name="Dark_OnSurfaceVariant">#d7c2b9</color>
 </resources>

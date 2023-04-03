@@ -35,7 +35,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputChonNgay"
+                android:id="@+id/inputChonNgay_hoaDon"
                 style="@style/mInputLayout"
                 android:layout_weight="2"
                 android:layout_width="0dp"
@@ -54,7 +54,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputChonGio"
+                android:id="@+id/inputChonGio_hoaDon"
                 style="@style/mInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -81,7 +81,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="5dp">
-
                 <TextView
                     android:id="@+id/tvChoThanhToan_hoaDon"
                     style="@style/mFilterItem"
@@ -115,7 +114,7 @@
             style="@style/mRecyclerViewLinear"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
     </LinearLayout>
 

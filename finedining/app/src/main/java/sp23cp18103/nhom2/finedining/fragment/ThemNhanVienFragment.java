@@ -202,6 +202,9 @@ public class ThemNhanVienFragment extends Fragment {
         //Ẩn tài khoản mật khẩu
         inputTaiKhoan.setVisibility(View.GONE);
         inputMatKhau.setVisibility(View.GONE);
+        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context))!=1){
+            lytTrangThai.setVisibility(View.GONE);
+        }
 
         fillThongTinNhanVien();
 

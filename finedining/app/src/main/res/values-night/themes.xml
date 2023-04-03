@@ -1,17 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Finedining" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <!--Primary-->
+        <item name="colorPrimary">@color/Dark_Primary</item>
+        <item name="colorOnPrimary">@color/Dark_OnPrimary</item>
+        <item name="colorPrimaryContainer">@color/Dark_PrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/Dark_OnPrimaryContainer</item>
+        <!--Secondary-->
+        <item name="colorSecondary">@color/Dark_Secondary</item>
+        <item name="colorOnSecondary">@color/Dark_OnSecondary</item>
+        <item name="colorSecondaryContainer">@color/Dark_SecondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/Dark_OnSecondaryContainer</item>
+        <!--Tertiary-->
+        <item name="colorTertiary">@color/Dark_Tertiary</item>
+        <item name="colorOnTertiary">@color/Dark_OnTertiary</item>
+        <item name="colorTertiaryContainer">@color/Dark_TertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/Dark_OnTertiaryContainer</item>
+        <!--Error-->
+        <item name="colorError">@color/Dark_Error</item>
+        <item name="colorOnError">@color/Dark_OnError</item>
+        <item name="colorErrorContainer">@color/Dark_ErrorContainer</item>
+        <item name="colorOnErrorContainer">@color/Dark_OnErrorContainer</item>
+        <!--Background-->
+        <item name="android:colorBackground">@color/Dark_Background</item>
+        <item name="colorOnBackground">@color/Dark_OnBackground</item>
+        <!--Outline-->
+        <item name="colorOutline">@color/Dark_Outline</item>
+        <!--Surface-->
+        <item name="colorSurface">@color/Dark_Surface</item>
+        <item name="colorOnSurface">@color/Dark_OnSurface</item>
+        <item name="colorSurfaceVariant">@color/Dark_SurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/Dark_OnSurfaceVariant</item>
+        <!--Status bar color-->
+        <item name="android:statusBarColor">@color/Light_Secondary</item>
     </style>
 </resources>
 

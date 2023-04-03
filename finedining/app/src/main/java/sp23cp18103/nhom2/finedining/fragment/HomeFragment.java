@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
     TextView tvTenNhaHang, tvDiaChi;
     MenuAdapter menuAdapter;
     MonDAO monDAO;
-    Button btnShowMap;
+//    Button btnShowMap;
     List<Mon> listMon;
     List<Address> addresses;
 
@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         monDAO = new MonDAO(getContext());
 
         int maNV = PreferencesHelper.getId(getContext());
-        listMon = monDAO.timKiem(maNV, "");
+        listMon = monDAO.trangThaiLoaiMon(maNV, 1,"");
         menuAdapter = new MenuAdapter(listMon,getContext());
         rcv_menu.setAdapter(menuAdapter);
     }
@@ -97,46 +97,40 @@ public class HomeFragment extends Fragment {
         //set cứng map
         fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.map_01_Main_showMap, new MapsFragment(21.040081, 105.747551, "Tòa nhà FPT Polytechnic")).commit();
-        btnShowMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //check internet
-                cardMap.setVisibility(View.VISIBLE);
-                ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(getContext().CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-                // có internet
-                if (isConnected) {
-                    // Hiển thị ProgressDialog
-                    progressDialog = new CustomProgressDialog(getContext());
-                    progressDialog.show();
-                    Window window = progressDialog.getWindow();
-                    if (window == null) {
-                        return;
-                    }
-                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
+        cardMap.setVisibility(View.VISIBLE);
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(getContext().CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        // có internet
+        if (isConnected) {
+            // Hiển thị ProgressDialog
+//            progressDialog = new CustomProgressDialog(getContext());
+//            progressDialog.show();
+//            Window window = progressDialog.getWindow();
+//            if (window == null) {
+//                return;
+//            }
+//            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 //                        Tải bản đồ
-                          geoLocate();
+                    geoLocate();
 //                        Sau khi tải xong, ẩn ProgressDialog
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressDialog.dismiss();
-                                }
-                            });
-                        }
-                    }).start();
-                    // nếu k có internet
-                } else {
-                    Toast.makeText(getContext(), "Kiểm Tra Kết nối mạng và thử lại", Toast.LENGTH_SHORT).show();
-                    return;
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            progressDialog.dismiss();
+//                        }
+//                    });
                 }
-            }
-        });
+            }).start();
+            // nếu k có internet
+        } else {
+            Toast.makeText(getContext(), "Kiểm Tra Kết nối mạng và thử lại", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
     private void geoLocate() {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
@@ -160,9 +154,12 @@ public class HomeFragment extends Fragment {
         }
     }
     private void loadAnh() {
-        Glide.with(this)
-                .load("https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/images%2Fma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg?alt=media&token=f88c9bfc-695a-4cfd-82d1-82e38d952231")
-                .into(imgnhaHang);
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
+        NhaHangDAO nhaHangDAO = new NhaHangDAO(getContext());
+        int maNV = PreferencesHelper.getId(getContext());
+        int maNH = nhanVienDAO.getMaNH(maNV);
+        String hinhNH = nhaHangDAO.getHinhNH(maNH);
+        Glide.with(this).load(hinhNH).into(imgnhaHang);
     }
     void getNameDiachiNH() {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
@@ -175,12 +172,15 @@ public class HomeFragment extends Fragment {
         tvDiaChi.setText("Địa chỉ: " + diachi);
     }
 
+
+
+
+
     private void anhXa(View view) {
         rcv_menu = view.findViewById(R.id.rcv_menu);
         imgnhaHang = view.findViewById(R.id.img_nhaHang);
         tvTenNhaHang = view.findViewById(R.id.tv_fragHome_tenNH);
         tvDiaChi = view.findViewById(R.id.tv_diachi);
-        btnShowMap = view.findViewById(R.id.btn_ShowMap);
         cardMap = view.findViewById(R.id.carMap);
     }
 }
