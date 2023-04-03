@@ -49,7 +49,7 @@ public class ThongTinHoaDonDAO {
                 " AND hd.trangThai <> 0 " +
                 "AND strftime('%Y-%m-%d',hd.thoiGianDat) LIKE ? " +
                 "AND strftime('%H:%M',hd.thoiGianDat) LIKE ? "+
-                " ORDER BY hd.thoiGianDat DESC ";
+                " ORDER BY  hd.trangThai ASC , hd.thoiGianDat DESC ";
         String tim = "%" + tenKH + "%";
         String ngayTim = "%" + ngay + "%";
         String gioTim = "%" + gio + "%";
