@@ -47,6 +47,18 @@ public class MonDAO {
                 "ORDER BY m.trangThai DESC, m.tenMon ASC";
         return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"));
     }
+    public List<Mon> getLocLoaiMon(int maNV, int trangThai, String timKiem, String tenLoai) {
+        String sql = "Select m.maMon, m.maLM, m.tenMon, m.gia, m.trangThai, m.hinh from mon m " +
+                "JOIN loaimon lm ON m.maLM = lm.maLM " +
+                "JOIN nhanvien nv ON lm.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND m.trangThai = ? " +
+                "AND m.tenMon LIKE ? " +
+                "AND lm.tenLoai = ? " +
+                "ORDER BY m.trangThai DESC, m.tenMon ASC";
+        return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"), String.valueOf(tenLoai));
+    }
     @SuppressLint("Range")
     public int getTuDongChuyenTrangThai(int maMon, int maNV){
         String sql = "SELECT lm.maLM FROM loaimon lm " +

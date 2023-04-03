@@ -312,6 +312,7 @@ public class HoaDonFragment extends Fragment {
         fmHoaDon.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
             public void onBackStackChanged() {
+                chuyenChon(trangThaiHienTai, -1);
                 trangThaiHienTai = -1;
                 hienThiTatCa();
             }
