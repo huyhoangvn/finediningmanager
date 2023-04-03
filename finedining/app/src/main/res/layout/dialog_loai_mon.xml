@@ -12,9 +12,7 @@
         android:gravity="center">
         <TextView
             android:id="@+id/tvTieuDeLoaiMon"
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/mDialogHeaderText"
             android:text="Thêm/sửa loại món"/>
 
         <com.google.android.material.textfield.TextInputLayout

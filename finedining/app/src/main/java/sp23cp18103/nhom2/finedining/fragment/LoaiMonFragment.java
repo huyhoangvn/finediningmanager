@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -101,6 +103,7 @@ public class LoaiMonFragment extends Fragment {
                 tvTieuDeLoaiMon = view.findViewById(R.id.tvTieuDeLoaiMon);
                 tvTieuDeLoaiMon.setText("Thêm loại món ");
                 Dialog dialog= builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

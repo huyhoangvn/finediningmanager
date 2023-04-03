@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -116,13 +119,16 @@ public class BanFragment extends Fragment {
         edViTriBan = view.findViewById(R.id.edViTriBan);
         spnrBan = view.findViewById(R.id.spnrBan);
         tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
+
+
+
         tvTieuDeBan.setText("Thêm loại bàn");
 
         chkTrangThaiBan = view.findViewById(R.id.chkTrangThaiBan);
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
         btnCancelBan = view.findViewById(R.id.btnCancelBan);
         Dialog dialog = builder.create();
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         banDAO = new BanDAO(getContext());
         loaiBanDAO = new LoaiBanDAO(getContext());
         listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getAllLoaiBan();

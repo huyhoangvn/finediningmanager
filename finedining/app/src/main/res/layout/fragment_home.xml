@@ -33,17 +33,18 @@
             android:layout_height="wrap_content"
             android:text="Tên Nhà Hàng"
             android:layout_margin="10dp"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:textColor="?attr/colorPrimary"/>
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:background="?attr/colorOnSurfaceVariant"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"/>
 
         <TextView
-            style="@style/mHeaderText"
+            style="@style/mImportantHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Menu"
@@ -59,7 +60,7 @@
             android:orientation="horizontal"/>
 
         <TextView
-            style="@style/mHeaderText"
+            style="@style/mImportantHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Địa chỉ"
