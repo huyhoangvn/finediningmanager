@@ -76,10 +76,10 @@ public class MonDAO {
                 "AND dm.maMon = ? " +
                 "AND dm.trangThai = 1 " +
                 "AND (hd.trangThai = 1 OR hd.trangThai = 2) ";
-        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maMon), String.valueOf(maNV)});
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maMon)});
         if(c.moveToNext()){
-            int tempMaMon = 0;
-            int tempMaHD = 0;
+            int tempMaMon = 0 ;
+            int tempMaHD = 0 ;
             tempMaMon = c.getInt(c.getColumnIndex("maMon"));
             tempMaHD = c.getInt(c.getColumnIndex("maHD"));
             ContentValues values = new ContentValues();

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import sp23cp18103.nhom2.finedining.Interface.ILoaiMonFilter;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonFilterAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
@@ -128,8 +131,9 @@ public class MonFragment extends Fragment {
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
                 tv_tieude_mon.setText("Thêm món");
                 Dialog dialog = builder.create();
+                chkTrangThaiMon.setVisibility(View.GONE);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int maNV = PreferencesHelper.getId(getContext());
-                int trangThai = (chkTrangThaiMon.isChecked())?0:1;
                 listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
@@ -167,11 +171,7 @@ public class MonFragment extends Fragment {
                         }
                         m.setHinh(galleryHelper.getCurrentImageUrl());
                         m.setHinh(String.valueOf(R.drawable.default_avatar));
-                        if(chkTrangThaiMon.isChecked()){
-                            m.setTrangThai(1);
-                        }else{
-                            m.setTrangThai(0);
-                        }
+                        m.setTrangThai(1);
                         if(ValidateMon()>0){
                             if(dao.insertMon(m)>0){
                                 Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
@@ -271,9 +271,15 @@ public class MonFragment extends Fragment {
     }
     //hàm cập nhật listFilter
     private void hienThiFilter() {
+
         int maNV = PreferencesHelper.getId(getContext());
         listFilter = loaiMonDAO.getFilterMon(maNV);
-        loaiMonFilterAdapter = new LoaiMonFilterAdapter(getContext(), listFilter);
+        loaiMonFilterAdapter = new LoaiMonFilterAdapter(getContext(), listFilter, new ILoaiMonFilter(){
+            @Override
+            public void locMon(String tenLoaiMon) {
+
+            }
+        });
         rcvFilter.setAdapter(loaiMonFilterAdapter);
     }
     //hàm cập nhật fragment

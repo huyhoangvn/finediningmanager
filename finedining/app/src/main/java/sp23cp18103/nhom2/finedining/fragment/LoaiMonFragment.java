@@ -100,6 +100,7 @@ public class LoaiMonFragment extends Fragment {
                 btnDialogLuuLoaiMon = view.findViewById(R.id.btnDialogLuuLoaiMon);
                 tvTieuDeLoaiMon = view.findViewById(R.id.tvTieuDeLoaiMon);
                 tvTieuDeLoaiMon.setText("Thêm loại món ");
+                chkDialogTrangThaiLoaiMon.setVisibility(View.GONE);
                 Dialog dialog= builder.create();
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -108,11 +109,7 @@ public class LoaiMonFragment extends Fragment {
                         int maNV = PreferencesHelper.getId(getContext());
                         lm.setMaNV(maNV);
                         lm.setTenLoai(edTenLoaiMon.getText().toString().trim());
-                        if(chkDialogTrangThaiLoaiMon.isChecked()){
-                            lm.setTrangThai(1);
-                        }else{
-                            lm.setTrangThai(0);
-                        }
+                        lm.setTrangThai(1);
                         if(ValidateLM()>0){
                             if(dao.insertLoaiMon(lm)>0){
                                 Toast.makeText(getActivity(), "Thêm thành công ", Toast.LENGTH_SHORT).show();
