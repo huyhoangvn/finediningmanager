@@ -125,7 +125,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                         // thuc hien chuc nang
                         int maNV = PreferencesHelper.getId(context);
                         loaiBan.setTenLoai(tenLoai);
-                        if (loaiBan.getTrangThai()==1) {
+                        if (chkTrangThaiLoaiBan.isChecked()) {
                             loaiBan.setTrangThai(1);
                         } else {
                             if (dao.getlienKetTrangThai(loaiBan.getMaLB(), maNV) > 0) {
@@ -171,7 +171,6 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     }
 
     void anChucNang(LoaiBanViewHolder holder){
-
         nhanVienDAO = new NhanVienDAO(context);
         int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context));
         if(phanQuyen == 0){

@@ -38,10 +38,7 @@ public class LoaiBanDAO {
         return db.update("loaiban", values, "maLB=?", new String[]{String.valueOf(obj.getMaLB())});
     }
 
-    public List<LoaiBan> getAllLoaiBan() {
-        String sql = "SELECT * FROM loaiban";
-        return getDaTa(sql);
-    }
+
 
     @SuppressLint("Range")
     public List<LoaiBan> getDaTa(String sql, String... selectAvg) {
@@ -66,15 +63,15 @@ public class LoaiBanDAO {
 
 
     // tìm kiếm tương đối theo nhân viên và tên loại bàn
-    public List<LoaiBan> getTimKiem(int maNV, String timKiem ,String trangThai  ) {
-        String sql = "Select  lb.maLB,lb.maNV,lb.tenLoai,lb.trangThai from loaiban lb " +
+    public List<LoaiBan> getTimKiem(int maNV, String timKiem ,int trangThai  ) {
+        String sql = "Select  lb.maLB, lb.maNV, lb.tenLoai, lb.trangThai from loaiban lb " +
                 "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
-                "WHERE nv.maNH = " +
-                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND lb.tenLoai LIKE ? " +
-                "AND lb.trangThai >= ?";
+                "AND lb.trangThai = ? ";
         return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
     }
+
     public int getlienKetTrangThai(int maLB, int maNV) {
         String sql = "Select b.maBan from ban b " +
                 "JOIN loaiban lb ON b.maLB = lb.maLB " +
@@ -125,4 +122,20 @@ public class LoaiBanDAO {
        }
        return 0;
    }
+    @SuppressLint("Range")
+    public List<String> getFilterBan(int maNV) {
+        List<String> list = new ArrayList<>();
+        String sql = "Select lb.maLB from loaiban lb " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = " +
+                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND lb.trangThai = 1 ";
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)}) ;
+        while (c.moveToNext()){
+            LoaiBan lb = new LoaiBan();
+            lb.setTenLoai(c.getString(c.getColumnIndex("tenLoai")));
+            list.add(c.getString(c.getColumnIndex("tenLoai")));
+        }
+        return list;
+    }
 }

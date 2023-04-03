@@ -188,7 +188,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
     void evSpiner(Ban ban) {
         loaiBanDAO = new LoaiBanDAO(context);
         List<LoaiBan> list2;
-        list2 = loaiBanDAO.getAllLoaiBan();
+        list2 = loaiBanDAO.getTimKiem(PreferencesHelper.getId(context), "", 1);
         banSpinnerAdapter = new BanSpinnerAdapter(context, (ArrayList<LoaiBan>) list2);
         spnrBan.setAdapter(banSpinnerAdapter);
         for (int i = 0; i < list2.size(); i++) {
