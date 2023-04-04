@@ -18,30 +18,6 @@ public class ThongTinMonDAO {
         DBHelper dbHelper = new DBHelper(context);
         db = dbHelper.getWritableDatabase();
     }
-    @SuppressLint("Range")
-    public List<ThongTinMon> gettopmon() {
-        List<ThongTinMon> list = new ArrayList<>();
-        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
-                " FROM mon m" +
-                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
-                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
-                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
-                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
-                " GROUP BY m.tenMon " +
-                " ORDER BY soLuong DESC " +
-                " LIMIT 10;";
-        Cursor cursor = db.rawQuery(sql,null);
-        while (cursor.moveToNext()) {
-            ThongTinMon ttMon = new ThongTinMon();
-            ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
-            ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
-            ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
-            list.add(ttMon);
-        }
-        cursor.close();
-        return list;
-    }
 
 
     @SuppressLint("Range")
@@ -53,6 +29,7 @@ public class ThongTinMonDAO {
                 " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
                 " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
                 " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND hd.trangThai = 3" +
                 " GROUP BY m.tenMon " +
                 " ORDER BY soluongmon DESC " +
                 " LIMIT 10;";
@@ -72,15 +49,16 @@ public class ThongTinMonDAO {
     @SuppressLint("Range")
     public List<ThongTinMon> getTop10MonDoanhThuCaoNhat() {
         List<ThongTinMon> list = new ArrayList<>();
-        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon " +
-                "FROM mon m " +
-                "INNER JOIN datmon dm ON m.maMon = dm.maMon " +
-                "INNER JOIN hoadon hd ON dm.maHD = hd.maHD " +
-                "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
-                "WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien) " +
-                "GROUP BY m.tenMon " +
-                "ORDER BY doanhThumon DESC " +
-                "LIMIT 10";
+        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
+                " FROM mon m" +
+                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
+                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
+                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND hd.trangThai = 3" +
+                " GROUP BY m.tenMon " +
+                " ORDER BY doanhThumon DESC " +
+                " LIMIT 10;";
         Cursor cursor = db.rawQuery(sql,null);
         while (cursor.moveToNext()) {
             ThongTinMon ttMon = new ThongTinMon();
@@ -93,7 +71,63 @@ public class ThongTinMonDAO {
         cursor.close();
         return list;
     }
-    
+
+    @SuppressLint("Range")
+    public List<ThongTinMon> getTop10MonDoanhThuCaoNhatTrongNam(String nam) {
+        List<ThongTinMon> list = new ArrayList<>();
+        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
+                " FROM mon m" +
+                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
+                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
+                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
+                " AND hd.trangThai = 3" +
+                " GROUP BY m.tenMon " +
+                " ORDER BY doanhThumon DESC " +
+                " LIMIT 10;";
+        Cursor cursor = db.rawQuery(sql, new String[]{nam});
+        while (cursor.moveToNext()) {
+            ThongTinMon ttMon = new ThongTinMon();
+            ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
+            ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
+            ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
+            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            list.add(ttMon);
+        }
+        cursor.close();
+        return list;
+    }
+
+
+    @SuppressLint("Range")
+    public List<ThongTinMon> getTop10MonSoLuongCaoNhatTrongNam(String nam) {
+        List<ThongTinMon> list = new ArrayList<>();
+        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
+                " FROM mon m" +
+                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
+                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
+                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
+                " AND hd.trangThai = 3" +
+                " GROUP BY m.tenMon " +
+                " ORDER BY soluongmon DESC " +
+                " LIMIT 10;";
+        Cursor cursor = db.rawQuery(sql, new String[]{nam});
+        while (cursor.moveToNext()) {
+            ThongTinMon ttMon = new ThongTinMon();
+            ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
+            ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
+            ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
+            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            list.add(ttMon);
+        }
+        cursor.close();
+        return list;
+    }
+
+
     @SuppressLint("Range")
     public List<ThongTinMon> getTop10MonSoLuongCaoNhatTrongThangNam( String thang,String nam) {
         List<ThongTinMon> list = new ArrayList<>();
@@ -103,8 +137,9 @@ public class ThongTinMonDAO {
                 " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
                 " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
                 " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
-                " AND strftime('%m', hd.thoiGianXuat) LIKE ?" +
-                " AND strftime('%Y', hd.thoiGianXuat) LIKE ?" +
+                " AND strftime('%m', hd.thoiGianDat) LIKE ?" +
+                " AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
+                " AND hd.trangThai = 3" +
                 " GROUP BY m.tenMon " +
                 " ORDER BY soluongmon DESC " +
                 " LIMIT 10;";
@@ -122,20 +157,21 @@ public class ThongTinMonDAO {
     }
 
     @SuppressLint("Range")
-    public List<ThongTinMon> getTop10MonDoanhThuCaoNhatTrongThangNam(String thang, String nam) {
+    public List<ThongTinMon> getTop10MonDoanhThuCaoNhatTrongThangNam( String thang,String nam) {
         List<ThongTinMon> list = new ArrayList<>();
-        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon " +
-                "FROM mon m " +
-                "INNER JOIN datmon dm ON m.maMon = dm.maMon " +
-                "INNER JOIN hoadon hd ON dm.maHD = hd.maHD " +
-                "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
-                "WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien) " +
-                "AND strftime('%m', hd.thoiGianXuat) LIKE ? " +
-                "AND strftime('%Y', hd.thoiGianXuat) LIKE ? " +
-                "GROUP BY m.tenMon " +
-                "ORDER BY doanhThumon DESC " +
-                "LIMIT 10";
-        Cursor cursor = db.rawQuery(sql, new String[]{thang, nam});
+        String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
+                " FROM mon m" +
+                " INNER JOIN datmon dm ON m.maMon = dm.maMon" +
+                " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
+                " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%m', hd.thoiGianDat) LIKE ?" +
+                " AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
+                " AND hd.trangThai = 3" +
+                " GROUP BY m.tenMon " +
+                " ORDER BY doanhThumon DESC " +
+                " LIMIT 10;";
+        Cursor cursor = db.rawQuery(sql, new String[]{thang,nam});
         while (cursor.moveToNext()) {
             ThongTinMon ttMon = new ThongTinMon();
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
