@@ -51,7 +51,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_thongKeDoanhThu_ngayBatDau"
+                android:id="@+id/input_lyt_thongKeDoanhThu_ngayBatDau"
                 style="@style/mInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -63,6 +63,7 @@
                 android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_thongKeDoanhThu_ngayBatDau"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +72,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_thongKeDoanhThu_ngayKetThuc"
+                android:id="@+id/input_lyt_thongKeDoanhThu_ngayKetThuc"
                 style="@style/mInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -83,6 +84,7 @@
                 android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_thongKeDoanhThu_ngayKetThuc"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +94,7 @@
 
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnThongKeDoanhThu1"
+            android:id="@+id/btnThongKeTongDoanhThu"
             style="@style/mButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +106,7 @@
             style="@style/mImportantHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Doanh thu theo tháng"
+            android:text="Doanh thu theo năm"
             android:layout_margin="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -117,7 +119,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_nam_thongKeDoanhThu"
+            android:id="@+id/input_lyt_nam_thongKeDoanhThu"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,6 +129,7 @@
             android:hint="Năm"
             app:errorEnabled="true">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_nam_thongKeDoanhThu"
                 style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,7 +137,7 @@
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnThongKeDoanhThu2"
+            android:id="@+id/btnThongKeDoanhThuNam"
             style="@style/mButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
