@@ -211,8 +211,7 @@ public class SuaHoaDonFragment extends Fragment {
                 if (rdoHuy.isChecked()){
                     hoaDon.setTrangThai(0);
                 }
-                hoaDon.setThoiGianXuat(DateHelper.getDateTimeSQLNow());
-                hoaDon.setThoiGianDat(input_ngayDat.getText().toString().trim()+" "+input_GioDat.getText().toString().trim());
+                hoaDon.setThoiGianDat(DateHelper.getDateSql(input_ngayDat.getText().toString().trim())+" "+input_GioDat.getText().toString().trim());
 
                 if (hoaDonDAO.updateHoaDon(hoaDon)>0){
                     Toast.makeText(getContext(), "Sửa thành công", Toast.LENGTH_SHORT).show();
@@ -287,7 +286,7 @@ public class SuaHoaDonFragment extends Fragment {
        input_soLuongKhach.setText("" + soLuongKhach);
 
        String thoiGianDat = hoaDonDAO.getNgayDat(maHD);
-       String ngayDat = thoiGianDat.substring(0,10);
+       String ngayDat = DateHelper.getDateVietnam(thoiGianDat.substring(0,10));
        String gioDat = thoiGianDat.substring(10,16);
        input_ngayDat.setText("" + ngayDat);
        input_GioDat.setText("" + gioDat);
@@ -329,7 +328,7 @@ public class SuaHoaDonFragment extends Fragment {
         input_soLuongKhach.setText("" + soLuongKhach);
 
         String thoiGianDat = hoaDonDAO.getNgayDat(maHD);
-        String ngayDat = thoiGianDat.substring(0, 10);
+        String ngayDat = DateHelper.getDateVietnam(thoiGianDat.substring(0, 10));
         String gioDat = thoiGianDat.substring(10, 16);
         input_ngayDat.setText("" + ngayDat);
         input_GioDat.setText("" + gioDat);

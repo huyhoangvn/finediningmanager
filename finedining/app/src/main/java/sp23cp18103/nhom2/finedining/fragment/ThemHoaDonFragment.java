@@ -259,7 +259,9 @@ public class ThemHoaDonFragment extends Fragment {
                 input_thoiGianDat.setText("");
                 input_gioDat.setText("");
                 input_ban.getEditText().setText("");
-                //Quyet them vao
+                input_mon.getEditText().setText("");
+
+                Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
             }
 
             private void clearError() {

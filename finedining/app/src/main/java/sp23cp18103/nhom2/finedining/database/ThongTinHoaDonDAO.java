@@ -14,11 +14,12 @@ import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 
 public class ThongTinHoaDonDAO {
     private SQLiteDatabase db;
+    Context context;
 
     public ThongTinHoaDonDAO(Context context){
         DBHelper dbHelper =new DBHelper(context);
         db = dbHelper.getWritableDatabase();
-
+        this.context = context;
     }
 
 
@@ -67,6 +68,30 @@ public class ThongTinHoaDonDAO {
 
         return getDaTa(sql, String.valueOf(maNV),String.valueOf(trangThai));
 
+    }
+    @SuppressLint("Range")
+    public int getDoanhThu(int maNV , String tuNgay , String denNgay){
+        String sql = "SELECT sum(m.gia * dm.soLuong) as thanhTien  " +
+                "FROM hoadon as hd  " +
+                "JOIN datmon as dm ON dm.maHD = hd.maHD " +
+                "JOIN mon as m ON m.maMon = dm.maMon " +
+                "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?) " +
+                "AND hd.trangThai = 3 " +
+                "AND dm.trangThai = 1 " +
+                "AND (strftime('%Y-%m-%d',hd.thoiGianDat) BETWEEN ? AND ?) ";
+
+        List<Integer> list = new ArrayList<Integer>();
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),tuNgay,denNgay});
+        while (c.moveToNext()){
+            try {
+                list.add(Integer.parseInt(c.getString(c.getColumnIndex("thanhTien"))));
+
+            }catch (Exception e){
+                list.add(0);
+            }
+        }
+        return list.get(0);
     }
 
 

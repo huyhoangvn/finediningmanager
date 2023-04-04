@@ -38,7 +38,6 @@ public class HoaDonDAO{
         values.put("maKH",hd.getMaKH());
         values.put("maNV",hd.getMaNV());
         values.put("soLuongKhach",hd.getSoLuongKhach());
-        values.put("thoiGianXuat",hd.getThoiGianXuat());
         values.put("thoiGianDat",hd.getThoiGianDat());
         values.put("trangThai",hd.getTrangThai());
 
@@ -124,6 +123,8 @@ public class HoaDonDAO{
 //        }
 //        return -1;
 //    }
+
+
 
     @SuppressLint("Range")
     public List<HoaDon> getData(String sql, String...SelectArgs){
