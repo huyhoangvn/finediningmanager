@@ -79,7 +79,7 @@ public class BanFragment extends Fragment {
     EditText edTimKiemBan;
     NhanVienDAO nhanVienDAO;
     List<String> listFilter;
-//    LoaiBanFiterAdapter loaiBanFiterAdapter;
+    LoaiBanFiterAdapter loaiBanFiterAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -261,6 +261,7 @@ public class BanFragment extends Fragment {
     @Override
     public void onResume() {
         capNhat();
+        hienThiFilter();
         super.onResume();
     }
 
@@ -272,26 +273,27 @@ public class BanFragment extends Fragment {
             fab.setVisibility(View.GONE);
         }
     }
-    //hàm cập nhật listFilter
-//    private void hienThiFilter() {
-//        loaiBanDAO = new LoaiBanDAO(context);
-//        int maNV = PreferencesHelper.getId(getContext());
-////        listFilter = loaiBanDAO.getFilterBan(maNV);
-//        listFilter.add(0,"Tất cả");
-//        loaiBanFiterAdapter = new LoaiBanFiterAdapter(getContext(), listFilter, new ITLoaiBanFilter(){
-//            @Override
-//            public void loaiBan(String tenLoaiBan) {
-//                if(tenLoaiBan.equalsIgnoreCase("Tất cả")){
-//                    CapNhat();
-//                }else{
-//                    int maNV = PreferencesHelper.getId(getContext());
-//                    int trangThai = (chkTrangThaiBan.isChecked())?0:1;
-//                    list = (ArrayList<Ban>) banDAO.trangThaiBan(maNV,trangThai,"");
-//                    banAdapter = new BanAdapter(getContext(), list);
-//                    rcvBan.setAdapter(banAdapter);
-//                }
-//            }
-//        });
-//        rcvFilter.setAdapter(loaiBanFiterAdapter);
-//    }
+//    hàm cập nhật listFilter
+    private void hienThiFilter() {
+        loaiBanDAO = new LoaiBanDAO(context);
+        int maNV = PreferencesHelper.getId(getContext());
+        listFilter = loaiBanDAO.getFilterBan(maNV);
+        listFilter.add(0,"Tất cả");
+        loaiBanFiterAdapter = new LoaiBanFiterAdapter(getContext(), listFilter, new ITLoaiBanFilter(){
+            @Override
+            public void loaiBan(String tenLoaiBan) {
+                if(tenLoaiBan.equalsIgnoreCase("Tất cả")){
+                    capNhat();
+                }else{
+                    int maNV = PreferencesHelper.getId(getContext());
+                    int trangThai = (chk_fBan_conDung.isChecked())?0:1;
+                    list.clear();
+                    list.addAll(banDAO.getLocLoaiBan(maNV,trangThai,edTimKiemBan.getText().toString().trim(),tenLoaiBan));
+                    banAdapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+        rcvFilter.setAdapter(loaiBanFiterAdapter);
+    }
 }
