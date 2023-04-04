@@ -55,30 +55,7 @@ public class BanDAO {
         return "";
     }
 
-    public List<Ban> gettimKiem(int maNV, String viTri) {
-        String sql = "Select * from ban b " +
-                "JOIN loaiban lb ON lb.maLB = b.maLB " +
-                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
-                "WHERE nv.maNH = " +
-                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
-                "AND b.viTri LIKE ? ";
-        return getDaTa(sql, String.valueOf(maNV), String.valueOf(viTri + "%"));
-    }
 
-    @SuppressLint("Range")
-    public List<Ban> getDaTa(String sql, String... selectavg) {
-        List<Ban> list = new ArrayList<>();
-        Cursor c = db.rawQuery(sql, selectavg);
-        while (c.moveToNext()) {
-            Ban obj = new Ban();
-            obj.setMaBan(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
-            obj.setMaLB(Integer.parseInt(c.getString(c.getColumnIndex("maLB"))));
-            obj.setViTri(c.getString(c.getColumnIndex("viTri")));
-            obj.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
-            list.add(obj);
-        }
-        return list;
-    }
     public List<Ban> trangThaiBan(int maNV, int trangThai, String timKiem) {
         String sql = "Select b.maBan,b.maLB, b.trangThai, b.viTri from ban b " +
                 "JOIN loaiban lb ON lb.maLB = lb.maLB " +
@@ -149,6 +126,28 @@ public class BanDAO {
         values.put("trangThai", 1);
         return db.update("loaiban", values, "maLB = ?", new String[]{String.valueOf(maLB)});
     }
-
-
+    public List<Ban> getLocLoaiBan(int maNV, int trangThai, String timKiem, String tenLoai) {
+        String sql = "Select b.maBan, b.maLB, B.viTri, b.trangThai from ban b " +
+                "JOIN loaiban lb ON b.maLB = lb.maLB " +
+                "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND b.trangThai = ? " +
+                "AND b.viTri LIKE ? " +
+                "AND lb.tenLoai = ?";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"), String.valueOf(tenLoai));
+    }
+    @SuppressLint("Range")
+    public List<Ban> getDaTa(String sql, String... selectavg) {
+        List<Ban> list = new ArrayList<>();
+        Cursor c = db.rawQuery(sql, selectavg);
+        while (c.moveToNext()) {
+            Ban obj = new Ban();
+            obj.setMaBan(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
+            obj.setMaLB(Integer.parseInt(c.getString(c.getColumnIndex("maLB"))));
+            obj.setViTri(c.getString(c.getColumnIndex("viTri")));
+            obj.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
+            list.add(obj);
+        }
+        return list;
+    }
 }
