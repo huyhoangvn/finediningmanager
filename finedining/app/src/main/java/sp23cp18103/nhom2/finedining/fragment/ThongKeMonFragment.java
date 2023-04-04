@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class ThongKeMonFragment extends Fragment {
                 }
                 if (rdoTkDoanhThu.isChecked()){
                     evRcvTkMonDoanhthu();
+
                 }
 
 
@@ -76,38 +78,65 @@ public class ThongKeMonFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (rdoTkSoLuong.isChecked()) {
-                    thongKeNhapNgayNamSoLuong();
+                    thongKeSoLuong();
                 } else if (rdoTkDoanhThu.isChecked()) {
-                    thongKeNhapNgayNamDoanhthu();
+                    thongKeDoanhThu();
                 }
             }
         });
     }
-
-
-    void thongKeNhapNgayNamSoLuong(){
-        list.clear();
-        tinMonDAO = new ThongTinMonDAO(getContext());
-        String thang = inputLayoutThang.getEditText().getText().toString();
+void thongKeSoLuong(){
+    list.clear();
+    tinMonDAO = new ThongTinMonDAO(getContext());
+    String thang = inputLayoutThang.getEditText().getText().toString();
+    String nam = inputLayoutNam.getEditText().getText().toString();
+    if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongNam(nam);
+        adapter = new MonBanChayAdapter(getContext(),list);
+        rcvMonHot.setAdapter(adapter);
+    } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
         thang = String.format("%02d", Integer.parseInt(thang));
-        String nam = inputLayoutNam.getEditText().getText().toString();
         list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam);
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
+    } else if (TextUtils.isEmpty(thang) && TextUtils.isEmpty(nam)){
+        Toast.makeText(getContext(), "Vui Lòng Nhập Năm Và Tháng", Toast.LENGTH_SHORT).show();
+        return;
+    } else if (TextUtils.isEmpty(nam)){
+        Toast.makeText(getContext(), "Vui Lòng Nhập Năm", Toast.LENGTH_SHORT).show();
+        return;
+    } else {
+        Toast.makeText(getContext(), "Lỗi Không Xác Định", Toast.LENGTH_SHORT).show();
+        return;
     }
+}
 
-    void thongKeNhapNgayNamDoanhthu(){
+
+    void thongKeDoanhThu(){
         list.clear();
         tinMonDAO = new ThongTinMonDAO(getContext());
         String thang = inputLayoutThang.getEditText().getText().toString();
-        thang = String.format("%02d", Integer.parseInt(thang));
         String nam = inputLayoutNam.getEditText().getText().toString();
-        list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
-        adapter = new MonBanChayAdapter(getContext(),list);
-        rcvMonHot.setAdapter(adapter);
-
+        if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
+            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongNam(nam);
+            adapter = new MonBanChayAdapter(getContext(),list);
+            rcvMonHot.setAdapter(adapter);
+        } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
+            thang = String.format("%02d", Integer.parseInt(thang));
+            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
+            adapter = new MonBanChayAdapter(getContext(),list);
+            rcvMonHot.setAdapter(adapter);
+        } else if (TextUtils.isEmpty(thang) && TextUtils.isEmpty(nam)){
+            Toast.makeText(getContext(), "Vui Lòng Nhập Năm Và Tháng", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (TextUtils.isEmpty(nam)){
+            Toast.makeText(getContext(), "Vui Lòng Nhập Năm", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            Toast.makeText(getContext(), "Lỗi Không Xác Định", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
-
     private void evRcvTkMonSoLuong() {
         tinMonDAO = new ThongTinMonDAO(getContext());
         list = tinMonDAO.getTop10MonSoLuongCaoNhat();
@@ -131,5 +160,10 @@ public class ThongKeMonFragment extends Fragment {
         rdoTkDoanhThu = view.findViewById(R.id.rdo_thongke_mon_DoanhThu);
         rdoTkSoLuong = view.findViewById(R.id.rdo_thongke_mon_SoLuong);
         groupThongKe = view.findViewById(R.id.group_Thogke);
+    }
+
+    void clearText(){
+        inputLayoutThang.getEditText().setText("");
+        inputLayoutNam.getEditText().setText("");
     }
 }

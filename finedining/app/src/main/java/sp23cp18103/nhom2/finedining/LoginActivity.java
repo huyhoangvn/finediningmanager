@@ -198,10 +198,10 @@ public class LoginActivity extends AppCompatActivity{
 
         khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
         
-//        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
-//
-//        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
-//        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
+        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
+
+        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
+        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
 
 
         loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
@@ -216,20 +216,20 @@ public class LoginActivity extends AppCompatActivity{
 
 
 
-//        banDAO.insertban(new Ban(1,1,"A1",1));
-//        banDAO.insertban(new Ban(2,1,"A2",1));
-//        banDAO.insertban(new Ban(3,1,"A3",1));
-//        banDAO.insertban(new Ban(4,1,"A4",1));
+        banDAO.insertban(new Ban(1,1,"A1",1));
+        banDAO.insertban(new Ban(2,1,"A2",1));
+        banDAO.insertban(new Ban(3,1,"A3",1));
+        banDAO.insertban(new Ban(4,1,"A4",1));
 
 
-//        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,1));
-//
-//        datBanDAO.insertDatBan(new DatBan(1,1,1));
-//        datBanDAO.insertDatBan(new DatBan(2,3,1));
-//
-//        datBanDAO.insertDatBan(new DatBan(5,3,1));
+        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,1));
 
-//        datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
+        datBanDAO.insertDatBan(new DatBan(1,1,1));
+        datBanDAO.insertDatBan(new DatBan(2,3,1));
+
+        datBanDAO.insertDatBan(new DatBan(5,3,1));
+
+        datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
 
 
 
