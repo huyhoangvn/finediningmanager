@@ -34,6 +34,7 @@ import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -79,10 +80,10 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
         if (banDAO.getKiemTraConTrong(manv, ban.getMaBan()) == 1) {
             holder.tvTrangThaiBan.setText("Đầy");
-            holder.tvTrangThaiBan.setTextColor(Color.BLUE);
+            holder.tvTrangThaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         } else {
             holder.tvTrangThaiBan.setText("Trống");
-            holder.tvTrangThaiBan.setTextColor(Color.RED);
+            holder.tvTrangThaiBan.setTextColor(ColorHelper.getPositiveColor(context));
         }
 
         holder.imgSua.setOnClickListener(new View.OnClickListener() {
