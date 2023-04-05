@@ -11,6 +11,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
+import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
 
 public class ThongTinHoaDonDAO {
     private SQLiteDatabase db;
@@ -93,6 +94,29 @@ public class ThongTinHoaDonDAO {
         }
         return list.get(0);
     }
+    @SuppressLint("Range")
+    public List<ThongTinThongKeDoanhThu> getDoanhThuTheoNam(int maNV, String nam){
+        String sql = "SELECT strftime('%m', hd.thoiGianDat) as thang , sum(m. gia * dm.soLuong) as thanhTien " +
+                "FROM hoadon hd " +
+                "JOIN datmon as dm ON dm.maHD = hd.maHD " +
+                "JOIN mon as m ON m.maMon = dm.maMon " +
+                "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND hd.trangThai = 3 " +
+                "AND dm.trangThai = 1 " +
+                "AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
+                "GROUP BY strftime('%m', hd.thoiGianDat)";
+        List<ThongTinThongKeDoanhThu> list = new ArrayList<>();
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),nam});
+        while (c.moveToNext()){
+            ThongTinThongKeDoanhThu tttkdt = new ThongTinThongKeDoanhThu();
+            tttkdt.setMonth(c.getString(c.getColumnIndex("thang")));
+            tttkdt.setDoanhThu(c.getInt(c.getColumnIndex("thanhTien")));
+            list.add(tttkdt);
+        }
+        return list;
+    }
+
 
 
 
