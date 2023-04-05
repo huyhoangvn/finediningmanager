@@ -38,6 +38,7 @@ import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -80,7 +81,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         loaiMonDAO = new LoaiMonDAO(context);
         LoaiMon lm = loaiMonDAO.getId(String.valueOf(m.getMaLM()));
         holder.tvCardviewTenLoaiMon.setText(lm.getTenLoai());
-        holder.tvCardviewGiaMon.setText(String.valueOf(m.getGia()));
+        holder.tvCardviewGiaMon.setText(NumberHelper.getNumberWithDecimal(m.getGia()) + "");
         if(m.getTrangThai()==1){
             holder.tvCardviewTrangThaiMon.setText("Còn dùng");
             holder.tvCardviewTrangThaiMon.setTextColor(Color.BLUE);
