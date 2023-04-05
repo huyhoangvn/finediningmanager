@@ -2,6 +2,7 @@ package sp23cp18103.nhom2.finedining.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 
-public class LoaiMonFilterAdapter extends RecyclerView.Adapter<LoaiMonFilterAdapter.filterViewHolder> {
+public class LoaiMonFilterAdapter extends RecyclerView.Adapter<LoaiMonFilterAdapter.FilterViewHolder>{
     Context context;
     List<String> list;
     LoaiMonDAO dao ;
@@ -34,20 +37,23 @@ public class LoaiMonFilterAdapter extends RecyclerView.Adapter<LoaiMonFilterAdap
 
     @NonNull
     @Override
-    public filterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FilterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_filter_loaimon,parent, false);
-        return new filterViewHolder(view);
+        return new FilterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull filterViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull FilterViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvFilterLoaiMon.setText(list.get(position));
-        holder.tvFilterLoaiMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iLoaiMonFilter.locMon(list.get(position));
-            }
-        });
+
+
+            holder.tvFilterLoaiMon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        iLoaiMonFilter.locMon(list.get(position), holder);
+                }
+            });
+
 
     }
 
@@ -56,10 +62,10 @@ public class LoaiMonFilterAdapter extends RecyclerView.Adapter<LoaiMonFilterAdap
         return list.size();
     }
 
-    class filterViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFilterLoaiMon;
+    public class FilterViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvFilterLoaiMon;
 
-        public filterViewHolder(@NonNull View itemView) {
+        public FilterViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFilterLoaiMon = itemView.findViewById(R.id.tvFilterLoaiMon);
         }

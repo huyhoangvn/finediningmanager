@@ -57,7 +57,7 @@ public class LoaiMonFragment extends Fragment {
     Context context;
     List<LoaiMon> listLM;
     LoaiMonAdapter adapter;
-    TextInputLayout inputTimKiemLoaiMon;
+    TextInputLayout inputTimKiemLoaiMon, inputDialogTenLoaiMon;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,6 +101,7 @@ public class LoaiMonFragment extends Fragment {
                 btnDialogHuyLoaiMon = view.findViewById(R.id.btnDialogHuyLoaiMon);
                 btnDialogLuuLoaiMon = view.findViewById(R.id.btnDialogLuuLoaiMon);
                 tvTieuDeLoaiMon = view.findViewById(R.id.tvTieuDeLoaiMon);
+                inputDialogTenLoaiMon = view.findViewById(R.id.inputDialogTenLoaiMon);
                 tvTieuDeLoaiMon.setText("Thêm loại món ");
                 chkDialogTrangThaiLoaiMon.setVisibility(View.GONE);
                 Dialog dialog= builder.create();
@@ -178,7 +179,7 @@ public class LoaiMonFragment extends Fragment {
         int check = 1;
         String tenLM = edTenLoaiMon.getText().toString();
         if(tenLM.isEmpty()){
-            edTenLoaiMon.setError("Không được để trống");
+            inputDialogTenLoaiMon.setError("Không được để trống");
             check = -1;
         }
         return check;

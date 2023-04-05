@@ -22,7 +22,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
@@ -42,6 +44,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
     Button btnDialogLuuLoaiMon, btnDialogHuyLoaiMon;
     CheckBox chkDialogTrangThaiLoaiMon;
     LoaiMonDAO dao;
+    TextInputLayout inputDialogTenLoaiMon;
 
 
     public LoaiMonAdapter(Context context, List<LoaiMon> list) {
@@ -85,6 +88,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                 chkDialogTrangThaiLoaiMon = view.findViewById(R.id.chkDialogTrangThaiLoaiMon);
                 btnDialogLuuLoaiMon = view.findViewById(R.id.btnDialogLuuLoaiMon);
                 btnDialogHuyLoaiMon = view.findViewById(R.id.btnDialogHuyLoaiMon);
+                inputDialogTenLoaiMon = view.findViewById(R.id.inputDialogTenLoaiMon);
                 edTenLoaiMon.setText(lm.getTenLoai());
                 Dialog dialog= builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -114,7 +118,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                             }
                         }
                         if(tenLoai.isEmpty()){
-                            edTenLoaiMon.setError("Không được để trống");
+                            inputDialogTenLoaiMon.setError("Không được để trống");
                             return;
                         }else{
                             if(dao.updateLoaiMon(lm)>0){
@@ -146,6 +150,9 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
     }
 
 
+
+
+
     class loaiMonViewHolder extends RecyclerView.ViewHolder {
         TextView tvtenLoaiMon, tvTrangThai, tvCardviewSoMon;
         ImageView imgSuaTenLoaiMon;
@@ -158,4 +165,6 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             tvCardviewSoMon = itemView.findViewById(R.id.tvCardviewSoMon);
         }
     }
+
+
 }
