@@ -1,6 +1,7 @@
 package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -23,6 +24,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -64,6 +67,7 @@ import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 
@@ -166,28 +170,8 @@ public class SuaHoaDonFragment extends Fragment {
                 }
 
                 //Trường hợp đổi trạng thái từ đặt trước sang chờ thanh toán
-                Log.d("TAG", "luuDatBanVaoHoaDon: " + rdoChuaThanhToan.isChecked() + "/" + hoaDonDAO.getTrangThai(maHD));
-                if(rdoChuaThanhToan.isChecked() && hoaDonDAO.getTrangThai(maHD)==1){
-                    ArrayList<ThongTinDatBan> danhSachDatTruocBanDay
-                            = datBanDAO.layDanhSachDatTruocBanDay(PreferencesHelper.getId(getContext()), maHD);
-                    if(danhSachDatTruocBanDay.size() > 0 && !Collections.disjoint(listDatbanCu, danhSachDatTruocBanDay)){
-                        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
-                        builder.setTitle("Bàn Đặt Hiện Đang Sử Dụng");
-                        builder.setMessage(danhSachDatTruocBanDay.toString().replace("[","").replace("]",""));
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Bỏ đặt bàn đầy", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                listDatbanCu.removeAll(danhSachDatTruocBanDay);
-                                input_ban.getEditText().setText(listDatbanCu.toString()
-                                        .replace("[", "")
-                                        .replace("]", ""));
-                            }
-                        });
-                        builder.setNegativeButton("Hủy", null);
-                        builder.create().show();
-                        return;
-                    }
+                if(!kiemTraBanTrung()){
+                    return;
                 }
 
                 kh.setTenKH(input_tenKH.getText().toString().trim());
@@ -219,13 +203,43 @@ public class SuaHoaDonFragment extends Fragment {
                     Toast.makeText(getContext(), "Sửa thất bại", Toast.LENGTH_SHORT).show();
                 }
 
-                upDateMon();                
-                /*
-                * Lưu danh sách đặt bàn vào hóa đơn
-                * */
+                upDateMon();
+
+                //Lưu danh sách đặt bàn vào hóa đơn
                 luuDatBanVaoHoaDon();
             }
         });
+    }
+
+    /*
+     * Kiểm tra các bàn còn trùng với bàn đầy khi chuyển từ đặt bàn sang chờ thanh toán
+     * Trả về true nếu không có bàn trùng
+     * Trả về false nếu có bàn trùng và đưa ra dialog gợi ý cho người dùng bỏ các bàn bị trùng
+     * */
+    private boolean kiemTraBanTrung() {
+        if(rdoChuaThanhToan.isChecked() && hoaDonDAO.getTrangThai(maHD)==1){
+            ArrayList<ThongTinDatBan> danhSachDatTruocBanDay
+                    = datBanDAO.layDanhSachDatTruocBanDay(PreferencesHelper.getId(getContext()), maHD);
+            if(danhSachDatTruocBanDay.size() > 0 && !Collections.disjoint(listDatbanCu, danhSachDatTruocBanDay)){
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+                builder.setTitle("Bàn Đặt Hiện Đang Sử Dụng");
+                builder.setMessage(danhSachDatTruocBanDay.toString().replace("[","").replace("]",""));
+                builder.setCancelable(false);
+                builder.setPositiveButton("Bỏ đặt bàn đầy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        listDatbanCu.removeAll(danhSachDatTruocBanDay);
+                        input_ban.getEditText().setText(listDatbanCu.toString()
+                                .replace("[", "")
+                                .replace("]", ""));
+                    }
+                });
+                builder.setNegativeButton("Hủy", null);
+                builder.create().show();
+                return false;
+            }
+        }
+        return true;
     }
 
     /*
@@ -434,6 +448,8 @@ public class SuaHoaDonFragment extends Fragment {
         RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
         TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
         AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
+        Button btnHuyDatBan = view.findViewById(R.id.btnhuy_dialog_chonBan_FragmentThemHoaDon);
+
         //KhoiTao
         listDatbanMoi.clear();
         listDatbanMoi.addAll(listDatbanCu);
@@ -475,6 +491,12 @@ public class SuaHoaDonFragment extends Fragment {
                 input_ban.getEditText().setText(listDatbanCu.toString()
                         .replace("[", "")
                         .replace("]", ""));
+                dialog.dismiss();
+            }
+        });
+        btnHuyDatBan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
@@ -551,6 +573,14 @@ public class SuaHoaDonFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                KeyboardHelper.hideSoftKeyboard((Activity) context);
+            }
+        });
+
         dialog.show();
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
@@ -647,7 +677,8 @@ public class SuaHoaDonFragment extends Fragment {
             Date date = sdf.parse(input_ngayDat.getText().toString().trim());
             assert date != null;
             if (!input_ngayDat.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
+                input_lyt_ngayDat.setError("Định dạng ngày sai");
+                return false;
             }
         } catch (ParseException ex) {
             input_lyt_ngayDat.setError("Định dạng ngày sai");
@@ -658,13 +689,13 @@ public class SuaHoaDonFragment extends Fragment {
             Date date = sdf.parse(input_GioDat.getText().toString().trim());
             assert date != null;
             if (!input_GioDat.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
+                input_lyt_giaDat.setError("Định dạng giờ sai");
+                return false;
             }
         } catch (ParseException ex) {
-            input_lyt_giaDat.setError("Định dạng ngày sai");
+            input_lyt_giaDat.setError("Định dạng giờ sai");
             return false;
         }
         return true;
     }
-
 }

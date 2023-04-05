@@ -273,7 +273,8 @@ public class ThemNhanVienFragment extends Fragment {
             Date date = sdf.parse(edNgaySinh.getText().toString().trim());
             assert date != null;
             if (!edNgaySinh.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
+                inputNgaySinh.setError("Định dạng ngày sai");
+                return false;
             }
         } catch (ParseException ex) {
             inputNgaySinh.setError("Định dạng ngày sai");

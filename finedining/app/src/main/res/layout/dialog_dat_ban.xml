@@ -81,6 +81,7 @@
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnhuy_dialog_chonBan_FragmentThemHoaDon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
