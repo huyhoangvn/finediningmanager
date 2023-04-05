@@ -108,7 +108,7 @@
                 style="@style/mImportantHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Doanh thu theo năm"
+                android:text="Doanh thu theo tháng"
                 android:layout_margin="10dp"/>
 
             <com.github.mikephil.charting.charts.BarChart

@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
             }).start();
             // nếu k có internet
         } else {
-            Toast.makeText(getContext(), "Kiểm Tra Kết nối mạng và thử lại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Kiểm tra kết nối mạng và thử lại", Toast.LENGTH_SHORT).show();
             return;
         }
     }
@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment {
         String tenNhaHang = nhaHangDAO.getTenNH(maNH);
         String diachi = nhaHangDAO.getDiaChi(maNH);
         tvTenNhaHang.setText(tenNhaHang);
-        tvDiaChi.setText("Địa chỉ: " + diachi);
+        tvDiaChi.setText(diachi);
     }
 
 

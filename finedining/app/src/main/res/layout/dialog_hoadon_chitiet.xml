@@ -24,7 +24,7 @@
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chủ Hóa Đơn: "/>
+                android:text="Người thanh toán: "/>
 
             <TextView
                 android:id="@+id/tv_tenKhach_dialog_hoaDon_chiTiet"
@@ -60,7 +60,7 @@
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nhân viên phục vụ: "/>
+                android:text="Nhân viên quản lý: "/>
 
             <TextView
                 android:id="@+id/tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet"
@@ -80,7 +80,7 @@
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thời Gian Xuất: "/>
+                android:text="Thời gian xuất: "/>
 
             <TextView
                 android:id="@+id/tv_thoiGianXuat_dialog_hoaDon_chiTiet"
@@ -98,7 +98,7 @@
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thời Gian Đặt: "/>
+                android:text="Thời gian đặt: "/>
 
             <TextView
                 android:id="@+id/tv_thoiGianDat_dialog_hoaDon_chiTiet"
@@ -158,7 +158,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="10dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="?attr/colorOutline"
+            android:alpha="0.5"/>
 
         <LinearLayout
             android:layout_width="match_parent"

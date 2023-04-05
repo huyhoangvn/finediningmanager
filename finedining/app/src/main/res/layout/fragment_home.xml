@@ -40,9 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="?attr/colorOutline"
+            android:alpha="0.5"
             android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:alpha="0.5"/>
+            android:layout_marginRight="80dp"/>
 
         <TextView
             style="@style/mImportantHeaderText"
