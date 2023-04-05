@@ -2,6 +2,7 @@ package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,14 +14,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinHoaDonDAO;
 import sp23cp18103.nhom2.finedining.model.HoaDon;
+import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
@@ -35,6 +47,8 @@ public class ThongKeDoanhThuFragment extends Fragment {
     Context context ;
     ThongTinHoaDonDAO thongTinHoaDonDAO;
     HoaDon hd;
+    BarChart barChart;
+    ArrayList<ThongTinThongKeDoanhThu> thongTinThongKeDoanhThuArrayList ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +65,38 @@ public class ThongKeDoanhThuFragment extends Fragment {
         chonNgayBatDau();
         chonNgayKetThuc();
         thongKeTongDoanhThu();
+        thongKeDoanhThuTheoNam();
+
+    }
+
+    private void thongKeDoanhThuTheoNam() {
+        btnThongKeDoanhThuTheoNam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String nam = edNam.getText().toString().trim();
+                BarDataSet barDataSet1 = new BarDataSet(barEntries1(nam),"Month");
+                barDataSet1.setColor(Color.RED);
+
+                BarData data = new BarData(barDataSet1);
+                barChart.setData(data);
+
+                String[] moth = new String[]{"","1","2","3","4","5","6","7","8","9","10","11","12",""};
+                XAxis xAxis = barChart.getXAxis();
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
+                xAxis.setCenterAxisLabels(false);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setGranularity(0.25F);
+                xAxis.setGranularityEnabled(true);
+
+                barChart.setDragEnabled(true);
+                barChart.setVisibleXRangeMaximum(8);
+
+
+
+                barChart.invalidate();
+            }
+        });
     }
 
     private void khoiTao() {
@@ -98,6 +144,35 @@ public class ThongKeDoanhThuFragment extends Fragment {
         edNam = view.findViewById(R.id.input_nam_thongKeDoanhThu);
         btnThongKeDoanhThu = view.findViewById(R.id.btnThongKeTongDoanhThu);
         btnThongKeDoanhThuTheoNam = view.findViewById(R.id.btnThongKeDoanhThuNam);
+        barChart = view.findViewById(R.id.barChart);
+
+
+    }
+
+    private ArrayList<BarEntry> barEntries1(String nam){
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        List<ThongTinThongKeDoanhThu> list = thongTinHoaDonDAO.getDoanhThuTheoNam(PreferencesHelper.getId(context),nam);
+        for (int i = 0; i < list.size(); i++){
+            ThongTinThongKeDoanhThu tt = list.get(i);
+//            if (tt.getMonth().equals(barEntries.get(barChart.getScrollX()))){
+                barEntries.add(new BarEntry(1,tt.getDoanhThu()));
+                barEntries.add(new BarEntry(2,0));
+                barEntries.add(new BarEntry(3,0));
+                barEntries.add(new BarEntry(4,tt.getDoanhThu()));
+                barEntries.add(new BarEntry(5,0));
+                barEntries.add(new BarEntry(6,0));
+                barEntries.add(new BarEntry(7,0));
+                barEntries.add(new BarEntry(8,0));
+                barEntries.add(new BarEntry(9,0));
+                barEntries.add(new BarEntry(10,0));
+                barEntries.add(new BarEntry(11,0));
+                barEntries.add(new BarEntry(12,0));
+//            }
+
+        }
+
+
+        return  barEntries;
 
     }
 }
