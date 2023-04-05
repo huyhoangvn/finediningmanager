@@ -80,7 +80,7 @@
                         android:maxLines="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_fDoiMatKhau_luu"
                     style="@style/mButton"
                     android:layout_width="match_parent"

@@ -86,30 +86,45 @@
                     style="@style/mFilterItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:maxWidth="200dp"
+                    android:gravity="center"
                     android:text="Tất Cả"/>
                 <TextView
                     android:id="@+id/tvChoThanhToan_hoaDon"
                     style="@style/mFilterItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:maxWidth="200dp"
+                    android:gravity="center"
                     android:text="Chờ Thanh Toán"/>
                 <TextView
                     android:id="@+id/tvDaThanhToan_hoaDon"
                     style="@style/mFilterItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:maxWidth="200dp"
+                    android:gravity="center"
                     android:text="Đã Thanh Toán"/>
                 <TextView
                     android:id="@+id/tvDangDatTruoc_hoaDon"
                     style="@style/mFilterItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:maxWidth="200dp"
+                    android:gravity="center"
                     android:text="Đang Đặt Trước"/>
                 <TextView
                     android:id="@+id/tvHuy_hoaDon"
                     style="@style/mFilterItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:maxWidth="200dp"
+                    android:gravity="center"
                     android:text="Đã Hủy"/>
 
             </LinearLayout>

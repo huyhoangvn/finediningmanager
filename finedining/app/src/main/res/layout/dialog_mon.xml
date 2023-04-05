@@ -57,12 +57,21 @@
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/spnrDialogLoaiMon"
-                style="@style/mSpinner"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:orientation="vertical"
+                android:background="@drawable/spinner_background"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:padding="1dp">
+                <Spinner
+                    android:id="@+id/spnrDialogLoaiMon"
+                    style="@style/mSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/chkTrangThaiMon"
@@ -76,14 +85,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDialogLuuMon"
                     style="@style/mButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Lưu"/>
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDialogHuyMon"
                     style="@style/mButton"
                     android:layout_width="0dp"

@@ -122,9 +122,8 @@
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="text|textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -142,9 +141,8 @@
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="text|textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 style="@style/mNormalText"
@@ -176,14 +174,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnThem_FragmentThemHoaDon"
                     style="@style/mButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Lưu"/>
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnHuy_FragmentThemHoaDon"
                     style="@style/mButton"
                     android:layout_width="0dp"

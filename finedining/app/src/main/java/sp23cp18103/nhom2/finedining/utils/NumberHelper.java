@@ -9,7 +9,7 @@ public class NumberHelper {
     * Trả về định dạng số có dâu phẩy phân cách
     * VD: 1000000 (int/string) > 1,000,000 (string)
     * */
-    public static String getNumberWithDecimal(int money){
+    public static String getNumberWithDecimal(long money){
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(',');
         DecimalFormat df = new DecimalFormat("###,###", symbols);

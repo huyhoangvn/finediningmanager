@@ -86,7 +86,7 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnThongKeKhach1"
             style="@style/mButton"
             android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                 android:maxLines="1"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnThongKeKhach2"
             style="@style/mButton"
             android:layout_width="match_parent"

@@ -10,6 +10,7 @@
     <!--Light theme-->
     <color name="Light_Primary">#C0580C</color>
     <color name="Light_OnPrimary">#ffffff</color>
+    <color name="Light_PrimaryVariant">#EB7F30</color>
     <color name="Light_PrimaryContainer">#ffdbca</color>
     <color name="Light_OnPrimaryContainer">#331200</color>
     <color name="Light_Secondary">#ac8978</color>

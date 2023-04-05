@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="Ghi nhớ đăng nhập"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dangnhap"
                 style="@style/mButton"
                 android:layout_width="match_parent"

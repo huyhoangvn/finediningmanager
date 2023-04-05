@@ -44,11 +44,14 @@
 
     <!--Button-->
     <style name="mButton">
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
+<!--        <item name="android:padding">10dp</item>-->
+        <!-- @null -->
         <item name="backgroundTint">?attr/colorPrimary</item>
+<!--        <item name="android:background">@drawable/background_gradient_button</item>-->
         <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">20dp</item>
     </style>
 
     <style name="mFloatingButton">

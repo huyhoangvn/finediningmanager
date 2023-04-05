@@ -42,7 +42,7 @@
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_tim_TkMon"
         style="@style/mButton"
         android:layout_width="match_parent"
