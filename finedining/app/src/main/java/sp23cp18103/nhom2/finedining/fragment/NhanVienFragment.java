@@ -2,6 +2,8 @@ package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -130,6 +132,14 @@ public class NhanVienFragment extends Fragment {
                         .commit();
                 FloatingActionButton ftbtnThemNhanVien = getActivity().findViewById(R.id.ftbtn_fNhanVien_them);
                 ftbtnThemNhanVien.hide();
+            }
+
+            @Override
+            public void showDialPhoneNumber(String phoneNumber) {
+                String uri = "tel:" + phoneNumber.trim() ;
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse(uri));
+                startActivity(intent);
             }
         });
         rcvNhanVien.setAdapter(adpNhanVien);
