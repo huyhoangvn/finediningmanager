@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity{
                         loading();
                         //chuyển activity
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                        finish();
                         // animation chuyển
                         overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
                     }else {
@@ -239,14 +240,17 @@ public class LoginActivity extends AppCompatActivity{
     void loading () {
         // progress dialog custom
         dialog = new CustomProgressDialog(this);
-        dialog.show();
-        Window window = dialog.getWindow();
-        if (window == null) {
-            return;
+        if (!isFinishing()) {
+            dialog.show();
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
         }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
+
+
 
     // tắt progress dialog
     protected void onResume () {
@@ -271,4 +275,13 @@ public class LoginActivity extends AppCompatActivity{
         chkRemeber = findViewById(R.id.chk_Remeber);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferencesHelper.clearId(this);
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
 }

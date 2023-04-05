@@ -16,6 +16,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
     List<Mon> listMon;
@@ -39,9 +40,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Mon mon = listMon.get(position);
         holder.tvTenMon.setText(mon.getTenMon());
+        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " VND");
         ImageHelper.loadAvatar(context,holder.imgAnhMon,mon.getHinh());
     }
-
     @Override
     public int getItemCount() {
         return listMon.size();
@@ -49,11 +50,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAnhMon;
-        TextView tvTenMon;
+        TextView tvTenMon,tvGia;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgAnhMon = itemView.findViewById(R.id.img_anhMon);
             tvTenMon = itemView.findViewById(R.id.tv_tenMon);
+            tvGia = itemView.findViewById(R.id.tv_giaMon);
         }
 
     }

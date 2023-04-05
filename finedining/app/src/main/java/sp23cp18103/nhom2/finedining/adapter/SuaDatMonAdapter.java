@@ -29,6 +29,7 @@ import sp23cp18103.nhom2.finedining.database.DatMonDAO;
 import sp23cp18103.nhom2.finedining.model.DatMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -42,11 +43,6 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
     List<ThongTinDatMon> listDatMonCu;
     InterfaceDatMon interfaceDatMon;
 
-    ThongTinDatMon thongTinDatMon;
-
-
-
-
     int maHD;
 
     public int getMaHD() {
@@ -56,13 +52,6 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
     public void setMaHD(int maHD) {
         this.maHD = maHD;
     }
-
-//    public SuaDatMonAdapter(Context context, List<Mon> monList, InterfaceDatMon interfaceDatMon) {
-//        this.context = context;
-//        this.monList = monList;
-//        this.interfaceDatMon = interfaceDatMon;
-//    }
-
 
     public SuaDatMonAdapter(Context context, List<Mon> monList, List<ThongTinDatMon> listDatMonCu, InterfaceDatMon interfaceDatMon) {
         this.context = context;
@@ -82,17 +71,14 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
 
     @Override
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
-//        DatMonDAO datMonDAO = new DatMonDAO(context);
-//        listDatMonCu =  datMonDAO.getDatMonTheoHoaDon(maHD, PreferencesHelper.getId(context));
         SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPrefSaveListSua", Context.MODE_PRIVATE);
         String jsonListDatMon = sharedPreferences.getString("listSuaMon", "");
         Type type = new TypeToken<ArrayList<ThongTinDatMon>>(){}.getType();
         listDatMonMoi = new Gson().fromJson(jsonListDatMon, type);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         Mon mon = monList.get(position);
-        holder.tvTen.setText("" + mon.getTenMon());
-        holder.tvGia.setText("" + mon.getGia());
+        holder.tvTenMon.setText(mon.getTenMon());
+        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " VND");
 
         if (listDatMonCu != null) {
             for (int i = 0; i < listDatMonCu.size(); i++){
@@ -156,16 +142,15 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
     }
 
     class DatMonViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTen,tvGia;
         LinearLayout lnChonMon;
         EditText edSoLuongMon;
-
+        TextView tvTenMon,tvGia;
         public DatMonViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTen = itemView.findViewById(R.id.tvTenMon_Cardview_datMon);
-            tvGia = itemView.findViewById(R.id.tvGia_Cardview_datMon);
             edSoLuongMon = itemView.findViewById(R.id.ed_SoLuong_MonDat);
             lnChonMon = itemView.findViewById(R.id.linearChonMon);
+            tvTenMon = itemView.findViewById(R.id.tvTenMon_Cardview_datMon);
+            tvGia = itemView.findViewById(R.id.tvGia_Cardview_datMon);
         }
 
     }

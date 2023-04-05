@@ -27,6 +27,7 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.MonBanChayAdapter;
 import sp23cp18103.nhom2.finedining.database.ThongTinMonDAO;
 import sp23cp18103.nhom2.finedining.model.ThongTinMon;
+import sp23cp18103.nhom2.finedining.utils.DateHelper;
 
 /*
  * Hiển thị danh sách món ăn bán chạy
@@ -54,7 +55,6 @@ public class ThongKeMonFragment extends Fragment {
         khoiTaoistenergroupThongKe();
         evTim();
     }
-
     private void khoiTaoistenergroupThongKe() {
         rdoTkSoLuong.setChecked(true);
         evRcvTkMonSoLuong();
@@ -90,6 +90,14 @@ void thongKeSoLuong(){
     tinMonDAO = new ThongTinMonDAO(getContext());
     String thang = inputLayoutThang.getEditText().getText().toString();
     String nam = inputLayoutNam.getEditText().getText().toString();
+    // Kiểm tra giá trị nhập vào của chuỗi 'thang'
+    if (!TextUtils.isEmpty(thang)) {
+        int thangSo = Integer.parseInt(thang);
+        if (thangSo > 12) {
+            Toast.makeText(getContext(), "Tháng không hợp lệ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
     if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
         list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongNam(nam);
         adapter = new MonBanChayAdapter(getContext(),list);
@@ -103,43 +111,47 @@ void thongKeSoLuong(){
         Toast.makeText(getContext(), "Vui Lòng Nhập Năm Và Tháng", Toast.LENGTH_SHORT).show();
         return;
     } else if (TextUtils.isEmpty(nam)){
-        Toast.makeText(getContext(), "Vui Lòng Nhập Năm", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Không Xác Định Được Năm", Toast.LENGTH_SHORT).show();
         return;
     } else {
         Toast.makeText(getContext(), "Lỗi Không Xác Định", Toast.LENGTH_SHORT).show();
         return;
     }
 }
-
-
-    void thongKeDoanhThu(){
+    void thongKeDoanhThu() {
         list.clear();
         tinMonDAO = new ThongTinMonDAO(getContext());
         String thang = inputLayoutThang.getEditText().getText().toString();
         String nam = inputLayoutNam.getEditText().getText().toString();
-        if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
+        if (!TextUtils.isEmpty(thang)) {
+            int thangSo = Integer.parseInt(thang);
+            if (thangSo > 12) {
+                Toast.makeText(getContext(), "Tháng không hợp lệ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)) {
             list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongNam(nam);
-            adapter = new MonBanChayAdapter(getContext(),list);
+            adapter = new MonBanChayAdapter(getContext(), list);
             rcvMonHot.setAdapter(adapter);
-        } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
+        } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)) {
             thang = String.format("%02d", Integer.parseInt(thang));
-            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
-            adapter = new MonBanChayAdapter(getContext(),list);
+            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang, nam);
+            adapter = new MonBanChayAdapter(getContext(), list);
             rcvMonHot.setAdapter(adapter);
-        } else if (TextUtils.isEmpty(thang) && TextUtils.isEmpty(nam)){
-            Toast.makeText(getContext(), "Vui Lòng Nhập Năm Và Tháng", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(thang) && TextUtils.isEmpty(nam)) {
+            Toast.makeText(getContext(), "Vui lòng nhập năm và tháng", Toast.LENGTH_SHORT).show();
             return;
-        } else if (TextUtils.isEmpty(nam)){
-            Toast.makeText(getContext(), "Vui Lòng Nhập Năm", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(nam)) {
+            Toast.makeText(getContext(), "Không xác định được năm", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Toast.makeText(getContext(), "Lỗi Không Xác Định", Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(getContext(), "Lỗi không xác định", Toast.LENGTH_SHORT).show();
         }
     }
     private void evRcvTkMonSoLuong() {
         tinMonDAO = new ThongTinMonDAO(getContext());
-        list = tinMonDAO.getTop10MonSoLuongCaoNhat();
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatYearNow(DateHelper.getYearSQLNow());
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
     }
@@ -147,7 +159,7 @@ void thongKeSoLuong(){
     private void evRcvTkMonDoanhthu() {
         list.clear();
         tinMonDAO = new ThongTinMonDAO(getContext());
-        list = tinMonDAO.getTop10MonDoanhThuCaoNhat();
+        list = tinMonDAO.getTop10MonDoanhThuCaoNhatYearNow(DateHelper.getYearSQLNow());
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
     }
@@ -160,10 +172,5 @@ void thongKeSoLuong(){
         rdoTkDoanhThu = view.findViewById(R.id.rdo_thongke_mon_DoanhThu);
         rdoTkSoLuong = view.findViewById(R.id.rdo_thongke_mon_SoLuong);
         groupThongKe = view.findViewById(R.id.group_Thogke);
-    }
-
-    void clearText(){
-        inputLayoutThang.getEditText().setText("");
-        inputLayoutNam.getEditText().setText("");
     }
 }

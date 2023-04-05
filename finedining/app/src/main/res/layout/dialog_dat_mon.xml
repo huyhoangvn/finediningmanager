@@ -73,6 +73,7 @@
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_huydatmon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
