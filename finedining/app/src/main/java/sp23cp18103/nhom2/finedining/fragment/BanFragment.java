@@ -104,7 +104,7 @@ public class BanFragment extends Fragment {
         khoiTaoRecyclerView();
         khoiTaoTimKiem();
 
-//        hienThiFilter();
+        hienThiFilter();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

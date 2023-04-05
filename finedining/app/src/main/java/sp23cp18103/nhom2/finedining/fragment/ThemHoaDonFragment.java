@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -23,8 +24,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -68,13 +71,14 @@ import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatBan;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Thêm hóa đơn mới (có thể dùng để sửa hóa đơn hoặc tạo một SuaHoaDonFragment)
  * */
 public class ThemHoaDonFragment extends Fragment {
-
+    Context context;
     TextInputEditText input_tenKH,input_soLuongKhach,input_thoiGianDat,input_gioDat;
     RadioButton rdoChuaThanhToan,rdoDangDuocDat;
     TextInputLayout  input_mon,input_ban,input_lyt_thoiGianDat,input_lyt_gioDat,input_lyt_tenKH,input_lyt_soLuongKhach;
@@ -109,6 +113,7 @@ public class ThemHoaDonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        context = getContext();
         anhXa(view);
         clearListChon();
         khoiTao();
@@ -352,6 +357,14 @@ public class ThemHoaDonFragment extends Fragment {
             }
         });
         rcv_chonMon.setAdapter(adapter);
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                KeyboardHelper.hideSoftKeyboard((Activity) context);
+            }
+        });
+
         dialog.show();
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
@@ -400,7 +413,8 @@ public class ThemHoaDonFragment extends Fragment {
             Date date = sdf.parse(input_thoiGianDat.getText().toString().trim());
             assert date != null;
             if (!input_thoiGianDat.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
+                input_lyt_thoiGianDat.setError("Định dạng ngày sai");
+                return false;
             }
         } catch (ParseException ex) {
             input_lyt_thoiGianDat.setError("Định dạng ngày sai");
@@ -411,10 +425,11 @@ public class ThemHoaDonFragment extends Fragment {
             Date date = sdf.parse(input_gioDat.getText().toString().trim());
             assert date != null;
             if (!input_gioDat.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
+                input_lyt_gioDat.setError("Định dạng giờ sai");
+                return false;
             }
         } catch (ParseException ex) {
-            input_lyt_gioDat.setError("Định dạng ngày sai");
+            input_lyt_gioDat.setError("Định dạng giờ sai");
             return false;
         }
         return true;
@@ -445,6 +460,7 @@ public class ThemHoaDonFragment extends Fragment {
                 }
             }
         });
+
     }
 
     /*
@@ -462,6 +478,7 @@ public class ThemHoaDonFragment extends Fragment {
         RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
         TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
         AppCompatButton btnLuuChonBan = view.findViewById(R.id.btnLuu_dialog_chonBan_FragmentThemHoaDon);
+        Button btnHuyDatBan = view.findViewById(R.id.btnhuy_dialog_chonBan_FragmentThemHoaDon);
         //Khởi tạo biến
         listDatbanMoi.clear();
         listDatbanMoi.addAll(listDatbanCu);
@@ -506,6 +523,12 @@ public class ThemHoaDonFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+        btnHuyDatBan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
 
     }
@@ -524,5 +547,4 @@ public class ThemHoaDonFragment extends Fragment {
         editor.remove("listDatMon");
         editor.apply();
     }
-
 }

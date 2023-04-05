@@ -57,21 +57,39 @@
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/spinner_background"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:padding="1dp">
-                <Spinner
-                    android:id="@+id/spnrDialogLoaiMon"
-                    style="@style/mSpinner"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/spinner_background"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+
+                    <Spinner
+                        android:id="@+id/spnrDialogLoaiMon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overlapAnchor="true"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
+                    android:background="?colorSurface"
+                    android:text="Loại món"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
 
             <CheckBox
                 android:id="@+id/chkTrangThaiMon"
