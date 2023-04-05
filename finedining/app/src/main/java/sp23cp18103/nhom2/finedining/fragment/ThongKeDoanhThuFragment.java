@@ -75,6 +75,10 @@ public class ThongKeDoanhThuFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if (!validate()){
+                    return;
+                }
+
                 String nam = edNam.getText().toString().trim();
                 BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
                 barDataSet1.setColor(Color.RED);
@@ -82,7 +86,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
                 BarData data = new BarData(barDataSet1);
                 barChart.setData(data);
 
-                String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
+                String[] moth = new String[]{"","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
                 xAxis.setCenterAxisLabels(false);
@@ -93,8 +97,15 @@ public class ThongKeDoanhThuFragment extends Fragment {
                 barChart.setDragEnabled(true);
                 barChart.setVisibleXRangeMaximum(8);
 
-
                 barChart.invalidate();
+            }
+
+            private boolean validate() {
+                if (edNam.getText().toString().trim().equals("")){
+                    Toast.makeText(context, "Hãy nhập năm \n Ví dụ: 2023", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
             }
         });
     }
@@ -147,6 +158,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
         barChart = view.findViewById(R.id.barChart);
     }
 
+    @SuppressLint("DefaultLocale")
     private ArrayList<BarEntry> getMonthlyRevenue(String year) {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         // Lấy danh sách các đối tượng ThongTinThongKeDoanhThu cho năm được chọn
@@ -170,4 +182,5 @@ public class ThongKeDoanhThuFragment extends Fragment {
         }
         return barEntries;
     }
+
 }
