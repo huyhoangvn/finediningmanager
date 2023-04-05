@@ -33,7 +33,7 @@
         <menu>
             <item android:id="@+id/mn_bestseller"
                 android:icon="@drawable/ic_menu_thongke_mon"
-                android:title="Mon Hot"
+                android:title="Mon Bán Chạy"
                 />
 
             <item android:id="@+id/mn_doanhthu"

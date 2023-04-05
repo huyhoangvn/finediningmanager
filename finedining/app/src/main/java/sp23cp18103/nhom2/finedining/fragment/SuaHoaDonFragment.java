@@ -544,7 +544,7 @@ public class SuaHoaDonFragment extends Fragment {
             }
         });
         dialog.show();
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
 
     void upDateMon() {

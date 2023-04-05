@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +25,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        Log.d("TAG", "onCreate: "+NumberHelper.getNumberWithDecimal(999999999));
         img_logo = findViewById(R.id.img_logo);
         img_load = findViewById(R.id.img_load);
 

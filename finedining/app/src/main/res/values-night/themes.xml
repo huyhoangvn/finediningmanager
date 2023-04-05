@@ -6,6 +6,7 @@
         <item name="colorOnPrimary">@color/Dark_OnPrimary</item>
         <item name="colorPrimaryContainer">@color/Dark_PrimaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/Dark_OnPrimaryContainer</item>
+        <item name="colorPrimaryVariant">@color/Dark_PrimaryVariant</item>
         <!--Secondary-->
         <item name="colorSecondary">@color/Dark_Secondary</item>
         <item name="colorOnSecondary">@color/Dark_OnSecondary</item>
@@ -34,6 +35,8 @@
         <!--Status bar color-->
         <item name="android:statusBarColor">@color/Light_Secondary</item>
     </style>
+
+    <color name="Dark_PrimaryVariant">#FFE4E2</color>
 </resources>
 
 <!--<style name="Theme.Finedining" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
