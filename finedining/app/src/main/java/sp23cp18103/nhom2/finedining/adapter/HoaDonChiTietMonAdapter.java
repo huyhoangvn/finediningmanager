@@ -46,7 +46,7 @@ public class HoaDonChiTietMonAdapter extends RecyclerView.Adapter<HoaDonChiTietM
 
         ThongTinChiTietDatMon ttct = thongTinChiTietDatMonList.get(position);
         holder.tvTenMon.setText(""+ttct.getTenMon());
-        holder.tvGia.setText(""+ttct.getGia()+" VND");
+        holder.tvGia.setText(""+ttct.getGia()+" vnd");
         holder.tvSoLuong.setText(""+ttct.getSoLuong());
         holder.tvThanhGia.setText(""+ttct.getThanhTien());
 

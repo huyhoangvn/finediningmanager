@@ -34,6 +34,7 @@ import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiBanFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -77,10 +78,10 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
 
         if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText("Dùng");
-            holder.tv_TrangThai_LoaiBan.setTextColor(Color.BLUE);
+            holder.tv_TrangThai_LoaiBan.setTextColor(ColorHelper.getPositiveColor(context));
         } else {
             holder.tv_TrangThai_LoaiBan.setText("Không dùng");
-            holder.tv_TrangThai_LoaiBan.setTextColor(Color.RED);
+            holder.tv_TrangThai_LoaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         }
 
         holder.img_Sua_LoaiBan.setOnClickListener(new View.OnClickListener() {

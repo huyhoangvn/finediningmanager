@@ -68,10 +68,10 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
         holder.tvThoiGianXuat.setText(DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
         if (tthd.getTrangThai()==1){
-            holder.tvTrangThai.setText("Đang Đặt");
+            holder.tvTrangThai.setText("Đang đặt");
             holder.tvTrangThai.setTextColor(ColorHelper.getNeutralColor(context));
         }else if (tthd.getTrangThai()==2){
-            holder.tvTrangThai.setText("Chờ Thanh Toán");
+            holder.tvTrangThai.setText("Chờ thanh toán");
             holder.tvTrangThai.setTextColor(ColorHelper.getWaitingColor(context));
         }else if (tthd.getTrangThai()==3){
             holder.tvTrangThai.setText("Đã thanh toán");
@@ -121,9 +121,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tvThoiGianDat.setText(""+ DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
 
                 if (tthd.getTrangThai()==1){
-                   tvTrangThai.setText("Đang Đặt");
+                   tvTrangThai.setText("Đang đặt");
                 }else if (tthd.getTrangThai()==2){
-                   tvTrangThai.setText("Chờ Thanh Toán");
+                   tvTrangThai.setText("Chờ thanh toán");
                 }else if (tthd.getTrangThai()==3){
                     tvTrangThai.setText("Đã thanh toán");
                 }else if (tthd.getTrangThai()==0){

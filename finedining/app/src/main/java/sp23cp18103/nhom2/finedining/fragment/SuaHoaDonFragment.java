@@ -444,6 +444,7 @@ public class SuaHoaDonFragment extends Fragment {
         View view=inflater.inflate(R.layout.dialog_dat_ban,null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //Ánh xạ
         RecyclerView rcv_ban = view.findViewById(R.id.rcv_dialog_chonBan_FragmentThemHoaDon);
         TextView tvBanDaChon = view.findViewById(R.id.tvBanDaChon_dialog_chonBan_FragmentThemHoaDon);
@@ -597,21 +598,21 @@ public class SuaHoaDonFragment extends Fragment {
                 temp.setTrangThai(1);
                 if (datMonDAO.updateDatMonSoluong(temp) > 0) {
                     // Thông báo cập nhật thành công
-                    Toast.makeText(getContext(), "Cập nhật món thành công trang thai 1", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Cập nhật món thành công trang thai 1", Toast.LENGTH_SHORT).show();
                     // Xoá món khỏi danh sách lịch sử đặt món
                     listLichSuDatMon.remove(temp);
                 } else {
                     // Thông báo cập nhật thất bại
-                    Toast.makeText(getContext(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 // Nếu món hiện tại không tồn tại trong lịch sử
                 if (datMonDAO.insertDatMon(temp) > 0) {
                     // Thông báo thêm mới thành công
-                    Toast.makeText(getContext(), "Thêm món mới thành công", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Thêm món mới thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     // Thông báo thêm mới thất bại
-                    Toast.makeText(getContext(), "Thêm món mới thất bại", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Thêm món mới thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -621,10 +622,10 @@ public class SuaHoaDonFragment extends Fragment {
             temp.setTrangThai(0);
             if (datMonDAO.updateDatMonSoluong(temp) > 0) {
                 // Thông báo cập nhật thành công
-                Toast.makeText(getContext(), "Cập nhật món thành công trạng thái là 0", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Cập nhật món thành công", Toast.LENGTH_SHORT).show();
             } else {
                 // Thông báo cập nhật thất bại
-                Toast.makeText(getContext(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Cập nhật món thất bại", Toast.LENGTH_SHORT).show();
             }
         }
     }
