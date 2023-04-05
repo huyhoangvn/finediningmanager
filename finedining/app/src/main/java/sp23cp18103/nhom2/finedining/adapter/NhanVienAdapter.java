@@ -99,6 +99,12 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
                 iEditListenerNhanVien.showEditFragment(nhanVien.getMaNV());
             }
         });
+        holder.imgbtnGoiDien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iEditListenerNhanVien.showDialPhoneNumber(nhanVien.getSdt());
+            }
+        });
     }
 
     @Override
@@ -109,7 +115,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imgHinh;
         TextView tvTenNV, tvNgaySinh, tvSdt, tvGioiTinh, tvTrangThai, tvPhanQuyen;
-        ImageButton imgbtnSua;
+        ImageButton imgbtnSua, imgbtnGoiDien;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -121,14 +127,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             tvTrangThai = itemView.findViewById(R.id.tv_cvNhanVien_trangThai);
             tvPhanQuyen = itemView.findViewById(R.id.tv_cvNhanVien_phanQuyen);
             imgbtnSua = itemView.findViewById(R.id.imgbtn_cvNhanVien_sua);
+            imgbtnGoiDien = itemView.findViewById(R.id.imgbtn_cvNhanVien_goiDien);
         }
-    }
-
-    /*
-     * Sửa thông tin công khai của nhân viên
-     * */
-    private void showFragmentSua() {
-
     }
 
 }
