@@ -205,15 +205,15 @@ public class LoginActivity extends AppCompatActivity{
         hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
 
 
-        loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
+//        loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
 
-        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,"https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
-
-        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
-
-        monDAO.insertMon(new Mon(2,1,"thịt Em",700,1,null));
-
-        monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
+//        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,"https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
+//
+//        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
+//
+//        monDAO.insertMon(new Mon(2,1,"thịt Em",700,1,null));
+//
+//        monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
 
 
 
