@@ -36,6 +36,7 @@ import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.NumberHelper;
@@ -84,10 +85,10 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         holder.tvCardviewGiaMon.setText(NumberHelper.getNumberWithDecimal(m.getGia()) + "");
         if(m.getTrangThai()==1){
             holder.tvCardviewTrangThaiMon.setText("Còn dùng");
-            holder.tvCardviewTrangThaiMon.setTextColor(Color.BLUE);
+            holder.tvCardviewTrangThaiMon.setTextColor(ColorHelper.getPositiveColor(context));
         }else{
             holder.tvCardviewTrangThaiMon.setText("Không dùng");
-            holder.tvCardviewTrangThaiMon.setTextColor(Color.RED);
+            holder.tvCardviewTrangThaiMon.setTextColor(ColorHelper.getNegativeColor(context));
         }
         ImageHelper.loadAvatar(context, holder.imgCardviewMon, m.getHinh());
         holder.imgcardviewSuaMon.setOnClickListener(new View.OnClickListener() {

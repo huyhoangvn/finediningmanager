@@ -118,86 +118,90 @@ public class MonFragment extends Fragment {
         fabMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(loaiMonSpinnerAdapter == null){
-                    Toast.makeText(context, "Chưa có loại món nào", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                LayoutInflater inflater=((Activity)getContext()).getLayoutInflater();
-                View view=inflater.inflate(R.layout.dialog_mon,null);
-                builder.setView(view);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-                TextView tv_tieude_mon = view.findViewById(R.id.tvTieuDeMon);
-                edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
-                edDialogGia = view.findViewById(R.id.edDialogGia);
-                spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
-                chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
-                Button btnDialogLuuMon = view.findViewById(R.id.btnDialogLuuMon);
-                Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
-                ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
-                inputDialogGia = view.findViewById(R.id.inputDialogGia);
-                inputDialogTenMon = view.findViewById(R.id.inputDialogTenMon);
-                tv_tieude_mon.setText("Thêm món");
-                chkTrangThaiMon.setVisibility(View.GONE);
-                Dialog dialog = builder.create();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int maNV = PreferencesHelper.getId(getContext());
                 listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
-                loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
-                spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
-                for(int i = 0; i<listLoaiMon.size(); i++){
-                    if(m.getMaMon() == (listLoaiMon.get(i).getMaLM())){
-                        positionLM = i;
+                int count = listLoaiMon.size();
+                if (count<=0) {
+                    Toast.makeText(context, "Chưa tồn tại loại món đang được sử dụng", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
+                    View view = inflater.inflate(R.layout.dialog_mon, null);
+                    builder.setView(view);
+                    @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+                    TextView tv_tieude_mon = view.findViewById(R.id.tvTieuDeMon);
+                    edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
+                    edDialogGia = view.findViewById(R.id.edDialogGia);
+                    spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
+                    chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
+                    Button btnDialogLuuMon = view.findViewById(R.id.btnDialogLuuMon);
+                    Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
+                    ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
+                    inputDialogGia = view.findViewById(R.id.inputDialogGia);
+                    inputDialogTenMon = view.findViewById(R.id.inputDialogTenMon);
+                    tv_tieude_mon.setText("Thêm món");
+                    chkTrangThaiMon.setVisibility(View.GONE);
+                    Dialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                    listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
+                    loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
+                    spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
+                    for (int i = 0; i < listLoaiMon.size(); i++) {
+                        if (m.getMaMon() == (listLoaiMon.get(i).getMaLM())) {
+                            positionLM = i;
+                        }
                     }
-                }
-                spnrialogLoaiMon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        maLoaiMon = listLoaiMon.get(position).getMaLM();
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                    spnrialogLoaiMon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            maLoaiMon = listLoaiMon.get(position).getMaLM();
+                        }
 
-                    }
-                });
-                ImageHelper.loadAvatar(getContext(), imgDialogMon, m.getHinh());
-                imgDialogMon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        galleryHelper.getImageFromGallery(imgDialogMon);
-                    }
-                });
-                btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String tenMon = edDialogTenMon.getText().toString();
-                        String giaMon = edDialogGia.getText().toString();
-                        m.setTenMon(tenMon);
-                        m.setMaLM(maLoaiMon);
-                        if(!giaMon.isEmpty()){
-                            m.setGia(Integer.parseInt(giaMon));
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
                         }
-                        m.setHinh(galleryHelper.getCurrentImageUrl());
-                        m.setHinh(String.valueOf(R.drawable.default_avatar));
-                        m.setTrangThai(1);
-                        if(ValidateMon()>0){
-                            if(dao.insertMon(m)>0){
-                                Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }else {
-                                Toast.makeText(getActivity(), "Thất bại", Toast.LENGTH_SHORT).show();
+                    });
+                    ImageHelper.loadAvatar(getContext(), imgDialogMon, m.getHinh());
+                    imgDialogMon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            galleryHelper.getImageFromGallery(imgDialogMon);
+                        }
+                    });
+                    btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String tenMon = edDialogTenMon.getText().toString();
+                            String giaMon = edDialogGia.getText().toString();
+                            m.setTenMon(tenMon);
+                            m.setMaLM(maLoaiMon);
+                            if (!giaMon.isEmpty()) {
+                                m.setGia(Integer.parseInt(giaMon));
                             }
+                            m.setHinh(galleryHelper.getCurrentImageUrl());
+                            m.setHinh(String.valueOf(R.drawable.default_avatar));
+                            m.setTrangThai(1);
+                            if (ValidateMon() > 0) {
+                                if (dao.insertMon(m) > 0) {
+                                    Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                } else {
+                                    Toast.makeText(getActivity(), "Thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            capNhat();
                         }
-                        capNhat();
-                    }
-                });
-                btnDialogHuyMon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+                    });
+                    btnDialogHuyMon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
             }
         });
     }
