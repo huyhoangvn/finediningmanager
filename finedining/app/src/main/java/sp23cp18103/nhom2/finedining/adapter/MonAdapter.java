@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     TextInputEditText edDialogTenMon, edDialogGia;
     GalleryHelper galleryHelper;
     NhanVienDAO nhanVienDAO;
+    TextInputLayout inputDialogTenMon, inputDialogGia;
 
     public MonAdapter( Context context, List<Mon> list) {
         this.context = context;
@@ -109,6 +112,8 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 Button btnDialogLuuMon = view.findViewById(R.id.btnDialogLuuMon);
                 Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
+                inputDialogGia = view.findViewById(R.id.inputDialogGia);
+                inputDialogTenMon = view.findViewById(R.id.inputDialogTenMon);
                 tv_tieude_mon.setText("Sửa món");
                 Dialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -128,7 +133,6 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                     chkTrangThaiMon.setChecked(false);
                 }
                 int maNV = PreferencesHelper.getId(context);
-                int trangThai = (chkTrangThaiMon.isChecked())?0:1;
                 listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
                 loaiMonSpinnerAdapter = new LoaiMonSpinnerAdapter(builder.getContext(), listLoaiMon);
                 spnrialogLoaiMon.setAdapter(loaiMonSpinnerAdapter);
@@ -137,7 +141,8 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                         positionLM = i;
                     }
                 }
-                spnrialogLoaiMon.setSelection(positionLM);
+                spnrialogLoaiMon.setSelection(loaiMonSpinnerAdapter.getPosition(new LoaiMon(m.getMaLM(),"", -1, -1)));
+                Log.d("zzzzz", "onClick: "+loaiMonSpinnerAdapter.getPosition(new LoaiMon(m.getMaLM(),"", -1, -1)));
                 spnrialogLoaiMon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -233,16 +238,16 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         String tenMon = edDialogTenMon.getText().toString();
         String giaMon = edDialogGia.getText().toString();
         if(tenMon.isEmpty()){
-            edDialogTenMon.setError("Không được để trống");
+            inputDialogTenMon.setError("Không được để trống");
             check = -1;
         }else if(giaMon.isEmpty()){
-            edDialogGia.setError("Không được để trống");
+            inputDialogGia.setError("Không được để trống");
             check = -1;
         }else{
             try {
                 Integer.parseInt(edDialogGia.getText().toString());
             }catch (Exception e){
-                edDialogGia.setError("Giá không hợp lệ");
+                inputDialogGia.setError("Giá không hợp lệ");
                 check = -1;
             }
         }

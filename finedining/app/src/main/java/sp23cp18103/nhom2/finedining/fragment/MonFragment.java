@@ -11,6 +11,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,7 +65,7 @@ public class MonFragment extends Fragment {
     MonDAO dao;
     MonAdapter adapter;
     TextInputEditText edTimKiemMon, edDialogTenMon, edDialogGia;
-    TextInputLayout inputTimKiemMon;
+    TextInputLayout inputTimKiemMon,inputDialogTenMon, inputDialogGia;
     ArrayList<LoaiMon> listLoaiMon;
     CheckBox chkFragmentMon,chkTrangThaiMon;
     int maLoaiMon, positionLM;
@@ -72,7 +74,7 @@ public class MonFragment extends Fragment {
     GalleryHelper galleryHelper;
     LoaiMonFilterAdapter loaiMonFilterAdapter;
     List<String> listFilter;
-    FragmentManager fragmentManager;
+    LoaiMonFilterAdapter.FilterViewHolder holderCu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,6 +131,8 @@ public class MonFragment extends Fragment {
                 Button btnDialogLuuMon = view.findViewById(R.id.btnDialogLuuMon);
                 Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
                 ImageButton imgDialogMon = view.findViewById(R.id.imgDialogMon);
+                inputDialogGia = view.findViewById(R.id.inputDialogGia);
+                inputDialogTenMon = view.findViewById(R.id.inputDialogTenMon);
                 tv_tieude_mon.setText("Thêm món");
                 chkTrangThaiMon.setVisibility(View.GONE);
                 Dialog dialog = builder.create();
@@ -237,10 +241,10 @@ public class MonFragment extends Fragment {
         String tenMon = edDialogTenMon.getText().toString();
         String giaMon = edDialogGia.getText().toString();
         if(tenMon.isEmpty()){
-            edDialogTenMon.setError("Không được để trống");
+            inputDialogTenMon.setError("Không được để trống");
             check = -1;
         }else if(giaMon.isEmpty()){
-            edDialogGia.setError("Không được để trống");
+            inputDialogGia.setError("Không được để trống");
             check = -1;
         }else{
             try {
@@ -277,7 +281,14 @@ public class MonFragment extends Fragment {
         loaiMonFilterAdapter = new LoaiMonFilterAdapter(getContext(), listFilter, new ILoaiMonFilter(){
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void locMon(String tenLoaiMon) {
+            public void locMon(String tenLoaiMon, LoaiMonFilterAdapter.FilterViewHolder holder) {
+                //Doi mau mac dinh
+                if(holderCu != null){
+                    holderCu.tvFilterLoaiMon.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_normal_background));
+                }
+                //Doi mau cam
+                holderCu = holder;
+                holder.tvFilterLoaiMon.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_clicked_background));
                 if(tenLoaiMon.equalsIgnoreCase("Tất cả")){
                     capNhat();
                 }else{

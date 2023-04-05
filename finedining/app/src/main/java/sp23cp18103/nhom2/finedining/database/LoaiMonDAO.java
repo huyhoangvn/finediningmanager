@@ -69,6 +69,12 @@ public class LoaiMonDAO {
         Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLM)});
         return c.getCount();
     }
+    @SuppressLint("Range")
+    public int getIdByName(String tenLM){
+        String sql = "SELECT tenLoai from loaimon WHERE tenLoai LIKE ? ";
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(tenLM)});
+        return c.getInt(c.getColumnIndex("maLM"));
+    }
     public int getLienKetTrangThai(int maLM, int maNV) {
         String sql = "Select m.maMon, lm.maLM from mon m " +
                 "JOIN loaimon lm ON m.maLM = lm.maLM " +
