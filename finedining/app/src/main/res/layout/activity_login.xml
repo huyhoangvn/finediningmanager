@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="WELLCOME TO \nFINE DINING MANAGER"
+                android:text="Welcome To \nFine Dinning Manager"
                 android:textAllCaps="true"
                 android:layout_gravity="start" />
 

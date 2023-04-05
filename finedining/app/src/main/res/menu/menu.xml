@@ -3,13 +3,13 @@
     >
     <item
         android:id="@+id/mn_home"
-        android:title="Trang Chủ"
+        android:title="Trang chủ"
         android:icon="@drawable/ic_menu_home"
         />
 
     <item
         android:id="@+id/mn_quanly_ban"
-        android:title="Quản lý bàn "
+        android:title="Quản lý bàn"
         android:icon="@drawable/ic_menu_ban"/>
 
     <item
@@ -28,12 +28,12 @@
         android:icon="@drawable/ic_menu_nhanvien"/>
 
     <item android:id="@+id/mn_thongke"
-        android:title="Thống Kê">
+        android:title="Thống kê">
 
         <menu>
             <item android:id="@+id/mn_bestseller"
                 android:icon="@drawable/ic_menu_thongke_mon"
-                android:title="Mon Bán Chạy"
+                android:title="Món bán chạy"
                 />
 
             <item android:id="@+id/mn_doanhthu"
@@ -48,12 +48,12 @@
 
 
     <item android:id="@+id/mn_nguoidung"
-        android:title="Người Dùng">
+        android:title="Người dùng">
 
         <menu>
             <item android:id="@+id/mn_doimatkhau"
                 android:icon="@drawable/ic_menu_doimatkhau"
-                android:title="Đổi Mật Khẩu"
+                android:title="Đổi mật khẩu"
                 />
 
             <item android:id="@+id/mn_dangxuat"

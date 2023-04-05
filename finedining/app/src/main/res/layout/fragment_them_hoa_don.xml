@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                android:hint="Tên chủ hóa đơn">
+                android:hint="Tên người thanh toán">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_tenKhachHang_them_FragmentThemHoaDon"
                     style="@style/mEditText"

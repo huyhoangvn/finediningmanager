@@ -59,6 +59,6 @@
     <!--Color Highlight-->
     <color name="Positive">#6BA539</color>
     <color name="Negative">#AE433B</color>
-    <color name="Neutral">#35599A</color>
+    <color name="Neutral">#356E9A</color>
     <color name="Waiting">#BC6803</color>
 </resources>
