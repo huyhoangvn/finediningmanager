@@ -52,6 +52,7 @@ public class ThongKeMonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhXa(view);
+        inputLayoutNam.getEditText().setText(DateHelper.getYearSQLNow());
         khoiTaoistenergroupThongKe();
         evTim();
     }
@@ -100,13 +101,21 @@ void thongKeSoLuong(){
     }
     if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
         list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongNam(nam);
-        adapter = new MonBanChayAdapter(getContext(),list);
-        rcvMonHot.setAdapter(adapter);
+        if (list.size() == 0){
+            Toast.makeText(getContext(), "Không thấy bản ghi", Toast.LENGTH_SHORT).show();
+        }else {
+            adapter = new MonBanChayAdapter(getContext(),list);
+            rcvMonHot.setAdapter(adapter);
+        }
     } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
         thang = String.format("%02d", Integer.parseInt(thang));
         list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam);
-        adapter = new MonBanChayAdapter(getContext(),list);
-        rcvMonHot.setAdapter(adapter);
+        if (list.size() == 0){
+            Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
+        }else {
+            adapter = new MonBanChayAdapter(getContext(),list);
+            rcvMonHot.setAdapter(adapter);
+        }
     } else if (TextUtils.isEmpty(thang) && TextUtils.isEmpty(nam)){
         Toast.makeText(getContext(), "Vui Lòng Nhập Năm Và Tháng", Toast.LENGTH_SHORT).show();
         return;
@@ -132,19 +141,25 @@ void thongKeSoLuong(){
         }
         if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)) {
             list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongNam(nam);
-            adapter = new MonBanChayAdapter(getContext(), list);
-            rcvMonHot.setAdapter(adapter);
+            if (list.size() == 0) {
+                Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
+            } else {
+                adapter = new MonBanChayAdapter(getContext(), list);
+                rcvMonHot.setAdapter(adapter);
+            }
         } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)) {
             thang = String.format("%02d", Integer.parseInt(thang));
             list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang, nam);
-            adapter = new MonBanChayAdapter(getContext(), list);
-            rcvMonHot.setAdapter(adapter);
+            if (list.size() == 0) {
+                Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
+            } else {
+                adapter = new MonBanChayAdapter(getContext(), list);
+                rcvMonHot.setAdapter(adapter);
+            }
         } else if (TextUtils.isEmpty(thang) && TextUtils.isEmpty(nam)) {
             Toast.makeText(getContext(), "Vui lòng nhập năm và tháng", Toast.LENGTH_SHORT).show();
-            return;
         } else if (TextUtils.isEmpty(nam)) {
             Toast.makeText(getContext(), "Không xác định được năm", Toast.LENGTH_SHORT).show();
-            return;
         } else {
             Toast.makeText(getContext(), "Lỗi không xác định", Toast.LENGTH_SHORT).show();
         }
