@@ -36,7 +36,7 @@ public class LoaiMonSpinnerAdapter extends ArrayAdapter<LoaiMon> {
         LoaiMon lm = list.get(position);
         if(lm!=null){
             tvSpinnerMaLoaiMon = v.findViewById(R.id.tvSpinnerMaLoaiMon);
-            tvSpinnerMaLoaiMon.setText(String.valueOf(lm.getMaLM()));
+            tvSpinnerMaLoaiMon.setText(String.valueOf(position + 1));
             tvSpinnerTenLoaiMon = v.findViewById(R.id.tvSpinnerTenLoaiMon);
             tvSpinnerTenLoaiMon.setText(lm.getTenLoai());
         }
@@ -53,7 +53,7 @@ public class LoaiMonSpinnerAdapter extends ArrayAdapter<LoaiMon> {
         LoaiMon lm = list.get(position);
         if(lm!=null){
             tvSpinnerMaLoaiMon = v.findViewById(R.id.tvSpinnerMaLoaiMon);
-            tvSpinnerMaLoaiMon.setText(String.valueOf(lm.getMaLM()));
+            tvSpinnerMaLoaiMon.setText(String.valueOf(position+1));
             tvSpinnerTenLoaiMon = v.findViewById(R.id.tvSpinnerTenLoaiMon);
             tvSpinnerTenLoaiMon.setText(lm.getTenLoai());
         }
