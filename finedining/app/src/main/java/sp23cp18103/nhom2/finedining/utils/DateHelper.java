@@ -52,6 +52,11 @@ public class DateHelper {
         return sdf.format(new Date());
     }
 
+    public static String getYearSQLNow(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
     /*
      * Trả về ngày hiện tại theo chuẩn Việt Nam
      * VD: 30-12-2000

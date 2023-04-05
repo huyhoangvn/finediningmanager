@@ -21,7 +21,7 @@ public class ThongTinMonDAO {
 
 
     @SuppressLint("Range")
-    public List<ThongTinMon> getTop10MonSoLuongCaoNhat() {
+    public List<ThongTinMon> getTop10MonSoLuongCaoNhatYearNow(String nam) {
         List<ThongTinMon> list = new ArrayList<>();
         String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
                 " FROM mon m" +
@@ -29,11 +29,12 @@ public class ThongTinMonDAO {
                 " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
                 " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
                 " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
                 " AND hd.trangThai = 3" +
                 " GROUP BY m.tenMon " +
                 " ORDER BY soluongmon DESC " +
                 " LIMIT 10;";
-        Cursor cursor = db.rawQuery(sql,null);
+        Cursor cursor = db.rawQuery(sql,new String[]{nam});
         while (cursor.moveToNext()) {
             ThongTinMon ttMon = new ThongTinMon();
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
@@ -47,7 +48,7 @@ public class ThongTinMonDAO {
     }
 
     @SuppressLint("Range")
-    public List<ThongTinMon> getTop10MonDoanhThuCaoNhat() {
+    public List<ThongTinMon> getTop10MonDoanhThuCaoNhatYearNow(String nam) {
         List<ThongTinMon> list = new ArrayList<>();
         String sql = "SELECT m.hinh, m.tenMon, SUM(dm.soLuong) AS soluongmon, SUM(dm.soLuong * m.gia) AS doanhThumon" +
                 " FROM mon m" +
@@ -55,11 +56,12 @@ public class ThongTinMonDAO {
                 " INNER JOIN hoadon hd ON dm.maHD = hd.maHD" +
                 " JOIN nhanvien nv ON nv.maNV = hd.maNV " +
                 " WHERE nv.maNH = (SELECT nv.maNH FROM nhanvien)" +
+                " AND strftime('%Y', hd.thoiGianDat) LIKE ?" +
                 " AND hd.trangThai = 3" +
                 " GROUP BY m.tenMon " +
                 " ORDER BY doanhThumon DESC " +
                 " LIMIT 10;";
-        Cursor cursor = db.rawQuery(sql,null);
+        Cursor cursor = db.rawQuery(sql,new String[]{nam});
         while (cursor.moveToNext()) {
             ThongTinMon ttMon = new ThongTinMon();
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));

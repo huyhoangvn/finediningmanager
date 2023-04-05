@@ -291,34 +291,12 @@ public class ThemHoaDonFragment extends Fragment {
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) AppCompatButton btnHuyChonMon = view.findViewById(R.id.btn_huydatmon);
         AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
         List<Mon> listMon = monDAO.timKiem(PreferencesHelper.getId(getContext()), "");
         DatMonAdapter adapter = new DatMonAdapter(getContext(), listMon, new InterfaceDatMon() {
             @Override
             public int getMaMon(int maMon, String soluong) {
-//                        int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
-//                        int soLuong = Integer.parseInt(soluong);
-//                        if (soLuong != 0) {
-//                            String tenMon = monDAO.getTenMon(maMon);
-//                            // kiểm tra xem món đã có trong danh sách hay chưa
-//                            boolean isAlreadyInList = false;
-//                            for (ThongTinDatMon thongTinDatMon : listDatMon) {
-//                                if (thongTinDatMon.getMaMon() == maMon) {
-//                                    // nếu món đã có trong danh sách thì chỉ cập nhật số lượng
-//                                    thongTinDatMon.setSoLuong(soLuong);
-//                                    isAlreadyInList = true;
-//                                    break;
-//                                }
-//                            }
-//                            // nếu món chưa có trong danh sách thì thêm mới
-//                            if (!isAlreadyInList) {
-//                                thongTindatMon = new ThongTinDatMon();
-//                                thongTindatMon.setMaMon(maMon);
-//                                thongTindatMon.setTenMon(tenMon);
-//                                thongTindatMon.setSoLuong(soLuong);
-//                                thongTindatMon.setMaHD(maHoaDonSapThem);
-//                                listDatMon.add(thongTindatMon);
-//                            }
                 int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
                 int soLuong = Integer.parseInt(soluong);
                 // Nếu nhập số lượng là 0, xoá món đó khỏi danh sách.
@@ -363,6 +341,13 @@ public class ThemHoaDonFragment extends Fragment {
                 input_mon.getEditText().setText(listDatMon.toString()
                         .replace("[", "")
                         .replace("]", ""));
+                dialog.dismiss();
+            }
+        });
+
+        btnHuyChonMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });

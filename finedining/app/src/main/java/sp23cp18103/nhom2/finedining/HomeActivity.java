@@ -222,6 +222,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (prevMenuItem != null) {
                             prevMenuItem.setChecked(false); // uncheck the previously selected item
                         }
+
                         item.setChecked(true); // check the newly selected item
                         prevMenuItem = item; // store the newly selected item
 

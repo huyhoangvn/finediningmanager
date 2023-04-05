@@ -30,6 +30,7 @@ import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
 import sp23cp18103.nhom2.finedining.fragment.ThemHoaDonFragment;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 
 /*
  * Adapter để hiển thị danh sách đặt món trong hóa đơn chi tiết
@@ -89,10 +90,9 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     @Override
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Mon mon = monList.get(position);
-        holder.tvTen.setText("" + mon.getTenMon());
-        holder.tvGia.setText("" + mon.getGia());
+        holder.tvTenMon.setText(mon.getTenMon());
+        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " VND");
         holder.edSoLuongMon.setText("0");
-
         hoaDonDAO = new HoaDonDAO(context);
         int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
 
@@ -156,17 +156,17 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     }
 
     class DatMonViewHolder extends RecyclerView.ViewHolder{
-        TextView tvTen;
-        TextView tvGia;
+        TextView tvTenMon,tvGia;
+
         LinearLayout lnChonMon;
         EditText edSoLuongMon;
 
         public DatMonViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTen = itemView.findViewById(R.id.tvTenMon_Cardview_datMon);
-            tvGia = itemView.findViewById(R.id.tvGia_Cardview_datMon);
             edSoLuongMon = itemView.findViewById(R.id.ed_SoLuong_MonDat);
             lnChonMon = itemView.findViewById(R.id.linearChonMon);
+            tvTenMon = itemView.findViewById(R.id.tvTenMon_Cardview_datMon);
+            tvGia = itemView.findViewById(R.id.tvGia_Cardview_datMon);
         }
     }
 }

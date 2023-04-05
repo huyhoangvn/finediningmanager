@@ -490,6 +490,7 @@ public class SuaHoaDonFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         RecyclerView rcv_chonMon = view.findViewById(R.id.rcv_dialog_chonMon_FragmentThemHoaDon);
         AppCompatButton btnLuuChonMon = view.findViewById(R.id.btnLuu_dialog_chonMon_FragmentThemHoaDon);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) AppCompatButton btnHuyChonMon = view.findViewById(R.id.btn_huydatmon);
         List<Mon> listMon = monDAO.timKiem(PreferencesHelper.getId(getContext()), "");
         SuaDatMonAdapter adapter = new SuaDatMonAdapter(getContext(), listMon,listDatMon, new InterfaceDatMon() {
             @Override
@@ -540,6 +541,13 @@ public class SuaHoaDonFragment extends Fragment {
                 saveListSua(listDatMon);
                 input_mon.getEditText().setText(listDatMon.toString().replace("[", "")
                         .replace("]", ""));
+                dialog.dismiss();
+            }
+        });
+
+        btnHuyChonMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
