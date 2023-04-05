@@ -143,6 +143,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                     }
                 }
                 spnrialogLoaiMon.setSelection(loaiMonSpinnerAdapter.getPosition(new LoaiMon(m.getMaLM(),"", -1, -1)));
+
                 Log.d("zzzzz", "onClick: "+loaiMonSpinnerAdapter.getPosition(new LoaiMon(m.getMaLM(),"", -1, -1)));
                 spnrialogLoaiMon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override

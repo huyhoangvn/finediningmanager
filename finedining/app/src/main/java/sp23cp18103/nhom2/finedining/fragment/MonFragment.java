@@ -75,6 +75,7 @@ public class MonFragment extends Fragment {
     LoaiMonFilterAdapter loaiMonFilterAdapter;
     List<String> listFilter;
     LoaiMonFilterAdapter.FilterViewHolder holderCu;
+    Spinner spnrialogLoaiMon;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,6 +118,10 @@ public class MonFragment extends Fragment {
         fabMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(loaiMonSpinnerAdapter == null){
+                    Toast.makeText(context, "Chưa có loại món nào", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 LayoutInflater inflater=((Activity)getContext()).getLayoutInflater();
                 View view=inflater.inflate(R.layout.dialog_mon,null);
@@ -125,8 +130,7 @@ public class MonFragment extends Fragment {
                 TextView tv_tieude_mon = view.findViewById(R.id.tvTieuDeMon);
                 edDialogTenMon = view.findViewById(R.id.edDialogTenMon);
                 edDialogGia = view.findViewById(R.id.edDialogGia);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-                Spinner spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
+                spnrialogLoaiMon = view.findViewById(R.id.spnrDialogLoaiMon);
                 chkTrangThaiMon = view.findViewById(R.id.chkTrangThaiMon);
                 Button btnDialogLuuMon = view.findViewById(R.id.btnDialogLuuMon);
                 Button btnDialogHuyMon = view.findViewById(R.id.btnDialogHuyMon);
