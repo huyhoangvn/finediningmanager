@@ -37,18 +37,19 @@ import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
-* Thống kê tổng tiền hóa đơn
-* */
+ * Thống kê tổng tiền hóa đơn
+ * */
 public class ThongKeDoanhThuFragment extends Fragment {
     TextView tvTongDoanhThu;
-    TextInputLayout inputLytNgayBatDau,inputLytNgayKetThuc,inputLytNam;
-    TextInputEditText edNgayBatDau,edNgayKetThuc,edNam;
-    AppCompatButton btnThongKeDoanhThu,btnThongKeDoanhThuTheoNam;
-    Context context ;
+    TextInputLayout inputLytNgayBatDau, inputLytNgayKetThuc, inputLytNam;
+    TextInputEditText edNgayBatDau, edNgayKetThuc, edNam;
+    AppCompatButton btnThongKeDoanhThu, btnThongKeDoanhThuTheoNam;
+    Context context;
     ThongTinHoaDonDAO thongTinHoaDonDAO;
     HoaDon hd;
     BarChart barChart;
-    ArrayList<ThongTinThongKeDoanhThu> thongTinThongKeDoanhThuArrayList ;
+    ArrayList<ThongTinThongKeDoanhThu> thongTinThongKeDoanhThuArrayList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        context =getContext();
+        context = getContext();
         anhXa(view);
         khoiTao();
         chonNgayBatDau();
@@ -75,13 +76,13 @@ public class ThongKeDoanhThuFragment extends Fragment {
             public void onClick(View v) {
 
                 String nam = edNam.getText().toString().trim();
-                BarDataSet barDataSet1 = new BarDataSet(barEntries1(nam),"Month");
+                BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
                 barDataSet1.setColor(Color.RED);
 
                 BarData data = new BarData(barDataSet1);
                 barChart.setData(data);
 
-                String[] moth = new String[]{"","1","2","3","4","5","6","7","8","9","10","11","12",""};
+                String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
                 xAxis.setCenterAxisLabels(false);
@@ -93,14 +94,13 @@ public class ThongKeDoanhThuFragment extends Fragment {
                 barChart.setVisibleXRangeMaximum(8);
 
 
-
                 barChart.invalidate();
             }
         });
     }
 
     private void khoiTao() {
-         thongTinHoaDonDAO = new ThongTinHoaDonDAO(context);
+        thongTinHoaDonDAO = new ThongTinHoaDonDAO(context);
     }
 
     private void thongKeTongDoanhThu() {
@@ -110,7 +110,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
             public void onClick(View v) {
                 String tuNgay = DateHelper.getDateSql(edNgayBatDau.getText().toString());
                 String denNgay = DateHelper.getDateSql(edNgayKetThuc.getText().toString());
-                tvTongDoanhThu.setText(""+thongTinHoaDonDAO.getDoanhThu(PreferencesHelper.getId(context),tuNgay,denNgay));
+                tvTongDoanhThu.setText("" + thongTinHoaDonDAO.getDoanhThu(PreferencesHelper.getId(context), tuNgay, denNgay));
             }
         });
     }
@@ -119,7 +119,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
         inputLytNgayKetThuc.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateHelper.showDatePickerVietnam(context,edNgayKetThuc);
+                DateHelper.showDatePickerVietnam(context, edNgayKetThuc);
             }
         });
     }
@@ -128,13 +128,13 @@ public class ThongKeDoanhThuFragment extends Fragment {
         inputLytNgayBatDau.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateHelper.showDatePickerVietnam(context,edNgayBatDau);
+                DateHelper.showDatePickerVietnam(context, edNgayBatDau);
             }
         });
 
     }
 
-    public void anhXa(View view){
+    public void anhXa(View view) {
         tvTongDoanhThu = view.findViewById(R.id.tvTongDoanhThu);
         inputLytNgayBatDau = view.findViewById(R.id.input_lyt_thongKeDoanhThu_ngayBatDau);
         inputLytNgayKetThuc = view.findViewById(R.id.input_lyt_thongKeDoanhThu_ngayKetThuc);
@@ -145,34 +145,29 @@ public class ThongKeDoanhThuFragment extends Fragment {
         btnThongKeDoanhThu = view.findViewById(R.id.btnThongKeTongDoanhThu);
         btnThongKeDoanhThuTheoNam = view.findViewById(R.id.btnThongKeDoanhThuNam);
         barChart = view.findViewById(R.id.barChart);
-
-
     }
 
-    private ArrayList<BarEntry> barEntries1(String nam){
+    private ArrayList<BarEntry> getMonthlyRevenue(String year) {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        List<ThongTinThongKeDoanhThu> list = thongTinHoaDonDAO.getDoanhThuTheoNam(PreferencesHelper.getId(context),nam);
-        for (int i = 0; i < list.size(); i++){
-            ThongTinThongKeDoanhThu tt = list.get(i);
-//            if (tt.getMonth().equals(barEntries.get(barChart.getScrollX()))){
-                barEntries.add(new BarEntry(1,tt.getDoanhThu()));
-                barEntries.add(new BarEntry(2,0));
-                barEntries.add(new BarEntry(3,0));
-                barEntries.add(new BarEntry(4,tt.getDoanhThu()));
-                barEntries.add(new BarEntry(5,0));
-                barEntries.add(new BarEntry(6,0));
-                barEntries.add(new BarEntry(7,0));
-                barEntries.add(new BarEntry(8,0));
-                barEntries.add(new BarEntry(9,0));
-                barEntries.add(new BarEntry(10,0));
-                barEntries.add(new BarEntry(11,0));
-                barEntries.add(new BarEntry(12,0));
-//            }
-
+        // Lấy danh sách các đối tượng ThongTinThongKeDoanhThu cho năm được chọn
+        List<ThongTinThongKeDoanhThu> list = thongTinHoaDonDAO.getDoanhThuTheoNam(PreferencesHelper.getId(context), year);
+        // duyệt qua 12 tháng
+        for (int i = 1; i <= 12; i++) {
+            //  tạo giá trị doanh thu của tháng đó
+            float doanhthu = 0;
+            // duyệt qua danh sách các đối tượng ThongTinThongKeDoanhThu
+            for (ThongTinThongKeDoanhThu tt : list) {
+                // Kiểm tra nếu như tháng của đối tượng hiện tại bằng với tháng đang so sánh
+                if (tt.getMonth().equals(String.format("%02d", i))) {
+                    // Nếu có, lưu giá trị doanh thu vào biến doanhthu
+                    doanhthu = tt.getDoanhThu();
+                    // Dừng
+                    break;
+                }
+            }
+            // add BarEntry mới vào danh sách với số tháng là  x và doanh thu  y
+            barEntries.add(new BarEntry(i, doanhthu));
         }
-
-
-        return  barEntries;
-
+        return barEntries;
     }
 }
