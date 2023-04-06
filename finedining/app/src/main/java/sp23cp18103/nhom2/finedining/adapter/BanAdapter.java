@@ -101,7 +101,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         View view = inflater.inflate(R.layout.dialog_ban, null);
         builder.setView(view);
         TextView tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
-        tvTieuDeBan.setText("Sửa loại loại bàn");
+        tvTieuDeBan.setText("Sửa loại bàn");
 
         banDAO = new BanDAO(context);
 
