@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,10 +24,12 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
@@ -72,12 +75,21 @@ public class ThongKeKhachFragment extends Fragment {
         btnThongKeKhach2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validate()){
+                    return;
+                }
                 String nam = input_nam_ThongKeKhach.getText().toString().trim();
                 BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
-                barDataSet1.setColor(Color.RED);
+                BarData barData=new BarData(barDataSet1);
+                barChart.setData(barData);
+                barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
+                // color data bar set
+                barDataSet1.setValueTextColor(Color.RED);
+                // text color
+//                barDataSet1.setColor(Color.RED);
+                barDataSet1.setValueTextSize(16F);
+                barChart.getDescription().setEnabled(true);
 
-                BarData data = new BarData(barDataSet1);
-                barChart.setData(data);
 
                 String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
                 XAxis xAxis = barChart.getXAxis();
@@ -85,13 +97,19 @@ public class ThongKeKhachFragment extends Fragment {
                 xAxis.setCenterAxisLabels(false);
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                 xAxis.setGranularity(0.25F);
+                xAxis.setTextSize(14F);
+                xAxis.setTextColor(Color.RED);
                 xAxis.setGranularityEnabled(true);
-
                 barChart.setDragEnabled(true);
                 barChart.setVisibleXRangeMaximum(8);
-
-
                 barChart.invalidate();
+            }
+            private boolean validate() {
+                if (input_nam_ThongKeKhach.getText().toString().trim().equals("")){
+                    Toast.makeText(context, "Hãy nhập năm \n Ví dụ: 2023", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
             }
         });
     }
@@ -144,22 +162,25 @@ public class ThongKeKhachFragment extends Fragment {
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         // Lấy danh sách các đối tượng ThongTinThongKeKhachHang cho năm được chọn
         List<ThongTinThongKeKhachHang> list = khachDAO.getsoLuongTheoNam(PreferencesHelper.getId(context),nam);
+
         // duyệt qua 12 tháng
         for (int i = 1; i <= 12; i++) {
             //  tạo giá trị doanh thu của tháng đó
             float soluong = 0;
-            // duyệt qua danh sách các đối tượng ThongTinThongKeDoanhThu
             for (ThongTinThongKeKhachHang tt : list) {
                 // Kiểm tra nếu như tháng của đối tượng hiện tại bằng với tháng đang so sánh
                 if (tt.getMonth().equals(String.format("%02d", i))) {
-                    // Nếu có, lưu giá trị doanh thu vào biến doanhthu
                     soluong = tt.getSoLuong();
+                    tt.setSoLuong(tt.getSoLuong());
+
                     // Dừng
                     break;
                 }
+
             }
-            // add BarEntry mới vào danh sách với số tháng là  x và doanh thu  y
+            // add BarEntry mới vào danh sách với số tháng là  x và dso luong  y
             barEntries.add(new BarEntry(i, soluong));
+
         }
         return barEntries;
     }
