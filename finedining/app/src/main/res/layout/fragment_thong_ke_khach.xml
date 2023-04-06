@@ -30,13 +30,14 @@
                 android:layout_height="wrap_content"
                 android:text="Số lượng khách: "
                 android:textColor="@color/Positive"/>
+
             <TextView
                 android:id="@+id/tvTongKhachHang"
                 style="@style/mHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1,000,000,000,000"
-                android:textColor="@color/Positive"/>
+                android:textColor="@color/Positive" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,6 +58,7 @@
                 android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edNgayBatDau"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,6 +79,7 @@
                 android:layout_marginEnd="0dp"
                 app:endIconDrawable="@drawable/ic_chon_ngay">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edNgayKetThuc"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -109,13 +112,14 @@
             android:layout_marginTop="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_nam_ThongKeKhach"
+            android:id="@+id/input_lyt_nam_ThongKeKhach"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Năm">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_nam_ThongKeKhach"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"

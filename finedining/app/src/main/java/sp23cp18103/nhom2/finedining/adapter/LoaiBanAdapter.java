@@ -92,7 +92,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 View view = inflater.inflate(R.layout.dialog_loai_ban, null);
                 builder.setView(view);
                 TextView tv_tieude_loaiban = view.findViewById(R.id.tvTieuDeLoaiBan);
-                tv_tieude_loaiban.setText("Sửa loại loại bàn");
+                tv_tieude_loaiban.setText("Sửa loại bàn");
 
                 edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
                 chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);

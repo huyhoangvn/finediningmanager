@@ -115,6 +115,7 @@ public class LoaiBanFragment extends Fragment {
         btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
         btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
 
+        chkTrangThaiLoaiBan.setVisibility(View.GONE);
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (type != 0) {

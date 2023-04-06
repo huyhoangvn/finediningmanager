@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +46,7 @@ import sp23cp18103.nhom2.finedining.adapter.BanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.BanSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiBanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiBanFiterAdapter;
+import sp23cp18103.nhom2.finedining.adapter.LoaiMonFilterAdapter;
 import sp23cp18103.nhom2.finedining.adapter.NhanVienAdapter;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
@@ -73,13 +75,13 @@ public class BanFragment extends Fragment {
     ArrayList<LoaiBan> listloaiban;
     CheckBox chk_fBan_conDung;
     int maLoaiBan;
-    TextInputEditText inputedTimKhiemBan;
     LoaiBanDAO loaiBanDAO;
     TextInputLayout inputTimKiemViTri;
     EditText edTimKiemBan;
     NhanVienDAO nhanVienDAO;
     List<String> listFilter;
     LoaiBanFiterAdapter loaiBanFiterAdapter;
+    LoaiBanFiterAdapter.filterViewHolder holderCu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -126,7 +128,7 @@ public class BanFragment extends Fragment {
 
 
 
-        tvTieuDeBan.setText("Thêm loại bàn");
+        tvTieuDeBan.setText("Thêm bàn");
 
         chkTrangThaiBan = view.findViewById(R.id.chkTrangThaiBan);
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
@@ -136,6 +138,7 @@ public class BanFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         banDAO = new BanDAO(getContext());
         loaiBanDAO = new LoaiBanDAO(getContext());
+        chkTrangThaiBan.setVisibility(View.GONE);
         listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getTimKiem(PreferencesHelper.getId(getContext()),"",1);
         banSpinnerAdapter = new BanSpinnerAdapter(getContext(), listloaiban);
         spnrBan.setAdapter(banSpinnerAdapter);
@@ -281,7 +284,13 @@ public class BanFragment extends Fragment {
         listFilter.add(0,"Tất cả");
         loaiBanFiterAdapter = new LoaiBanFiterAdapter(getContext(), listFilter, new ITLoaiBanFilter(){
             @Override
-            public void loaiBan(String tenLoaiBan) {
+            public void loaiBan(String tenLoaiBan,LoaiBanFiterAdapter.filterViewHolder holder) {
+                if(holderCu != null){
+                    holderCu.tvFilterLoaiBan.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_normal_background));
+                }
+                //Doi mau cam
+                holderCu = holder;
+                holder.tvFilterLoaiBan.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_clicked_background));
                 if(tenLoaiBan.equalsIgnoreCase("Tất cả")){
                     capNhat();
                 }else{
