@@ -101,6 +101,7 @@ void thongKeSoLuong(View view){
         list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongNam(nam);
         if (list.size() == 0){
             Toast.makeText(getContext(), "Không thấy bản ghi", Toast.LENGTH_SHORT).show();
+            return;
         }else {
             Toast.makeText(getContext(), "Thành Công", Toast.LENGTH_SHORT).show();
             adapter = new MonBanChayAdapter(getContext(),list);
@@ -111,6 +112,7 @@ void thongKeSoLuong(View view){
         list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam);
         if (list.size() == 0){
             Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
+            return;
         }else {
             Toast.makeText(getContext(), "Thành Công", Toast.LENGTH_SHORT).show();
             adapter = new MonBanChayAdapter(getContext(),list);
@@ -145,6 +147,7 @@ void thongKeSoLuong(View view){
             list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongNam(nam);
             if (list.size() == 0){
                 Toast.makeText(getContext(), "Không thấy bản ghi", Toast.LENGTH_SHORT).show();
+                return;
             }else {
                 Toast.makeText(getContext(), "Thành Công", Toast.LENGTH_SHORT).show();
                 adapter = new MonBanChayAdapter(getContext(),list);
@@ -155,6 +158,7 @@ void thongKeSoLuong(View view){
             list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
             if (list.size() == 0){
                 Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
+                return;
             }else {
                 Toast.makeText(getContext(), "Thành Công", Toast.LENGTH_SHORT).show();
                 adapter = new MonBanChayAdapter(getContext(),list);
