@@ -175,8 +175,6 @@ public class ThongKeKhachFragment extends Fragment {
         barDataSet1.setColor(ColorHelper.getPositiveColor(context));
         BarData barData=new BarData(barDataSet1);
         barChart.setData(barData);
-        barDataSet1.setValueTextColor(Color.BLACK);
-        barDataSet1.setColor(Color.RED);
         barDataSet1.setValueTextSize(16F);
         barChart.getDescription().setEnabled(true);
         String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
@@ -186,7 +184,6 @@ public class ThongKeKhachFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(0.25F);
         xAxis.setTextSize(14F);
-        xAxis.setTextColor(Color.RED);
         xAxis.setGranularityEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setVisibleXRangeMaximum(8);
