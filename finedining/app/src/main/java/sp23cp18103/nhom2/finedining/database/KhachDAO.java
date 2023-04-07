@@ -12,6 +12,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.model.KhachHang;
 import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
 import sp23cp18103.nhom2.finedining.model.ThongTinThongKeKhachHang;
+import sp23cp18103.nhom2.finedining.utils.DateHelper;
 
 public class KhachDAO {
     SQLiteDatabase db;
@@ -89,6 +90,34 @@ public class KhachDAO {
             list.add(tttkdt);
         }
         return list;
+    }
+    @SuppressLint("Range")
+    public String getNgayNhoNhat(int maNV){
+        String sql="SELECT strftime('%Y-%m-%d',hd.thoiGianDat) as ngayNhoNhat " +
+                " FROM hoadon hd " +
+                " JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? )" +
+                " AND hd.trangThai = 3 " +
+                " ORDER BY ngayNhoNhat DESC LIMIT 1";
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
+        if (c.moveToNext()){
+            return DateHelper.getDateVietnam(c.getString(c.getColumnIndex("ngayNhoNhat")));
+        }
+        return DateHelper.getDateVietnamNow();
+    }
+    @SuppressLint("Range")
+    public String getNgayLonNhat(int maNV){
+        String sql="SELECT strftime('%Y-%m-%d',hd.thoiGianDat) as ngayLonNhat " +
+                " FROM hoadon hd " +
+                " JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
+                " WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? )" +
+                " AND hd.trangThai = 3 " +
+                " ORDER BY ngayLonNhat ASC LIMIT 1";
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
+        if (c.moveToNext()){
+            return DateHelper.getDateVietnam(c.getString(c.getColumnIndex("ngayLonNhat")));
+        }
+        return DateHelper.getDateVietnamNow();
     }
 
     @SuppressLint("Range")
