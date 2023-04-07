@@ -81,16 +81,19 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
         holder.tvPhanQuyen.setText(nhanVien.getTenPhanQuyen());
         /*
-        * Hiển thị fragment để sửa thông tin nhân viên
+        * Hiển thị image button để sửa thông tin nhân viên
         * */
-        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) != 1){
+        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 0){
             if(PreferencesHelper.getId(context) != nhanVien.getMaNV()){
                 holder.imgbtnSua.setVisibility(View.GONE);
             }
         } else {
             if(nhanVienDAO.getPhanQuyen(nhanVien.getMaNV()) == 1
-                && PreferencesHelper.getId(context) != nhanVien.getMaNV()){
+                    && PreferencesHelper.getId(context) != nhanVien.getMaNV()){
                 holder.imgbtnSua.setVisibility(View.GONE);
+            }
+            if(nhanVienDAO.getTrangThaiNV(nhanVien.getMaNV()) == 0){
+                holder.imgbtnSua.setVisibility(View.VISIBLE);
             }
         }
         holder.imgbtnSua.setOnClickListener(new View.OnClickListener() {

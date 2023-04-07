@@ -90,6 +90,24 @@ public class DoiMatKhauFragment extends Fragment {
 
             doiMatKhau();
         });
+        edMatKhauCu.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                inputMatKhauCu.setError(null);
+            }
+        });
+        edMatKhauMoi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                inputMatKhauMoi.setError(null);
+            }
+        });
+        edXacNhanMatKhau.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                inputXacNhanMatKhau.setError(null);
+            }
+        });
     }
 
     /*
@@ -99,6 +117,9 @@ public class DoiMatKhauFragment extends Fragment {
         inputMatKhauCu.setError(null);
         inputMatKhauMoi.setError(null);
         inputXacNhanMatKhau.setError(null);
+        inputMatKhauCu.clearFocus();
+        inputMatKhauMoi.clearFocus();
+        inputMatKhauMoi.clearFocus();
     }
 
     /*

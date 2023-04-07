@@ -43,6 +43,7 @@ import sp23cp18103.nhom2.finedining.model.ThongTinThongKeKhachHang;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -177,7 +178,7 @@ public class ThongKeKhachFragment extends Fragment {
         barChart.setData(barData);
         barDataSet1.setValueTextSize(16F);
         barChart.getDescription().setEnabled(true);
-        String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
+        String[] moth = new String[]{"", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", ""};
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
         xAxis.setCenterAxisLabels(false);
@@ -192,7 +193,7 @@ public class ThongKeKhachFragment extends Fragment {
     void thongKe(){
         String tungay = DateHelper.getDateSql(edNgayBatDau.getText().toString().trim());
         String denngay = DateHelper.getDateSql(edNgayKetThuc.getText().toString().trim());
-        tvTongKhachHang.setText(""+khachDAO.getSoLuongKhachHang(PreferencesHelper.getId(context),tungay,denngay));
+        tvTongKhachHang.setText(""+ NumberHelper.getNumberWithDecimal(khachDAO.getSoLuongKhachHang(PreferencesHelper.getId(context),tungay,denngay)));
 
     }
 }

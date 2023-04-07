@@ -110,7 +110,8 @@
             android:layout_height="400dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:background="@drawable/chart_background"/>
+            android:background="@drawable/chart_background"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_lyt_nam_ThongKeKhach"

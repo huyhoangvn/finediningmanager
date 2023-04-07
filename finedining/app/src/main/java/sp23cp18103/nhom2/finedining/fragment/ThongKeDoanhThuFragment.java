@@ -38,6 +38,7 @@ import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -120,7 +121,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
     public void thongKe(){
         String tuNgay = DateHelper.getDateSql(edNgayBatDau.getText().toString());
         String denNgay = DateHelper.getDateSql(edNgayKetThuc.getText().toString());
-        tvTongDoanhThu.setText("" + thongTinHoaDonDAO.getDoanhThu(PreferencesHelper.getId(context), tuNgay, denNgay));
+        tvTongDoanhThu.setText("" + NumberHelper.getNumberWithDecimal(thongTinHoaDonDAO.getDoanhThu(PreferencesHelper.getId(context), tuNgay, denNgay)));
     }
 
     private void chonNgayKetThuc() {

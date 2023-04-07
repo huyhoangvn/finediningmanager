@@ -29,7 +29,12 @@
                 android:layout_weight="1"
                 android:text="Tên món "
                 android:layout_marginStart="5dp"/>
-
+            <TextView
+                style="@style/mBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá"
+                android:layout_marginEnd="20dp"/>
             <TextView
                 style="@style/mBoldText"
                 android:layout_width="wrap_content"
