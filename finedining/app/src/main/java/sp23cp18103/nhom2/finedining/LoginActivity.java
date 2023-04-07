@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -57,6 +58,7 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 public class LoginActivity extends AppCompatActivity{
     Button btnDangnhap;
     TextInputLayout inputTaikhoanDangnhap,inputMatkhauDangnhap;
+    TextInputEditText inputEdMatKhau;
     CheckBox chkRemeber;
     NhanVienDAO nhanVienDAO;
 
@@ -70,6 +72,7 @@ public class LoginActivity extends AppCompatActivity{
         insertTest();
         saveTaiKhoanMatKhau();
         login();
+        hideErros();
         saveTaiKhoanMatKhau();
 //        nhanVienDAO = new NhanVienDAO(this);
 //        if (nhanVienDAO.checkDangnhap("myadmin","admin")){
@@ -146,6 +149,15 @@ public class LoginActivity extends AppCompatActivity{
                 } else {
                     Toast.makeText(getApplicationContext(), "Kiếm Tra kết nối internet và thử lại", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    void hideErros(){
+        inputEdMatKhau.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                inputMatkhauDangnhap.setError(null);
             }
         });
     }
@@ -273,6 +285,7 @@ public class LoginActivity extends AppCompatActivity{
         inputTaikhoanDangnhap = findViewById(R.id.input_taikhoan_dangnhap);
         inputMatkhauDangnhap = findViewById(R.id.input_matkhau_dangphap);
         chkRemeber = findViewById(R.id.chk_Remeber);
+        inputEdMatKhau = findViewById(R.id.inputEd_matkhau);
     }
 
 
