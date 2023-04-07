@@ -126,6 +126,7 @@ public class SuaHoaDonFragment extends Fragment {
         clearListSua();
         khoiTao();
         getTTHoaDon();
+        hideError();
         khoiTaoListenerTrangThai();
         evClickChonMon();
         evClickChonBan();
@@ -698,5 +699,33 @@ public class SuaHoaDonFragment extends Fragment {
             return false;
         }
         return true;
+    }
+    private void hideError() {
+        input_tenKH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input_lyt_tenKH.setError(null);
+            }
+        });
+        input_soLuongKhach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input_lyt_soLuongKhach.setError(null);
+            }
+        });
+
+        input_ngayDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input_lyt_ngayDat.setError(null);
+            }
+        });
+        input_GioDat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input_lyt_giaDat.setError(null);
+            }
+        });
+
     }
 }

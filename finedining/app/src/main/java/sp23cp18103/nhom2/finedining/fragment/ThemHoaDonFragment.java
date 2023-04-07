@@ -118,7 +118,7 @@ public class ThemHoaDonFragment extends Fragment {
         clearListChon();
         khoiTao();
         khoiTaoDefault();
-        khoiTaoListenerTimKiemThoiGian();
+        hideError();
         khoiTaoListenerTrangThai();
         khoiTaoListenerDatBan();
         khoiTaoListenerDatMon();
@@ -176,7 +176,20 @@ public class ThemHoaDonFragment extends Fragment {
         input_gioDat.setText(gioXuat);
     }
 
-    private void khoiTaoListenerTimKiemThoiGian() {
+    private void hideError() {
+        input_tenKH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input_lyt_tenKH.setError(null);
+            }
+        });
+        input_soLuongKhach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input_lyt_soLuongKhach.setError(null);
+            }
+        });
+
         input_thoiGianDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
