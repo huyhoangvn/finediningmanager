@@ -39,6 +39,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -74,6 +75,7 @@ public class LoaiMonFragment extends Fragment {
         inputTimKiemLoaiMon = view.findViewById(R.id.inputTimKiemLoaiMon);
         chkFragmentLoaiMon = view.findViewById(R.id.chkFragmentLoaiMon);
         dao = new LoaiMonDAO(getContext());
+        getPhanQuyen();
         timKiemLM();
         capNhat();
         //sự kiện lọc trang thái
@@ -138,6 +140,15 @@ public class LoaiMonFragment extends Fragment {
 
 
     }
+
+    private void getPhanQuyen() {
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
+        int maNV = PreferencesHelper.getId(getContext());
+        if (nhanVienDAO.getPhanQuyen(maNV)==0){
+            fabLoaiMon.setVisibility(View.GONE);
+        }
+    }
+
     //hàm tìm kiếm
     public void timKiemLM(){
         edTimKiemLoaiMon.addTextChangedListener(new TextWatcher() {

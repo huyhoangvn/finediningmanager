@@ -30,8 +30,10 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiMonFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
+import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
@@ -66,6 +68,11 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
         LoaiMon lm = list.get(position);
         dao = new LoaiMonDAO(context);
         holder.tvtenLoaiMon.setText(lm.getTenLoai());
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+        int maNV = PreferencesHelper.getId(context);
+        if(nhanVienDAO.getPhanQuyen(maNV)==0){
+            holder.imgSuaTenLoaiMon.setVisibility(View.GONE);
+        }
         if(lm.getTrangThai()==1){
             holder.tvTrangThai.setText("Còn dùng");
             holder.tvTrangThai.setTextColor(ColorHelper.getPositiveColor(context));
@@ -73,7 +80,6 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             holder.tvTrangThai.setText("Không dùng");
             holder.tvTrangThai.setTextColor(ColorHelper.getNegativeColor(context));
         }
-        int maNV = PreferencesHelper.getId(context);
         holder.tvCardviewSoMon.setText( String.valueOf(dao.getSoLuongMon(maNV, lm.getMaLM())));
         holder.imgSuaTenLoaiMon.setOnClickListener(new View.OnClickListener() {
             @Override
