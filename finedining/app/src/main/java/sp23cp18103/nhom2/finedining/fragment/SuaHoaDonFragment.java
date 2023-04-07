@@ -311,7 +311,6 @@ public class SuaHoaDonFragment extends Fragment {
        List<ThongTinDatMon> listDatmoncu = datMonDAO.getDatMonTheoHoaDon(maHD,PreferencesHelper.getId(context));
        listDatMon.addAll(listDatmoncu);
        listDatmoncu.toString();
-
        input_mon.getEditText().setText(listDatmoncu.toString()
                .replace("[", "")
                .replace("]", ""));
@@ -398,10 +397,12 @@ public class SuaHoaDonFragment extends Fragment {
                 hienThiMonDaDat();
                 getTTHoaDonSua();
                 if(rdoDaThanhToan.isChecked() || rdoHuy.isChecked()){
+
                     input_ban.setClickable(false);
                     input_mon.setClickable(false);
                 }
                 if(rdoDat.isChecked() || rdoChuaThanhToan.isChecked()){
+
                     input_ban.setClickable(true);
                     input_mon.setClickable(true);
                 }
@@ -588,6 +589,12 @@ public class SuaHoaDonFragment extends Fragment {
         dialog.show();
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
     }
+
+//    void hienList(){
+//        saveListSua(listDatMon);
+//        input_mon.getEditText().setText(listDatMon.toString().replace("[", "")
+//                .replace("]", ""));
+//    }
 
     void upDateMon() {
         // Lấy danh sách các món đã được đặt trong lịch sử
