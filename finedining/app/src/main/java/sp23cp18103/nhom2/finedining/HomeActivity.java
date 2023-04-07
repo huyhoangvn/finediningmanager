@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Trang Chủ");
+        actionBar.setTitle("Trang chủ");
 
 
 
@@ -199,17 +199,18 @@ public class HomeActivity extends AppCompatActivity {
 
                             case R.id.mn_dangxuat:
                                 navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
-                                new AlertDialog.Builder(HomeActivity.this).setTitle("Bạn Có Chắc Muốn Đăng Xuất")
-                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                new AlertDialog.Builder(HomeActivity.this).setTitle("Bạn có muốn đăng xuất?")
+                                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 Intent intent =  new Intent(HomeActivity.this,LoginActivity.class);
                                                 startActivity(intent);
                                                 overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
                                                 PreferencesHelper.clearId(getApplicationContext());
+                                                finish();
                                             }
                                         })
-                                        .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 dialogInterface.dismiss();
@@ -264,9 +265,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //set phân quyền
         if (chuVu == 1){
-            tvChucVu.setText("Quản Lý");
+            tvChucVu.setText("Quản lý");
         }else {
-            tvChucVu.setText("Nhân Viên");
+            tvChucVu.setText("Nhân viên");
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.mn_doanhthu).setVisible(false);
             menu.findItem(R.id.mn_quanly_nhanvien).setVisible(false);

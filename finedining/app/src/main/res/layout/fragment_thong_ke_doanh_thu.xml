@@ -108,7 +108,7 @@
                 style="@style/mImportantHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Doanh thu theo năm"
+                android:text="Doanh thu theo tháng"
                 android:layout_margin="10dp"/>
 
             <com.github.mikephil.charting.charts.BarChart
@@ -116,7 +116,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/chart_background"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_lyt_nam_thongKeDoanhThu"

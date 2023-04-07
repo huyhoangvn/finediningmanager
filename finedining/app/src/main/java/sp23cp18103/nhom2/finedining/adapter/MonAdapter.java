@@ -80,6 +80,10 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         dao = new MonDAO(context);
         holder.tvCardviewTenMon.setText(m.getTenMon());
         loaiMonDAO = new LoaiMonDAO(context);
+        int maNV = PreferencesHelper.getId(context);
+        if(nhanVienDAO.getPhanQuyen(maNV)==0){
+            holder.imgcardviewSuaMon.setVisibility(View.GONE);
+        }
         LoaiMon lm = loaiMonDAO.getId(String.valueOf(m.getMaLM()));
         holder.tvCardviewTenLoaiMon.setText(lm.getTenLoai());
         holder.tvCardviewGiaMon.setText(NumberHelper.getNumberWithDecimal(m.getGia()) + "");
@@ -145,7 +149,6 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 }
                 spnrialogLoaiMon.setSelection(loaiMonSpinnerAdapter.getPosition(new LoaiMon(m.getMaLM(),"", -1, -1)));
 
-                Log.d("zzzzz", "onClick: "+loaiMonSpinnerAdapter.getPosition(new LoaiMon(m.getMaLM(),"", -1, -1)));
                 spnrialogLoaiMon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -173,7 +176,6 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                         m.setMaLM(maLoaiMon);
                         if(chkTrangThaiMon.isChecked()){
                             if(dao.getTuDongChuyenTrangThai(m.getMaMon(), maNV)>0){
-                                Toast.makeText(context, "tu dong chuyen trang thai thanh cong", Toast.LENGTH_SHORT).show();
                                 m.setTrangThai(1);
                             }else{
                                 m.setTrangThai(1);

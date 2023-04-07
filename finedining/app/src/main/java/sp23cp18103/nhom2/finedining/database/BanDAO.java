@@ -133,8 +133,8 @@ public class BanDAO {
                 "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND b.trangThai = ? " +
                 "AND b.viTri LIKE ? " +
-                "AND lb.tenLoai = ?";
-        return getDaTa(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"), String.valueOf(tenLoai));
+                "AND lb.tenLoai  LIKE ? ";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"), String.valueOf("%" + tenLoai+ "%"));
     }
     @SuppressLint("Range")
     public List<Ban> getDaTa(String sql, String... selectavg) {

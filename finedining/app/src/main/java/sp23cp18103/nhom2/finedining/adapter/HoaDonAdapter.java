@@ -26,6 +26,7 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
 import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 
 /*
@@ -64,17 +65,20 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         ThongTinHoaDon tthd = ThongTinHoaDonList.get(position);
         String ngayHienTai = tthd.getThoiGianDat();
         String ngay =ngayHienTai.substring(0,10);
-        tthd.getMaHD();
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
         holder.tvThoiGianXuat.setText(DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
         if (tthd.getTrangThai()==1){
-            holder.tvTrangThai.setText("Đang Đặt");
+            holder.tvTrangThai.setText("Đang đặt");
+            holder.tvTrangThai.setTextColor(ColorHelper.getNeutralColor(context));
         }else if (tthd.getTrangThai()==2){
-            holder.tvTrangThai.setText("Chờ Thanh Toán");
+            holder.tvTrangThai.setText("Chờ thanh toán");
+            holder.tvTrangThai.setTextColor(ColorHelper.getWaitingColor(context));
         }else if (tthd.getTrangThai()==3){
             holder.tvTrangThai.setText("Đã thanh toán");
+            holder.tvTrangThai.setTextColor(ColorHelper.getPositiveColor(context));
         }else if (tthd.getTrangThai()==0){
             holder.tvTrangThai.setText("Hủy");
+            holder.tvTrangThai.setTextColor(ColorHelper.getNegativeColor(context));
         }
         if (ngay.equals(DateHelper.getDateSQLNow()) && tthd.getTrangThai() == 1){
             holder.imgThongBao.setVisibility(View.VISIBLE);
@@ -117,9 +121,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tvThoiGianDat.setText(""+ DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
 
                 if (tthd.getTrangThai()==1){
-                   tvTrangThai.setText("Đang Đặt");
+                   tvTrangThai.setText("Đang đặt");
                 }else if (tthd.getTrangThai()==2){
-                   tvTrangThai.setText("Chờ Thanh Toán");
+                   tvTrangThai.setText("Chờ thanh toán");
                 }else if (tthd.getTrangThai()==3){
                     tvTrangThai.setText("Đã thanh toán");
                 }else if (tthd.getTrangThai()==0){

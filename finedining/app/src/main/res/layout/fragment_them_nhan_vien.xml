@@ -28,7 +28,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:gravity="center"
-                        android:text="Thêm Tài Khoản Nhân Viên"/>
+                        android:text="Thêm tài khoản nhân viên"/>
 
                     <ImageButton
                         android:id="@+id/imgbtn_fragThemNhanVien_themAnh"
@@ -188,7 +188,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Quay về"/>
+                            android:text="Hủy"/>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>

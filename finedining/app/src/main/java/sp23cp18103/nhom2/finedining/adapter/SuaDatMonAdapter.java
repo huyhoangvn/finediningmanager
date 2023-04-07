@@ -78,7 +78,7 @@ public class SuaDatMonAdapter extends RecyclerView.Adapter<SuaDatMonAdapter.DatM
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Mon mon = monList.get(position);
         holder.tvTenMon.setText(mon.getTenMon());
-        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " VND");
+        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " vnd");
 
         if (listDatMonCu != null) {
             for (int i = 0; i < listDatMonCu.size(); i++){

@@ -17,7 +17,7 @@
     <color name="Light_OnSecondary">#ffffff</color>
     <color name="Light_SecondaryContainer">#FAF1F2</color>
     <color name="Light_OnSecondaryContainer">#2b160a</color>
-    <color name="Light_Tertiary">#636032</color>
+    <color name="Light_Tertiary">#ffffff</color>
     <color name="Light_OnTertiary">#ffffff</color>
     <color name="Light_TertiaryContainer">#ebe5ab</color>
     <color name="Light_OnTertiaryContainer">#1e1c00</color>
@@ -37,11 +37,12 @@
     <color name="Dark_OnPrimary">#542100</color>
     <color name="Dark_PrimaryContainer">#773200</color>
     <color name="Dark_OnPrimaryContainer">#ffdbca</color>
+    <color name="Dark_PrimaryVariant">#FFE4E2</color>
     <color name="Dark_Secondary">#e6beab</color>
     <color name="Dark_OnSecondary">#432b1d</color>
     <color name="Dark_SecondaryContainer">#5c4132</color>
     <color name="Dark_OnSecondaryContainer">#ffdbca</color>
-    <color name="Dark_Tertiary">#cec891</color>
+    <color name="Dark_Tertiary">#e6beab</color>
     <color name="Dark_OnTertiary">#343108</color>
     <color name="Dark_TertiaryContainer">#4b481d</color>
     <color name="Dark_OnTertiaryContainer">#ebe5ab</color>
@@ -59,6 +60,6 @@
     <!--Color Highlight-->
     <color name="Positive">#6BA539</color>
     <color name="Negative">#AE433B</color>
-    <color name="Neutral">#35599A</color>
-    <color name="Waiting">#AC5E3E</color>
+    <color name="Neutral">#356E9A</color>
+    <color name="Waiting">#BC6803</color>
 </resources>

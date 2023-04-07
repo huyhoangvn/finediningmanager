@@ -48,6 +48,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.MonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
@@ -76,6 +77,7 @@ public class MonFragment extends Fragment {
     List<String> listFilter;
     LoaiMonFilterAdapter.FilterViewHolder holderCu;
     Spinner spnrialogLoaiMon;
+    String bienLoc  = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class MonFragment extends Fragment {
         timKiemMon();
         capNhat();
         hienThiFilter();
+        getPhanQuyen();
 
 
 
@@ -206,6 +209,13 @@ public class MonFragment extends Fragment {
         });
     }
 
+    private void getPhanQuyen() {
+        int maNV = PreferencesHelper.getId(context);
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+        if (nhanVienDAO.getPhanQuyen(maNV)==0){
+            fabMon.setVisibility(View.GONE);
+        }
+    }
 
 
     //hàm tìm kiếm món
@@ -269,7 +279,7 @@ public class MonFragment extends Fragment {
         int maNV = PreferencesHelper.getId(getContext());
         int trangThai = (chkFragmentMon.isChecked())?0:1;
         String timKiem = edTimKiemMon.getText().toString().trim();
-            list = dao.trangThaiLoaiMon(maNV, trangThai, timKiem);
+            list = dao.getLocLoaiMon(maNV, trangThai, timKiem, bienLoc);
             adapter = new MonAdapter(getActivity(), list);
             rcvMon.setAdapter(adapter);
     }
@@ -277,7 +287,7 @@ public class MonFragment extends Fragment {
     void capNhat(){
         int maNV = PreferencesHelper.getId(getContext());
         int trangThai = (chkFragmentMon.isChecked())?0:1;
-        list = dao.trangThaiLoaiMon(maNV, trangThai, "");
+        list = dao.getLocLoaiMon(maNV, trangThai, "", bienLoc);
         adapter = new MonAdapter(getContext(), list);
         rcvMon.setAdapter(adapter);
     }
@@ -291,6 +301,7 @@ public class MonFragment extends Fragment {
             @Override
             public void locMon(String tenLoaiMon, LoaiMonFilterAdapter.FilterViewHolder holder) {
                 //Doi mau mac dinh
+                bienLoc = tenLoaiMon;
                 if(holderCu != null){
                     holderCu.tvFilterLoaiMon.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_normal_background));
                 }
@@ -298,6 +309,7 @@ public class MonFragment extends Fragment {
                 holderCu = holder;
                 holder.tvFilterLoaiMon.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_clicked_background));
                 if(tenLoaiMon.equalsIgnoreCase("Tất cả")){
+                    bienLoc = "";
                     capNhat();
                 }else{
                     int maNV = PreferencesHelper.getId(getContext());

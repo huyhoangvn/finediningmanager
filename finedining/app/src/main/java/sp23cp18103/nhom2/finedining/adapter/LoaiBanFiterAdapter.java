@@ -37,10 +37,11 @@ public class LoaiBanFiterAdapter extends RecyclerView.Adapter<LoaiBanFiterAdapte
     @Override
     public void onBindViewHolder(@NonNull filterViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvFilterLoaiBan.setText(list.get(position));
+
         holder.tvFilterLoaiBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    itLoaiBanFilter.loaiBan(list.get(position));
+                    itLoaiBanFilter.loaiBan(list.get(position),holder);
             }
         });
 
@@ -52,7 +53,7 @@ public class LoaiBanFiterAdapter extends RecyclerView.Adapter<LoaiBanFiterAdapte
     }
 
     public class filterViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFilterLoaiBan;
+       public TextView tvFilterLoaiBan;
         public filterViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFilterLoaiBan=itemView.findViewById(R.id.tv_filterloaiban);

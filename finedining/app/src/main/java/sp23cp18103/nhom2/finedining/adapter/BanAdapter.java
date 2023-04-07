@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.ref.Reference;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -52,6 +54,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
     BanSpinnerAdapter banSpinnerAdapter;
     DatBanDAO datBanDAO;
     NhanVienDAO nhanVienDAO;
+    TextInputLayout input_viTriBan;
     public BanAdapter(Context context, List<Ban> list) {
         this.context = context;
         this.list = list;
@@ -79,10 +82,10 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
 
         if (banDAO.getKiemTraConTrong(manv, ban.getMaBan()) == 1) {
             holder.tvTrangThaiBan.setText("Đầy");
-            holder.tvTrangThaiBan.setTextColor(Color.BLUE);
+            holder.tvTrangThaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         } else {
             holder.tvTrangThaiBan.setText("Trống");
-            holder.tvTrangThaiBan.setTextColor(Color.RED);
+            holder.tvTrangThaiBan.setTextColor(ColorHelper.getPositiveColor(context));
         }
 
         holder.imgSua.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +104,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         View view = inflater.inflate(R.layout.dialog_ban, null);
         builder.setView(view);
         TextView tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
-        tvTieuDeBan.setText("Sửa loại loại bàn");
+        tvTieuDeBan.setText("Sửa loại bàn");
 
         banDAO = new BanDAO(context);
 
@@ -110,6 +113,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         chkTrangThaiBan = view.findViewById(R.id.chkTrangThaiBan);
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
         btnCancelBan = view.findViewById(R.id.btnCancelBan);
+        input_viTriBan = view.findViewById(R.id.input_ViTriBan);
         edViTriBan.setText(ban.getViTri());
 
         Dialog dialog = builder.create();
@@ -135,7 +139,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             public void onClick(View v) {
                 String viTri = edViTriBan.getText().toString().trim();
                 if (viTri.isEmpty()) {
-                    edViTriBan.setError("Không được để trống");
+                    input_viTriBan.setError("Không được để trống");
                     return;
                 }
                 // thuc hien chuc nang
@@ -200,7 +204,6 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         }
     }
     void anChucNang(BanViewHolder holder){
-
         nhanVienDAO = new NhanVienDAO(context);
         int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context));
         if(phanQuyen == 0){

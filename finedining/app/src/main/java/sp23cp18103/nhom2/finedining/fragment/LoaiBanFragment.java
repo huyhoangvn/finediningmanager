@@ -66,7 +66,7 @@ public class LoaiBanFragment extends Fragment {
     LoaiBanAdapter loaiBanAdapter;
     TextView tvTieuDeLoaiBan;
     EditText edTimKhiemLoaiBan;
-    TextInputLayout inputTimKiemLoaiBan;
+    TextInputLayout inputTimKiemLoaiBan,input_tenLB;
     NhanVienDAO nhanVienDAO;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -86,7 +86,6 @@ public class LoaiBanFragment extends Fragment {
         fab = view.findViewById(R.id.ftbtn_them_loaiban);
         inputTimKiemLoaiBan = view.findViewById(R.id.inputTimKiemLoaiBan);
         edTimKhiemLoaiBan = view.findViewById(R.id.edTimKiemLoaiBan);
-
         loaiBanDAO = new LoaiBanDAO(getContext());
         context = getContext();
         anChucNang();
@@ -114,7 +113,10 @@ public class LoaiBanFragment extends Fragment {
         chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
         btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
         btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
+        input_tenLB = view.findViewById(R.id.input_tenLB);
 
+
+        chkTrangThaiLoaiBan.setVisibility(View.GONE);
         Dialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (type != 0) {
@@ -174,7 +176,7 @@ public class LoaiBanFragment extends Fragment {
         String tenLoai = edTenLoaiBan.getText().toString();
         int check = 1;
         if (tenLoai.isEmpty()) {
-            edTenLoaiBan.setError("Không được để trống");
+            input_tenLB.setError("Không được để trống");
             check = -1;
         }
         return check;

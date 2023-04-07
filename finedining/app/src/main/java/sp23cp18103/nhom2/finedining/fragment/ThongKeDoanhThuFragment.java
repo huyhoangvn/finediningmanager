@@ -1,6 +1,7 @@
 package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,7 +35,9 @@ import sp23cp18103.nhom2.finedining.database.HoaDonDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinHoaDonDAO;
 import sp23cp18103.nhom2.finedining.model.HoaDon;
 import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -83,6 +86,27 @@ public class ThongKeDoanhThuFragment extends Fragment {
                 }
                 getChart();
 
+
+                String nam = edNam.getText().toString().trim();
+                BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
+                barDataSet1.setColor(ColorHelper.getPositiveColor(context));
+
+                BarData data = new BarData(barDataSet1);
+                barChart.setData(data);
+
+                String[] moth = new String[]{"","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
+                XAxis xAxis = barChart.getXAxis();
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
+                xAxis.setCenterAxisLabels(false);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setGranularity(0.25F);
+                xAxis.setGranularityEnabled(true);
+                barChart.setDragEnabled(true);
+                barChart.setVisibleXRangeMaximum(8);
+
+                barChart.invalidate();
+
+                KeyboardHelper.hideSoftKeyboard((Activity) context);
             }
 
             private boolean validate() {

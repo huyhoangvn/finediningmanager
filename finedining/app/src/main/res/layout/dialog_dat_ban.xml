@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Bàn Đã Chọn: "/>
+                android:text="Bàn đã chọn: "/>
 
             <TextView
                 android:id="@+id/tvBanDaChon_dialog_chonBan_FragmentThemHoaDon"
@@ -81,6 +81,7 @@
                 android:layout_weight="1"
                 android:text="Lưu"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnhuy_dialog_chonBan_FragmentThemHoaDon"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

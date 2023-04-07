@@ -55,9 +55,9 @@ public class MonDAO {
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND m.trangThai = ? " +
                 "AND m.tenMon LIKE ? " +
-                "AND lm.tenLoai = ? " +
+                "AND lm.tenLoai LIKE ? " +
                 "ORDER BY m.trangThai DESC, m.tenMon ASC";
-        return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"), String.valueOf(tenLoai));
+        return getData(sql, String.valueOf(maNV), String.valueOf(trangThai),String.valueOf("%" + timKiem + "%"), String.valueOf("%" + tenLoai + "%"));
     }
     @SuppressLint("Range")
     public int getTuDongChuyenTrangThai(int maMon, int maNV){

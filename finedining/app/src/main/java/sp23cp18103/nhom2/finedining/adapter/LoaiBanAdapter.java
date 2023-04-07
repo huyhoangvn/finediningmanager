@@ -24,6 +24,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiBanFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -49,6 +51,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     AppCompatButton btn_ShaveLoaiBan, btn_CancelLoaiBan;
     LoaiBanDAO dao;
     NhanVienDAO nhanVienDAO;
+    TextInputLayout input_tenLB;
     public LoaiBanAdapter(List<LoaiBan> mListLoaiBan, Context context) {
         this.mListLoaiBan = mListLoaiBan;
         this.context = context;
@@ -77,10 +80,10 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
 
         if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText("Dùng");
-            holder.tv_TrangThai_LoaiBan.setTextColor(Color.BLUE);
+            holder.tv_TrangThai_LoaiBan.setTextColor(ColorHelper.getPositiveColor(context));
         } else {
             holder.tv_TrangThai_LoaiBan.setText("Không dùng");
-            holder.tv_TrangThai_LoaiBan.setTextColor(Color.RED);
+            holder.tv_TrangThai_LoaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         }
 
         holder.img_Sua_LoaiBan.setOnClickListener(new View.OnClickListener() {
@@ -91,12 +94,13 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 View view = inflater.inflate(R.layout.dialog_loai_ban, null);
                 builder.setView(view);
                 TextView tv_tieude_loaiban = view.findViewById(R.id.tvTieuDeLoaiBan);
-                tv_tieude_loaiban.setText("Sửa loại loại bàn");
+                tv_tieude_loaiban.setText("Sửa loại bàn");
 
                 edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
                 chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
                 btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
                 btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
+                input_tenLB = view.findViewById(R.id.input_tenLB);
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
 
                 Dialog dialog = builder.create();
@@ -118,7 +122,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                     public void onClick(View v) {
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
                         if (tenLoai.isEmpty()) {
-                            edTenLoaiBan.setError("Không được để trống");
+                            input_tenLB.setError("Không được để trống");
 
                             return;
                         }
