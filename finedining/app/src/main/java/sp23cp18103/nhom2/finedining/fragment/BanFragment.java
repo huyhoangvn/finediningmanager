@@ -114,7 +114,8 @@ public class BanFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(getContext(), 0);
+                    openDialog(getContext(), 0);
+
             }
         });
     }
@@ -141,6 +142,11 @@ public class BanFragment extends Fragment {
         loaiBanDAO = new LoaiBanDAO(getContext());
         chkTrangThaiBan.setVisibility(View.GONE);
         listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getTimKiem(PreferencesHelper.getId(getContext()),"",1);
+        int count = listloaiban.size();
+        if (count<=0){
+            Toast.makeText(context, "Chưa tồn tại loại bàn đang được sử dụng", Toast.LENGTH_SHORT).show();
+            return;
+        }
         banSpinnerAdapter = new BanSpinnerAdapter(getContext(), listloaiban);
         spnrBan.setAdapter(banSpinnerAdapter);
         spnrBan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -162,12 +168,8 @@ public class BanFragment extends Fragment {
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (validate() > 0) {
-                    int count = listloaiban.size();
-                    if (count<=0){
-                        Toast.makeText(context, "Chưa tồn tại loại bàn đang được sử dụng", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
                     Ban ban = new Ban();
                     LoaiBan loaiBan = (LoaiBan) spnrBan.getSelectedItem();
                     ban.setMaLB(loaiBan.getMaLB());
