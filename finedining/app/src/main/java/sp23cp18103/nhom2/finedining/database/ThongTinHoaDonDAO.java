@@ -118,21 +118,7 @@ public class ThongTinHoaDonDAO {
         }
         return list;
     }
-//    public String getNgayNhoNhat(){
-//        String sql = "SELECT * FROM PhieuMuon ORDER BY ngayThue ASC LIMIT 1";
-//        ArrayList<PhieuMuon> list = (ArrayList<PhieuMuon>) getPhieuMuon(sql);
-//        if(list.size() > 0)
-//            return list.get(0).getNgayThue();
-//        return getToday();
-//    }
-//
-//    public String getNgayLonNhat(){
-//        String sql = "SELECT * FROM PhieuMuon ORDER BY ngayThue DESC LIMIT 1";
-//        ArrayList<PhieuMuon> list = (ArrayList<PhieuMuon>) getPhieuMuon(sql);
-//        if(list.size() > 0)
-//            return list.get(0).getNgayThue();
-//        return getToday();
-//    }
+
 
     @SuppressLint("Range")
     public String getNgayNhoNhat(int maNV){
