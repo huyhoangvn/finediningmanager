@@ -207,6 +207,7 @@ public class HomeActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                                 overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
                                                 PreferencesHelper.clearId(getApplicationContext());
+                                                finish();
                                             }
                                         })
                                         .setNegativeButton("Không", new DialogInterface.OnClickListener() {
