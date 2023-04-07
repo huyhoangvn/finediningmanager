@@ -70,6 +70,8 @@ public class ThongKeKhachFragment extends Fragment {
         context = getContext();
         anhXa(view);
         khoiTao();
+        barChart();
+        thongKe();
         chonNgayBatDau();
         chonNgayKetThuc();
         thongKeSoLuong();
@@ -82,35 +84,7 @@ public class ThongKeKhachFragment extends Fragment {
                 if (!validate()){
                     return;
                 }
-                String nam = input_nam_ThongKeKhach.getText().toString().trim();
-
-                BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
-                barDataSet1.setColor(ColorHelper.getPositiveColor(context));
-                BarData barData=new BarData(barDataSet1);
-                barChart.setData(barData);
-                barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
-                // color data bar set
-                barDataSet1.setValueTextColor(Color.BLACK);
-                // text color
-                barDataSet1.setColor(Color.RED);
-//                barDataSet1.setColor(Color.RED);
-                barDataSet1.setValueTextSize(16F);
-                barChart.getDescription().setEnabled(true);
-
-
-                String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
-                XAxis xAxis = barChart.getXAxis();
-                xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
-                xAxis.setCenterAxisLabels(false);
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                xAxis.setGranularity(0.25F);
-                xAxis.setTextSize(14F);
-                xAxis.setTextColor(Color.RED);
-                xAxis.setGranularityEnabled(true);
-                barChart.setDragEnabled(true);
-                barChart.setVisibleXRangeMaximum(8);
-                barChart.invalidate();
-
+                barChart();
                 KeyboardHelper.hideSoftKeyboard((Activity) context);
             }
             private boolean validate() {
@@ -124,8 +98,11 @@ public class ThongKeKhachFragment extends Fragment {
     }
 
     private void khoiTao() {
-        input_nam_ThongKeKhach.setText(DateHelper.getYearSQLNow());
         khachDAO = new KhachDAO(context);
+        input_nam_ThongKeKhach.setText(DateHelper.getYearSQLNow());
+        edNgayKetThuc.setText(khachDAO.getNgayNhoNhat(PreferencesHelper.getId(context)));
+        edNgayBatDau.setText(khachDAO.getNgayLonNhat(PreferencesHelper.getId(context)));
+
     }
 
     private void chonNgayBatDau() {
@@ -161,9 +138,7 @@ public class ThongKeKhachFragment extends Fragment {
         btnThongKeKhach1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tungay = DateHelper.getDateSql(edNgayBatDau.getText().toString().trim());
-                String denngay = DateHelper.getDateSql(edNgayKetThuc.getText().toString().trim());
-                tvTongKhachHang.setText(""+khachDAO.getSoLuongKhachHang(PreferencesHelper.getId(context),tungay,denngay));
+               thongKe();
             }
         });
     }
@@ -194,5 +169,30 @@ public class ThongKeKhachFragment extends Fragment {
         }
         return barEntries;
     }
+    public void barChart(){
+        String nam = input_nam_ThongKeKhach.getText().toString().trim();
+        BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
+        barDataSet1.setColor(ColorHelper.getPositiveColor(context));
+        BarData barData=new BarData(barDataSet1);
+        barChart.setData(barData);
+        barDataSet1.setValueTextSize(16F);
+        barChart.getDescription().setEnabled(true);
+        String[] moth = new String[]{"", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
+        xAxis.setCenterAxisLabels(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(0.25F);
+        xAxis.setTextSize(14F);
+        xAxis.setGranularityEnabled(true);
+        barChart.setDragEnabled(true);
+        barChart.setVisibleXRangeMaximum(8);
+        barChart.invalidate();
+    }
+    void thongKe(){
+        String tungay = DateHelper.getDateSql(edNgayBatDau.getText().toString().trim());
+        String denngay = DateHelper.getDateSql(edNgayKetThuc.getText().toString().trim());
+        tvTongKhachHang.setText(""+khachDAO.getSoLuongKhachHang(PreferencesHelper.getId(context),tungay,denngay));
 
+    }
 }
