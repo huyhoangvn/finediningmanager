@@ -119,7 +119,6 @@ public class ThongTinHoaDonDAO {
         return list;
     }
 
-
     @SuppressLint("Range")
     public String getNgayNhoNhat(int maNV){
         String sql = "SELECT strftime('%Y-%m-%d',hd.thoiGianDat) as ngayNhoNhat " +
