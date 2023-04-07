@@ -29,6 +29,7 @@ import sp23cp18103.nhom2.finedining.adapter.MonBanChayAdapter;
 import sp23cp18103.nhom2.finedining.database.ThongTinMonDAO;
 import sp23cp18103.nhom2.finedining.model.ThongTinMon;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Hiển thị danh sách món ăn bán chạy
@@ -86,6 +87,7 @@ public class ThongKeMonFragment extends Fragment {
         });
     }
 void thongKeSoLuong(View view){
+    int maNV = PreferencesHelper.getId(getContext());
     tinMonDAO = new ThongTinMonDAO(getContext());
     String thang = inputLayoutThang.getEditText().getText().toString();
     String nam = inputLayoutNam.getEditText().getText().toString();
@@ -98,7 +100,7 @@ void thongKeSoLuong(View view){
         }
     }
     if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
-        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongNam(nam);
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongNam(nam,maNV);
         if (list.size() == 0){
             Toast.makeText(getContext(), "Không thấy bản ghi", Toast.LENGTH_SHORT).show();
             return;
@@ -109,7 +111,7 @@ void thongKeSoLuong(View view){
         }
     } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
         thang = String.format("%02d", Integer.parseInt(thang));
-        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam);
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatTrongThangNam(thang,nam,maNV);
         if (list.size() == 0){
             Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
             return;
@@ -132,6 +134,7 @@ void thongKeSoLuong(View view){
     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 }
     void thongKeDoanhThu(View view) {
+        int maNV = PreferencesHelper.getId(getContext());
         tinMonDAO = new ThongTinMonDAO(getContext());
         String thang = inputLayoutThang.getEditText().getText().toString();
         String nam = inputLayoutNam.getEditText().getText().toString();
@@ -144,7 +147,7 @@ void thongKeSoLuong(View view){
             }
         }
         if (TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
-            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongNam(nam);
+            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongNam(nam,maNV);
             if (list.size() == 0){
                 Toast.makeText(getContext(), "Không thấy bản ghi", Toast.LENGTH_SHORT).show();
                 return;
@@ -155,7 +158,7 @@ void thongKeSoLuong(View view){
             }
         } else if (!TextUtils.isEmpty(thang) && !TextUtils.isEmpty(nam)){
             thang = String.format("%02d", Integer.parseInt(thang));
-            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam);
+            list = tinMonDAO.getTop10MonDoanhThuCaoNhatTrongThangNam(thang,nam,maNV);
             if (list.size() == 0){
                 Toast.makeText(getContext(), "Không có bản ghi", Toast.LENGTH_SHORT).show();
                 return;
@@ -180,7 +183,7 @@ void thongKeSoLuong(View view){
 
     private void evRcvTkMonSoLuong() {
         tinMonDAO = new ThongTinMonDAO(getContext());
-        list = tinMonDAO.getTop10MonSoLuongCaoNhatYearNow(DateHelper.getYearSQLNow());
+        list = tinMonDAO.getTop10MonSoLuongCaoNhatYearNow(DateHelper.getYearSQLNow(),PreferencesHelper.getId(getContext()));
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
     }
@@ -188,7 +191,7 @@ void thongKeSoLuong(View view){
     private void evRcvTkMonDoanhthu() {
         list.clear();
         tinMonDAO = new ThongTinMonDAO(getContext());
-        list = tinMonDAO.getTop10MonDoanhThuCaoNhatYearNow(DateHelper.getYearSQLNow());
+        list = tinMonDAO.getTop10MonDoanhThuCaoNhatYearNow(DateHelper.getYearSQLNow(), PreferencesHelper.getId(getContext()));
         adapter = new MonBanChayAdapter(getContext(),list);
         rcvMonHot.setAdapter(adapter);
     }
