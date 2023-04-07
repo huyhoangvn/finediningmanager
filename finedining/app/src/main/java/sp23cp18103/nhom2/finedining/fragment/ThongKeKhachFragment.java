@@ -171,7 +171,7 @@ public class ThongKeKhachFragment extends Fragment {
     }
     public void barChart(){
         String nam = input_nam_ThongKeKhach.getText().toString().trim();
-        BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
+        BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Số lượng ");
         barDataSet1.setColor(ColorHelper.getPositiveColor(context));
         BarData barData=new BarData(barDataSet1);
         barChart.setData(barData);
