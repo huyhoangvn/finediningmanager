@@ -39,6 +39,7 @@ import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeMonFragment;
 import sp23cp18103.nhom2.finedining.utils.BetterActivityResult;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
+import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -68,11 +69,7 @@ public class HomeActivity extends AppCompatActivity {
         // tollbar
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        // mởmenu
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.naviOpen,R.string.naviClose);
-        drawerLayout.addDrawerListener(toggle);
         upDateImg();
-        toggle.syncState();
 
         //set icon
         ActionBar actionBar = getSupportActionBar();
@@ -245,14 +242,20 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Mở toolBar
+        if (item.getItemId() == android.R.id.home){
+            drawerLayout.openDrawer(GravityCompat.START);
+            KeyboardHelper.hideSoftKeyboard(this);
+        }
+        return super.onOptionsItemSelected(item);
+    }
     void contenHeader(){
         View view = navigationView.getHeaderView(0);
         TextView tvTenNV = view.findViewById(R.id.tv_tenNhanVien);
         TextView tvChucVu = view.findViewById(R.id.tv_chucvu);
         CircleImageView imgAvt = view.findViewById(R.id.img_avt);
-
-
-
 
         nhanVienDAO = new NhanVienDAO(this);
         int maNV = PreferencesHelper.getId(this);
@@ -270,7 +273,6 @@ public class HomeActivity extends AppCompatActivity {
             tvChucVu.setText("Nhân viên");
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.mn_doanhthu).setVisible(false);
-            menu.findItem(R.id.mn_quanly_nhanvien).setVisible(false);
             menu.findItem(R.id.mn_tongkhach).setVisible(false);
         }
     }
@@ -289,6 +291,8 @@ public class HomeActivity extends AppCompatActivity {
         CircleImageView imgAvt = view.findViewById(R.id.img_avt);
         ImageHelper.loadAvatar(this,imgAvt,hinh);
     }
+
+
 
     @Override
     protected void onDestroy() {
