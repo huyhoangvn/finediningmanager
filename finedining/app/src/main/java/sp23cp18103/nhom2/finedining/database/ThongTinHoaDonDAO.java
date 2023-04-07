@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
+import sp23cp18103.nhom2.finedining.utils.DateHelper;
 
 public class ThongTinHoaDonDAO {
     private SQLiteDatabase db;
@@ -116,6 +118,58 @@ public class ThongTinHoaDonDAO {
         }
         return list;
     }
+//    public String getNgayNhoNhat(){
+//        String sql = "SELECT * FROM PhieuMuon ORDER BY ngayThue ASC LIMIT 1";
+//        ArrayList<PhieuMuon> list = (ArrayList<PhieuMuon>) getPhieuMuon(sql);
+//        if(list.size() > 0)
+//            return list.get(0).getNgayThue();
+//        return getToday();
+//    }
+//
+//    public String getNgayLonNhat(){
+//        String sql = "SELECT * FROM PhieuMuon ORDER BY ngayThue DESC LIMIT 1";
+//        ArrayList<PhieuMuon> list = (ArrayList<PhieuMuon>) getPhieuMuon(sql);
+//        if(list.size() > 0)
+//            return list.get(0).getNgayThue();
+//        return getToday();
+//    }
+
+    @SuppressLint("Range")
+    public String getNgayNhoNhat(int maNV){
+        String sql = "SELECT strftime('%Y-%m-%d',hd.thoiGianDat) as ngayNhoNhat " +
+                    "FROM hoadon hd " +
+                    "JOIN datmon as dm ON dm.maHD = hd.maHD " +
+                    "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
+                    "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                    "AND hd.trangThai = 3 " +
+                    "AND dm.trangThai = 1 " +
+                    "ORDER BY ngayNhoNhat ASC LIMIT 1 ";
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
+        if (c.moveToNext()){
+            return DateHelper.getDateVietnam(c.getString(c.getColumnIndex("ngayNhoNhat")));
+        }
+        return DateHelper.getDateVietnamNow();
+
+    }
+    @SuppressLint("Range")
+    public String getNgayLonNhat(int maNV){
+        String sql = "SELECT strftime('%Y-%m-%d',hd.thoiGianDat) as ngayLonNhat " +
+                "FROM hoadon hd " +
+                "JOIN datmon as dm ON dm.maHD = hd.maHD " +
+                "JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
+                "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "AND hd.trangThai = 3 " +
+                "AND dm.trangThai = 1 " +
+                "ORDER BY ngayLonNhat DESC LIMIT 1 ";
+        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
+       if (c.moveToNext()){
+           return DateHelper.getDateVietnam(c.getString(c.getColumnIndex("ngayLonNhat")));
+        }
+        return DateHelper.getDateVietnamNow();
+
+    }
+
+
 
 
 

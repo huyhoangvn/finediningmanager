@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -66,6 +67,8 @@ public class ThongKeDoanhThuFragment extends Fragment {
         context = getContext();
         anhXa(view);
         khoiTao();
+        thongKe();
+        getChart();
         chonNgayBatDau();
         chonNgayKetThuc();
         thongKeTongDoanhThu();
@@ -81,6 +84,8 @@ public class ThongKeDoanhThuFragment extends Fragment {
                 if (!validate()){
                     return;
                 }
+                getChart();
+
 
                 String nam = edNam.getText().toString().trim();
                 BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
@@ -114,20 +119,29 @@ public class ThongKeDoanhThuFragment extends Fragment {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void khoiTao() {
         thongTinHoaDonDAO = new ThongTinHoaDonDAO(context);
+        edNam.setText(DateHelper.getYearSQLNow());
+        edNgayBatDau.setText(""+thongTinHoaDonDAO.getNgayNhoNhat(PreferencesHelper.getId(context)));
+        edNgayKetThuc.setText(""+thongTinHoaDonDAO.getNgayLonNhat(PreferencesHelper.getId(context)));
     }
 
+    @SuppressLint("SetTextI18n")
     private void thongKeTongDoanhThu() {
         btnThongKeDoanhThu.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                String tuNgay = DateHelper.getDateSql(edNgayBatDau.getText().toString());
-                String denNgay = DateHelper.getDateSql(edNgayKetThuc.getText().toString());
-                tvTongDoanhThu.setText("" + thongTinHoaDonDAO.getDoanhThu(PreferencesHelper.getId(context), tuNgay, denNgay));
+                thongKe();
             }
         });
+    }
+    @SuppressLint("SetTextI18n")
+    public void thongKe(){
+        String tuNgay = DateHelper.getDateSql(edNgayBatDau.getText().toString());
+        String denNgay = DateHelper.getDateSql(edNgayKetThuc.getText().toString());
+        tvTongDoanhThu.setText("" + thongTinHoaDonDAO.getDoanhThu(PreferencesHelper.getId(context), tuNgay, denNgay));
     }
 
     private void chonNgayKetThuc() {
@@ -185,6 +199,28 @@ public class ThongKeDoanhThuFragment extends Fragment {
             barEntries.add(new BarEntry(i, doanhthu));
         }
         return barEntries;
+    }
+
+    public void getChart(){
+        String nam = edNam.getText().toString().trim();
+        BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Doanh Thu");
+        barDataSet1.setColor(Color.RED);
+
+        BarData data = new BarData(barDataSet1);
+        barChart.setData(data);
+
+        String[] moth = new String[]{"","T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", ""};
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
+        xAxis.setCenterAxisLabels(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(0.25F);
+        xAxis.setGranularityEnabled(true);
+
+        barChart.setDragEnabled(true);
+        barChart.setVisibleXRangeMaximum(8);
+        barChart.invalidate();
+
     }
 
 }
