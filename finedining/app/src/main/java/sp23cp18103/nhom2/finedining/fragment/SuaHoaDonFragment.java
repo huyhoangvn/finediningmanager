@@ -366,6 +366,8 @@ public class SuaHoaDonFragment extends Fragment {
         input_mon.getEditText().setText(listDatMonCu.toString()
                 .replace("[", "")
                 .replace("]", ""));
+        listDatMon = listDatMonCu;
+        clearListSua();
     }
 
     void goiDialogNgayDat(){
