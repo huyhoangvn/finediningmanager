@@ -28,6 +28,7 @@ import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 
 /*
  * Adapter để hiển thị danh sách hóa đơn trong HoaDonFragment
@@ -138,7 +139,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tv_ban.setText(""+thongTinChiTietDatMonDAO.getBan(tthd.getMaHD()).toString()
                         .replace("[", "")
                         .replace("]", ""));
-                tv_tongTien.setText(""+thongTinChiTietDatMonDAO.getTongSoTien(tthd.getMaHD()));
+                tv_tongTien.setText(""+ NumberHelper.getNumberWithDecimal(thongTinChiTietDatMonDAO.getTongSoTien(tthd.getMaHD())));
 
                 dialog.show();
             }

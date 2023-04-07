@@ -46,6 +46,7 @@ import sp23cp18103.nhom2.finedining.database.MonDAO;
 import sp23cp18103.nhom2.finedining.database.NhaHangDAO;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Mon;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -159,7 +160,7 @@ public class HomeFragment extends Fragment {
         int maNV = PreferencesHelper.getId(getContext());
         int maNH = nhanVienDAO.getMaNH(maNV);
         String hinhNH = nhaHangDAO.getHinhNH(maNH);
-        Glide.with(this).load(hinhNH).into(imgnhaHang);
+        ImageHelper.loadBanner(getContext(), imgnhaHang, hinhNH);
     }
     void getNameDiachiNH() {
         NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());

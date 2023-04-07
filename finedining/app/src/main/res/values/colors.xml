@@ -17,8 +17,8 @@
     <color name="Light_OnSecondary">#ffffff</color>
     <color name="Light_SecondaryContainer">#FAF1F2</color>
     <color name="Light_OnSecondaryContainer">#2b160a</color>
-    <color name="Light_Tertiary">#ffffff</color>
-    <color name="Light_OnTertiary">#ffffff</color>
+    <color name="Light_Tertiary">#fffbff</color>
+    <color name="Light_OnTertiary">#fffbff</color>
     <color name="Light_TertiaryContainer">#ebe5ab</color>
     <color name="Light_OnTertiaryContainer">#1e1c00</color>
     <color name="Light_Error">#ba1a1a</color>
