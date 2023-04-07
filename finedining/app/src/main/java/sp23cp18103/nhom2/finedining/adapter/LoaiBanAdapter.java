@@ -24,6 +24,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     AppCompatButton btn_ShaveLoaiBan, btn_CancelLoaiBan;
     LoaiBanDAO dao;
     NhanVienDAO nhanVienDAO;
+    TextInputLayout input_tenLB;
     public LoaiBanAdapter(List<LoaiBan> mListLoaiBan, Context context) {
         this.mListLoaiBan = mListLoaiBan;
         this.context = context;
@@ -98,6 +100,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
                 btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
                 btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
+                input_tenLB = view.findViewById(R.id.input_tenLB);
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
 
                 Dialog dialog = builder.create();
@@ -119,7 +122,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                     public void onClick(View v) {
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
                         if (tenLoai.isEmpty()) {
-                            edTenLoaiBan.setError("Không được để trống");
+                            input_tenLB.setError("Không được để trống");
 
                             return;
                         }
