@@ -1,6 +1,7 @@
 package sp23cp18103.nhom2.finedining.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -39,7 +40,9 @@ import sp23cp18103.nhom2.finedining.model.HoaDon;
 import sp23cp18103.nhom2.finedining.model.KhachHang;
 import sp23cp18103.nhom2.finedining.model.ThongTinThongKeDoanhThu;
 import sp23cp18103.nhom2.finedining.model.ThongTinThongKeKhachHang;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -80,6 +83,7 @@ public class ThongKeKhachFragment extends Fragment {
                 }
                 String nam = input_nam_ThongKeKhach.getText().toString().trim();
                 BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
+                barDataSet1.setColor(ColorHelper.getPositiveColor(context));
                 BarData barData=new BarData(barDataSet1);
                 barChart.setData(barData);
                 barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -103,6 +107,8 @@ public class ThongKeKhachFragment extends Fragment {
                 barChart.setDragEnabled(true);
                 barChart.setVisibleXRangeMaximum(8);
                 barChart.invalidate();
+
+                KeyboardHelper.hideSoftKeyboard((Activity) context);
             }
             private boolean validate() {
                 if (input_nam_ThongKeKhach.getText().toString().trim().equals("")){
