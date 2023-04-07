@@ -85,27 +85,6 @@ public class ThongKeDoanhThuFragment extends Fragment {
                     return;
                 }
                 getChart();
-
-
-                String nam = edNam.getText().toString().trim();
-                BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
-                barDataSet1.setColor(ColorHelper.getPositiveColor(context));
-
-                BarData data = new BarData(barDataSet1);
-                barChart.setData(data);
-
-                String[] moth = new String[]{"","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""};
-                XAxis xAxis = barChart.getXAxis();
-                xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
-                xAxis.setCenterAxisLabels(false);
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                xAxis.setGranularity(0.25F);
-                xAxis.setGranularityEnabled(true);
-                barChart.setDragEnabled(true);
-                barChart.setVisibleXRangeMaximum(8);
-
-                barChart.invalidate();
-
                 KeyboardHelper.hideSoftKeyboard((Activity) context);
             }
 
@@ -204,7 +183,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
     public void getChart(){
         String nam = edNam.getText().toString().trim();
         BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Doanh Thu");
-        barDataSet1.setColor(Color.RED);
+        barDataSet1.setColor(ColorHelper.getPositiveColor(context));
 
         BarData data = new BarData(barDataSet1);
         barChart.setData(data);
