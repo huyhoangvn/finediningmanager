@@ -86,7 +86,7 @@ public class ThongKeKhachFragment extends Fragment {
                 barChart.setData(barData);
                 barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
                 // color data bar set
-                barDataSet1.setValueTextColor(Color.RED);
+                barDataSet1.setValueTextColor(Color.BLACK);
                 // text color
                 barDataSet1.setColor(Color.RED);
 //                barDataSet1.setColor(Color.RED);
@@ -118,6 +118,7 @@ public class ThongKeKhachFragment extends Fragment {
     }
 
     private void khoiTao() {
+        input_nam_ThongKeKhach.setText(DateHelper.getYearSQLNow());
         khachDAO = new KhachDAO(context);
     }
 
