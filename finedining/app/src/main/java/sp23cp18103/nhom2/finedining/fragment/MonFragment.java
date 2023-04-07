@@ -48,6 +48,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiMonSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.MonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
@@ -101,6 +102,7 @@ public class MonFragment extends Fragment {
         timKiemMon();
         capNhat();
         hienThiFilter();
+        getPhanQuyen();
 
 
 
@@ -207,6 +209,13 @@ public class MonFragment extends Fragment {
         });
     }
 
+    private void getPhanQuyen() {
+        int maNV = PreferencesHelper.getId(context);
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+        if (nhanVienDAO.getPhanQuyen(maNV)==0){
+            fabMon.setVisibility(View.GONE);
+        }
+    }
 
 
     //hàm tìm kiếm món

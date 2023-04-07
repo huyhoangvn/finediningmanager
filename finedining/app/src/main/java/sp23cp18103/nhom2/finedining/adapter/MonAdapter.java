@@ -80,6 +80,10 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
         dao = new MonDAO(context);
         holder.tvCardviewTenMon.setText(m.getTenMon());
         loaiMonDAO = new LoaiMonDAO(context);
+        int maNV = PreferencesHelper.getId(context);
+        if(nhanVienDAO.getPhanQuyen(maNV)==0){
+            holder.imgcardviewSuaMon.setVisibility(View.GONE);
+        }
         LoaiMon lm = loaiMonDAO.getId(String.valueOf(m.getMaLM()));
         holder.tvCardviewTenLoaiMon.setText(lm.getTenLoai());
         holder.tvCardviewGiaMon.setText(NumberHelper.getNumberWithDecimal(m.getGia()) + "");
