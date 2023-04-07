@@ -53,6 +53,7 @@ public class ThongKeKhachFragment extends Fragment {
     Context context;
     KhachDAO khachDAO;
     BarChart barChart;
+    List<KhachDAO> list;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class ThongKeKhachFragment extends Fragment {
                     return;
                 }
                 String nam = input_nam_ThongKeKhach.getText().toString().trim();
+
                 BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Month");
                 BarData barData=new BarData(barDataSet1);
                 barChart.setData(barData);
@@ -86,6 +88,7 @@ public class ThongKeKhachFragment extends Fragment {
                 // color data bar set
                 barDataSet1.setValueTextColor(Color.RED);
                 // text color
+                barDataSet1.setColor(Color.RED);
 //                barDataSet1.setColor(Color.RED);
                 barDataSet1.setValueTextSize(16F);
                 barChart.getDescription().setEnabled(true);
@@ -184,4 +187,5 @@ public class ThongKeKhachFragment extends Fragment {
         }
         return barEntries;
     }
+
 }
