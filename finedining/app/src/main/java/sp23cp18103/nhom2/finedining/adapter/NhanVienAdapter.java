@@ -19,6 +19,7 @@ import sp23cp18103.nhom2.finedining.Interface.IEditListenerNhanVien;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.NumberHelper;
@@ -73,29 +74,38 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         holder.tvGioiTinh.setText(nhanVien.getTenGioiTinh());
         holder.tvTrangThai.setText(nhanVien.getTenTrangThai());
         if(nhanVien.getTrangThai() == 1){
-            holder.tvTrangThai.setTextColor(Color.GREEN);
+            holder.tvTrangThai.setTextColor(ColorHelper.getPositiveColor(context));
         } else {
-            holder.tvTrangThai.setTextColor(Color.RED);
+            holder.tvTrangThai.setTextColor(ColorHelper.getNegativeColor(context));
         }
         ImageHelper.loadAvatar(context, holder.imgHinh, nhanVien.getHinh());
         holder.tvPhanQuyen.setText(nhanVien.getTenPhanQuyen());
         /*
-        * Hiển thị fragment để sửa thông tin nhân viên
+        * Hiển thị image button để sửa thông tin nhân viên
         * */
-        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) != 1){
+        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 0){
             if(PreferencesHelper.getId(context) != nhanVien.getMaNV()){
                 holder.imgbtnSua.setVisibility(View.GONE);
             }
         } else {
             if(nhanVienDAO.getPhanQuyen(nhanVien.getMaNV()) == 1
-                && PreferencesHelper.getId(context) != nhanVien.getMaNV()){
+                    && PreferencesHelper.getId(context) != nhanVien.getMaNV()){
                 holder.imgbtnSua.setVisibility(View.GONE);
+            }
+            if(nhanVienDAO.getTrangThaiNV(nhanVien.getMaNV()) == 0){
+                holder.imgbtnSua.setVisibility(View.VISIBLE);
             }
         }
         holder.imgbtnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iEditListenerNhanVien.showEditFragment(nhanVien.getMaNV());
+            }
+        });
+        holder.imgbtnGoiDien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iEditListenerNhanVien.showDialPhoneNumber(nhanVien.getSdt());
             }
         });
     }
@@ -108,7 +118,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imgHinh;
         TextView tvTenNV, tvNgaySinh, tvSdt, tvGioiTinh, tvTrangThai, tvPhanQuyen;
-        ImageButton imgbtnSua;
+        ImageButton imgbtnSua, imgbtnGoiDien;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -120,14 +130,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             tvTrangThai = itemView.findViewById(R.id.tv_cvNhanVien_trangThai);
             tvPhanQuyen = itemView.findViewById(R.id.tv_cvNhanVien_phanQuyen);
             imgbtnSua = itemView.findViewById(R.id.imgbtn_cvNhanVien_sua);
+            imgbtnGoiDien = itemView.findViewById(R.id.imgbtn_cvNhanVien_goiDien);
         }
-    }
-
-    /*
-     * Sửa thông tin công khai của nhân viên
-     * */
-    private void showFragmentSua() {
-
     }
 
 }

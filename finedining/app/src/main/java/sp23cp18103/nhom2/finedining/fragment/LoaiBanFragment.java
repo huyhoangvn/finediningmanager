@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,7 @@ import sp23cp18103.nhom2.finedining.adapter.LoaiBanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -54,7 +57,7 @@ public class LoaiBanFragment extends Fragment {
     ArrayList<LoaiBan> list;
     LoaiBanDAO loaiBanDAO;
     EditText edTenLoaiBan;
-    CheckBox chk_TrangThai_LoaiBan;
+    CheckBox chkTrangThaiLoaiBan;
     Button btn_ShaveLoaiBan, btn_CancelLoaiBan;
     CheckBox chk_fLoaiBan_conDung;
     FloatingActionButton fab;
@@ -63,8 +66,8 @@ public class LoaiBanFragment extends Fragment {
     LoaiBanAdapter loaiBanAdapter;
     TextView tvTieuDeLoaiBan;
     EditText edTimKhiemLoaiBan;
-    TextInputLayout inputTimKiemLoaiBan;
-
+    TextInputLayout inputTimKiemLoaiBan,input_tenLB;
+    NhanVienDAO nhanVienDAO;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,23 +81,17 @@ public class LoaiBanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         chk_fLoaiBan_conDung = view.findViewById(R.id.chk_fLoaiBan_conDung);
         rcv_loaiban = view.findViewById(R.id.rcv_loaiban);
         fab = view.findViewById(R.id.ftbtn_them_loaiban);
         inputTimKiemLoaiBan = view.findViewById(R.id.inputTimKiemLoaiBan);
         edTimKhiemLoaiBan = view.findViewById(R.id.edTimKiemLoaiBan);
-
         loaiBanDAO = new LoaiBanDAO(getContext());
         context = getContext();
-
+        anChucNang();
         khoiTaoRecyclerView();
         khoiTaoCheckboxListener();
         khoiTaoTimKiem();
-
-
-        CapNhat();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,20 +110,23 @@ public class LoaiBanFragment extends Fragment {
         edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
         tvTieuDeLoaiBan = view.findViewById(R.id.tvTieuDeLoaiBan);
         tvTieuDeLoaiBan.setText("Thêm loại bàn");
-        chk_TrangThai_LoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
+        chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
         btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
         btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
+        input_tenLB = view.findViewById(R.id.input_tenLB);
 
+
+        chkTrangThaiLoaiBan.setVisibility(View.GONE);
         Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (type != 0) {
             edTenLoaiBan.setText(loaiBan.getTenLoai());
             if (loaiBan.getTrangThai() == 1) {
-                chk_TrangThai_LoaiBan.setChecked(true);
+                chkTrangThaiLoaiBan.setChecked(true);
             } else {
-                chk_TrangThai_LoaiBan.setChecked(false);
+                chkTrangThaiLoaiBan.setChecked(false);
             }
         }
-
         btn_CancelLoaiBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,11 +140,10 @@ public class LoaiBanFragment extends Fragment {
 
                 if (validate() > 0) {
                     int maNV = PreferencesHelper.getId(getContext());
-
                     loaiBan = new LoaiBan();
                     loaiBan.setTenLoai(edTenLoaiBan.getText().toString());
                     loaiBan.setMaNV(maNV);
-                    if (chk_TrangThai_LoaiBan.isChecked()) {
+                    if (chkTrangThaiLoaiBan.isChecked()) {
                         loaiBan.setTrangThai(1);
                     } else {
                         loaiBan.setTrangThai(0);
@@ -156,26 +155,28 @@ public class LoaiBanFragment extends Fragment {
                             Toast.makeText(context, "Thêm bàn chưa thành công!", Toast.LENGTH_SHORT).show();
                         }
                     }
+                    capNhat();
                     dialog.dismiss();
-                    CapNhat();
+
                 }
             }
         });
         dialog.show();
     }
-
-    void CapNhat() {
-        list = (ArrayList<LoaiBan>) loaiBanDAO.getAllLoaiBan();
-        loaiBanAdapter = new LoaiBanAdapter(list, getContext());
-        rcv_loaiban.setAdapter(loaiBanAdapter);
+    @SuppressLint("NotifyDataSetChanged")
+    void capNhat() {
+        int maNV = PreferencesHelper.getId(context);
+        int trangThai = (chk_fLoaiBan_conDung.isChecked())?0:1;
+        list.clear();
+        list.addAll(loaiBanDAO.getTimKiem(maNV,edTimKhiemLoaiBan.getText().toString().trim(),trangThai));
+        loaiBanAdapter.notifyDataSetChanged();
     }
 
     public int validate() {
         String tenLoai = edTenLoaiBan.getText().toString();
-        String soChoNgoi = edTenLoaiBan.getText().toString();
         int check = 1;
-        if (tenLoai.isEmpty() || soChoNgoi.isEmpty()) {
-            edTenLoaiBan.setError("Không được để trống");
+        if (tenLoai.isEmpty()) {
+            input_tenLB.setError("Không được để trống");
             check = -1;
         }
         return check;
@@ -184,8 +185,7 @@ public class LoaiBanFragment extends Fragment {
     private void khoiTaoRecyclerView() {
         list = (ArrayList<LoaiBan>) loaiBanDAO.getTimKiem(PreferencesHelper.getId(context),
                 edTimKhiemLoaiBan.getText().toString().trim(),
-                String.valueOf((chk_fLoaiBan_conDung.isChecked())?0:1));
-
+                ((chk_fLoaiBan_conDung.isChecked())?0:1));
         loaiBanAdapter = new LoaiBanAdapter(list, getContext());
         rcv_loaiban.setAdapter(loaiBanAdapter);
     }
@@ -194,7 +194,7 @@ public class LoaiBanFragment extends Fragment {
         chk_fLoaiBan_conDung.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                hienThiDanhSachLoaiBan();
+                capNhat();
             }
         });
     }
@@ -214,7 +214,7 @@ public class LoaiBanFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                hienThiDanhSachLoaiBan();
+                capNhat();
             }
         });
         edTimKhiemLoaiBan.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -222,7 +222,7 @@ public class LoaiBanFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hienThiDanhSachLoaiBan();
+                    capNhat();
                     return true;
                 }
                 return false;
@@ -231,23 +231,23 @@ public class LoaiBanFragment extends Fragment {
         inputTimKiemLoaiBan.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hienThiDanhSachLoaiBan();
+                capNhat();
             }
         });
     }
 
     @Override
     public void onResume() {
-        hienThiDanhSachLoaiBan();
+        capNhat();
         super.onResume();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void hienThiDanhSachLoaiBan() {
-        list.clear();
-        list.addAll(loaiBanDAO.getTimKiem(PreferencesHelper.getId(context),
-                edTimKhiemLoaiBan.getText().toString().trim(),
-                String.valueOf((chk_fLoaiBan_conDung.isChecked())?0:1)));
-        loaiBanAdapter.notifyDataSetChanged();
+
+    void anChucNang(){
+        nhanVienDAO = new NhanVienDAO(context);
+        int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(getContext()));
+        if(phanQuyen == 0){
+            fab.setVisibility(View.GONE);
+        }
     }
 }

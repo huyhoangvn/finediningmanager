@@ -6,6 +6,7 @@
         <item name="colorOnPrimary">@color/Light_OnPrimary</item>
         <item name="colorPrimaryContainer">@color/Light_PrimaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/Light_OnPrimaryContainer</item>
+        <item name="colorPrimaryVariant">@color/Light_PrimaryVariant</item>
         <!--Secondary-->
         <item name="colorSecondary">@color/Light_Secondary</item>
         <item name="colorOnSecondary">@color/Light_OnSecondary</item>
@@ -33,7 +34,11 @@
         <item name="colorOnSurfaceVariant">@color/Light_OnSurfaceVariant</item>
         <!--Status bar color-->
         <item name="android:statusBarColor">@color/Light_Secondary</item>
+        <!--Custom-->
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="fontFamily">@font/googlesan_medium</item>
     </style>
+
 </resources>
 
 <!--<style name="Theme.Finedining" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->

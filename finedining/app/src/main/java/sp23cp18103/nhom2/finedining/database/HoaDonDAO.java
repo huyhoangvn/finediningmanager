@@ -38,7 +38,6 @@ public class HoaDonDAO{
         values.put("maKH",hd.getMaKH());
         values.put("maNV",hd.getMaNV());
         values.put("soLuongKhach",hd.getSoLuongKhach());
-        values.put("thoiGianXuat",hd.getThoiGianXuat());
         values.put("thoiGianDat",hd.getThoiGianDat());
         values.put("trangThai",hd.getTrangThai());
 
@@ -96,15 +95,36 @@ public class HoaDonDAO{
         return -1;
     }
 
+//    @SuppressLint("Range")
+//    public int getMaHoaDonTiepTheo (){
+//        String sql = " SELECT seq FROM sqlite_sequence WHERE name LIKE 'hoadon' ";
+//        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
+//        if(c.moveToNext()){
+//            return c.getInt(c.getColumnIndex("seq"));
+//        }
+//        return 0;
+//    }
+
     @SuppressLint("Range")
-    public int getMaHoaDonTiepTheo(){
-        String sql = " SELECT seq FROM sqlite_sequence WHERE name LIKE 'hoadon' ";
-        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
-        if(c.moveToNext()){
-            return c.getInt(c.getColumnIndex("seq")) + 1;
+    public int getMaHoaDonTiepTheo() {
+        String sql = "SELECT seq FROM sqlite_sequence WHERE name = 'hoadon'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("seq")) + 1;
         }
-        return -1;
+        return 1;
     }
+
+//    public int getMaHoaDon(){
+//        String sql = " SELECT maHD FROM hoaDon WHERE name LIKE 'hoadon' ";
+//        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
+//        if(c.moveToNext()){
+//            return c.getInt(c.getColumnIndex("seq")) + 1;
+//        }
+//        return -1;
+//    }
+
+
 
     @SuppressLint("Range")
     public List<HoaDon> getData(String sql, String...SelectArgs){

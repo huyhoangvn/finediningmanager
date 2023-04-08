@@ -2,6 +2,8 @@ package sp23cp18103.nhom2.finedining.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 public class LoaiMon {
     private int maLM;
     private String tenLoai;
@@ -48,6 +50,19 @@ public class LoaiMon {
 
     public void setMaNV(int maNV) {
         this.maNV = maNV;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoaiMon loaiMon = (LoaiMon) o;
+        return maLM == loaiMon.maLM;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maLM);
     }
 
     /*

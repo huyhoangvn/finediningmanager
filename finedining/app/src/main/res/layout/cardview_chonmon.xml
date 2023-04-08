@@ -16,13 +16,19 @@
             <TextView
                 android:id="@+id/tvTenMon_Cardview_datMon"
                 style="@style/mNormalText"
-                android:layout_width="0dp"
+                android:layout_width="303dp"
                 android:layout_height="wrap_content"
-                android:text="Tên món ăn"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="Tên món ăn" />
+            <TextView
+                android:id="@+id/tvGia_Cardview_datMon"
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"/>
 
             <EditText
-                android:id="@+id/edSoLuong_Cardview_datMon"
+                android:id="@+id/ed_SoLuong_MonDat"
                 style="@style/mEditText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

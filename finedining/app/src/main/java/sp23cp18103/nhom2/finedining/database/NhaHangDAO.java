@@ -74,6 +74,16 @@ public class NhaHangDAO {
     }
 
     @SuppressLint("Range")
+    public String getHinhNH(int maNH) {
+        String sql = "SELECT hinh FROM nhahang WHERE maNH = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNH)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("hinh"));
+        }
+        return "";
+    }
+
+    @SuppressLint("Range")
     public String getDiaChi(int maNH) {
         String sql = "SELECT diaChi FROM nhahang WHERE maNH = ?";
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNH)});

@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +26,9 @@ import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
 import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 
 /*
  * Adapter để hiển thị danh sách hóa đơn trong HoaDonFragment
@@ -59,19 +64,35 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
         final int vitri = position;
 
         ThongTinHoaDon tthd = ThongTinHoaDonList.get(position);
-
-        tthd.getMaHD();
+        String ngayHienTai = tthd.getThoiGianDat();
+        String ngay =ngayHienTai.substring(0,10);
         holder.tv_tenKhach.setText(""+tthd.getTenKhachHang());
-        holder.tvThoiGianXuat.setText(""+tthd.getThoiGianDat());
+        holder.tvThoiGianXuat.setText(DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
         if (tthd.getTrangThai()==1){
-            holder.tvTrangThai.setText("Đang Đặt");
+            holder.tvTrangThai.setText("Đang đặt");
+            holder.tvTrangThai.setTextColor(ColorHelper.getNeutralColor(context));
         }else if (tthd.getTrangThai()==2){
-            holder.tvTrangThai.setText("Chờ Thanh Toán");
+            holder.tvTrangThai.setText("Chờ thanh toán");
+            holder.tvTrangThai.setTextColor(ColorHelper.getWaitingColor(context));
         }else if (tthd.getTrangThai()==3){
             holder.tvTrangThai.setText("Đã thanh toán");
+            holder.tvTrangThai.setTextColor(ColorHelper.getPositiveColor(context));
         }else if (tthd.getTrangThai()==0){
             holder.tvTrangThai.setText("Hủy");
+            holder.tvTrangThai.setTextColor(ColorHelper.getNegativeColor(context));
         }
+        if (ngay.equals(DateHelper.getDateSQLNow()) && tthd.getTrangThai() == 1){
+            holder.imgThongBao.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgThongBao.setVisibility(View.GONE);
+        }
+
+        if (tthd.getTrangThai() == 3 || tthd.getTrangThai() == 0){
+            holder.imgEdit.setVisibility(View.GONE);
+        } else {
+            holder.imgEdit.setVisibility(View.VISIBLE);
+        }
+
 
         holder.imgBill.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
@@ -82,6 +103,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 View view=inflater.inflate(R.layout.dialog_hoadon_chitiet,null);
                 builder.setView(view);
                 Dialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 TextView tv_tenKhach = view.findViewById(R.id.tv_tenKhach_dialog_hoaDon_chiTiet);
                 TextView tv_tenNhanVien = view.findViewById(R.id.tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet);
@@ -100,9 +122,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tvThoiGianDat.setText(""+ DateHelper.getDateTimeVietnam(tthd.getThoiGianDat()));
 
                 if (tthd.getTrangThai()==1){
-                   tvTrangThai.setText("Đang Đặt");
+                   tvTrangThai.setText("Đang đặt");
                 }else if (tthd.getTrangThai()==2){
-                   tvTrangThai.setText("Chờ Thanh Toán");
+                   tvTrangThai.setText("Chờ thanh toán");
                 }else if (tthd.getTrangThai()==3){
                     tvTrangThai.setText("Đã thanh toán");
                 }else if (tthd.getTrangThai()==0){
@@ -117,7 +139,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
                 tv_ban.setText(""+thongTinChiTietDatMonDAO.getBan(tthd.getMaHD()).toString()
                         .replace("[", "")
                         .replace("]", ""));
-                tv_tongTien.setText(""+thongTinChiTietDatMonDAO.getTongSoTien(tthd.getMaHD()));
+                tv_tongTien.setText(""+ NumberHelper.getNumberWithDecimal(thongTinChiTietDatMonDAO.getTongSoTien(tthd.getMaHD())));
 
                 dialog.show();
             }
@@ -140,10 +162,12 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
     class HoaDonViewHolder extends RecyclerView.ViewHolder{
         ImageButton imgEdit;
         AppCompatButton imgBill;
+        ImageView imgThongBao;
 
         TextView tv_tenKhach,tvSoLuongKhach,tvThoiGianXuat,tvTrangThai,tvTenKhachHang;
         public HoaDonViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgThongBao = itemView.findViewById(R.id.img_thongbao_CardView_HoaDon);
             imgBill = itemView.findViewById(R.id.imgBill);
             imgEdit = itemView.findViewById(R.id.imgBtn_edit_CardView_HoaDon);
             tv_tenKhach = itemView.findViewById(R.id.tv_tenKhach_CardView_HoaDon);

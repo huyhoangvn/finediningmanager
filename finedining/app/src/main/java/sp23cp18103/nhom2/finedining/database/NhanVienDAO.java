@@ -119,6 +119,18 @@ public class NhanVienDAO {
         return "";
     }
 
+    @SuppressLint("Range")
+    public String hinh(int maNV) {
+        String sql = "SELECT hinh FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getString(cursor.getColumnIndex("hinh"));
+        }
+        return "";
+    }
+
+
+
     /*
      * Cho biết phân quyền nhân viên có mã người dùng hiện tại
      * Nếu có trả về phân quyền
@@ -133,6 +145,8 @@ public class NhanVienDAO {
         }
         return -1;
     }
+
+
 
     /*
      * Lấy tất cả thông tin công khai của nhân viên
@@ -204,6 +218,19 @@ public class NhanVienDAO {
         }
         return -1;
     }
+
+    @SuppressLint("Range")
+    public int getTrangThaiNV(int maNV) {
+        String sql = "SELECT trangthai FROM nhanvien WHERE maNV = ?";
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        if (cursor.moveToNext()) {
+            return cursor.getInt(cursor.getColumnIndex("trangThai"));
+        }
+        return -1;
+    }
+
+
+
 
     /*
      * Cho biết hình nhân viên có mã người dùng hiện tại

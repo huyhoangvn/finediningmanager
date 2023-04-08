@@ -10,14 +10,15 @@
     <!--Light theme-->
     <color name="Light_Primary">#C0580C</color>
     <color name="Light_OnPrimary">#ffffff</color>
+    <color name="Light_PrimaryVariant">#EB7F30</color>
     <color name="Light_PrimaryContainer">#ffdbca</color>
     <color name="Light_OnPrimaryContainer">#331200</color>
     <color name="Light_Secondary">#ac8978</color>
     <color name="Light_OnSecondary">#ffffff</color>
     <color name="Light_SecondaryContainer">#FAF1F2</color>
     <color name="Light_OnSecondaryContainer">#2b160a</color>
-    <color name="Light_Tertiary">#636032</color>
-    <color name="Light_OnTertiary">#ffffff</color>
+    <color name="Light_Tertiary">#fffbff</color>
+    <color name="Light_OnTertiary">#fffbff</color>
     <color name="Light_TertiaryContainer">#ebe5ab</color>
     <color name="Light_OnTertiaryContainer">#1e1c00</color>
     <color name="Light_Error">#ba1a1a</color>
@@ -32,4 +33,33 @@
     <color name="Light_SurfaceVariant">#f4ded4</color>
     <color name="Light_OnSurfaceVariant">#52443d</color>
     <!--Dark Theme-->
+    <color name="Dark_Primary">#ffb68f</color>
+    <color name="Dark_OnPrimary">#542100</color>
+    <color name="Dark_PrimaryContainer">#773200</color>
+    <color name="Dark_OnPrimaryContainer">#ffdbca</color>
+    <color name="Dark_PrimaryVariant">#FFE4E2</color>
+    <color name="Dark_Secondary">#e6beab</color>
+    <color name="Dark_OnSecondary">#432b1d</color>
+    <color name="Dark_SecondaryContainer">#5c4132</color>
+    <color name="Dark_OnSecondaryContainer">#ffdbca</color>
+    <color name="Dark_Tertiary">#e6beab</color>
+    <color name="Dark_OnTertiary">#343108</color>
+    <color name="Dark_TertiaryContainer">#4b481d</color>
+    <color name="Dark_OnTertiaryContainer">#ebe5ab</color>
+    <color name="Dark_Error">#ffb4ab</color>
+    <color name="Dark_OnError">#690005</color>
+    <color name="Dark_ErrorContainer">#93000a</color>
+    <color name="Dark_OnErrorContainer">#ffdad6</color>
+    <color name="Dark_Background">#201a17</color>
+    <color name="Dark_OnBackground">#ece0db</color>
+    <color name="Dark_Surface">#201a17</color>
+    <color name="Dark_OnSurface">#ece0db</color>
+    <color name="Dark_Outline">#9f8d84</color>
+    <color name="Dark_SurfaceVariant">#52443d</color>
+    <color name="Dark_OnSurfaceVariant">#d7c2b9</color>
+    <!--Color Highlight-->
+    <color name="Positive">#6BA539</color>
+    <color name="Negative">#AE433B</color>
+    <color name="Neutral">#356E9A</color>
+    <color name="Waiting">#BC6803</color>
 </resources>

@@ -30,20 +30,28 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarThumbHorizontal="@null"
+                android:id="@+id/rcv_fillTer"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:orientation="horizontal"
+                app:spanCount="1">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvBan"
-                style="@style/mRecyclerViewGrid"
+                style="@style/mRecyclerViewLinear"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"/>
+                android:layout_weight="1"/>
 
             <CheckBox
                 android:id="@+id/chk_fBan_conDung"
                 style="@style/mCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Không Còn dùng"/>
+                android:text="Không còn dùng"/>
         </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

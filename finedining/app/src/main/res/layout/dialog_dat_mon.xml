@@ -9,48 +9,81 @@
     android:gravity="center">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/mHeaderText"
-        android:text="Đặt món"
-        android:layout_margin="10dp"/>
+        style="@style/mDialogHeaderText"
+        android:text="Đặt món"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            style="@style/mBoldText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Tên món "
-            android:layout_marginStart="5dp"/>
-
-        <TextView
-            style="@style/mBoldText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số lượng"
-            android:layout_marginEnd="5dp"/>
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        tools:ignore="UselessLeaf">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_dialog_chonMon_FragmentThemHoaDon"
-            style="@style/mRecyclerViewLinear"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
+            android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLuu_dialog_chonMon_FragmentThemHoaDon"
-        style="@style/mButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lưu vào Hóa Đơn"/>
+            <TextView
+                style="@style/mBoldText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tên món "
+                android:layout_marginStart="5dp"/>
+            <TextView
+                style="@style/mBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá"
+                android:layout_marginEnd="20dp"/>
+            <TextView
+                style="@style/mBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng"
+                android:layout_marginEnd="5dp"/>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            tools:ignore="UselessLeaf">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_dialog_chonMon_FragmentThemHoaDon"
+                    style="@style/mRecyclerViewLinear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_max="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLuu_dialog_chonMon_FragmentThemHoaDon"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lưu"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_huydatmon"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

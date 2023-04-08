@@ -17,7 +17,7 @@
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tìm kiếm món"
+            android:hint="Tìm kiếm tên món"
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
@@ -28,6 +28,13 @@
                 android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="1"
+            android:orientation="horizontal"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvMon"

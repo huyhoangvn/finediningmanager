@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorEnabled="true"
-                android:hint="Tên chủ hóa đơn">
+                android:hint="Tên người thanh toán">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_tenKhachHang_sua_FragmentSuaHoaDon"
                     style="@style/mEditText"
@@ -122,9 +122,9 @@
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="text|textMultiLine"
+                    android:textColor="?attr/colorOnSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -142,9 +142,9 @@
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
                     android:enabled="false"
-                    android:inputType="text"/>
+                    android:inputType="text|textMultiLine"
+                    android:textColor="?attr/colorOnSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -156,6 +156,7 @@
                 android:textStyle="bold"/>
 
             <RadioGroup
+                android:id="@+id/groupTrangThai_SuaHoaDon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -187,14 +188,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSua_FragmentSuaHoaDon"
                     style="@style/mButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Lưu"/>
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnHuy_FragmentSuaHoaDon"
                     style="@style/mButton"
                     android:layout_width="0dp"

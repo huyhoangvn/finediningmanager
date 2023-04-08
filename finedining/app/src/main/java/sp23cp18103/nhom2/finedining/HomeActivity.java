@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.BanCollectionFragment;
 import sp23cp18103.nhom2.finedining.fragment.DoiMatKhauFragment;
@@ -37,6 +38,8 @@ import sp23cp18103.nhom2.finedining.fragment.ThongKeDoanhThuFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeKhachFragment;
 import sp23cp18103.nhom2.finedining.fragment.ThongKeMonFragment;
 import sp23cp18103.nhom2.finedining.utils.BetterActivityResult;
+import sp23cp18103.nhom2.finedining.utils.ImageHelper;
+import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -66,17 +69,14 @@ public class HomeActivity extends AppCompatActivity {
         // tollbar
         Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        // mởmenu
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.naviOpen,R.string.naviClose);
-        drawerLayout.addDrawerListener(toggle);
+        upDateImg();
 
-        toggle.syncState();
         //set icon
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Trang Chủ");
+        actionBar.setTitle("Trang chủ");
 
 
 
@@ -101,8 +101,6 @@ public class HomeActivity extends AppCompatActivity {
                                         .setCustomAnimations(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left, R.anim.anim_slide_in_left, R.anim.anim_slide_out_left)
                                         .replace(R.id.linear,fragment)
                                         .commit();
-//                        drawerLayout.closeDrawer(GravityCompat.START);
-
                                 navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
                                 toolbar.setTitle(item.getTitle());
                                 break;
@@ -198,16 +196,18 @@ public class HomeActivity extends AppCompatActivity {
 
                             case R.id.mn_dangxuat:
                                 navigationView.getMenu().findItem(R.id.mn_home).setChecked(false);
-                                new AlertDialog.Builder(HomeActivity.this).setTitle("Bạn Có Chắc Muốn Đăng Xuất")
-                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                new AlertDialog.Builder(HomeActivity.this).setTitle("Bạn có muốn đăng xuất?")
+                                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 Intent intent =  new Intent(HomeActivity.this,LoginActivity.class);
                                                 startActivity(intent);
                                                 overridePendingTransition(R.anim.anim_slide_in_left,R.anim.anim_slide_out_left);
+                                                PreferencesHelper.clearId(getApplicationContext());
+                                                finish();
                                             }
                                         })
-                                        .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                                        .setNegativeButton("Không", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 dialogInterface.dismiss();
@@ -220,6 +220,7 @@ public class HomeActivity extends AppCompatActivity {
                         if (prevMenuItem != null) {
                             prevMenuItem.setChecked(false); // uncheck the previously selected item
                         }
+
                         item.setChecked(true); // check the newly selected item
                         prevMenuItem = item; // store the newly selected item
 
@@ -241,26 +242,37 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Mở toolBar
+        if (item.getItemId() == android.R.id.home){
+            drawerLayout.openDrawer(GravityCompat.START);
+            KeyboardHelper.hideSoftKeyboard(this);
+        }
+        return super.onOptionsItemSelected(item);
+    }
     void contenHeader(){
         View view = navigationView.getHeaderView(0);
         TextView tvTenNV = view.findViewById(R.id.tv_tenNhanVien);
         TextView tvChucVu = view.findViewById(R.id.tv_chucvu);
+        CircleImageView imgAvt = view.findViewById(R.id.img_avt);
 
         nhanVienDAO = new NhanVienDAO(this);
         int maNV = PreferencesHelper.getId(this);
+        String hinh = nhanVienDAO.hinh(maNV);
         String name = nhanVienDAO.getTenNV(maNV);
         int chuVu = nhanVienDAO.getPhanQuyen(maNV);
+        ImageHelper.loadAvatar(this,imgAvt,hinh);
         //set name header
         tvTenNV.setText(name);
 
         //set phân quyền
         if (chuVu == 1){
-            tvChucVu.setText("Quản Lý");
+            tvChucVu.setText("Quản lý");
         }else {
-            tvChucVu.setText("Nhân Viên");
+            tvChucVu.setText("Nhân viên");
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.mn_doanhthu).setVisible(false);
-            menu.findItem(R.id.mn_quanly_nhanvien).setVisible(false);
             menu.findItem(R.id.mn_tongkhach).setVisible(false);
         }
     }
@@ -269,5 +281,22 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.tool_bar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navi_menu);
+    }
+
+    void upDateImg(){
+        View view = navigationView.getHeaderView(0);
+        int maNV = PreferencesHelper.getId(this);
+        nhanVienDAO = new NhanVienDAO(this);
+        String hinh = nhanVienDAO.hinh(maNV);
+        CircleImageView imgAvt = view.findViewById(R.id.img_avt);
+        ImageHelper.loadAvatar(this,imgAvt,hinh);
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferencesHelper.clearId(getApplicationContext());
     }
 }

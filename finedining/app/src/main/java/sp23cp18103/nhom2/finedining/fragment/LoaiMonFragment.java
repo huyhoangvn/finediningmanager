@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.LoaiMonAdapter;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
@@ -55,7 +58,7 @@ public class LoaiMonFragment extends Fragment {
     Context context;
     List<LoaiMon> listLM;
     LoaiMonAdapter adapter;
-    TextInputLayout inputTimKiemLoaiMon;
+    TextInputLayout inputTimKiemLoaiMon, inputDialogTenLoaiMon;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +75,7 @@ public class LoaiMonFragment extends Fragment {
         inputTimKiemLoaiMon = view.findViewById(R.id.inputTimKiemLoaiMon);
         chkFragmentLoaiMon = view.findViewById(R.id.chkFragmentLoaiMon);
         dao = new LoaiMonDAO(getContext());
+        getPhanQuyen();
         timKiemLM();
         capNhat();
         //sự kiện lọc trang thái
@@ -99,8 +103,11 @@ public class LoaiMonFragment extends Fragment {
                 btnDialogHuyLoaiMon = view.findViewById(R.id.btnDialogHuyLoaiMon);
                 btnDialogLuuLoaiMon = view.findViewById(R.id.btnDialogLuuLoaiMon);
                 tvTieuDeLoaiMon = view.findViewById(R.id.tvTieuDeLoaiMon);
+                inputDialogTenLoaiMon = view.findViewById(R.id.inputDialogTenLoaiMon);
                 tvTieuDeLoaiMon.setText("Thêm loại món ");
+                chkDialogTrangThaiLoaiMon.setVisibility(View.GONE);
                 Dialog dialog= builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,11 +115,7 @@ public class LoaiMonFragment extends Fragment {
                         int maNV = PreferencesHelper.getId(getContext());
                         lm.setMaNV(maNV);
                         lm.setTenLoai(edTenLoaiMon.getText().toString().trim());
-                        if(chkDialogTrangThaiLoaiMon.isChecked()){
-                            lm.setTrangThai(1);
-                        }else{
-                            lm.setTrangThai(0);
-                        }
+                        lm.setTrangThai(1);
                         if(ValidateLM()>0){
                             if(dao.insertLoaiMon(lm)>0){
                                 Toast.makeText(getActivity(), "Thêm thành công ", Toast.LENGTH_SHORT).show();
@@ -137,6 +140,15 @@ public class LoaiMonFragment extends Fragment {
 
 
     }
+
+    private void getPhanQuyen() {
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(getContext());
+        int maNV = PreferencesHelper.getId(getContext());
+        if (nhanVienDAO.getPhanQuyen(maNV)==0){
+            fabLoaiMon.setVisibility(View.GONE);
+        }
+    }
+
     //hàm tìm kiếm
     public void timKiemLM(){
         edTimKiemLoaiMon.addTextChangedListener(new TextWatcher() {
@@ -178,7 +190,7 @@ public class LoaiMonFragment extends Fragment {
         int check = 1;
         String tenLM = edTenLoaiMon.getText().toString();
         if(tenLM.isEmpty()){
-            edTenLoaiMon.setError("Không được để trống");
+            inputDialogTenLoaiMon.setError("Không được để trống");
             check = -1;
         }
         return check;
@@ -209,5 +221,9 @@ public class LoaiMonFragment extends Fragment {
         rcvLoaiMon.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onResume() {
+        hiemThiDanhSachLM();
+        super.onResume();
+    }
 }

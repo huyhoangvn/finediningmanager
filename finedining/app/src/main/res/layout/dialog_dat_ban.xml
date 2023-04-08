@@ -9,52 +9,85 @@
     android:gravity="center">
 
     <TextView
-        style="@style/mHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đặt bàn"
-        android:layout_margin="10dp"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        tools:ignore="UselessLeaf">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_dialog_chonBan_FragmentThemHoaDon"
-                style="@style/mRecyclerViewGrid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"/>
-    </ScrollView>
-
+        style="@style/mDialogHeaderText"
+        android:text="Đặt bàn"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <TextView
             style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Bàn Đã Chọn: "/>
+            android:text="Vị trí: "
+            android:layout_gravity="start"/>
 
-        <TextView
-            android:id="@+id/tvBanDaChon_dialog_chonBan_FragmentThemHoaDon"
-            style="@style/mNormalText"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="A1, A2, A3,..."/>
+            tools:ignore="UselessLeaf"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_dialog_chonBan_FragmentThemHoaDon"
+                    style="@style/mRecyclerViewGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:spanCount="3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_max="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                style="@style/mNormalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Bàn đã chọn: "/>
+
+            <TextView
+                android:id="@+id/tvBanDaChon_dialog_chonBan_FragmentThemHoaDon"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A1, A2, A3,..."/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLuu_dialog_chonBan_FragmentThemHoaDon"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lưu"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnhuy_dialog_chonBan_FragmentThemHoaDon"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy"/>
+        </LinearLayout>
     </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLuu_dialog_chonBan_FragmentThemHoaDon"
-        style="@style/mButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lưu vào Hóa Đơn"/>
-
-
 
 </LinearLayout>

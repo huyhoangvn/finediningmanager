@@ -41,22 +41,28 @@
             android:value="AIzaSyDs-W1ypwU1C3X5xyYNvfwGu72xS44ea7k" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".HomeActivity"
-            android:exported="false">
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".LoginActivity"
-            android:exported="false">
+            android:exported="false"
+            tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".SplashScreenActivity"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

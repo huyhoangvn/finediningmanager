@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +22,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
 import sp23cp18103.nhom2.finedining.database.MonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiMonFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
+import sp23cp18103.nhom2.finedining.model.NhanVien;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -41,6 +47,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
     Button btnDialogLuuLoaiMon, btnDialogHuyLoaiMon;
     CheckBox chkDialogTrangThaiLoaiMon;
     LoaiMonDAO dao;
+    TextInputLayout inputDialogTenLoaiMon;
 
 
     public LoaiMonAdapter(Context context, List<LoaiMon> list) {
@@ -61,13 +68,19 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
         LoaiMon lm = list.get(position);
         dao = new LoaiMonDAO(context);
         holder.tvtenLoaiMon.setText(lm.getTenLoai());
+        NhanVienDAO nhanVienDAO = new NhanVienDAO(context);
+        int maNV = PreferencesHelper.getId(context);
+        if(nhanVienDAO.getPhanQuyen(maNV)==0){
+            holder.imgSuaTenLoaiMon.setVisibility(View.GONE);
+        }
         if(lm.getTrangThai()==1){
             holder.tvTrangThai.setText("Còn dùng");
-            holder.tvTrangThai.setTextColor(Color.BLUE);
+            holder.tvTrangThai.setTextColor(ColorHelper.getPositiveColor(context));
         }else{
             holder.tvTrangThai.setText("Không dùng");
-            holder.tvTrangThai.setTextColor(Color.RED);
+            holder.tvTrangThai.setTextColor(ColorHelper.getNegativeColor(context));
         }
+        holder.tvCardviewSoMon.setText( String.valueOf(dao.getSoLuongMon(maNV, lm.getMaLM())));
         holder.imgSuaTenLoaiMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,8 +94,10 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                 chkDialogTrangThaiLoaiMon = view.findViewById(R.id.chkDialogTrangThaiLoaiMon);
                 btnDialogLuuLoaiMon = view.findViewById(R.id.btnDialogLuuLoaiMon);
                 btnDialogHuyLoaiMon = view.findViewById(R.id.btnDialogHuyLoaiMon);
+                inputDialogTenLoaiMon = view.findViewById(R.id.inputDialogTenLoaiMon);
                 edTenLoaiMon.setText(lm.getTenLoai());
                 Dialog dialog= builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 int maNV = PreferencesHelper.getId(context);
                 if(lm.getTrangThai()==1){
                     chkDialogTrangThaiLoaiMon.setChecked(true);
@@ -109,7 +124,7 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                             }
                         }
                         if(tenLoai.isEmpty()){
-                            edTenLoaiMon.setError("Không được để trống");
+                            inputDialogTenLoaiMon.setError("Không được để trống");
                             return;
                         }else{
                             if(dao.updateLoaiMon(lm)>0){
@@ -141,8 +156,11 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
     }
 
 
+
+
+
     class loaiMonViewHolder extends RecyclerView.ViewHolder {
-        TextView tvtenLoaiMon, tvTrangThai;
+        TextView tvtenLoaiMon, tvTrangThai, tvCardviewSoMon;
         ImageView imgSuaTenLoaiMon;
 
         public loaiMonViewHolder(@NonNull View itemView) {
@@ -150,6 +168,9 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
             tvtenLoaiMon = itemView.findViewById(R.id.tvCarviewTenLoaiMon);
             imgSuaTenLoaiMon = itemView.findViewById(R.id.imgCardviewSuaLoaiMon);
             tvTrangThai = itemView.findViewById(R.id.tvCardviewTrangThaiLM);
+            tvCardviewSoMon = itemView.findViewById(R.id.tvCardviewSoMon);
         }
     }
+
+
 }

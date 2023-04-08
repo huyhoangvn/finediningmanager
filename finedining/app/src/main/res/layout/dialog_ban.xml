@@ -14,12 +14,11 @@
 
         <TextView
             android:id="@+id/tvTieuDeBan"
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thêm/sửa  bàn"/>
+            style="@style/mDialogHeaderText"
+            android:text="Thêm/sửa bàn"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_ViTriBan"
             style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,34 +33,62 @@
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/spnrBan"
-            style="@style/mSpinner"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:orientation="vertical"
+                android:background="@drawable/spinner_background"
+                android:layout_margin="10dp"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spnrBan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overlapAnchor="true"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSurface"
+                android:text="Loại bàn"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:textSize="12sp"/>
+        </RelativeLayout>
 
         <CheckBox
             android:id="@+id/chkTrangThaiBan"
             style="@style/mNormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Còn sử dụng?"
-            android:checked="true"
             android:layout_gravity="start"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:checked="true"
+            android:text="Còn sử dụng?" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnShaveBan"
                 style="@style/mButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lưu"/>
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancelBan"
                 style="@style/mButton"
                 android:layout_width="0dp"

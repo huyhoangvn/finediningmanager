@@ -111,13 +111,28 @@
                 android:layout_height="wrap_content"
                 android:text="Đang làm"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/imgbtn_cvNhanVien_sua"
+                style="@style/mImageButton"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_sua_thongtin"
+                android:layout_marginTop="10dp"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
-        <ImageButton
-            android:id="@+id/imgbtn_cvNhanVien_sua"
-            style="@style/mImageButton"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_sua_thongtin"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+            <ImageButton
+                android:id="@+id/imgbtn_cvNhanVien_goiDien"
+                style="@style/mImageButton"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_call"
+                android:layout_marginTop="10dp"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

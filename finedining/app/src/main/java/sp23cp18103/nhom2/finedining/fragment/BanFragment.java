@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -36,13 +40,17 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import sp23cp18103.nhom2.finedining.Interface.ITLoaiBanFilter;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.adapter.BanAdapter;
 import sp23cp18103.nhom2.finedining.adapter.BanSpinnerAdapter;
 import sp23cp18103.nhom2.finedining.adapter.LoaiBanAdapter;
+import sp23cp18103.nhom2.finedining.adapter.LoaiBanFiterAdapter;
+import sp23cp18103.nhom2.finedining.adapter.LoaiMonFilterAdapter;
 import sp23cp18103.nhom2.finedining.adapter.NhanVienAdapter;
 import sp23cp18103.nhom2.finedining.database.BanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
@@ -52,7 +60,7 @@ import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
  * Hiển thị danh sách Bàn, thêm, sửa bàn
  * */
 public class BanFragment extends Fragment {
-    RecyclerView rcvBan;
+    RecyclerView rcvBan,rcvFilter;
     FloatingActionButton fab;
     ArrayList<Ban> list, list2;
     EditText edViTriBan;
@@ -67,18 +75,20 @@ public class BanFragment extends Fragment {
     ArrayList<LoaiBan> listloaiban;
     CheckBox chk_fBan_conDung;
     int maLoaiBan;
-    TextInputEditText edTimKhiemBan;
     LoaiBanDAO loaiBanDAO;
-    TextInputLayout inputTimKiemViTri;
-    EditText edTimBan;
+    TextInputLayout inputTimKiemViTri,input_viTriBan;
+    EditText edTimKiemBan;
+    NhanVienDAO nhanVienDAO;
+    List<String> listFilter;
+    LoaiBanFiterAdapter loaiBanFiterAdapter;
+    LoaiBanFiterAdapter.filterViewHolder holderCu;
+    String bienLoc = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ban, container, false);
-
-        return view;
+       return inflater.inflate(R.layout.fragment_ban, container, false);
     }
 
     @Override
@@ -86,23 +96,26 @@ public class BanFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rcvBan = view.findViewById(R.id.rcvBan);
-        edTimBan = view.findViewById(R.id.edTimKiemBan);
+        edTimKiemBan = view.findViewById(R.id.edTimKiemBan);
         inputTimKiemViTri = view.findViewById(R.id.inputTimKiemViTri);
-
+        rcvFilter = view.findViewById(R.id.rcv_fillTer);
         chk_fBan_conDung = view.findViewById(R.id.chk_fBan_conDung);
+
         fab = view.findViewById(R.id.fbtnBan);
         banDAO = new BanDAO(getContext());
         context = getContext();
-
-
-        khoiTaoRecyclerView();
+        anChucNang();
         khoiTaoCheckboxListener();
+        khoiTaoRecyclerView();
         khoiTaoTimKiem();
-        CapNhat();
+
+        hienThiFilter();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(getContext(), 0);
+                    openDialog(getContext(), 0);
+
             }
         });
     }
@@ -116,16 +129,24 @@ public class BanFragment extends Fragment {
         edViTriBan = view.findViewById(R.id.edViTriBan);
         spnrBan = view.findViewById(R.id.spnrBan);
         tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
-        tvTieuDeBan.setText("Thêm loại bàn");
-
+        tvTieuDeBan.setText("Thêm bàn");
         chkTrangThaiBan = view.findViewById(R.id.chkTrangThaiBan);
         btnShaveBan = view.findViewById(R.id.btnShaveBan);
         btnCancelBan = view.findViewById(R.id.btnCancelBan);
-        Dialog dialog = builder.create();
+        input_viTriBan = view.findViewById(R.id.input_ViTriBan);
 
+        Dialog dialog = builder.create();
+        chkTrangThaiBan.setChecked(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         banDAO = new BanDAO(getContext());
         loaiBanDAO = new LoaiBanDAO(getContext());
-        listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getAllLoaiBan();
+        chkTrangThaiBan.setVisibility(View.GONE);
+        listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getTimKiem(PreferencesHelper.getId(getContext()),"",1);
+        int count = listloaiban.size();
+        if (count<=0){
+            Toast.makeText(context, "Chưa tồn tại loại bàn đang được sử dụng", Toast.LENGTH_SHORT).show();
+            return;
+        }
         banSpinnerAdapter = new BanSpinnerAdapter(getContext(), listloaiban);
         spnrBan.setAdapter(banSpinnerAdapter);
         spnrBan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -147,12 +168,14 @@ public class BanFragment extends Fragment {
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (validate() > 0) {
                     Ban ban = new Ban();
                     LoaiBan loaiBan = (LoaiBan) spnrBan.getSelectedItem();
                     ban.setMaLB(loaiBan.getMaLB());
                     ban.setViTri(edViTriBan.getText().toString());
                     // ban.setMaNV(maNV);
+                    ;
                     if (chkTrangThaiBan.isChecked()) {
                         ban.setTrangThai(1);
                     } else {
@@ -165,25 +188,27 @@ public class BanFragment extends Fragment {
                             Toast.makeText(context, "Thêm bàn chưa thành công!", Toast.LENGTH_SHORT).show();
                         }
                     }
+                    capNhat();
                     dialog.dismiss();
-                    CapNhat();
-
                 }
             }
         });
         dialog.show();
     }
 
-    void CapNhat() {
-        list = (ArrayList<Ban>) banDAO.getAllBan();
-        banAdapter = new BanAdapter(getContext(), list);
-        rcvBan.setAdapter(banAdapter);
+    void capNhat() {
+        int maNV = PreferencesHelper.getId(getContext());
+        int trangThai = (chk_fBan_conDung.isChecked())?0:1;
+        list.clear();
+        list.addAll(banDAO.getLocLoaiBan(maNV,trangThai,edTimKiemBan.getText().toString().trim(),bienLoc));
+        banAdapter.notifyDataSetChanged();
+
     }
 
     public int validate() {
         int check = 1;
         if (edViTriBan.getText().toString().trim().isEmpty()) {
-            edViTriBan.setError("Không được để trống");
+            input_viTriBan.setError("Không được để trống");
             check = -1;
         } else {
         }
@@ -192,8 +217,8 @@ public class BanFragment extends Fragment {
 
     private void khoiTaoRecyclerView() {
         list = (ArrayList<Ban>) banDAO.gettimKiem(PreferencesHelper.getId(context),
-                edTimBan.getText().toString().trim(),
-                String.valueOf((chk_fBan_conDung.isChecked())?0:1));
+                edTimKiemBan.getText().toString().trim(),
+                (chk_fBan_conDung.isChecked())?0:1);
         banAdapter = new BanAdapter(getContext(), list);
         rcvBan.setAdapter(banAdapter);
     }
@@ -202,14 +227,14 @@ public class BanFragment extends Fragment {
         chk_fBan_conDung.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                hienThiDanhSachBan();
+                capNhat();
             }
         });
     }
 
 
     private void khoiTaoTimKiem() {
-        edTimBan.addTextChangedListener(new TextWatcher() {
+        edTimKiemBan.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -222,15 +247,15 @@ public class BanFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                hienThiDanhSachBan();
+                capNhat();
             }
         });
-        edTimBan.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        edTimKiemBan.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hienThiDanhSachBan();
+                    capNhat();
                     return true;
                 }
                 return false;
@@ -239,24 +264,55 @@ public class BanFragment extends Fragment {
         inputTimKiemViTri.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hienThiDanhSachBan();
+                capNhat();
             }
         });
     }
 
     @Override
     public void onResume() {
-        hienThiDanhSachBan();
+        capNhat();
+        hienThiFilter();
         super.onResume();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void hienThiDanhSachBan() {
-        list.clear();
-        list.addAll(banDAO.gettimKiem(PreferencesHelper.getId(context),
-                edTimBan.getText().toString().trim(),
-                String.valueOf((chk_fBan_conDung.isChecked())?0:1)));
-        banAdapter.notifyDataSetChanged();
-    }
 
+    void anChucNang(){
+        nhanVienDAO = new NhanVienDAO(context);
+         int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(getContext()));
+        if(phanQuyen == 0){
+            fab.setVisibility(View.GONE);
+        }
+    }
+//    hàm cập nhật listFilter
+    private void hienThiFilter() {
+        loaiBanDAO = new LoaiBanDAO(context);
+        int maNV = PreferencesHelper.getId(getContext());
+        listFilter = loaiBanDAO.getFilterBan(maNV);
+        listFilter.add(0,"Tất cả");
+        loaiBanFiterAdapter = new LoaiBanFiterAdapter(getContext(), listFilter, new ITLoaiBanFilter(){
+            @Override
+            public void loaiBan(String tenLoaiBan,LoaiBanFiterAdapter.filterViewHolder holder) {
+                bienLoc = tenLoaiBan;
+                if(holderCu != null){
+                    holderCu.tvFilterLoaiBan.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_normal_background));
+                }
+                //Doi mau cam
+                holderCu = holder;
+                holder.tvFilterLoaiBan.setBackground(AppCompatResources.getDrawable(context,R.drawable.filter_item_clicked_background));
+                if(tenLoaiBan.equalsIgnoreCase("Tất cả")){
+                    bienLoc = "";
+                    capNhat();
+                }else{
+                    int maNV = PreferencesHelper.getId(getContext());
+                    int trangThai = (chk_fBan_conDung.isChecked())?0:1;
+                    list.clear();
+                    list.addAll(banDAO.getLocLoaiBan(maNV,trangThai,edTimKiemBan.getText().toString().trim(),tenLoaiBan));
+                    banAdapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+        rcvFilter.setAdapter(loaiBanFiterAdapter);
+    }
 }

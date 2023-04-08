@@ -13,6 +13,7 @@ import java.util.List;
 
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.model.LoaiMon;
 
 public class LoaiBanDAO {
     SQLiteDatabase db;
@@ -38,10 +39,6 @@ public class LoaiBanDAO {
         return db.update("loaiban", values, "maLB=?", new String[]{String.valueOf(obj.getMaLB())});
     }
 
-    public List<LoaiBan> getAllLoaiBan() {
-        String sql = "SELECT * FROM loaiban";
-        return getDaTa(sql);
-    }
 
     @SuppressLint("Range")
     public List<LoaiBan> getDaTa(String sql, String... selectAvg) {
@@ -58,23 +55,24 @@ public class LoaiBanDAO {
         }
         return list;
     }
-    public LoaiBan getID(int maLB){
-        String sql="select*from loaiban where maLB=?";
+
+    public LoaiBan getID(int maLB) {
+        String sql = "select*from loaiban where maLB=?";
         List<LoaiBan> list = getDaTa(sql, String.valueOf(maLB));
         return list.get(0);
     }
 
 
     // tìm kiếm tương đối theo nhân viên và tên loại bàn
-    public List<LoaiBan> getTimKiem(int maNV, String timKiem ,String trangThai  ) {
-        String sql = "Select  lb.maLB,lb.maNV,lb.tenLoai,lb.trangThai from loaiban lb " +
+    public List<LoaiBan> getTimKiem(int maNV, String timKiem, int trangThai) {
+        String sql = "Select  lb.maLB, lb.maNV, lb.tenLoai, lb.trangThai from loaiban lb " +
                 "JOIN nhanvien nv ON lb.maNV = nv.maNV " +
-                "WHERE nv.maNH = " +
-                " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND lb.tenLoai LIKE ? " +
-                "AND lb.trangThai >= ?";
-        return getDaTa(sql, String.valueOf(maNV),String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai ));
+                "AND lb.trangThai = ? ";
+        return getDaTa(sql, String.valueOf(maNV), String.valueOf("%" + timKiem + "%"), String.valueOf(trangThai));
     }
+
     public int getlienKetTrangThai(int maLB, int maNV) {
         String sql = "Select b.maBan from ban b " +
                 "JOIN loaiban lb ON b.maLB = lb.maLB " +
@@ -82,46 +80,64 @@ public class LoaiBanDAO {
                 "WHERE nv.maNH = " +
                 " ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND b.trangThai = 1 " +
-                "AND b.maLB = ? " ;
+                "AND b.maLB = ? ";
         Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLB)});
         return c.getCount();
     }
 
     /*
-    * Cái này trả về số lượng bàn đây muốn tìm số bàn trống thì lấy tổng số bàn trừ đi
-    * */
-   @SuppressLint("Range")
-   public int getSoLuongBan(int maLB, int maNV){
-        String sql="select count(b.maBan) AS DemSoLuong from ban b  " +
+     * Cái này trả về số lượng bàn đây muốn tìm số bàn trống thì lấy tổng số bàn trừ đi
+     * */
+    @SuppressLint("Range")
+    public int getSoLuongBan(int maLB, int maNV) {
+        String sql = "select count(b.maBan) AS DemSoLuong from ban b  " +
                 "Join loaiban lb on lb.maLB = b.maLB " +
                 "Join datban db on db.maBan = b.maBan " +
                 "Join hoadon hd on db.maHD = hd.maHD " +
                 "Join nhanvien nv on nv.maNV = lb.maNV " +
                 "where nv.maNH = " +
                 "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+                "AND db.trangThai = 1 " +
                 "AND b.trangThai = 1 " +
-                "And  hd.trangThai = 2 " +
+                "And hd.trangThai = 2 " +
                 "And lb.maLB = ? ";
 
-        Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
-        if (c.moveToNext()){
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLB)});
+        if (c.moveToNext()) {
             return c.getInt(c.getColumnIndex("DemSoLuong"));
         }
         return 0;
-   }
-   @SuppressLint("Range")
-   public int getTongBan(int maLB, int maNV){
-       String sql="select Sum(b.maLB) AS TongSoLuong FROM loaiban lb " +
-               "Join ban b on b.maLB = lb.maLB " +
-               "Join nhanvien nv on nv.maNV = lb.maNV " +
-               "where nv.maNH = " +
-               "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
-               "AND b.trangThai = 1 " +
-               "AND lb.maLB = ?";
-       Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),String.valueOf(maLB)});
-       if (c.moveToNext()){
-           return c.getInt(c.getColumnIndex("TongSoLuong"));
-       }
-       return 0;
-   }
+    }
+
+    @SuppressLint("Range")
+    public int getTongBan(int maLB, int maNV) {
+        String sql = "select Count(DISTINCT b.maBan) AS TongSoBan FROM loaiban lb " +
+                "Join ban b on b.maLB = lb.maLB " +
+                "Join nhanvien nv on nv.maNV = lb.maNV " +
+                "where nv.maNH = " +
+                "(Select nvht.maNH from nhanvien nvht where nvht.maNV = ?) " +
+                "AND b.trangThai = 1 " +
+                "AND lb.maLB = ?";
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV), String.valueOf(maLB)});
+        if (c.moveToNext()) {
+            return c.getInt(c.getColumnIndex("TongSoBan"));
+        }
+        return 0;
+    }
+
+    @SuppressLint("Range")
+    public List<String> getFilterBan(int maNV) {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT lb.tenLoai FROM loaiban lb" +
+                " JOIN nhanvien nv ON lb.maNV = nv.maNV " +
+                "WHERE nv.maNH = ( SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?)" +
+                "AND lb.trangThai = 1";
+        Cursor c = db.rawQuery(sql, new String[]{String.valueOf(maNV)});
+        while (c.moveToNext()) {
+            LoaiBan lb = new LoaiBan();
+            lb.setTenLoai(c.getString(c.getColumnIndex("tenLoai")));
+            list.add(c.getString(c.getColumnIndex("tenLoai")));
+        }
+        return list;
+    }
 }

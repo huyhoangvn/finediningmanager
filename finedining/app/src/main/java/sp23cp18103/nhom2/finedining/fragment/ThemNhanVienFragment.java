@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
@@ -170,6 +171,37 @@ public class ThemNhanVienFragment extends Fragment {
                 galleryHelper.getImageFromGallery(imgbtnThemAnh);
             }
         });
+        //Clear Error khi focus
+        edTaiKhoan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                    inputTaiKhoan.setError(null);
+            }
+        });
+        edMatKhau.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                    inputMatKhau.setError(null);
+            }
+        });
+        edNgaySinh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                    inputNgaySinh.setError(null);
+            }
+        });
+        edSdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                    inputSdt.setError(null);
+            }
+        });
+        edTenNV.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                    inputTenNV.setError(null);
+            }
+        });
     }
 
     /*
@@ -202,6 +234,9 @@ public class ThemNhanVienFragment extends Fragment {
         //Ẩn tài khoản mật khẩu
         inputTaiKhoan.setVisibility(View.GONE);
         inputMatKhau.setVisibility(View.GONE);
+        if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context))!=1){
+            lytTrangThai.setVisibility(View.GONE);
+        }
 
         fillThongTinNhanVien();
 
@@ -228,6 +263,11 @@ public class ThemNhanVienFragment extends Fragment {
         inputTenNV.setError(null);
         inputSdt.setError(null);
         inputNgaySinh.setError(null);
+        inputTaiKhoan.clearFocus();
+        inputMatKhau.clearFocus();
+        inputTenNV.clearFocus();
+        inputSdt.clearFocus();
+        inputNgaySinh.clearFocus();
     }
 
     /*
@@ -270,7 +310,8 @@ public class ThemNhanVienFragment extends Fragment {
             Date date = sdf.parse(edNgaySinh.getText().toString().trim());
             assert date != null;
             if (!edNgaySinh.getText().toString().trim().equals(sdf.format(date))) {
-                date = null;
+                inputNgaySinh.setError("Định dạng ngày sai");
+                return false;
             }
         } catch (ParseException ex) {
             inputNgaySinh.setError("Định dạng ngày sai");

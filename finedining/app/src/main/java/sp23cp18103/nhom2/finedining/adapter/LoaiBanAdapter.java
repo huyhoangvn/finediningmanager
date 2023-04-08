@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +32,10 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.LoaiBanDAO;
 import sp23cp18103.nhom2.finedining.database.LoaiMonDAO;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.fragment.LoaiBanFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
+import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
@@ -43,10 +47,11 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     LoaiBanFragment fragment;
     TextInputEditText edTenLoaiBan;
     TextInputEditText edSoChoNgoi;
-    CheckBox chkDialogTrangThaiLoaiBan;
+    CheckBox chkTrangThaiLoaiBan;
     AppCompatButton btn_ShaveLoaiBan, btn_CancelLoaiBan;
     LoaiBanDAO dao;
-
+    NhanVienDAO nhanVienDAO;
+    TextInputLayout input_tenLB;
     public LoaiBanAdapter(List<LoaiBan> mListLoaiBan, Context context) {
         this.mListLoaiBan = mListLoaiBan;
         this.context = context;
@@ -61,22 +66,24 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
 
     @Override
     public void onBindViewHolder(@NonNull LoaiBanViewHolder holder, int position) {
+        anChucNang(holder);
         LoaiBan loaiBan = mListLoaiBan.get(position);
         dao = new LoaiBanDAO(context);
+        int tongSoBan = dao.getTongBan(loaiBan.getMaLB(), PreferencesHelper.getId(context));
+        int soBanDay = dao.getSoLuongBan(loaiBan.getMaLB(), PreferencesHelper.getId(context));
+
         holder.tv_TenLoaiBan.setText(loaiBan.getTenLoai());
-
-        holder.tv_SoBan.setText(""+dao.getTongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
-
+        holder.tv_SoBan.setText(String.valueOf(tongSoBan));
         holder.tv_TrangThai_LoaiBan.setText(String.valueOf(loaiBan.getTrangThai()));
 
-        holder.tv_SoBanTrongBan.setText(""+dao.getSoLuongBan(loaiBan.getMaLB(),PreferencesHelper.getId(context)));
+        holder.tv_SoBanTrongBan.setText(String.valueOf(tongSoBan - soBanDay));
 
         if (loaiBan.getTrangThai() == 1) {
             holder.tv_TrangThai_LoaiBan.setText("Dùng");
-            holder.tv_TrangThai_LoaiBan.setTextColor(Color.BLUE);
+            holder.tv_TrangThai_LoaiBan.setTextColor(ColorHelper.getPositiveColor(context));
         } else {
             holder.tv_TrangThai_LoaiBan.setText("Không dùng");
-            holder.tv_TrangThai_LoaiBan.setTextColor(Color.RED);
+            holder.tv_TrangThai_LoaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         }
 
         holder.img_Sua_LoaiBan.setOnClickListener(new View.OnClickListener() {
@@ -87,21 +94,22 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 View view = inflater.inflate(R.layout.dialog_loai_ban, null);
                 builder.setView(view);
                 TextView tv_tieude_loaiban = view.findViewById(R.id.tvTieuDeLoaiBan);
-                tv_tieude_loaiban.setText("Sửa loại loại bàn");
+                tv_tieude_loaiban.setText("Sửa loại bàn");
 
                 edTenLoaiBan = view.findViewById(R.id.edTenLoaiBan);
-                chkDialogTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
+                chkTrangThaiLoaiBan = view.findViewById(R.id.chkTrangThaiLoaiBan);
                 btn_ShaveLoaiBan = view.findViewById(R.id.btn_ShaveLoaiBan);
                 btn_CancelLoaiBan = view.findViewById(R.id.btn_CancelLoaiBan);
+                input_tenLB = view.findViewById(R.id.input_tenLB);
                 edTenLoaiBan.setText(loaiBan.getTenLoai());
 
                 Dialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 if (loaiBan.getTrangThai() == 1) {
-                    chkDialogTrangThaiLoaiBan.setChecked(true);
+                    chkTrangThaiLoaiBan.setChecked(true);
                 } else {
-                    chkDialogTrangThaiLoaiBan.setChecked(false);
+                    chkTrangThaiLoaiBan.setChecked(false);
                 }
-
                 btn_CancelLoaiBan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -112,36 +120,32 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 btn_ShaveLoaiBan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int maNV= PreferencesHelper.getId(context);
-
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
-//                        String soChoNgoi = edSoChoNgoi.getText().toString().trim();
+                        if (tenLoai.isEmpty()) {
+                            input_tenLB.setError("Không được để trống");
 
+                            return;
+                        }
+                        // thuc hien chuc nang
+                        int maNV = PreferencesHelper.getId(context);
                         loaiBan.setTenLoai(tenLoai);
-                        if (chkDialogTrangThaiLoaiBan.isChecked()) {
+                        if (chkTrangThaiLoaiBan.isChecked()) {
                             loaiBan.setTrangThai(1);
                         } else {
-                            if (dao.getlienKetTrangThai(loaiBan.getMaLB(),maNV)>0){
+                            if (dao.getlienKetTrangThai(loaiBan.getMaLB(), maNV) > 0) {
                                 Toast.makeText(context, "Còn tồn tại bàn", Toast.LENGTH_SHORT).show();
                                 return;
-                            }
-                            else {
+                            } else {
                                 loaiBan.setTrangThai(0);
                             }
                         }
-                        if (tenLoai.isEmpty() ) {
-                            edTenLoaiBan.setError("Không được để trống");
-                            edSoChoNgoi.setError("Không được để trống");
-                            return;
-                        } else {
 //                            loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
-                            if (dao.updateloaiban(loaiBan) > 0) {
-                                Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            } else {
-                                Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
-                            }
+                        if (dao.updateloaiban(loaiBan) > 0) {
+                            Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -156,7 +160,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
     }
 
     public class LoaiBanViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan,tv_SoBanTrongBan,tv_SoBan;
+        TextView tv_TenLoaiBan, tv_TrangThai_LoaiBan, tv_SoBanTrongBan, tv_SoBan;
         ImageButton img_Sua_LoaiBan;
 
         public LoaiBanViewHolder(@NonNull View itemView) {
@@ -170,5 +174,11 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
         }
     }
 
-
+    void anChucNang(LoaiBanViewHolder holder){
+        nhanVienDAO = new NhanVienDAO(context);
+        int phanQuyen = nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context));
+        if(phanQuyen == 0){
+            holder.img_Sua_LoaiBan.setVisibility(View.GONE);
+        }
+    }
 }

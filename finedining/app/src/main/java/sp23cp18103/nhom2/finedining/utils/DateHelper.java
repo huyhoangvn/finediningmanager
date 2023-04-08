@@ -52,12 +52,17 @@ public class DateHelper {
         return sdf.format(new Date());
     }
 
+    public static String getYearSQLNow(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
     /*
      * Trả về ngày hiện tại theo chuẩn Việt Nam
      * VD: 30-12-2000
      */
     public static String getDateVietnamNow(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         return sdf.format(new Date());
     }
 
@@ -76,7 +81,7 @@ public class DateHelper {
      */
     @SuppressLint("SimpleDateFormat")
     public static String getDateTimeSql(String dateTimeVietnam){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             return sdf.format(Objects.requireNonNull(new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTimeVietnam)));
         } catch (ParseException e) {
@@ -91,9 +96,9 @@ public class DateHelper {
      */
     @SuppressLint("SimpleDateFormat")
     public static String getDateTimeVietnam(String dateTimeSql){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         try {
-            return sdf.format(Objects.requireNonNull(new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTimeSql)));
+            return sdf.format(Objects.requireNonNull(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateTimeSql)));
         } catch (ParseException e) {
             e.printStackTrace();
         }

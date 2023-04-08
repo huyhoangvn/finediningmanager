@@ -7,177 +7,196 @@
     android:orientation="vertical"
     android:gravity="center">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/mHeaderText"
-        android:text="Chi tiết hóa đơn"
-        android:layout_margin="5dp"/>
+        style="@style/mDialogHeaderText"
+        android:text="Chi tiết hóa đơn"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/mLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Người thanh toán: "/>
+
+            <TextView
+                android:id="@+id/tv_tenKhach_dialog_hoaDon_chiTiet"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Huy Hoàng"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/mLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng khách: "/>
+
+            <TextView
+                android:id="@+id/tv_soLuongKhach_dialog_hoaDon_chiTiet"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/mLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhân viên quản lý: "/>
+
+            <TextView
+                android:id="@+id/tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hồ Ngọc Hà"/>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/mLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian xuất: "/>
+
+            <TextView
+                android:id="@+id/tv_thoiGianXuat_dialog_hoaDon_chiTiet"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="30-10-2012 20:20"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/mLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thời gian đặt: "/>
+
+            <TextView
+                android:id="@+id/tv_thoiGianDat_dialog_hoaDon_chiTiet"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="30-10-2012 20:20"/>
+        </LinearLayout>
 
         <TextView
             style="@style/mLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chủ Hóa Đơn: "/>
-
-        <TextView
-            android:id="@+id/tv_tenKhach_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
+            android:text="Danh sách đặt món: "
+            android:layout_gravity="start"/>
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nguyễn Huy Hoàng"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_mon_dialog_hoaDon_chiTiet"
+                    style="@style/mRecyclerViewLinear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_max="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
-        <TextView
-            style="@style/mLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số lượng khách: "/>
-
-        <TextView
-            android:id="@+id/tv_soLuongKhach_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="5"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:orientation="vertical">
+            <TextView
+                style="@style/mLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danh sách đặt bàn: "/>
 
-        <TextView
-            style="@style/mLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nhân viên phục vụ: "/>
+            <TextView
+                android:id="@+id/tv_danhSachBan_dialog_hoaDon_chiTiet"
+                style="@style/mNormalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A1, A2, A3,..."/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_tenQuanLyHoaDon_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="?attr/colorOutline"
+            android:alpha="0.5"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hồ Ngọc Hà"/>
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng tiền: "
+                android:textColor="@color/Positive"/>
+
+            <TextView
+                android:id="@+id/tv_tongTien_dialog_hoaDon_chiTiet"
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30,000"
+                android:textColor="@color/Positive"/>
+
+            <TextView
+                style="@style/mHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" vnd"
+                android:textColor="@color/Positive"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_trangThai_dialog_hoaDon_chiTiet"
+            style="@style/mBoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã thanh toán"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            style="@style/mLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thời Gian Xuất: "/>
-
-        <TextView
-            android:id="@+id/tv_thoiGianXuat_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="30-10-2012 20:20"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            style="@style/mLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thời Gian Đặt: "/>
-
-        <TextView
-            android:id="@+id/tv_thoiGianDat_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="30-10-2012 20:20"/>
-    </LinearLayout>
-
-    <TextView
-        style="@style/mLabelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Danh sách đặt món: "
-        android:layout_gravity="start"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_mon_dialog_hoaDon_chiTiet"
-            style="@style/mRecyclerViewLinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            style="@style/mLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Danh sách đặt bàn: "/>
-
-        <TextView
-            android:id="@+id/tv_danhSachBan_dialog_hoaDon_chiTiet"
-            style="@style/mNormalText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="A1, A2, A3,..."/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="@android:color/darker_gray"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <TextView
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tổng tiền: "/>
-
-        <TextView
-            android:id="@+id/tv_tongTien_dialog_hoaDon_chiTiet"
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30,000"/>
-
-        <TextView
-            style="@style/mHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" vnd"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_trangThai_dialog_hoaDon_chiTiet"
-        style="@style/mBoldText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đã thanh toán"/>
-
 </LinearLayout>
 

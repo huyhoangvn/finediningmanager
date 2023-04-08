@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:padding="5dp"
-                android:text="WELLCOME TO \nFINE DINING MANAGER"
+                android:text="Welcome To \nFine Dinning Manager"
                 android:textAllCaps="true"
                 android:layout_gravity="start" />
 
@@ -55,6 +55,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputEd_matkhau"
                     style="@style/mEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Ghi nhớ đăng nhập"/>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dangnhap"
                 style="@style/mButton"
                 android:layout_width="match_parent"
