@@ -186,7 +186,6 @@ public class ThongKeDoanhThuFragment extends Fragment {
         BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Doanh Thu");
         barDataSet1.setColor(ColorHelper.getPositiveColor(context));
         barDataSet1.setValueTextSize(16F);
-
         BarData data = new BarData(barDataSet1);
         barChart.setData(data);
 
