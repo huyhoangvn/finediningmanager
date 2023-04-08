@@ -184,7 +184,6 @@ public class MonFragment extends Fragment {
                                 m.setGia(Integer.parseInt(giaMon));
                             }
                             m.setHinh(galleryHelper.getCurrentImageUrl());
-                            m.setHinh(String.valueOf(R.drawable.default_avatar));
                             m.setTrangThai(1);
                             if (ValidateMon() > 0) {
                                 if (dao.insertMon(m) > 0) {
