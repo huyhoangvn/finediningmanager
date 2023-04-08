@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         anhXa();
-        insertTest();
+//        insertTest();
         saveTaiKhoanMatKhau();
         login();
         hideErros();
@@ -162,91 +162,35 @@ public class LoginActivity extends AppCompatActivity{
         });
     }
 
-
-    //Nhập dữ liệu mẫu để thực hành
-    void insertTest() {
-        NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
-        NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
-        LoaiBanDAO loaiBanDAO = new LoaiBanDAO(this);
-        LoaiMonDAO loaiMonDAO = new LoaiMonDAO(this);
-        BanDAO banDAO = new BanDAO(this);
-        MonDAO monDAO = new MonDAO(this);
-        KhachDAO khachDAO = new KhachDAO(this);
-        HoaDonDAO hoaDonDAO = new HoaDonDAO(this);
-        DatBanDAO datBanDAO = new DatBanDAO(this);
-        DatMonDAO datMonDAO = new DatMonDAO(this);
-
-        //Nhà hàng
-        if (nhaHangDAO.checknhahang("Fine Dining")){
-            return;
-        } if (nhaHangDAO.checknhahang("Nha Nam")){
-            return;
-        }
-        nhaHangDAO.insertNhaHang(new NhaHang(1, "Fine Dining", "Hà Nội", "https://chupanhmonan.com/wp-content/uploads/2019/03/ma%CC%82%CC%83u-thie%CC%82%CC%81t-ke%CC%82%CC%81-nha%CC%80-ha%CC%80ng-%C4%91e%CC%A3p.jpg"));
-
-        nhaHangDAO.insertNhaHang(new NhaHang(2, "Nha Nam", "TP Hồ Chí Minh", null));
-        //Nhân viên
-        if (nhanVienDAO.checkTaikhoan("myadmin")){
-            return;
-        }if (nhanVienDAO.checkTaikhoan("hongocha")){
-            return;
-        }if (nhanVienDAO.checkTaikhoan("notadmin")){
-            return;
-        }if (nhanVienDAO.checkTaikhoan("isadmin")){
-            return;
-        }if (nhanVienDAO.checkTaikhoan("Hameno")){
-            return;
-        }
-        nhanVienDAO.insertNhanVien(new NhanVien(1, 1, "Nguyễn Huy Hoàng", 1,
-                "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/10f13510774061.560eadfde5b61.png"));
-        nhanVienDAO.insertNhanVien(new NhanVien(2, 1, "Hồ Ngọc Hà", 2,
-                "1999-01-10", "0933763999", 0, 1, "hongocha", "hongocha", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/b654a410774061.560eadfd1e2cc.png"));
-        nhanVienDAO.insertNhanVien(new NhanVien(3, 2, "Lưu Hữu Phước", 1,
-                "2000-03-10", "0933765999", 1, 1, "notadmin", "admin", "https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
-        nhanVienDAO.insertNhanVien(new NhanVien(4, 1, "Nguyễn Huy Hồng", 1,
-                "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", "https://mir-s3-cdn-cf.behance.net/project_modules/disp/200f2910774061.560eac1cd606c.png"));
-        nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
-                "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://i.pinimg.com/originals/91/de/1e/91de1e48020787761c1906c9fcde86cd.jpg"));
-        khachDAO.insert(new KhachHang(1,"vũ",1,"0666","taikhoan","matkhau",null));
-
-        khachDAO.insert(new KhachHang(2,"vũ ngọc",2,"06666","taikhoan1","matkhau1",null));
-        
-        hoaDonDAO.insertHoaDon(new HoaDon(1,1,1,4, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
-
-        hoaDonDAO.insertHoaDon(new HoaDon(2,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),1));
-        hoaDonDAO.insertHoaDon(new HoaDon(3,2,1,5, DateHelper.getDateTimeSQLNow(), DateHelper.getDateTimeSQLNow(),2));
-
-
-//        loaiMonDAO.insertLoaiMon(new LoaiMon(1,"thịt",1,1));
-
-        monDAO.insertMon(new Mon(1,1,"thịt chó",500,1,"https://i.pinimg.com/originals/23/ef/28/23ef28b4176f3c583203eec85f3411a1.png"));
-
-        monDAO.insertMon(new Mon(2,1,"thịt gà",700,1,null));
-
-        monDAO.insertMon(new Mon(2,1,"thịt Em",700,1,null));
-
-        monDAO.insertMon(new Mon(3,1,"thịt gì đó",200,1,null));
-
-
-
-        banDAO.insertban(new Ban(1,1,"A1",1));
-        banDAO.insertban(new Ban(2,1,"A2",1));
-        banDAO.insertban(new Ban(3,1,"A3",1));
-        banDAO.insertban(new Ban(4,1,"A4",1));
-
-
-//        loaiBanDAO.insertloaiban(new LoaiBan(1,"VIP",1,1));
-
-        datBanDAO.insertDatBan(new DatBan(1,1,1));
-        datBanDAO.insertDatBan(new DatBan(2,3,1));
-
-        datBanDAO.insertDatBan(new DatBan(5,3,1));
-
-        datMonDAO.insertDatMon(new DatMon(1,1,3, 1));
-
-
-
-    }
+    /*
+    * Nhập dữ liệu trước
+    * */
+//    void insertTest() {
+//        NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
+//        NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
+//
+//        //Nhà hàng
+//        if (nhaHangDAO.checknhahang("Ratatouille")){
+//            return;
+//        } if (nhaHangDAO.checknhahang("Golden Ramsey")){
+//            return;
+//        }
+//        //Nhân viên
+//        nhaHangDAO.insertNhaHang(new NhaHang(1, "Ratatouille", "Hà Nội", ));
+//
+//        nhaHangDAO.insertNhaHang(new NhaHang(2, "Golden Ramsey", "TP Hồ Chí Minh", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/nhahang2.jpg?alt=media&token=06dd917b-5504-415d-9834-f9c5974eb10c"));
+//
+//        nhanVienDAO.insertNhanVien(new NhanVien(1, 1, "Nguyễn Huy Hoàng", 1,
+//                "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).jpg?alt=media&token=b6e07e36-e6ec-4ecb-8230-5d71f6cb7d05"));
+//        nhanVienDAO.insertNhanVien(new NhanVien(2, 1, "Hồ Ngọc Hà", 2,
+//                "1999-01-10", "0933763999", 0, 1, "hongocha", "hongocha", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).png?alt=media&token=0b952486-4509-49b3-a9e7-6ae91e1ad2d2"));
+//        nhanVienDAO.insertNhanVien(new NhanVien(3, 2, "Trấn Thành", 1,
+//                "2000-03-10", "0933765999", 1, 1, "notadmin", "admin", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(2).png?alt=media&token=b22c78f2-78e8-4196-ab16-c200e2e600a9"));
+//        nhanVienDAO.insertNhanVien(new NhanVien(4, 1, "Phúc Du", 1,
+//                "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(3).png?alt=media&token=7e62e316-5634-48b0-a402-fafdbe8af77b"));
+//        nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
+//                "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(4).png?alt=media&token=9f9e4e14-6813-433c-a1f0-3da30fee1748"));
+//    }
 
 
     void loading () {

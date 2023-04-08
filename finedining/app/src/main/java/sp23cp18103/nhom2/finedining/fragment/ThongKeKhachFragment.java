@@ -174,18 +174,20 @@ public class ThongKeKhachFragment extends Fragment {
         String nam = input_nam_ThongKeKhach.getText().toString().trim();
         BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Số lượng ");
         barDataSet1.setColor(ColorHelper.getPositiveColor(context));
+        barDataSet1.setValueTextSize(16F);
+
         BarData barData=new BarData(barDataSet1);
         barChart.setData(barData);
-        barDataSet1.setValueTextSize(16F);
-        barChart.getDescription().setEnabled(true);
+
         String[] moth = new String[]{"", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12", ""};
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
         xAxis.setCenterAxisLabels(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(0.25F);
-        xAxis.setTextSize(14F);
+        xAxis.setTextSize(16F);
         xAxis.setGranularityEnabled(true);
+
         barChart.setDragEnabled(true);
         barChart.setVisibleXRangeMaximum(8);
         barChart.invalidate();

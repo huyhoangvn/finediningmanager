@@ -6,135 +6,137 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ThongKeDoanhThuFragment">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            style="@style/mImportantHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tổng số lượng khách"
-            android:layout_margin="10dp"/>
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <TextView
-                style="@style/mHeaderText"
+                style="@style/mImportantHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng khách: "
-                android:textColor="@color/Positive"/>
+                android:text="Tổng số lượng khách"
+                android:layout_margin="10dp"/>
 
-            <TextView
-                android:id="@+id/tvTongKhachHang"
-                style="@style/mHeaderText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1,000,000,000,000"
-                android:textColor="@color/Positive" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_thongKeKhach_ngayBatDau"
-                style="@style/mInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Bắt đầu"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:endIconMode="custom"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                app:endIconDrawable="@drawable/ic_chon_ngay">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edNgayBatDau"
-                    style="@style/mEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="date"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_thongKeKhach_ngayKetThuc"
-                style="@style/mInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Kết thúc"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:endIconMode="custom"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                app:endIconDrawable="@drawable/ic_chon_ngay">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edNgayKetThuc"
-                    style="@style/mEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:inputType="date"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnThongKeKhach1"
-            style="@style/mButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thống Kê"/>
-
-
-        <TextView
-            style="@style/mImportantHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số lượng khách theo tháng"
-            android:layout_margin="10dp"/>
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart_thongke_khach"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/chart_background"
-            />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_lyt_nam_ThongKeKhach"
-            style="@style/mInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Năm">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_nam_ThongKeKhach"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"/>
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center">
+                <TextView
+                    style="@style/mHeaderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng khách: "
+                    android:textColor="@color/Positive"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnThongKeKhach2"
-            style="@style/mButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thống Kê"/>
+                <TextView
+                    android:id="@+id/tvTongKhachHang"
+                    style="@style/mHeaderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1,000,000,000,000"
+                    android:textColor="@color/Positive" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_thongKeKhach_ngayBatDau"
+                    style="@style/mInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Bắt đầu"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:endIconMode="custom"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    app:endIconDrawable="@drawable/ic_chon_ngay">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edNgayBatDau"
+                        style="@style/mEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:inputType="date"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_thongKeKhach_ngayKetThuc"
+                    style="@style/mInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Kết thúc"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:endIconMode="custom"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    app:endIconDrawable="@drawable/ic_chon_ngay">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edNgayKetThuc"
+                        style="@style/mEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:inputType="date"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnThongKeKhach1"
+                style="@style/mButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thống Kê"/>
+
+
+            <TextView
+                style="@style/mImportantHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng khách theo tháng"
+                android:layout_margin="10dp"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart_thongke_khach"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/chart_background"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_lyt_nam_ThongKeKhach"
+                style="@style/mInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Năm">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_nam_ThongKeKhach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnThongKeKhach2"
+                style="@style/mButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thống Kê"/>
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
 

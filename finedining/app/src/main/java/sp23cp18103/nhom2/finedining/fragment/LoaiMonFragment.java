@@ -221,5 +221,9 @@ public class LoaiMonFragment extends Fragment {
         rcvLoaiMon.setAdapter(adapter);
     }
 
-
+    @Override
+    public void onResume() {
+        hiemThiDanhSachLM();
+        super.onResume();
+    }
 }
