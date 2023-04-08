@@ -185,7 +185,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
         String nam = edNam.getText().toString().trim();
         BarDataSet barDataSet1 = new BarDataSet(getMonthlyRevenue(nam), "Doanh Thu");
         barDataSet1.setColor(ColorHelper.getPositiveColor(context));
-        barDataSet1.setValueTextSize(14F);
+        barDataSet1.setValueTextSize(16F);
         BarData data = new BarData(barDataSet1);
         barChart.setData(data);
 
@@ -193,6 +193,7 @@ public class ThongKeDoanhThuFragment extends Fragment {
         XAxis xAxis = barChart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(moth));
         xAxis.setCenterAxisLabels(false);
+        xAxis.setTextSize(16F);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(0.25F);
         xAxis.setGranularityEnabled(true);

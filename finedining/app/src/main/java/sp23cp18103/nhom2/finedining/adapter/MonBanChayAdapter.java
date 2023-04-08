@@ -16,6 +16,7 @@ import java.util.List;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.model.ThongTinMon;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
+import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 
 /*
  * Adapter để hiển thị danh sách món bán chạy trong ThongKeMonFragment
@@ -44,7 +45,7 @@ public class MonBanChayAdapter extends RecyclerView.Adapter<MonBanChayAdapter.Vi
         int itemIndex = holder.getAdapterPosition();
         holder.tvTenMon.setText(tinMon.getTenMonThongKe());
         holder.tvSoLuong.setText("" + tinMon.getSoLuongMon());
-        holder.tvDoanhThu.setText("" + tinMon.getDoanhThuMon());
+        holder.tvDoanhThu.setText("" + NumberHelper.getNumberWithDecimal(tinMon.getDoanhThuMon()));
         holder.tvSoTT.setText("" + (itemIndex + 1));
         ImageHelper.loadAvatar(context,holder.imgAnhMon,tinMon.getHinhMon());
     }
