@@ -52,7 +52,7 @@ public class HoaDonFragment extends Fragment {
     TextInputLayout inputTimKiemHoaDon;
     TextView tvDaThanhToan,tvChoThanhToan,tvDangDuocDat,tvDaHuy,tvTatCa;
     FloatingActionButton fbtnThemHoaDon;
-    int trangThaiHienTai;
+    int trangThaiHienTai = -1;
 
     Context context;
     @Override
@@ -228,7 +228,11 @@ public class HoaDonFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                capNhatHoaDon();
+                if(trangThaiHienTai==-1){
+                    hienThiTatCa();
+                } else {
+                    capNhatHoaDon();
+                }
             }
         });
         input_ngay.addTextChangedListener(new TextWatcher() {
@@ -244,7 +248,11 @@ public class HoaDonFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                capNhatHoaDon();
+                if(trangThaiHienTai==-1){
+                    hienThiTatCa();
+                } else {
+                    capNhatHoaDon();
+                }
             }
         });
         edTimKiem.addTextChangedListener(new TextWatcher() {
