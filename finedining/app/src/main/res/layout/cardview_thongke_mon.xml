@@ -62,8 +62,7 @@
                     style="@style/mNormalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_tieude_doanhthu_monhot"
-                    android:layout_below="@+id/tv_soluong_monhot"
+                    android:layout_below="@+id/tv_tieude_doanhthu_monhot"
                     android:text="1,000,000"/>
 
             </RelativeLayout>
