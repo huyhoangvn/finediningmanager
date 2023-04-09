@@ -1,125 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/mDialog"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ScrollView
+    android:scrollbarThumbVertical="@null">
+    <LinearLayout
+        style="@style/mDialog"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="ScrollViewCount">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tvTieuDeMon"
+            style="@style/mDialogHeaderText"
+            android:text="Thêm/sửa món"/>
+
+        <ImageButton
+            android:id="@+id/imgDialogMon"
+            style="@style/mAvatarImageButton"
+            android:src="@drawable/default_avatar"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputDialogTenMon"
+            style="@style/mInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-            <TextView
-                android:id="@+id/tvTieuDeMon"
-                style="@style/mDialogHeaderText"
-                android:text="Thêm/sửa món"/>
-
-            <ImageButton
-                android:id="@+id/imgDialogMon"
-                style="@style/mAvatarImageButton"
-                android:src="@drawable/default_avatar"
-                tools:ignore="ContentDescription" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputDialogTenMon"
-                style="@style/mInputLayout"
+            app:errorEnabled="true"
+            android:hint="Tên món">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edDialogTenMon"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:hint="Tên món">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edDialogTenMon"
-                    style="@style/mEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="text"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputDialogGia"
-                style="@style/mInputLayout"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputDialogGia"
+            style="@style/mInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:hint="Giá">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edDialogGia"
+                style="@style/mEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                android:hint="Giá">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edDialogGia"
-                    style="@style/mEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:inputType="number"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/spinner_background"
-                    android:layout_margin="10dp"
-                    android:padding="10dp">
-
-                    <Spinner
-                        android:id="@+id/spnrDialogLoaiMon"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overlapAnchor="true"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?colorSurface"
-                    android:text="Loại món"
-                    android:layout_marginStart="23dp"
-                    android:layout_marginTop="3dp"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:textSize="12sp"/>
-            </RelativeLayout>
-
-            <CheckBox
-                android:id="@+id/chkTrangThaiMon"
-                style="@style/mNormalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Còn sử dụng?"
-                android:layout_gravity="start"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDialogLuuMon"
-                    style="@style/mButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Lưu"/>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnDialogHuyMon"
-                    style="@style/mButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Hủy"/>
+                android:layout_height="55dp"
+                android:orientation="vertical"
+                android:background="@drawable/spinner_background"
+                android:layout_margin="10dp"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spnrDialogLoaiMon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overlapAnchor="true"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorSurface"
+                android:text="Loại món"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/chkTrangThaiMon"
+            style="@style/mCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Còn sử dụng?"
+            android:layout_gravity="start"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDialogLuuMon"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lưu"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDialogHuyMon"
+                style="@style/mButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hủy"/>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
 
     <!-- Dialog để thêm hoặc sửa món-->

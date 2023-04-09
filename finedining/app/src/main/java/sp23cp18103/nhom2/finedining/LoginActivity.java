@@ -11,11 +11,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -50,6 +52,7 @@ import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.Custom.CustomProgressDialog;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Đăng nhập
@@ -59,6 +62,7 @@ public class LoginActivity extends AppCompatActivity{
     Button btnDangnhap;
     TextInputLayout inputTaikhoanDangnhap,inputMatkhauDangnhap;
     TextInputEditText inputEdMatKhau;
+    TextInputEditText inputEdTaiKhoan;
     CheckBox chkRemeber;
     NhanVienDAO nhanVienDAO;
 
@@ -100,37 +104,43 @@ public class LoginActivity extends AppCompatActivity{
         btnDangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String taikhoan = inputTaikhoanDangnhap.getEditText().getText().toString();
-                String matkhau = inputMatkhauDangnhap.getEditText().getText().toString();
-
+                String taikhoan = inputTaikhoanDangnhap.getEditText().getText().toString().trim();
+                String matkhau = inputMatkhauDangnhap.getEditText().getText().toString().trim();
+                //Clear Error cũ
+                inputTaikhoanDangnhap.setError(null);
+                inputMatkhauDangnhap.setError(null);
                 //validate tài khoản
                 if (taikhoan.isEmpty()){
                     inputTaikhoanDangnhap.setError("Vui lòng nhập tài khoản");
                     return;
-                }else{
-                    inputTaikhoanDangnhap.setError(null);
                 }
                 //validate mật khẩu
                 if (matkhau.isEmpty()){
                     inputMatkhauDangnhap.setError("Vui lòng nhập mật khẩu");
                     return;
-                }else {
-                    inputMatkhauDangnhap.setError(null);
                 }
-
+                if(taikhoan.length() < ValueHelper.MIN_INPUT_LOGIN || taikhoan.length() > ValueHelper.MAX_INPUT_LOGIN){
+                    inputTaikhoanDangnhap.setError("Nhập tối thiểu " + ValueHelper.MIN_INPUT_LOGIN
+                            + " và tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
+                    return;
+                }
+                if(matkhau.length() < 6 || matkhau.length() > 25){
+                    inputMatkhauDangnhap.setError("Nhập tối thiểu " + ValueHelper.MIN_INPUT_LOGIN
+                            + " và tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
+                    return;
+                }
                 // check mạng
                 ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                 boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                 // nếu có mạng
                 if (isConnected) {
-
                     //Check tài khoản mật khẩu
                     if (nhanVienDAO.checkDangnhap(taikhoan,matkhau)){
                         int maNV = nhanVienDAO.getIdNhanVienByTaiKhoan(taikhoan,matkhau);
                         int trangthai = nhanVienDAO.getTrangThaiNV(maNV);
                         if (trangthai == 0){
-                            Toast.makeText(LoginActivity.this, "Nhân Viên Nghỉ Làm", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Nhân viên đã nghỉ Làm", Toast.LENGTH_SHORT).show();
                          return;
                         }
                         PreferencesHelper.saveIdSharedPref(LoginActivity.this,maNV);
@@ -154,43 +164,19 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     void hideErros(){
-        inputEdMatKhau.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        inputEdMatKhau.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 inputMatkhauDangnhap.setError(null);
             }
         });
+        inputEdTaiKhoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputTaikhoanDangnhap.setError(null);
+            }
+        });
     }
-
-    /*
-    * Nhập dữ liệu trước
-    * */
-//    void insertTest() {
-//        NhaHangDAO nhaHangDAO = new NhaHangDAO(this);
-//        NhanVienDAO nhanVienDAO = new NhanVienDAO(this);
-//
-//        //Nhà hàng
-//        if (nhaHangDAO.checknhahang("Ratatouille")){
-//            return;
-//        } if (nhaHangDAO.checknhahang("Golden Ramsey")){
-//            return;
-//        }
-//        //Nhân viên
-//        nhaHangDAO.insertNhaHang(new NhaHang(1, "Ratatouille", "Hà Nội", ));
-//
-//        nhaHangDAO.insertNhaHang(new NhaHang(2, "Golden Ramsey", "TP Hồ Chí Minh", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/nhahang2.jpg?alt=media&token=06dd917b-5504-415d-9834-f9c5974eb10c"));
-//
-//        nhanVienDAO.insertNhanVien(new NhanVien(1, 1, "Nguyễn Huy Hoàng", 1,
-//                "2002-01-10", "0933765999", 1, 1, "myadmin", "admin", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).jpg?alt=media&token=b6e07e36-e6ec-4ecb-8230-5d71f6cb7d05"));
-//        nhanVienDAO.insertNhanVien(new NhanVien(2, 1, "Hồ Ngọc Hà", 2,
-//                "1999-01-10", "0933763999", 0, 1, "hongocha", "hongocha", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).png?alt=media&token=0b952486-4509-49b3-a9e7-6ae91e1ad2d2"));
-//        nhanVienDAO.insertNhanVien(new NhanVien(3, 2, "Trấn Thành", 1,
-//                "2000-03-10", "0933765999", 1, 1, "notadmin", "admin", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(2).png?alt=media&token=b22c78f2-78e8-4196-ab16-c200e2e600a9"));
-//        nhanVienDAO.insertNhanVien(new NhanVien(4, 1, "Phúc Du", 1,
-//                "2000-01-10", "0933765999", 1, 1, "isadmin", "isadmin", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(3).png?alt=media&token=7e62e316-5634-48b0-a402-fafdbe8af77b"));
-//        nhanVienDAO.insertNhanVien(new NhanVien(5, 1, "Thùy Minh", 0,
-//                "2005-051-10", "0933765399", 0, 0, "Hameno", "Hameno", "https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(4).png?alt=media&token=9f9e4e14-6813-433c-a1f0-3da30fee1748"));
-//    }
 
 
     void loading () {
@@ -230,6 +216,7 @@ public class LoginActivity extends AppCompatActivity{
         inputMatkhauDangnhap = findViewById(R.id.input_matkhau_dangphap);
         chkRemeber = findViewById(R.id.chk_Remeber);
         inputEdMatKhau = findViewById(R.id.inputEd_matkhau);
+        inputEdTaiKhoan = findViewById(R.id.inputEd_taiKhoan);
     }
 
 

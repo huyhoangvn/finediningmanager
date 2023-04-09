@@ -37,6 +37,7 @@ import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Adapter để hiển thị danh sách bàn trong BanFragment
@@ -125,7 +126,12 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         }
         evSpiner(ban);
 
-
+        edViTriBan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input_viTriBan.setError(null);
+            }
+        });
         btnCancelBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,9 +143,14 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                input_viTriBan.setError(null);
                 String viTri = edViTriBan.getText().toString().trim();
                 if (viTri.isEmpty()) {
                     input_viTriBan.setError("Không được để trống");
+                    return;
+                }
+                if (viTri.length() > ValueHelper.MAX_INPUT_NAME) {
+                    input_viTriBan.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
                     return;
                 }
                 // thuc hien chuc nang
@@ -153,13 +164,13 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
                 } else {
                     ban.setTrangThai(0);
                 }
-                ban.setViTri((edViTriBan.getText().toString()));
+                ban.setViTri((edViTriBan.getText().toString().trim()));
                 if (banDAO.updateban(ban) > 0) {
-                    Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sửa bàn thành công", Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                     dialog.dismiss();
                 } else {
-                    Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sửa bàn không thành công", Toast.LENGTH_SHORT).show();
                 }
 
                 if (ban.getTrangThai()==0){

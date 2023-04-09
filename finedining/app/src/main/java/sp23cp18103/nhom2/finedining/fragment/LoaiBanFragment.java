@@ -48,6 +48,7 @@ import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Hiển thị danh sách loại bàn và thêm, sửa
@@ -134,10 +135,16 @@ public class LoaiBanFragment extends Fragment {
             }
 
         });
+        edTenLoaiBan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input_tenLB.setError(null);
+            }
+        });
         btn_ShaveLoaiBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                input_tenLB.setError(null);
                 if (validate() > 0) {
                     int maNV = PreferencesHelper.getId(getContext());
                     loaiBan = new LoaiBan();
@@ -173,14 +180,14 @@ public class LoaiBanFragment extends Fragment {
     }
 
     public int validate() {
-        String tenLoai = edTenLoaiBan.getText().toString();
+        String tenLoai = edTenLoaiBan.getText().toString().trim();
         int check = 1;
         if (tenLoai.isEmpty()) {
             input_tenLB.setError("Không được để trống");
             return check = -1;
         }
-        if (edTenLoaiBan.getText().length()<=1 || edTenLoaiBan.getText().length()>=35){
-            Toast.makeText(context, "Kí tự tên loại bàn nhỏ hơn 35 và lớn hơn 1", Toast.LENGTH_SHORT).show();
+        if (edTenLoaiBan.getText().length()> ValueHelper.MAX_INPUT_NAME){
+            input_tenLB.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
             check = -1;
         }
         return check;

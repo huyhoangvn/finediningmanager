@@ -36,6 +36,7 @@ import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Adapter để hiển thị danh sách loại món trong LoaiMonFragment
@@ -104,38 +105,45 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
                 }else{
                     chkDialogTrangThaiLoaiMon.setChecked(false);
                 }
+                edTenLoaiMon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inputDialogTenLoaiMon.setError(null);
+                    }
+                });
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        inputDialogTenLoaiMon.setError(null);
+                        //Validate
                         String tenLoai = edTenLoaiMon.getText().toString().trim();
-                        lm.setTenLoai(tenLoai);
-                        if(chkDialogTrangThaiLoaiMon.isChecked()){
-                            Log.d("TAG", "onClick: " + "Checked");
-                            lm.setTrangThai(1);
-                        }else{
-                            Log.d("TAG", "onClick: " + dao.getLienKetTrangThai(lm.getMaLM(),maNV));
-                            if(dao.getLienKetTrangThai(lm.getMaLM(),maNV)>0){
-                                Log.d("TAG", "onClick: " + "Un Checked 1");
-                                Toast.makeText(context, "Khong cho sua", Toast.LENGTH_SHORT).show();
-                                return;
-                            }else{
-                                Log.d("TAG", "onClick: " + "Un Checked 0");
-                                lm.setTrangThai(0);
-                            }
-                        }
                         if(tenLoai.isEmpty()){
                             inputDialogTenLoaiMon.setError("Không được để trống");
                             return;
+                        }
+                        if (tenLoai.length() > ValueHelper.MAX_INPUT_NAME){
+                            inputDialogTenLoaiMon.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+                            return;
+                        }
+                        //
+                        lm.setTenLoai(tenLoai);
+                        if(chkDialogTrangThaiLoaiMon.isChecked()){
+                            lm.setTrangThai(1);
                         }else{
-                            if(dao.updateLoaiMon(lm)>0){
-                                Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
+                            if(dao.getLienKetTrangThai(lm.getMaLM(),maNV)>0){
+                                Toast.makeText(context, "Còn món đang sử dụng", Toast.LENGTH_SHORT).show();
+                                return;
                             }else{
-                                Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
+                                lm.setTrangThai(0);
                             }
                         }
-
+                        if(dao.updateLoaiMon(lm)>0){
+                            Toast.makeText(context, "Sửa loại món thành công", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
+                            dialog.dismiss();
+                        }else{
+                            Toast.makeText(context, "Sửa loại món không thành công", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 btnDialogHuyLoaiMon.setOnClickListener(new View.OnClickListener() {
@@ -154,9 +162,6 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.loaiMonV
     public int getItemCount() {
         return list.size();
     }
-
-
-
 
 
     class loaiMonViewHolder extends RecyclerView.ViewHolder {

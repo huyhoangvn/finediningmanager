@@ -40,7 +40,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Mon mon = listMon.get(position);
         holder.tvTenMon.setText(mon.getTenMon());
-        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " VND");
+        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " vnd");
         ImageHelper.loadAvatar(context,holder.imgAnhMon,mon.getHinh());
     }
     @Override
