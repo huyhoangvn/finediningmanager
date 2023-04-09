@@ -209,8 +209,10 @@ public class BanFragment extends Fragment {
         int check = 1;
         if (edViTriBan.getText().toString().trim().isEmpty()) {
             input_viTriBan.setError("Không được để trống");
+            return check = -1;
+        }    if (edViTriBan.getText().length()<=1 || edViTriBan.getText().length()>=35){
+            Toast.makeText(context, "Kí tự vị trí tên bàn nhỏ hơn 35 và lớn hơn 1", Toast.LENGTH_SHORT).show();
             check = -1;
-        } else {
         }
         return check;
     }

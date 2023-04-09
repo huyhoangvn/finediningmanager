@@ -177,6 +177,10 @@ public class LoaiBanFragment extends Fragment {
         int check = 1;
         if (tenLoai.isEmpty()) {
             input_tenLB.setError("Không được để trống");
+            return check = -1;
+        }
+        if (edTenLoaiBan.getText().length()<=1 || edTenLoaiBan.getText().length()>=35){
+            Toast.makeText(context, "Kí tự tên loại bàn nhỏ hơn 35 và lớn hơn 1", Toast.LENGTH_SHORT).show();
             check = -1;
         }
         return check;
