@@ -31,7 +31,7 @@ public class ThongTinChiTietDatMonDAO {
     }
 
     @SuppressLint("Range")
-    public int getTongSoTien(int maHD){
+    public long getTongSoTien(int maHD){
         String sql = "SELECT sum(mon.gia * datmon.soLuong) as thanhTien " +
                 " FROM mon JOIN datmon ON datmon.maMon = mon.maMon " +
                 "WHERE datmon.maHD = ? " +
@@ -40,7 +40,7 @@ public class ThongTinChiTietDatMonDAO {
 
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maHD)});
         if (c.moveToNext()){
-            return c.getInt(c.getColumnIndex("thanhTien"));
+            return c.getLong(c.getColumnIndex("thanhTien"));
         }
         return 0;
     }
@@ -74,11 +74,10 @@ public class ThongTinChiTietDatMonDAO {
             ttct.setTenMon(c.getString(c.getColumnIndex("tenMon")));
             ttct.setSoLuong(c.getInt(c.getColumnIndex("soLuong")));
             ttct.setGia(c.getInt(c.getColumnIndex("gia")));
-            ttct.setThanhTien(c.getInt(c.getColumnIndex("thanhTien")));
+            ttct.setThanhTien(c.getLong(c.getColumnIndex("thanhTien")));
 
             list.add(ttct);
         }
-        Log.d("zzzz", "getDaTa: "+list);
         return list;
     }
 }

@@ -2,9 +2,9 @@ package sp23cp18103.nhom2.finedining.model;
 
 public class ThongTinThongKeDoanhThu {
     private String month;
-    private int doanhThu;
+    private long doanhThu;
 
-    public ThongTinThongKeDoanhThu(String month, int doanhThu) {
+    public ThongTinThongKeDoanhThu(String month, long doanhThu) {
         this.month = month;
         this.doanhThu = doanhThu;
     }
@@ -20,11 +20,11 @@ public class ThongTinThongKeDoanhThu {
         this.month = month;
     }
 
-    public int getDoanhThu() {
+    public long getDoanhThu() {
         return doanhThu;
     }
 
-    public void setDoanhThu(int doanhThu) {
+    public void setDoanhThu(long doanhThu) {
         this.doanhThu = doanhThu;
     }
 }

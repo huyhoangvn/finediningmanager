@@ -91,7 +91,7 @@ public class DatMonAdapter extends RecyclerView.Adapter<DatMonAdapter.DatMonView
     public void onBindViewHolder(@NonNull DatMonViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Mon mon = monList.get(position);
         holder.tvTenMon.setText(mon.getTenMon());
-        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " VND");
+        holder.tvGia.setText(NumberHelper.getNumberWithDecimal(mon.getGia()) + " vnd");
         holder.edSoLuongMon.setText("0");
         hoaDonDAO = new HoaDonDAO(context);
         int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();

@@ -45,7 +45,7 @@ public class MonBanChayAdapter extends RecyclerView.Adapter<MonBanChayAdapter.Vi
         int itemIndex = holder.getAdapterPosition();
         holder.tvTenMon.setText(tinMon.getTenMonThongKe());
         holder.tvSoLuong.setText("" + tinMon.getSoLuongMon());
-        holder.tvDoanhThu.setText("" + NumberHelper.getNumberWithDecimal(tinMon.getDoanhThuMon()));
+        holder.tvDoanhThu.setText("" + NumberHelper.getNumberWithDecimal(tinMon.getDoanhThuMon()) + " vnd");
         holder.tvSoTT.setText("" + (itemIndex + 1));
         ImageHelper.loadAvatar(context,holder.imgAnhMon,tinMon.getHinhMon());
     }

@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity{
                             + " và tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
                     return;
                 }
-                if(matkhau.length() < 6 || matkhau.length() > 25){
+                if(matkhau.length() < ValueHelper.MIN_INPUT_LOGIN || matkhau.length() > ValueHelper.MAX_INPUT_LOGIN){
                     inputMatkhauDangnhap.setError("Nhập tối thiểu " + ValueHelper.MIN_INPUT_LOGIN
                             + " và tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
                     return;

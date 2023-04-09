@@ -112,19 +112,9 @@ public class HoaDonDAO{
         if (cursor.moveToFirst()) {
             return cursor.getInt(cursor.getColumnIndex("seq")) + 1;
         }
+        //Trường hợp bảng khách hàng chưa có phần tử nào
         return 1;
     }
-
-//    public int getMaHoaDon(){
-//        String sql = " SELECT maHD FROM hoaDon WHERE name LIKE 'hoadon' ";
-//        @SuppressLint("Recycle") Cursor c = db.rawQuery(sql, null);
-//        if(c.moveToNext()){
-//            return c.getInt(c.getColumnIndex("seq")) + 1;
-//        }
-//        return -1;
-//    }
-
-
 
     @SuppressLint("Range")
     public List<HoaDon> getData(String sql, String...SelectArgs){
