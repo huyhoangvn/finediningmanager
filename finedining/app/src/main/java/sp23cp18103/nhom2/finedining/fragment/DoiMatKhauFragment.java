@@ -81,15 +81,6 @@ public class DoiMatKhauFragment extends Fragment {
     * Gán các listener cho các view
     * */
     private void khoiTaoListener() {
-        btnLuu.setOnClickListener(v -> {
-            clearError();
-
-            if(!validateForm()){
-                return;
-            }
-
-            doiMatKhau();
-        });
         edMatKhauCu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,8 +96,17 @@ public class DoiMatKhauFragment extends Fragment {
         edXacNhanMatKhau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edXacNhanMatKhau.setError(null);
+                inputXacNhanMatKhau.setError(null);
             }
+        });
+        btnLuu.setOnClickListener(v -> {
+            clearError();
+
+            if(!validateForm()){
+                return;
+            }
+
+            doiMatKhau();
         });
     }
 
@@ -116,7 +116,7 @@ public class DoiMatKhauFragment extends Fragment {
     private void clearError() {
         inputMatKhauCu.setError(null);
         inputMatKhauMoi.setError(null);
-        inputMatKhauMoi.setError(null);
+        inputXacNhanMatKhau.setError(null);
     }
 
     /*
@@ -162,11 +162,11 @@ public class DoiMatKhauFragment extends Fragment {
     private void doiMatKhau() {
         if( nhanVienDAO.updateMatKhauNhanvien( PreferencesHelper.getId(context),
                 edMatKhauCu.getText().toString().trim(), edMatKhauMoi.getText().toString().trim() ) > 0 ){
+            Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+        } else {
             Toast.makeText(context, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
             inputMatKhauCu.setError("Nhập sai mật khẩu");
             inputMatKhauCu.requestFocus();
-        } else {
-            Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
         }
     }
 }
