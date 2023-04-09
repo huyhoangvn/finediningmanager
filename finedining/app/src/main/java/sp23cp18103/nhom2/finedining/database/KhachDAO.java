@@ -40,7 +40,8 @@ public class KhachDAO {
         if(c.moveToNext()){
             return c.getInt(c.getColumnIndex("seq")) + 1;
         }
-        return -1;
+        //Trường hợp bảng khách hàng chưa có phần tử nào
+        return 1;
     }
 
     @SuppressLint("Range")
@@ -54,8 +55,8 @@ public class KhachDAO {
     }
 
     @SuppressLint("Range")
-    public int getSoLuongKhachHang (int maNV, String tungay, String denngay){
-        List<Integer> list=new ArrayList<>();
+    public long getSoLuongKhachHang (int maNV, String tungay, String denngay){
+        List<Long> list=new ArrayList<>();
         String sql = "SELECT SUM(hd.soLuongKhach) as tongKhachHang FROM hoadon hd  " +
                 "JOIN nhanvien nv ON nv.maNV = hd.maNV " +
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ?) " +
@@ -64,10 +65,10 @@ public class KhachDAO {
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),tungay,denngay});
         while (c.moveToNext()){
             try {
-                list.add(Integer.parseInt(c.getString(c.getColumnIndex("tongKhachHang"))));
+                list.add(c.getLong(c.getColumnIndex("tongKhachHang")));
 
             }catch (Exception e){
-                list.add(0);
+                list.add(Long.parseLong("0"));
             }
         }
         return list.get(0);
@@ -86,7 +87,7 @@ public class KhachDAO {
         while (c.moveToNext()){
             ThongTinThongKeKhachHang tttkdt = new ThongTinThongKeKhachHang();
             tttkdt.setMonth(c.getString(c.getColumnIndex("thang")));
-            tttkdt.setSoLuong(c.getInt(c.getColumnIndex("tongKhachHang")));
+            tttkdt.setSoLuong(c.getLong(c.getColumnIndex("tongKhachHang")));
             list.add(tttkdt);
         }
         return list;

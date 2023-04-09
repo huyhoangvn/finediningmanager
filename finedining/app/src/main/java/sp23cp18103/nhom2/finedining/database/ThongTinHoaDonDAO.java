@@ -73,7 +73,7 @@ public class ThongTinHoaDonDAO {
 
     }
     @SuppressLint("Range")
-    public int getDoanhThu(int maNV , String tuNgay , String denNgay){
+    public long getDoanhThu(int maNV , String tuNgay , String denNgay){
         String sql = "SELECT sum(m.gia * dm.soLuong) as thanhTien  " +
                 "FROM hoadon as hd  " +
                 "JOIN datmon as dm ON dm.maHD = hd.maHD " +
@@ -84,14 +84,14 @@ public class ThongTinHoaDonDAO {
                 "AND dm.trangThai = 1 " +
                 "AND (strftime('%Y-%m-%d',hd.thoiGianDat) BETWEEN ? AND ?) ";
 
-        List<Integer> list = new ArrayList<Integer>();
+        List<Long> list = new ArrayList<Long>();
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV),tuNgay,denNgay});
         while (c.moveToNext()){
             try {
-                list.add(Integer.parseInt(c.getString(c.getColumnIndex("thanhTien"))));
+                list.add(Long.parseLong(c.getString(c.getColumnIndex("thanhTien"))));
 
             }catch (Exception e){
-                list.add(0);
+                list.add(Long.parseLong("0"));
             }
         }
         return list.get(0);
@@ -113,7 +113,7 @@ public class ThongTinHoaDonDAO {
         while (c.moveToNext()){
             ThongTinThongKeDoanhThu tttkdt = new ThongTinThongKeDoanhThu();
             tttkdt.setMonth(c.getString(c.getColumnIndex("thang")));
-            tttkdt.setDoanhThu(c.getInt(c.getColumnIndex("thanhTien")));
+            tttkdt.setDoanhThu(c.getLong(c.getColumnIndex("thanhTien")));
             list.add(tttkdt);
         }
         return list;

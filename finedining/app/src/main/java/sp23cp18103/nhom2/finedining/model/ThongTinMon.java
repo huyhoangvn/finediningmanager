@@ -4,9 +4,9 @@ public class ThongTinMon {
     String hinhMon;
     String tenMonThongKe;
     int soLuongMon;
-    int doanhThuMon;
+    long doanhThuMon;
 
-    public ThongTinMon(String tenMonThongKe, int soLuongMon, int doanhThuMon) {
+    public ThongTinMon(String tenMonThongKe, int soLuongMon, long doanhThuMon) {
         this.tenMonThongKe = tenMonThongKe;
         this.soLuongMon = soLuongMon;
         this.doanhThuMon = doanhThuMon;
@@ -39,11 +39,11 @@ public class ThongTinMon {
         this.soLuongMon = soLuongMon;
     }
 
-    public int getDoanhThuMon() {
+    public long getDoanhThuMon() {
         return doanhThuMon;
     }
 
-    public void setDoanhThuMon(int doanhThuMon) {
+    public void setDoanhThuMon(long doanhThuMon) {
         this.doanhThuMon = doanhThuMon;
     }
 }

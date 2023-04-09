@@ -6,4 +6,7 @@ public class ValueHelper {
     public final static int MAX_INPUT_NAME = 25;
     public final static int MIN_INPUT_NAME = 1;
     public final static int MAX_INPUT_NUMBER = 999999999;
+    public final static int MIN_INPUT_NUMBER = 1;
+    public final static int MAX_INPUT_QUANTITY = 999;
+    public final static int MIN_INPUT_QUANTITY = 1;
 }

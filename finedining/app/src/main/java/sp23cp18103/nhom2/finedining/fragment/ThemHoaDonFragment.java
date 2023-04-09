@@ -73,6 +73,7 @@ import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Thêm hóa đơn mới (có thể dùng để sửa hóa đơn hoặc tạo một SuaHoaDonFragment)
@@ -177,22 +178,21 @@ public class ThemHoaDonFragment extends Fragment {
     }
 
     private void hideError() {
-        input_tenKH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        input_tenKH.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 input_lyt_tenKH.setError(null);
             }
         });
-        input_soLuongKhach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        input_soLuongKhach.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 input_lyt_soLuongKhach.setError(null);
             }
         });
-
-        input_thoiGianDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        input_thoiGianDat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 input_lyt_thoiGianDat.setError(null);
             }
         });
@@ -283,12 +283,6 @@ public class ThemHoaDonFragment extends Fragment {
                 Toast.makeText(getContext(), "Thêm Thành Công", Toast.LENGTH_SHORT).show();
             }
 
-            private void clearError() {
-                input_lyt_tenKH.setError(null);
-                input_lyt_soLuongKhach.setError(null);
-                input_lyt_thoiGianDat.setError(null);
-                input_lyt_gioDat.setError(null);
-            }
         });
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,6 +293,13 @@ public class ThemHoaDonFragment extends Fragment {
                 ftbtnThem.show();
             }
         });
+    }
+
+    private void clearError() {
+        input_lyt_tenKH.setError(null);
+        input_lyt_soLuongKhach.setError(null);
+        input_lyt_thoiGianDat.setError(null);
+        input_lyt_gioDat.setError(null);
     }
 
     void goiDiaLogChonMon() {
@@ -315,6 +316,10 @@ public class ThemHoaDonFragment extends Fragment {
         DatMonAdapter adapter = new DatMonAdapter(getContext(), listMon, new InterfaceDatMon() {
             @Override
             public int getMaMon(int maMon, String soluong) {
+                if(Long.parseLong(soluong) > ValueHelper.MAX_INPUT_QUANTITY){
+                    Toast.makeText(context, "Nhập tối đa " + ValueHelper.MAX_INPUT_QUANTITY, Toast.LENGTH_SHORT).show();
+                    return -1;
+                }
                 int maHoaDonSapThem = hoaDonDAO.getMaHoaDonTiepTheo();
                 int soLuong = Integer.parseInt(soluong);
                 // Nếu nhập số lượng là 0, xoá món đó khỏi danh sách.
@@ -421,16 +426,29 @@ public class ThemHoaDonFragment extends Fragment {
             input_lyt_soLuongKhach.setError("Chưa nhập Số Lượng");
             return false;
         }
+        if (input_tenKH.getText().toString().trim().length() > ValueHelper.MAX_INPUT_NAME){
+            input_lyt_tenKH.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            return false;
+        }
+        long soLuongKhach = Long.parseLong(input_soLuongKhach.getText().toString().trim());
+        if (soLuongKhach > ValueHelper.MAX_INPUT_NUMBER
+                || soLuongKhach < ValueHelper.MIN_INPUT_NUMBER){
+            input_lyt_soLuongKhach.setError("Nhập tối thiểu " + ValueHelper.MIN_INPUT_NUMBER
+                    + " và tối đa " + ValueHelper.MAX_INPUT_NUMBER);
+            return false;
+        }
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date date = sdf.parse(input_thoiGianDat.getText().toString().trim());
             assert date != null;
             if (!input_thoiGianDat.getText().toString().trim().equals(sdf.format(date))) {
                 input_lyt_thoiGianDat.setError("Định dạng ngày sai");
+                input_lyt_thoiGianDat.requestFocus();
                 return false;
             }
         } catch (ParseException ex) {
             input_lyt_thoiGianDat.setError("Định dạng ngày sai");
+            input_lyt_thoiGianDat.requestFocus();
             return false;
         }
         try {
@@ -439,10 +457,12 @@ public class ThemHoaDonFragment extends Fragment {
             assert date != null;
             if (!input_gioDat.getText().toString().trim().equals(sdf.format(date))) {
                 input_lyt_gioDat.setError("Định dạng giờ sai");
+                input_lyt_gioDat.requestFocus();
                 return false;
             }
         } catch (ParseException ex) {
             input_lyt_gioDat.setError("Định dạng giờ sai");
+            input_lyt_gioDat.requestFocus();
             return false;
         }
         return true;

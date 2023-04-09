@@ -72,7 +72,7 @@ public class DatBanAdapter extends RecyclerView.Adapter<DatBanAdapter.DatBanView
         //Nếu hóa đơn chờ thanh toán thì hiện trống đầy
         if(trangThai == 2){
             if(banThuocHoaDon == 1){
-                holder.tvTrangThai.setText("Đã Đặt");
+                holder.tvTrangThai.setText("Đặt" + " / " + ((trangThaiDay==1)?"Đầy":"Trống"));
             } else {
                 holder.tvTrangThai.setText((trangThaiDay==1)?"Đầy":"Trống");
             }

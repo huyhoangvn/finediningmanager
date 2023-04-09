@@ -2,7 +2,7 @@ package sp23cp18103.nhom2.finedining.model;
 
 public class ThongTinThongKeKhachHang {
     private String month;
-    private int soLuong;
+    private long soLuong;
 
     public ThongTinThongKeKhachHang() {
     }
@@ -15,15 +15,15 @@ public class ThongTinThongKeKhachHang {
         this.month = month;
     }
 
-    public int getSoLuong() {
+    public long getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) {
+    public void setSoLuong(long soLuong) {
         this.soLuong = soLuong;
     }
 
-    public ThongTinThongKeKhachHang(String month, int soLuong) {
+    public ThongTinThongKeKhachHang(String month, long soLuong) {
         this.month = month;
         this.soLuong = soLuong;
     }

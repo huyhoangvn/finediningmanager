@@ -201,7 +201,6 @@ public class ThongKeDoanhThuFragment extends Fragment {
         barChart.setDragEnabled(true);
         barChart.setVisibleXRangeMaximum(8);
         barChart.invalidate();
-
     }
 
 }

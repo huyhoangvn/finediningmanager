@@ -4,9 +4,9 @@ public class ThongTinChiTietDatMon {
     private String tenMon;
     private int gia;
     private int soLuong;
-    private int thanhTien;
+    private long thanhTien;
 
-    public ThongTinChiTietDatMon(String tenMon, int gia, int soLuong, int thanhTien) {
+    public ThongTinChiTietDatMon(String tenMon, int gia, int soLuong, long thanhTien) {
         this.tenMon = tenMon;
         this.gia = gia;
         this.soLuong = soLuong;
@@ -40,11 +40,11 @@ public class ThongTinChiTietDatMon {
         this.soLuong = soLuong;
     }
 
-    public int getThanhTien() {
+    public long getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(int thanhTien) {
+    public void setThanhTien(long thanhTien) {
         this.thanhTien = thanhTien;
     }
 }

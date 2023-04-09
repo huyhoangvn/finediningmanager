@@ -27,8 +27,6 @@ public class HoaDonChiTietMonAdapter extends RecyclerView.Adapter<HoaDonChiTietM
         this.context = context;
         this.thongTinChiTietDatMonList = thongTinChiTietDatMonList;
         dao = new ThongTinChiTietDatMonDAO(context);
-        Log.d("zzzz", "HoaDonChiTietMonAdapter: "+ this.thongTinChiTietDatMonList);
-
     }
 
     @NonNull
@@ -46,7 +44,7 @@ public class HoaDonChiTietMonAdapter extends RecyclerView.Adapter<HoaDonChiTietM
 
         ThongTinChiTietDatMon ttct = thongTinChiTietDatMonList.get(position);
         holder.tvTenMon.setText(""+ttct.getTenMon());
-        holder.tvGia.setText(""+ttct.getGia()+" vnd");
+        holder.tvGia.setText(""+ttct.getGia());
         holder.tvSoLuong.setText(""+ttct.getSoLuong());
         holder.tvThanhGia.setText(""+ttct.getThanhTien());
 

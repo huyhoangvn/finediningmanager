@@ -23,7 +23,7 @@
             <TextView
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Người thanh toán: "/>
 
             <TextView
@@ -41,7 +41,7 @@
             <TextView
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Số lượng khách: "/>
 
             <TextView
@@ -59,7 +59,7 @@
             <TextView
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Nhân viên quản lý: "/>
 
             <TextView
@@ -79,7 +79,7 @@
             <TextView
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Thời gian xuất: "/>
 
             <TextView
@@ -97,7 +97,7 @@
             <TextView
                 style="@style/mLabelText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Thời gian đặt: "/>
 
             <TextView
@@ -111,7 +111,7 @@
         <TextView
             style="@style/mLabelText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Danh sách đặt món: "
             android:layout_gravity="start"/>
         <ScrollView

@@ -69,6 +69,7 @@ import sp23cp18103.nhom2.finedining.model.ThongTinDatMon;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.KeyboardHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 
 public class SuaHoaDonFragment extends Fragment {
@@ -138,18 +139,6 @@ public class SuaHoaDonFragment extends Fragment {
     }
 
     private void khoiTaoListener() {
-        input_ngayDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                    input_lyt_ngayDat.setError(null);
-            }
-        });
-        input_GioDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                input_lyt_giaDat.setError(null);
-            }
-        });
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +212,7 @@ public class SuaHoaDonFragment extends Fragment {
                     = datBanDAO.layDanhSachDatTruocBanDay(PreferencesHelper.getId(getContext()), maHD);
             if(danhSachDatTruocBanDay.size() > 0 && !Collections.disjoint(listDatbanCu, danhSachDatTruocBanDay)){
                 androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
-                builder.setTitle("Bàn Đặt Hiện Đang Sử Dụng");
+                builder.setTitle("Bàn đặt hiện đang sử dụng");
                 builder.setMessage(danhSachDatTruocBanDay.toString().replace("[","").replace("]",""));
                 builder.setCancelable(false);
                 builder.setPositiveButton("Bỏ đặt bàn đầy", new DialogInterface.OnClickListener() {
@@ -398,13 +387,25 @@ public class SuaHoaDonFragment extends Fragment {
                 getTTHoaDonSua();
                 if(rdoDaThanhToan.isChecked() || rdoHuy.isChecked()){
 
-                    input_ban.setClickable(false);
-                    input_mon.setClickable(false);
+                    input_ban.setEndIconVisible(false);
+                    input_mon.setEndIconVisible(false);
+                    input_tenKH.setEnabled(false);
+                    input_soLuongKhach.setEnabled(false);
+                    input_ngayDat.setEnabled(false);
+                    input_GioDat.setEnabled(false);
+                    input_lyt_ngayDat.setEndIconVisible(false);
+                    input_lyt_giaDat.setEndIconVisible(false);
                 }
                 if(rdoDat.isChecked() || rdoChuaThanhToan.isChecked()){
 
-                    input_ban.setClickable(true);
-                    input_mon.setClickable(true);
+                    input_ban.setEndIconVisible(true);
+                    input_mon.setEndIconVisible(true);
+                    input_tenKH.setEnabled(true);
+                    input_soLuongKhach.setEnabled(true);
+                    input_ngayDat.setEnabled(true);
+                    input_GioDat.setEnabled(true);
+                    input_lyt_ngayDat.setEndIconVisible(true);
+                    input_lyt_giaDat.setEndIconVisible(true);
                 }
             }
         });
@@ -522,6 +523,10 @@ public class SuaHoaDonFragment extends Fragment {
         SuaDatMonAdapter adapter = new SuaDatMonAdapter(getContext(), listMon,listDatMon, new InterfaceDatMon() {
             @Override
             public int getMaMon(int maMon, String soluong) {
+                if(Long.parseLong(soluong) > ValueHelper.MAX_INPUT_QUANTITY){
+                    Toast.makeText(context, "Nhập tối đa " + ValueHelper.MAX_INPUT_QUANTITY, Toast.LENGTH_SHORT).show();
+                    return -1;
+                }
                 int soLuong = Integer.parseInt(soluong);
 
                 // Nếu nhập số lượng là 0, xoá món đó khỏi danh sách.
@@ -683,16 +688,29 @@ public class SuaHoaDonFragment extends Fragment {
             input_lyt_soLuongKhach.setError("Chưa nhập Số Lượng");
             return false;
         }
+        if (input_tenKH.getText().toString().trim().length() > ValueHelper.MAX_INPUT_NAME){
+            input_lyt_tenKH.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            return false;
+        }
+        long soLuongKhach = Long.parseLong(input_soLuongKhach.getText().toString().trim());
+        if (soLuongKhach > ValueHelper.MAX_INPUT_NUMBER
+                || soLuongKhach < ValueHelper.MIN_INPUT_NUMBER){
+            input_lyt_soLuongKhach.setError("Nhập tối thiểu " + ValueHelper.MIN_INPUT_NUMBER
+                    + " và tối đa " + ValueHelper.MAX_INPUT_NUMBER);
+            return false;
+        }
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date date = sdf.parse(input_ngayDat.getText().toString().trim());
             assert date != null;
             if (!input_ngayDat.getText().toString().trim().equals(sdf.format(date))) {
                 input_lyt_ngayDat.setError("Định dạng ngày sai");
+                input_lyt_ngayDat.requestFocus();
                 return false;
             }
         } catch (ParseException ex) {
             input_lyt_ngayDat.setError("Định dạng ngày sai");
+            input_lyt_ngayDat.requestFocus();
             return false;
         }
         try {
@@ -701,31 +719,32 @@ public class SuaHoaDonFragment extends Fragment {
             assert date != null;
             if (!input_GioDat.getText().toString().trim().equals(sdf.format(date))) {
                 input_lyt_giaDat.setError("Định dạng giờ sai");
+                input_lyt_giaDat.requestFocus();
                 return false;
             }
         } catch (ParseException ex) {
             input_lyt_giaDat.setError("Định dạng giờ sai");
+            input_lyt_giaDat.requestFocus();
             return false;
         }
         return true;
     }
     private void hideError() {
-        input_tenKH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        input_tenKH.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 input_lyt_tenKH.setError(null);
             }
         });
-        input_soLuongKhach.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        input_soLuongKhach.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 input_lyt_soLuongKhach.setError(null);
             }
         });
-
-        input_ngayDat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        input_ngayDat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public void onClick(View v) {
                 input_lyt_ngayDat.setError(null);
             }
         });

@@ -40,7 +40,7 @@ public class ThongTinMonDAO {
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            ttMon.setDoanhThuMon(cursor.getLong(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
         cursor.close();
@@ -67,7 +67,7 @@ public class ThongTinMonDAO {
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            ttMon.setDoanhThuMon(cursor.getLong(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
         cursor.close();
@@ -94,7 +94,7 @@ public class ThongTinMonDAO {
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            ttMon.setDoanhThuMon(cursor.getLong(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
         cursor.close();
@@ -122,7 +122,7 @@ public class ThongTinMonDAO {
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            ttMon.setDoanhThuMon(cursor.getLong(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
         cursor.close();
@@ -151,7 +151,7 @@ public class ThongTinMonDAO {
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            ttMon.setDoanhThuMon(cursor.getLong(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
         cursor.close();
@@ -179,7 +179,7 @@ public class ThongTinMonDAO {
             ttMon.setHinhMon(cursor.getString(cursor.getColumnIndex("hinh")));
             ttMon.setTenMonThongKe(cursor.getString(cursor.getColumnIndex("tenMon")));
             ttMon.setSoLuongMon(cursor.getInt(cursor.getColumnIndex("soluongmon")));
-            ttMon.setDoanhThuMon(cursor.getInt(cursor.getColumnIndex("doanhThumon")));
+            ttMon.setDoanhThuMon(cursor.getLong(cursor.getColumnIndex("doanhThumon")));
             list.add(ttMon);
         }
         cursor.close();
