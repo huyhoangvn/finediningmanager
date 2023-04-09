@@ -124,7 +124,7 @@ public class GalleryHelper{
 
         prgLoad.show();
 
-        String fileName = DateHelper.getDateTimeSQLNow().replace(" ", "_");
+        String fileName = DateHelper.getDateTimeSecSQLNow().replace(" ", "_");
         storageReference = storageReference.child(fileName);
         storageReference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

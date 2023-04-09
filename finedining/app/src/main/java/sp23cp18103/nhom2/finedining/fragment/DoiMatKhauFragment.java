@@ -21,12 +21,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import sp23cp18103.nhom2.finedining.R;
 import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
 * Đổi mật khẩu nhân viên hiện tại
 * */
 public class DoiMatKhauFragment extends Fragment {
-    private static final String TAG = "DebugDoiMatKhau";
     private Context context;
     //Database
     private NhanVienDAO nhanVienDAO;
@@ -81,6 +81,24 @@ public class DoiMatKhauFragment extends Fragment {
     * Gán các listener cho các view
     * */
     private void khoiTaoListener() {
+        edMatKhauCu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputMatKhauCu.setError(null);
+            }
+        });
+        edMatKhauMoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputMatKhauMoi.setError(null);
+            }
+        });
+        edXacNhanMatKhau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputXacNhanMatKhau.setError(null);
+            }
+        });
         btnLuu.setOnClickListener(v -> {
             clearError();
 
@@ -89,24 +107,6 @@ public class DoiMatKhauFragment extends Fragment {
             }
 
             doiMatKhau();
-        });
-        edMatKhauCu.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                inputMatKhauCu.setError(null);
-            }
-        });
-        edMatKhauMoi.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                inputMatKhauMoi.setError(null);
-            }
-        });
-        edXacNhanMatKhau.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                inputXacNhanMatKhau.setError(null);
-            }
         });
     }
 
@@ -117,9 +117,6 @@ public class DoiMatKhauFragment extends Fragment {
         inputMatKhauCu.setError(null);
         inputMatKhauMoi.setError(null);
         inputXacNhanMatKhau.setError(null);
-        inputMatKhauCu.clearFocus();
-        inputMatKhauMoi.clearFocus();
-        inputMatKhauMoi.clearFocus();
     }
 
     /*
@@ -128,18 +125,32 @@ public class DoiMatKhauFragment extends Fragment {
     private boolean validateForm() {
         if(edMatKhauCu.getText().toString().trim().equals("")){
             inputMatKhauCu.setError("Chưa nhập mật khẩu cũ");
+            inputMatKhauCu.requestFocus();
             return false;
         }
         if(edMatKhauMoi.getText().toString().trim().equals("")){
             inputMatKhauMoi.setError("Chưa nhập mật khẩu mới");
+            inputMatKhauMoi.requestFocus();
+            return false;
+        }
+        if(edMatKhauCu.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN){
+            inputMatKhauCu.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            inputMatKhauCu.requestFocus();
+            return false;
+        }
+        if(edMatKhauMoi.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN){
+            inputMatKhauMoi.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            inputMatKhauMoi.requestFocus();
             return false;
         }
         if(edXacNhanMatKhau.getText().toString().trim().equals("")){
             inputXacNhanMatKhau.setError("Chưa nhập xác nhận mật khẩu mới");
+            inputXacNhanMatKhau.requestFocus();
             return false;
         }
         if(!edXacNhanMatKhau.getText().toString().trim().equals(edMatKhauMoi.getText().toString().trim())){
             inputXacNhanMatKhau.setError("Xác nhận mật khẩu sai");
+            inputXacNhanMatKhau.requestFocus();
             return false;
         }
         return true;
@@ -151,10 +162,11 @@ public class DoiMatKhauFragment extends Fragment {
     private void doiMatKhau() {
         if( nhanVienDAO.updateMatKhauNhanvien( PreferencesHelper.getId(context),
                 edMatKhauCu.getText().toString().trim(), edMatKhauMoi.getText().toString().trim() ) > 0 ){
+            Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+        } else {
             Toast.makeText(context, "Đổi mật khẩu thất bại", Toast.LENGTH_SHORT).show();
             inputMatKhauCu.setError("Nhập sai mật khẩu");
-        } else {
-            Toast.makeText(context, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+            inputMatKhauCu.requestFocus();
         }
     }
 }

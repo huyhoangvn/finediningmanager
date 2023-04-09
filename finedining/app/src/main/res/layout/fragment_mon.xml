@@ -30,9 +30,9 @@
         </com.google.android.material.textfield.TextInputLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvFilter"
+            style="@style/mRecyclerViewGrid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="1"
             android:orientation="horizontal"/>
 

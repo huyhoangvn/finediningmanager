@@ -41,6 +41,7 @@ import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.NumberHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Adapter để hiển thị danh sách món trong MonFragment
@@ -159,51 +160,67 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
 
                     }
                 });
+
+                edDialogTenMon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inputDialogTenMon.setError(null);
+                    }
+                });
+                edDialogGia.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inputDialogGia.setError(null);
+                    }
+                });
+
                 btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String tenMon = edDialogTenMon.getText().toString().trim();
-                        String giaMon = edDialogGia.getText().toString().trim();
-                        m.setTenMon(tenMon);
-                        if(!giaMon.isEmpty()){
-                            m.setGia(Integer.parseInt(giaMon));
-                        }
-                        if(galleryHelper.getCurrentImageUrl() == null){
-                            m.setHinh(m.getHinh());
-                        }else{
-                            m.setHinh(galleryHelper.getCurrentImageUrl());
-                        }
-                        m.setMaLM(maLoaiMon);
-                        if(chkTrangThaiMon.isChecked()){
-                            if(dao.getTuDongChuyenTrangThai(m.getMaMon(), maNV)>0){
-                                m.setTrangThai(1);
-                            }else{
-                                m.setTrangThai(1);
-                            }
-                        }else{
-                            int maMon = m.getMaMon();
-                            int maNV = PreferencesHelper.getId(context);
-                            if(dao.getTrangThaiDatMon(maMon, maNV)>0){
-                                m.setTrangThai(0);
-                            }else{
-                                m.setTrangThai(0);
-                            }
-                        }
-                        for(int i = 0; i<listLoaiMon.size(); i++){
-                            if(m.getMaMon() == (listLoaiMon.get(i).getMaLM())){
-                                positionLM = i;
-                            }
-                        }
-                        spnrialogLoaiMon.setSelection(positionLM);
-                        m.setHinh(galleryHelper.getCurrentImageUrl());
+                        inputDialogGia.setError(null);
+                        inputDialogTenMon.setError(null);
                        if(ValidateMon()>0){
-                            if(dao.updateMon(m)>0){
+                           String tenMon = edDialogTenMon.getText().toString().trim();
+                           String giaMon = edDialogGia.getText().toString().trim();
+                           m.setTenMon(tenMon);
+                           if(!giaMon.isEmpty()){
+                               m.setGia(Integer.parseInt(giaMon));
+                           }
+                           if(galleryHelper.getCurrentImageUrl() == null){
+                               m.setHinh(m.getHinh());
+                           }else{
+                               m.setHinh(galleryHelper.getCurrentImageUrl());
+                           }
+                           m.setMaLM(maLoaiMon);
+                           if(chkTrangThaiMon.isChecked()){
+                               if(dao.getTuDongChuyenTrangThai(m.getMaMon(), maNV)>0){
+                                   m.setTrangThai(1);
+                               }else{
+                                   m.setTrangThai(1);
+                               }
+                           }else{
+                               int maMon = m.getMaMon();
+                               int maNV = PreferencesHelper.getId(context);
+                               if(dao.getTrangThaiDatMon(maMon, maNV)>0){
+                                   m.setTrangThai(0);
+                               }else{
+                                   m.setTrangThai(0);
+                               }
+                           }
+                           for(int i = 0; i<listLoaiMon.size(); i++){
+                               if(m.getMaMon() == (listLoaiMon.get(i).getMaLM())){
+                                   positionLM = i;
+                               }
+                           }
+                           spnrialogLoaiMon.setSelection(positionLM);
+                           m.setHinh(galleryHelper.getCurrentImageUrl());
+                           if(dao.updateMon(m)>0){
                                 Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
-                            }else {
-                                Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
-                            }
+                           }else {
+                               Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
+                           }
                         }
                     }
                 });
@@ -239,24 +256,25 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     }
 
     public int ValidateMon(){
-        int check = 1;
-        String tenMon = edDialogTenMon.getText().toString();
-        String giaMon = edDialogGia.getText().toString();
+        String tenMon = edDialogTenMon.getText().toString().trim();
+        String giaMon = edDialogGia.getText().toString().trim();
         if(tenMon.isEmpty()){
             inputDialogTenMon.setError("Không được để trống");
-            check = -1;
-        }else if(giaMon.isEmpty()){
-            inputDialogGia.setError("Không được để trống");
-            check = -1;
-        }else{
-            try {
-                Integer.parseInt(edDialogGia.getText().toString());
-            }catch (Exception e){
-                inputDialogGia.setError("Giá không hợp lệ");
-                check = -1;
-            }
+            return 0;
         }
-        return check;
+        if(giaMon.isEmpty()){
+            inputDialogGia.setError("Không được để trống");
+            return 0;
+        }
+        if(tenMon.length() > ValueHelper.MAX_INPUT_NAME){
+            inputDialogTenMon.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            return 0;
+        }
+        if(Long.parseLong(giaMon) > ValueHelper.MAX_INPUT_NUMBER){
+            inputDialogGia.setError("Nhập giá tối đa " + ValueHelper.MAX_INPUT_NUMBER);
+            return 0;
+        }
+        return 1;
     }
     void hideFloatingButton(MonViewHolder holder){
         NhanVienDAO nhanVienDAO = new NhanVienDAO(context);

@@ -36,6 +36,7 @@ import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
 * Người dùng có vai trò quản lý có thể thêm tài khoản
@@ -172,34 +173,34 @@ public class ThemNhanVienFragment extends Fragment {
             }
         });
         //Clear Error khi focus
-        edTaiKhoan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edTaiKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                    inputTaiKhoan.setError(null);
+            public void onClick(View v) {
+                inputTaiKhoan.setError(null);
             }
         });
-        edMatKhau.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edMatKhau.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                    inputMatKhau.setError(null);
+            public void onClick(View v) {
+                inputMatKhau.setError(null);
             }
         });
-        edNgaySinh.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edNgaySinh.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                    inputNgaySinh.setError(null);
+            public void onClick(View v) {
+                inputNgaySinh.setError(null);
             }
         });
-        edSdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edSdt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                    inputSdt.setError(null);
+            public void onClick(View v) {
+                inputSdt.setError(null);
             }
         });
-        edTenNV.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        edTenNV.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                    inputTenNV.setError(null);
+            public void onClick(View v) {
+                inputTenNV.setError(null);
             }
         });
     }
@@ -258,11 +259,6 @@ public class ThemNhanVienFragment extends Fragment {
     * Xóa lỗi khi ấn nút lưu
     * */
     private void clearError() {
-        inputTaiKhoan.setError(null);
-        inputMatKhau.setError(null);
-        inputTenNV.setError(null);
-        inputSdt.setError(null);
-        inputNgaySinh.setError(null);
         inputTaiKhoan.clearFocus();
         inputMatKhau.clearFocus();
         inputTenNV.clearFocus();
@@ -282,6 +278,7 @@ public class ThemNhanVienFragment extends Fragment {
             }
             if(edMatKhau.getText().toString().trim().equals("")){
                 inputMatKhau.setError("Chưa nhập mật khẩu");
+                inputMatKhau.requestFocus();
                 return false;
             }
         }
@@ -294,27 +291,39 @@ public class ThemNhanVienFragment extends Fragment {
             inputSdt.setError("Chưa nhập số điện thoại");
             return false;
         }
-        if(edSdt.getText().toString().trim().length() != 10){
-            inputSdt.setError("Số điện thoại không hợp lệ");
-            return false;
-        }
-        if(edNgaySinh.getText().toString().trim().equals("")){
-            inputNgaySinh.setError("Chưa nhập ngày sinh");
-            return false;
-        }
-        /*
-        * Kiểm tra xem ngày có đúng định dạng tiếng việt hay không (VD: 20-01-2022)
-        * */
+        //Kiểm tra số lượng lớn
+        //Kiểm tra xem ngày có đúng định dạng tiếng việt hay không (VD: 20-01-2022)
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             Date date = sdf.parse(edNgaySinh.getText().toString().trim());
             assert date != null;
             if (!edNgaySinh.getText().toString().trim().equals(sdf.format(date))) {
                 inputNgaySinh.setError("Định dạng ngày sai");
+                inputNgaySinh.requestFocus();
                 return false;
             }
         } catch (ParseException ex) {
             inputNgaySinh.setError("Định dạng ngày sai");
+            inputNgaySinh.requestFocus();
+            return false;
+        }
+        if(maNV == 0){
+            if(edTaiKhoan.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN){
+                inputTaiKhoan.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
+                inputNgaySinh.requestFocus();
+                return false;
+            }
+            if(edMatKhau.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN){
+                inputMatKhau.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
+                return false;
+            }
+        }
+        if(edTenNV.getText().toString().trim().length() > ValueHelper.MAX_INPUT_NAME){
+            inputNgaySinh.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            return false;
+        }
+        if(edSdt.getText().toString().trim().length() != 10){
+            inputSdt.setError("Số điện thoại không hợp lệ");
             return false;
         }
         return true;

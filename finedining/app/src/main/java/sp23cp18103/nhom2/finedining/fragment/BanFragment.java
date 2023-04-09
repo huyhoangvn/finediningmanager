@@ -21,6 +21,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -55,6 +56,7 @@ import sp23cp18103.nhom2.finedining.model.Ban;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Hiển thị danh sách Bàn, thêm, sửa bàn
@@ -144,7 +146,7 @@ public class BanFragment extends Fragment {
         listloaiban = (ArrayList<LoaiBan>) loaiBanDAO.getTimKiem(PreferencesHelper.getId(getContext()),"",1);
         int count = listloaiban.size();
         if (count<=0){
-            Toast.makeText(context, "Chưa tồn tại loại bàn đang được sử dụng", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Chưa tạo loại bàn", Toast.LENGTH_SHORT).show();
             return;
         }
         banSpinnerAdapter = new BanSpinnerAdapter(getContext(), listloaiban);
@@ -159,6 +161,12 @@ public class BanFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        edViTriBan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input_viTriBan.setError(null);
+            }
+        });
         btnCancelBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,12 +176,12 @@ public class BanFragment extends Fragment {
         btnShaveBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                input_viTriBan.setError(null);
                 if (validate() > 0) {
                     Ban ban = new Ban();
                     LoaiBan loaiBan = (LoaiBan) spnrBan.getSelectedItem();
                     ban.setMaLB(loaiBan.getMaLB());
-                    ban.setViTri(edViTriBan.getText().toString());
+                    ban.setViTri(edViTriBan.getText().toString().trim());
                     // ban.setMaNV(maNV);
                     ;
                     if (chkTrangThaiBan.isChecked()) {
@@ -183,9 +191,9 @@ public class BanFragment extends Fragment {
                     }
                     if (type == 0) {
                         if (banDAO.insertban(ban) > 0) {
-                            Toast.makeText(context, "Thêm loại bàn thành công!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Thêm loại bàn thành công", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(context, "Thêm bàn chưa thành công!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Thêm bàn chưa thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                     capNhat();
@@ -210,8 +218,9 @@ public class BanFragment extends Fragment {
         if (edViTriBan.getText().toString().trim().isEmpty()) {
             input_viTriBan.setError("Không được để trống");
             return check = -1;
-        }    if (edViTriBan.getText().length()<=1 || edViTriBan.getText().length()>=35){
-            Toast.makeText(context, "Kí tự vị trí tên bàn nhỏ hơn 35 và lớn hơn 1", Toast.LENGTH_SHORT).show();
+        }
+        if (edViTriBan.getText().length() > ValueHelper.MAX_INPUT_NAME){
+            input_viTriBan.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
             check = -1;
         }
         return check;
@@ -313,6 +322,27 @@ public class BanFragment extends Fragment {
                     banAdapter.notifyDataSetChanged();
 
                 }
+            }
+        });
+        rcvFilter.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                int action = e.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        rv.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+                }
+                return false;
+            }
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
             }
         });
         rcvFilter.setAdapter(loaiBanFiterAdapter);

@@ -37,6 +37,7 @@ import sp23cp18103.nhom2.finedining.fragment.LoaiBanFragment;
 import sp23cp18103.nhom2.finedining.model.LoaiBan;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
  * Adapter để hiển thị danh sách loại bàn trong LoaiBanFragment
@@ -110,6 +111,12 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 } else {
                     chkTrangThaiLoaiBan.setChecked(false);
                 }
+                edTenLoaiBan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        input_tenLB.setError(null);
+                    }
+                });
                 btn_CancelLoaiBan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -120,10 +127,14 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                 btn_ShaveLoaiBan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        input_tenLB.setError(null);
                         String tenLoai = edTenLoaiBan.getText().toString().trim();
                         if (tenLoai.isEmpty()) {
                             input_tenLB.setError("Không được để trống");
-
+                            return;
+                        }
+                        if (tenLoai.length() > ValueHelper.MAX_INPUT_NAME) {
+                            input_tenLB.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
                             return;
                         }
                         // thuc hien chuc nang
@@ -133,7 +144,7 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                             loaiBan.setTrangThai(1);
                         } else {
                             if (dao.getlienKetTrangThai(loaiBan.getMaLB(), maNV) > 0) {
-                                Toast.makeText(context, "Còn tồn tại bàn", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Còn bàn đang sử dụng", Toast.LENGTH_SHORT).show();
                                 return;
                             } else {
                                 loaiBan.setTrangThai(0);
@@ -141,11 +152,11 @@ public class LoaiBanAdapter extends RecyclerView.Adapter<LoaiBanAdapter.LoaiBanV
                         }
 //                            loaiBan.setSoChoNgoi(Integer.parseInt(edSoChoNgoi.getText().toString()));
                         if (dao.updateloaiban(loaiBan) > 0) {
-                            Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Sửa loại bàn thành công", Toast.LENGTH_SHORT).show();
                             notifyDataSetChanged();
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(context, "Update không thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Sửa loại bàn không thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

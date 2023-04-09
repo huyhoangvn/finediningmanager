@@ -191,4 +191,13 @@ public class DateHelper {
             }
         }.show();
     }
+
+    /*
+     * Trả về ngày và giờ gồm cả giây hiện tại theo chuẩn SQL
+     * VD: 2000-30-01 09:01:00
+     * */
+    public static String getDateTimeSecSQLNow() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
+    }
 }

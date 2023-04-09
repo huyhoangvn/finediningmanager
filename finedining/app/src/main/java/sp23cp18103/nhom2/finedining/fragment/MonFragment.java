@@ -22,6 +22,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -54,6 +55,7 @@ import sp23cp18103.nhom2.finedining.model.Mon;
 import sp23cp18103.nhom2.finedining.utils.GalleryHelper;
 import sp23cp18103.nhom2.finedining.utils.ImageHelper;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
 * Hiển thị danh sách món và thêm, sửa
@@ -173,24 +175,38 @@ public class MonFragment extends Fragment {
                             galleryHelper.getImageFromGallery(imgDialogMon);
                         }
                     });
+                    edDialogTenMon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            inputDialogTenMon.setError(null);
+                        }
+                    });
+                    edDialogGia.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            inputDialogGia.setError(null);
+                        }
+                    });
                     btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String tenMon = edDialogTenMon.getText().toString();
-                            String giaMon = edDialogGia.getText().toString();
-                            m.setTenMon(tenMon);
-                            m.setMaLM(maLoaiMon);
-                            if (!giaMon.isEmpty()) {
-                                m.setGia(Integer.parseInt(giaMon));
-                            }
-                            m.setHinh(galleryHelper.getCurrentImageUrl());
-                            m.setTrangThai(1);
+                            inputDialogGia.setError(null);
+                            inputDialogTenMon.setError(null);
                             if (ValidateMon() > 0) {
+                                String tenMon = edDialogTenMon.getText().toString().trim();
+                                String giaMon = edDialogGia.getText().toString().trim();
+                                m.setTenMon(tenMon);
+                                m.setMaLM(maLoaiMon);
+                                if (!giaMon.isEmpty()) {
+                                    m.setGia(Integer.parseInt(giaMon));
+                                }
+                                m.setHinh(galleryHelper.getCurrentImageUrl());
+                                m.setTrangThai(1);
                                 if (dao.insertMon(m) > 0) {
-                                    Toast.makeText(getActivity(), "Thành công", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
                                 } else {
-                                    Toast.makeText(getActivity(), "Thất bại", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Thêm món thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             capNhat();
@@ -254,24 +270,25 @@ public class MonFragment extends Fragment {
 
     //hàm kiểm tra dữ liệu
     public int ValidateMon(){
-        int check = 1;
-        String tenMon = edDialogTenMon.getText().toString();
-        String giaMon = edDialogGia.getText().toString();
+        String tenMon = edDialogTenMon.getText().toString().trim();
+        String giaMon = edDialogGia.getText().toString().trim();
         if(tenMon.isEmpty()){
             inputDialogTenMon.setError("Không được để trống");
-            check = -1;
-        }else if(giaMon.isEmpty()){
-            inputDialogGia.setError("Không được để trống");
-            check = -1;
-        }else{
-            try {
-                Integer.parseInt(edDialogGia.getText().toString());
-            }catch (Exception e){
-                edDialogGia.setError("Giá không hợp lệ");
-                check = -1;
-            }
+            return 0;
         }
-        return check;
+        if(giaMon.isEmpty()){
+            inputDialogGia.setError("Không được để trống");
+            return 0;
+        }
+        if(tenMon.length() > ValueHelper.MAX_INPUT_NAME){
+            inputDialogTenMon.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            return 0;
+        }
+        if(Long.parseLong(giaMon) > ValueHelper.MAX_INPUT_NUMBER){
+            inputDialogGia.setError("Nhập giá tối đa " + ValueHelper.MAX_INPUT_NUMBER);
+            return 0;
+        }
+        return 1;
     }
     //hàm cập nhật recycleview tìm kiếm
     public void hienThiDanhSachMon(){
@@ -317,6 +334,27 @@ public class MonFragment extends Fragment {
                     list.addAll(dao.getLocLoaiMon(maNV, trangThai, edTimKiemMon.getText().toString().trim(), tenLoaiMon));
                     adapter.notifyDataSetChanged();
                 }
+            }
+        });
+        rcvFilter.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                int action = e.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        rv.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+                }
+                return false;
+            }
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
             }
         });
         rcvFilter.setAdapter(loaiMonFilterAdapter);

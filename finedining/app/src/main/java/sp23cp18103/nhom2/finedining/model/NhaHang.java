@@ -8,15 +8,16 @@ public class NhaHang {
     private int maNH;
     private String tenNH;
     private String diaChi;
+    private int trangThai;//0:ngưng hoạt động; 1:còn hoạt động
     private String hinh;
 
-    public NhaHang(int maNH, String tenNH, String diaChi, String hinh) {
+    public NhaHang(int maNH, String tenNH, String diaChi, int trangThai, String hinh) {
         this.maNH = maNH;
         this.tenNH = tenNH;
         this.diaChi = diaChi;
+        this.trangThai = trangThai;
         this.hinh = hinh;
     }
-//
 
     public NhaHang() {
     }
@@ -51,6 +52,14 @@ public class NhaHang {
 
     public void setHinh(String hinh) {
         this.hinh = hinh;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     @Override

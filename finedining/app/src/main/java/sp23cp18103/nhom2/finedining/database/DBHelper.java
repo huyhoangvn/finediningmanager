@@ -31,16 +31,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void insertNhaHang(SQLiteDatabase db) {
         String sqlInsertNhaHang = "INSERT INTO nhahang VALUES " +
-                "( 1, 'Ratatouille', 'Hà Nội', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/nhahang1.jpg?alt=media&token=137f614a-6bcb-449c-a2c5-0018f5dd79d1'), " +
-                "( 2, 'Golden Ramsey', 'TP Hồ Chí Minh', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/nhahang2.jpg?alt=media&token=06dd917b-5504-415d-9834-f9c5974eb10c')";
+                "( 1, 'Ratatouille', 'Hà Nội', 1, 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/nhahang1.jpg?alt=media&token=137f614a-6bcb-449c-a2c5-0018f5dd79d1'), " +
+                "( 2, 'Golden Ramsey', 'TP Hồ Chí Minh', 1, 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/nhahang2.jpg?alt=media&token=06dd917b-5504-415d-9834-f9c5974eb10c')";
         db.execSQL(sqlInsertNhaHang);
     }
 
     private void insertNhanVienQuanLy(SQLiteDatabase db) {
         String sqlInsertNhanVienQuanLy = "INSERT INTO nhanvien VALUES " +
-                "(1, 1, 'Nguyễn Huy Hoàng', 2, '2002-01-10', '0933765999', 1, 1, 'myadmin', 'admin', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).jpg?alt=media&token=b6e07e36-e6ec-4ecb-8230-5d71f6cb7d05'), " +
+                "(1, 1, 'Nguyễn Huy Hoàng', 2, '2002-01-10', '0933765999', 1, 1, 'myadmin', 'admin1', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).jpg?alt=media&token=b6e07e36-e6ec-4ecb-8230-5d71f6cb7d05'), " +
                 "(2, 1, 'Hồ Ngọc Hà', 0, '1990-02-11', '0933763999', 1, 1, 'hongocha', 'hongocha', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).png?alt=media&token=0b952486-4509-49b3-a9e7-6ae91e1ad2d2'), " +
-                "(3, 2, 'Đặng Hoàng Giang', 1, '1988-12-13', '0933765999', 1, 1, 'notadmin', 'admin', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(2).png?alt=media&token=b22c78f2-78e8-4196-ab16-c200e2e600a9') ";
+                "(3, 2, 'Đặng Hoàng Giang', 1, '1988-12-13', '0933765999', 1, 1, 'notadmin', 'admin1', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(2).png?alt=media&token=b22c78f2-78e8-4196-ab16-c200e2e600a9') ";
         db.execSQL(sqlInsertNhanVienQuanLy);
     }
 
@@ -180,13 +180,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /*
     * Tạo bảng nhà hàng
-    * nhahang ( maNH, tenNH, diaChi, hinh )
+    * nhahang ( maNH, tenNH, diaChi, trangThai, hinh )
     * */
     private void createTableNhahang(SQLiteDatabase db) {
         String sql = "CREATE TABLE nhahang(" +
                 "maNH INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tenNH TEXT NOT NULL," +
                 "diaChi TEXT NOT NULL," +
+                "trangThai NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "hinh TEXT)";
         db.execSQL(sql);
     }

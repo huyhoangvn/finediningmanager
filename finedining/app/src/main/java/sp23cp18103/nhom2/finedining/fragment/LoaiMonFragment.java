@@ -43,6 +43,7 @@ import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.model.LoaiMon;
 import sp23cp18103.nhom2.finedining.model.NhanVien;
 import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
+import sp23cp18103.nhom2.finedining.utils.ValueHelper;
 
 /*
 * Hiển thị danh sách loại món và thêm sửa
@@ -108,9 +109,16 @@ public class LoaiMonFragment extends Fragment {
                 chkDialogTrangThaiLoaiMon.setVisibility(View.GONE);
                 Dialog dialog= builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                edTenLoaiMon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        inputDialogTenLoaiMon.setError(null);
+                    }
+                });
                 btnDialogLuuLoaiMon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        inputDialogTenLoaiMon.setError(null);
                         LoaiMon lm = new LoaiMon();
                         int maNV = PreferencesHelper.getId(getContext());
                         lm.setMaNV(maNV);
@@ -118,10 +126,10 @@ public class LoaiMonFragment extends Fragment {
                         lm.setTrangThai(1);
                         if(ValidateLM()>0){
                             if(dao.insertLoaiMon(lm)>0){
-                                Toast.makeText(getActivity(), "Thêm thành công ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Thêm loại món thành công", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }else{
-                                Toast.makeText(getActivity(), "Thêm thất bại ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Thêm loại món thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }
                         capNhat();
@@ -187,13 +195,16 @@ public class LoaiMonFragment extends Fragment {
     }
     //hàm kiểm tra dữ liệu
     public int ValidateLM(){
-        int check = 1;
-        String tenLM = edTenLoaiMon.getText().toString();
+        String tenLM = edTenLoaiMon.getText().toString().trim();
         if(tenLM.isEmpty()){
             inputDialogTenLoaiMon.setError("Không được để trống");
-            check = -1;
+            return 0;
         }
-        return check;
+        if(tenLM.length() > ValueHelper.MAX_INPUT_NAME){
+            inputDialogTenLoaiMon.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_NAME + " kí tự");
+            return 0;
+        }
+        return 1;
     }
     //hàm cập nhật recycleview cho hàm tìm kiếm
     public void hiemThiDanhSachLM(){
