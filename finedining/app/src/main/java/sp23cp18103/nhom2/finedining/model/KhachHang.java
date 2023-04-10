@@ -9,18 +9,14 @@ public class KhachHang {
     private String tenKH;
     private int gioiTinh;//1:"Nam", 2:"Nữ", 0:"Khác"
     private String sdt;//Số điện thoại
-    private String taiKhoan;//Hiện tại chưa dùng
-    private String matKhau;//Hiện tại chưa dùng
-    private String hinh;
+    private int trangThai;//0:"Khách thường", 1:"Thành viên"
 
-    public KhachHang(int maKH, String tenKH, int gioiTinh, String sdt, String taiKhoan, String matKhau, String hinh) {
+    public KhachHang(int maKH, String tenKH, int gioiTinh, String sdt, int trangThai) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.gioiTinh = gioiTinh;
         this.sdt = sdt;
-        this.taiKhoan = taiKhoan;
-        this.matKhau = matKhau;
-        this.hinh = hinh;
+        this.trangThai = trangThai;
     }
 
     public KhachHang() {
@@ -58,28 +54,12 @@ public class KhachHang {
         this.sdt = sdt;
     }
 
-    public String getTaiKhoan() {
-        return taiKhoan;
+    public int getTrangThai() {
+        return trangThai;
     }
 
-    public void setTaiKhoan(String taiKhoan) {
-        this.taiKhoan = taiKhoan;
-    }
-
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
-    public String getHinh() {
-        return hinh;
-    }
-
-    public void setHinh(String hinh) {
-        this.hinh = hinh;
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
 
     /*
@@ -93,6 +73,19 @@ public class KhachHang {
             return "Nữ";
         } else {
             return "Khác";
+        }
+    }
+
+    /*
+     * Trả về tên của của giới tính
+     * 1:"Khách thường", 2:"Thành viên"
+     * */
+    public String getTenTrangThai(){
+        if ( this.trangThai == 1 ) {
+            return "Thành viên";
+        }
+        else {
+            return "Khách thường";
         }
     }
 

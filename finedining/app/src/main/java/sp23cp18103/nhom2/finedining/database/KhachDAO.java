@@ -25,11 +25,17 @@ public class KhachDAO {
     public long insert(KhachHang obj){
         ContentValues values=new ContentValues();
         values.put("tenKH",obj.getTenKH());
+        values.put("gioiTinh", obj.getGioiTinh());
+        values.put("sdt", obj.getSdt());
+        values.put("trangThai", obj.getTrangThai());
         return db.insert("khachhang",null,values);
     }
     public int updateKhachHang(KhachHang obj){
         ContentValues values=new ContentValues();
         values.put("tenKH",obj.getTenKH());
+        values.put("gioiTinh", obj.getGioiTinh());
+        values.put("sdt", obj.getSdt());
+        values.put("trangThai", obj.getTrangThai());
         return db.update("khachhang",values,"maKH=?",new String[]{String.valueOf(obj.getMaKH())});
 
     }
@@ -129,11 +135,9 @@ public class KhachDAO {
             KhachHang obj = new KhachHang();
             obj.setMaKH(Integer.parseInt(c.getString(c.getColumnIndex("maKH"))));
             obj.setTenKH(c.getString(c.getColumnIndex("tenKH")));
-            obj.setGioiTinh(Integer.parseInt(c.getString(c.getColumnIndex("gioiTinh"))));
+            obj.setGioiTinh(c.getInt(c.getColumnIndex("gioiTinh")));
             obj.setSdt(c.getString(c.getColumnIndex("sdt")));
-            obj.setTaiKhoan(c.getString(c.getColumnIndex("taiKhoan")));
-            obj.setMatKhau(c.getString(c.getColumnIndex("matKhau")));
-            obj.setHinh(c.getString(c.getColumnIndex("hinh")));
+            obj.setTrangThai(c.getInt(c.getColumnIndex("trangThai")));
             list.add(obj);
         }
         return list;

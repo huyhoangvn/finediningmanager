@@ -143,7 +143,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /*
     * Tạo bảng khách hàng
-    * khachhang ( maKH, tenKH, gioiTinh, sdt, taiKhoan, matKhau, hinh )
+    * khachhang ( maKH, tenKH, gioiTinh, sdt, trangThai )
     * */
     private void createTableKhachhang(SQLiteDatabase db) {
         String sql = "CREATE TABLE khachhang(" +
@@ -151,9 +151,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "tenKH TEXT NOT NULL," +
                 "gioiTinh INTEGER CHECK (gioiTinh = 1 OR gioiTinh = 2 OR gioiTinh = 0)," +
                 "sdt TEXT," +
-                "taiKhoan TEXT UNIQUE," +
-                "matKhau TEXT," +
-                "hinh TEXT)";
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0))";
         db.execSQL(sql);
     }
 
