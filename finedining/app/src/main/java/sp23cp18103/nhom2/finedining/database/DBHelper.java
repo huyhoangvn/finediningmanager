@@ -185,7 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "maNH INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "tenNH TEXT NOT NULL," +
                 "diaChi TEXT NOT NULL," +
-                "trangThai NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
+                "trangThai INTEGER NOT NULL CHECK (trangThai = 1 OR trangThai = 0)," +
                 "hinh TEXT)";
         db.execSQL(sql);
     }
