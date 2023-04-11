@@ -308,13 +308,15 @@ public class ThemNhanVienFragment extends Fragment {
             return false;
         }
         if(maNV == 0){
-            if(edTaiKhoan.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN){
-                inputTaiKhoan.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
+            if(edTaiKhoan.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN
+                    && edTaiKhoan.getText().toString().trim().length() < ValueHelper.MIN_INPUT_LOGIN){
+                inputTaiKhoan.setError("Nhập tối thiểu " + ValueHelper.MAX_INPUT_LOGIN + " và tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
                 inputNgaySinh.requestFocus();
                 return false;
             }
-            if(edMatKhau.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN){
-                inputMatKhau.setError("Nhập tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
+            if(edMatKhau.getText().toString().trim().length() > ValueHelper.MAX_INPUT_LOGIN
+                    && edMatKhau.getText().toString().trim().length() < ValueHelper.MIN_INPUT_LOGIN){
+                inputMatKhau.setError("Nhập tối thiểu " + ValueHelper.MAX_INPUT_LOGIN + " và tối đa " + ValueHelper.MAX_INPUT_LOGIN + " kí tự");
                 return false;
             }
         }
