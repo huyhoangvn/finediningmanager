@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,8 +131,7 @@ public class NhanVienFragment extends Fragment {
                         .add(R.id.lyt_fNhanVienCollection_fragmentManager, new ThemNhanVienFragment(maNV))
                         .addToBackStack(null)
                         .commit();
-                FloatingActionButton ftbtnThemNhanVien = getActivity().findViewById(R.id.ftbtn_fNhanVien_them);
-                ftbtnThemNhanVien.hide();
+                fbtnThemNhanVien.hide();
             }
 
             @Override

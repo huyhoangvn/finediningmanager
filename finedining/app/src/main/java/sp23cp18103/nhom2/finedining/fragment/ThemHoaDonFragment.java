@@ -272,11 +272,10 @@ public class ThemHoaDonFragment extends Fragment {
                 themDatBan();
                 themDatMon();
 
-                Toast.makeText(getContext(), "luu thanh cong", Toast.LENGTH_SHORT).show();
                 input_tenKH.setText("");
                 input_soLuongKhach.setText("");
-                input_thoiGianDat.setText("");
-                input_gioDat.setText("");
+                input_thoiGianDat.setText(DateHelper.getDateVietnamNow());
+                input_gioDat.setText(DateHelper.getTimeNow());
                 input_ban.getEditText().setText("");
                 input_mon.getEditText().setText("");
 

@@ -100,14 +100,16 @@ public class MonFragment extends Fragment {
         dao = new MonDAO(getContext());
         rcvFilter = view.findViewById(R.id.rcvFilter);
         loaiMonDAO = new LoaiMonDAO(getContext());
-        Mon m = new Mon();
+        //Tạo rcv
+        int maNV = PreferencesHelper.getId(getContext());
+        int trangThai = (chkFragmentMon.isChecked())?0:1;
+        list = dao.getLocLoaiMon(maNV, trangThai, "", bienLoc);
+        adapter = new MonAdapter(getContext(), list);
+        rcvMon.setAdapter(adapter);
+
         timKiemMon();
-        capNhat();
         hienThiFilter();
         getPhanQuyen();
-
-
-
 
         chkFragmentMon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -123,6 +125,7 @@ public class MonFragment extends Fragment {
         fabMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Mon m = new Mon();
                 int maNV = PreferencesHelper.getId(getContext());
                 listLoaiMon = (ArrayList<LoaiMon>) loaiMonDAO.trangThaiLoaiMon(maNV, 1, "");
                 int count = listLoaiMon.size();
@@ -200,16 +203,21 @@ public class MonFragment extends Fragment {
                                 if (!giaMon.isEmpty()) {
                                     m.setGia(Integer.parseInt(giaMon));
                                 }
-                                m.setHinh(galleryHelper.getCurrentImageUrl());
+                                if(galleryHelper.getCurrentImageUrl() == null){
+                                    m.setHinh(null);
+                                } else {
+                                    m.setHinh(galleryHelper.getCurrentImageUrl());
+                                }
                                 m.setTrangThai(1);
                                 if (dao.insertMon(m) > 0) {
                                     Toast.makeText(getActivity(), "Thêm món thành công", Toast.LENGTH_SHORT).show();
+                                    galleryHelper.clearCurrentImageUrl();
+                                    hienThiDanhSachMon();
                                     dialog.dismiss();
                                 } else {
                                     Toast.makeText(getActivity(), "Thêm món thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }
-                            capNhat();
                         }
                     });
                     btnDialogHuyMon.setOnClickListener(new View.OnClickListener() {
@@ -291,21 +299,23 @@ public class MonFragment extends Fragment {
         return 1;
     }
     //hàm cập nhật recycleview tìm kiếm
+    @SuppressLint("NotifyDataSetChanged")
     public void hienThiDanhSachMon(){
         int maNV = PreferencesHelper.getId(getContext());
         int trangThai = (chkFragmentMon.isChecked())?0:1;
         String timKiem = edTimKiemMon.getText().toString().trim();
-            list = dao.getLocLoaiMon(maNV, trangThai, timKiem, bienLoc);
-            adapter = new MonAdapter(getActivity(), list);
-            rcvMon.setAdapter(adapter);
+        list.clear();
+        list.addAll(dao.getLocLoaiMon(maNV, trangThai, timKiem, bienLoc));
+        adapter.notifyDataSetChanged();
     }
     //hàm cập nhật recycleview
+    @SuppressLint("NotifyDataSetChanged")
     void capNhat(){
         int maNV = PreferencesHelper.getId(getContext());
         int trangThai = (chkFragmentMon.isChecked())?0:1;
-        list = dao.getLocLoaiMon(maNV, trangThai, "", bienLoc);
-        adapter = new MonAdapter(getContext(), list);
-        rcvMon.setAdapter(adapter);
+        list.clear();
+        list.addAll(dao.getLocLoaiMon(maNV, trangThai, "", bienLoc));
+        adapter.notifyDataSetChanged();
     }
     //hàm cập nhật listFilter
     private void hienThiFilter() {
