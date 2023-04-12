@@ -25,7 +25,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Log.d("TAG", "onCreate: "+NumberHelper.getNumberWithDecimal(999999999));
         img_logo = findViewById(R.id.img_logo);
         img_load = findViewById(R.id.img_load);
 

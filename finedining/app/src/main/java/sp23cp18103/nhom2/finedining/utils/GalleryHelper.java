@@ -165,4 +165,11 @@ public class GalleryHelper{
     public String getCurrentImageUrl() {
         return currentImageUrl;
     }
+
+    /*
+    * Xóa url ảnh hiện tại
+    * */
+    public void clearCurrentImageUrl(){
+        currentImageUrl = null;
+    }
 }

@@ -69,6 +69,7 @@ public class ThemNhanVienFragment extends Fragment {
     private CheckBox chkTrangThai;
     private Button btnLuu;
     private Button btnHuy;
+    private FloatingActionButton ftbtnThemNhanVien;
     //variables
     private final int maNV;//Lưu trữ mã nhân viên đang sửa
 //    private String avatarUrl;//Lưu trữ hình ảnh avatar hiện tại đang hiển thị
@@ -126,6 +127,7 @@ public class ThemNhanVienFragment extends Fragment {
         chkTrangThai = view.findViewById(R.id.chk_fThemNhanVien_trangThai);
         btnLuu = view.findViewById(R.id.btn_fThemNhanVien_luu);
         btnHuy = view.findViewById(R.id.btn_fThemNhanVien_huy);
+        ftbtnThemNhanVien = view.getRootView().findViewById(R.id.ftbtn_fNhanVien_them);
     }
 
     /*
@@ -153,7 +155,6 @@ public class ThemNhanVienFragment extends Fragment {
             public void onClick(View v) {
                 fmNhanVien.popBackStack();
                 if(nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) == 1){
-                    FloatingActionButton ftbtnThemNhanVien = getActivity().findViewById(R.id.ftbtn_fNhanVien_them);
                     ftbtnThemNhanVien.show();
                 }
             }

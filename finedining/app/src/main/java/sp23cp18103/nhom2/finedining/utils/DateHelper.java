@@ -86,8 +86,8 @@ public class DateHelper {
             return sdf.format(Objects.requireNonNull(new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(dateTimeVietnam)));
         } catch (ParseException e) {
             e.printStackTrace();
+            return "";
         }
-        return "0000-00-00 00:00";
     }
 
     /*
@@ -101,8 +101,8 @@ public class DateHelper {
             return sdf.format(Objects.requireNonNull(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateTimeSql)));
         } catch (ParseException e) {
             e.printStackTrace();
+            return "";
         }
-        return "0000-00-00 00:00";
     }
 
     /*
@@ -116,8 +116,8 @@ public class DateHelper {
             return sdf.format(Objects.requireNonNull(new SimpleDateFormat("dd-MM-yyyy").parse(dateVietnam)));
         } catch (ParseException e) {
             e.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     /*
@@ -131,8 +131,8 @@ public class DateHelper {
             return sdf.format(Objects.requireNonNull(new SimpleDateFormat("yyyy-MM-dd").parse(dateSql)));
         } catch (ParseException e) {
             e.printStackTrace();
+            return "";
         }
-        return "0000-00-00";
     }
 
     /*

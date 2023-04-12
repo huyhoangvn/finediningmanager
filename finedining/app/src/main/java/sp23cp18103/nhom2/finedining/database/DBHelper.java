@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private void insertNhanVienQuanLy(SQLiteDatabase db) {
         String sqlInsertNhanVienQuanLy = "INSERT INTO nhanvien VALUES " +
                 "(1, 1, 'Nguyễn Huy Hoàng', 2, '2002-01-10', '0933765999', 1, 1, 'myadmin', 'admin1', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).jpg?alt=media&token=b6e07e36-e6ec-4ecb-8230-5d71f6cb7d05'), " +
-                "(2, 1, 'Hồ Ngọc Hà', 0, '1990-02-11', '0933763999', 1, 1, 'hongocha', 'hongocha', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).png?alt=media&token=0b952486-4509-49b3-a9e7-6ae91e1ad2d2'), " +
+                "(2, 1, 'Hồ Ngọc Hà', 0, '1990-02-11', '0933763999', 0, 1, 'hongocha', 'hongocha', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(1).png?alt=media&token=0b952486-4509-49b3-a9e7-6ae91e1ad2d2'), " +
                 "(3, 2, 'Đặng Hoàng Giang', 1, '1988-12-13', '0933765999', 1, 1, 'notadmin', 'admin1', 'https://firebasestorage.googleapis.com/v0/b/fine-dining-66f4b.appspot.com/o/anhnhanvien%20(2).png?alt=media&token=b22c78f2-78e8-4196-ab16-c200e2e600a9') ";
         db.execSQL(sqlInsertNhanVienQuanLy);
     }

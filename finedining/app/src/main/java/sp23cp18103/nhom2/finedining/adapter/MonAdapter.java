@@ -74,7 +74,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MonViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MonViewHolder holder, @SuppressLint("RecyclerView") int position) {
         hideFloatingButton(holder);
         Mon m =list.get(position);
         nhanVienDAO = new NhanVienDAO(context);
@@ -175,36 +175,38 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                 });
 
                 btnDialogLuuMon.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void onClick(View v) {
                         inputDialogGia.setError(null);
                         inputDialogTenMon.setError(null);
                        if(ValidateMon()>0){
+                           Mon monThem = new Mon();
                            String tenMon = edDialogTenMon.getText().toString().trim();
                            String giaMon = edDialogGia.getText().toString().trim();
-                           m.setTenMon(tenMon);
+                           monThem.setMaMon(m.getMaMon());
+                           monThem.setTenMon(tenMon);
                            if(!giaMon.isEmpty()){
-                               m.setGia(Integer.parseInt(giaMon));
+                               monThem.setGia(Integer.parseInt(giaMon));
                            }
                            if(galleryHelper.getCurrentImageUrl() == null){
-                               m.setHinh(m.getHinh());
+                               monThem.setHinh(m.getHinh());
                            }else{
-                               m.setHinh(galleryHelper.getCurrentImageUrl());
+                               monThem.setHinh(galleryHelper.getCurrentImageUrl());
                            }
-                           m.setMaLM(maLoaiMon);
+                           monThem.setMaLM(maLoaiMon);
                            if(chkTrangThaiMon.isChecked()){
                                if(dao.getTuDongChuyenTrangThai(m.getMaMon(), maNV)>0){
-                                   m.setTrangThai(1);
+                                   monThem.setTrangThai(1);
                                }else{
-                                   m.setTrangThai(1);
+                                   monThem.setTrangThai(1);
                                }
                            }else{
-                               int maMon = m.getMaMon();
                                int maNV = PreferencesHelper.getId(context);
-                               if(dao.getTrangThaiDatMon(maMon, maNV)>0){
-                                   m.setTrangThai(0);
+                               if(dao.getTrangThaiDatMon(m.getMaMon(), maNV)>0){
+                                   monThem.setTrangThai(0);
                                }else{
-                                   m.setTrangThai(0);
+                                   monThem.setTrangThai(0);
                                }
                            }
                            for(int i = 0; i<listLoaiMon.size(); i++){
@@ -213,11 +215,12 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                                }
                            }
                            spnrialogLoaiMon.setSelection(positionLM);
-                           m.setHinh(galleryHelper.getCurrentImageUrl());
-                           if(dao.updateMon(m)>0){
+                           if(dao.updateMon(monThem)>0){
                                 Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
-                                dialog.dismiss();
+                               list.set(position, monThem);
+                               notifyDataSetChanged();
+                               galleryHelper.clearCurrentImageUrl();
+                               dialog.dismiss();
                            }else {
                                Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
                            }
