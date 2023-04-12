@@ -18,8 +18,7 @@ Phần mềm quản lý nhà hàng cao cấp</br>
 	+ Bước 4: Nhấn vào file “app-debug.apk” đã tải về rồi chọn cài đặt.</br>
 	+ Bước 5: Chạy ứng dụng có tên “finediningmanager” đã được cài đặt trên điện thoại</br>
 
-5.Hướng dẫn sử dụng (Đọc hướng dẫn "Guide.docx" để có hướng dẫn chi tiết)</br>
-	+ Tài khoản quản lý được tạo khi mới đăng nhập vào ứng dụng(myadmin : admin1)</br>
-	+ Người dùng admin thêm nhân viên, loại bàn, bàn, món,loại món, hoá đơn khi đăng nhập thành công </br>
-  + Khi đăng nhập với phân quyền nhân viên, nhân viên đư thêm hoá đơn và sửa trạng thái cửa hoá đơn</br>
-	+ Khi có Hoá Đơn có thể dùng các chức năng thống kê</br>
+5.Hướng dẫn sử dụng</br>
+	+Tài khoản quản lý mẫu được tạo khi mới đăng nhập vào ứng dụng (tài khoản "myadmin", mật khẩu "admin1").Người dùng admin thêm nhân viên, loại bàn, bàn, món,loại món, hoá đơn khi đăng nhập thành công </br>
+        +Tài khoản phục vụ mẫu được tạo khi mới đăng nhập vào ứng dụng (tài khoản "hongocha", mật khẩu "hongocha").Người dùng phục vụ được xem danh sách nhưng không được thêm và chỉ có thống kê món</br>
+	
