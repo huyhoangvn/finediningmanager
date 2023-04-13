@@ -125,8 +125,8 @@ public class GalleryHelper{
         prgLoad.show();
 
         String fileName = DateHelper.getDateTimeSecSQLNow().replace(" ", "_");
-        storageReference = storageReference.child(fileName);
-        storageReference.putFile(uri)
+        StorageReference referenceChild = storageReference.child(fileName);
+        referenceChild.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
