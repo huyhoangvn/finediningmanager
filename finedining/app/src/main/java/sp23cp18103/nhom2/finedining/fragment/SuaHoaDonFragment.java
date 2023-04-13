@@ -278,7 +278,6 @@ public class SuaHoaDonFragment extends Fragment {
         listDatbanCu = new ArrayList<>();
         listDatbanMoi = new ArrayList<>();
         listDatMon = new ArrayList<>();
-
     }
     private void getTTHoaDon() {
        khachDAO = new KhachDAO(getContext());
@@ -319,6 +318,12 @@ public class SuaHoaDonFragment extends Fragment {
         }
         if (trangThai==0){
             rdoHuy.setChecked(true);
+        }
+        if(rdoChuaThanhToan.isChecked()){
+            input_ngayDat.setEnabled(false);
+            input_GioDat.setEnabled(false);
+            input_lyt_ngayDat.setEndIconVisible(false);
+            input_lyt_giaDat.setEndIconVisible(false);
         }
     }
     private void getTTHoaDonSua() {
@@ -386,7 +391,6 @@ public class SuaHoaDonFragment extends Fragment {
                 hienThiMonDaDat();
                 getTTHoaDonSua();
                 if(rdoDaThanhToan.isChecked() || rdoHuy.isChecked()){
-
                     input_ban.setEndIconVisible(false);
                     input_mon.setEndIconVisible(false);
                     input_tenKH.setEnabled(false);
@@ -396,8 +400,17 @@ public class SuaHoaDonFragment extends Fragment {
                     input_lyt_ngayDat.setEndIconVisible(false);
                     input_lyt_giaDat.setEndIconVisible(false);
                 }
-                if(rdoDat.isChecked() || rdoChuaThanhToan.isChecked()){
-
+                if(rdoChuaThanhToan.isChecked()){
+                    input_ban.setEndIconVisible(true);
+                    input_mon.setEndIconVisible(true);
+                    input_tenKH.setEnabled(true);
+                    input_soLuongKhach.setEnabled(true);
+                    input_ngayDat.setEnabled(false);
+                    input_GioDat.setEnabled(false);
+                    input_lyt_ngayDat.setEndIconVisible(false);
+                    input_lyt_giaDat.setEndIconVisible(false);
+                }
+                if(rdoDat.isChecked()){
                     input_ban.setEndIconVisible(true);
                     input_mon.setEndIconVisible(true);
                     input_tenKH.setEnabled(true);
