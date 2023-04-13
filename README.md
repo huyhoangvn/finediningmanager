@@ -12,9 +12,8 @@ Phần mềm quản lý nhà hàng cao cấp</br>
 	+ Target SDK version 32</br>
 
 3.Cài Đặt</br>
-	+ Bước 1: Sao chép trực tiếp file “app-debug.apk” vào thiết bị di động của bạn </br>
-	          Hoặc nhập đường link liên kết “https://appho.st/d/kObUYPXW” vào trình duyệt tìm kiếm trên di động để tải file về.
-  	+ Bước 3: nếu chưa cấp quyền cài đặt vào cài đặt cấp quền cho phép cài đặt ứng dụng từ trình duyệt </br>    
+	+ Bước 1: Sao chép trực tiếp file “app-debug.apk” vào thiết bị di động của bạn. Hoặc nhập đường link liên kết “https://appho.st/d/kObUYPXW” vào trình duyệt tìm kiếm trên di động để tải file về.</br>
+  	+ Bước 3: nếu chưa cấp quyền cài đặt vào cài đặt cấp quền cho phép cài đặt ứng dụng từ trình duyệt.</br>
 	+ Bước 4: Nhấn vào file “app-debug.apk” đã tải về rồi chọn cài đặt.</br>
 	+ Bước 5: Chạy ứng dụng có tên “finediningmanager” đã được cài đặt trên điện thoại</br>
 
