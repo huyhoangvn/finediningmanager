@@ -216,7 +216,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MonViewHolder>{
                            }
                            spnrialogLoaiMon.setSelection(positionLM);
                            if(dao.updateMon(monThem)>0){
-                                Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
                                list.set(position, monThem);
                                notifyDataSetChanged();
                                galleryHelper.clearCurrentImageUrl();
