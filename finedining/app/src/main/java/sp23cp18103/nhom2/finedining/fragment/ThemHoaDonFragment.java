@@ -35,6 +35,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +83,7 @@ public class ThemHoaDonFragment extends Fragment {
     Context context;
     TextInputEditText input_tenKH,input_soLuongKhach,input_thoiGianDat,input_gioDat;
     RadioButton rdoChuaThanhToan,rdoDangDuocDat;
+    RadioGroup rdoGroupTrangThai;
     TextInputLayout  input_mon,input_ban,input_lyt_thoiGianDat,input_lyt_gioDat,input_lyt_tenKH,input_lyt_soLuongKhach;
     TextView tvTieuDe;
     AppCompatButton btnLuu, btnHuy;
@@ -145,6 +147,7 @@ public class ThemHoaDonFragment extends Fragment {
         input_gioDat = view.findViewById(R.id.input_gioDat_them_FragmentThemHoaDon);
         input_lyt_tenKH = view.findViewById(R.id.input_tenKhachHang_lyt_them_FragmentThemHoaDon);
         input_lyt_soLuongKhach = view.findViewById(R.id.input_soLuongKhach_lyt_them_FragmentThemHoaDon);
+        rdoGroupTrangThai = view.findViewById(R.id.rdoGroup_ThemHoaDon);
         tvTieuDe.setText("Thêm Hóa Đơn");
     }
 
@@ -163,6 +166,11 @@ public class ThemHoaDonFragment extends Fragment {
         datMon = new DatMon();
         datBan = new DatBan();
         hoaDon = new HoaDon();
+        //Default
+        input_gioDat.setEnabled(false);
+        input_thoiGianDat.setEnabled(false);
+        input_lyt_thoiGianDat.setEndIconVisible(false);
+        input_lyt_gioDat.setEndIconVisible(false);
     }
 
 
@@ -217,19 +225,24 @@ public class ThemHoaDonFragment extends Fragment {
     }
 
     private void khoiTaoListenerTrangThai() {
-        rdoChuaThanhToan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        rdoGroupTrangThai.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 input_ban.getEditText().setText("");
                 listDatbanCu.clear();
                 khoiTaoDefault();
-            }
-        });
-        rdoDangDuocDat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                input_ban.getEditText().setText("");
-                listDatbanCu.clear();
+                if(rdoChuaThanhToan.isChecked()){
+                    input_gioDat.setEnabled(false);
+                    input_thoiGianDat.setEnabled(false);
+                    input_lyt_thoiGianDat.setEndIconVisible(false);
+                    input_lyt_gioDat.setEndIconVisible(false);
+                }
+                if(rdoDangDuocDat.isChecked()){
+                    input_gioDat.setEnabled(true);
+                    input_thoiGianDat.setEnabled(true);
+                    input_lyt_thoiGianDat.setEndIconVisible(true);
+                    input_lyt_gioDat.setEndIconVisible(true);
+                }
             }
         });
     }
