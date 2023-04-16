@@ -34,6 +34,9 @@
         <item name="colorOnSurfaceVariant">@color/Dark_OnSurfaceVariant</item>
         <!--Status bar color-->
         <item name="android:statusBarColor">@color/Light_Secondary</item>
+        <!--Custom-->
+        <!--        <item name="android:windowBackground">@drawable/dialog_background</item>-->
+        <item name="fontFamily">@font/googlesan_medium</item>
     </style>
 
 </resources>
