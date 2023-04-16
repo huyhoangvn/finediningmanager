@@ -268,9 +268,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //set phân quyền
         if (chuVu == 1){
-            tvChucVu.setText("Quản lý");
+            tvChucVu.setText("Quản Lý");
         }else {
-            tvChucVu.setText("Nhân viên");
+            tvChucVu.setText("Phục Vụ");
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.mn_doanhthu).setVisible(false);
             menu.findItem(R.id.mn_tongkhach).setVisible(false);

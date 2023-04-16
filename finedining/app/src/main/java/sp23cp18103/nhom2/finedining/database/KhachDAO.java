@@ -105,6 +105,7 @@ public class KhachDAO {
                 " JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
                 " WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? )" +
                 " AND hd.trangThai = 3 " +
+                "AND strftime('%Y',hd.thoiGianDat) LIKE strftime('%Y', date('now'))" +
                 " ORDER BY ngayNhoNhat DESC LIMIT 1";
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
         if (c.moveToNext()){
@@ -119,6 +120,7 @@ public class KhachDAO {
                 " JOIN nhanvien as nv ON nv.maNV = hd.maNV " +
                 " WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? )" +
                 " AND hd.trangThai = 3 " +
+                "AND strftime('%Y',hd.thoiGianDat) LIKE strftime('%Y', date('now'))" +
                 " ORDER BY ngayLonNhat ASC LIMIT 1";
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
         if (c.moveToNext()){

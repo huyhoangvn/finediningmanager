@@ -23,12 +23,14 @@ import java.util.List;
 
 import sp23cp18103.nhom2.finedining.Interface.IEditListenerHoaDon;
 import sp23cp18103.nhom2.finedining.R;
+import sp23cp18103.nhom2.finedining.database.NhanVienDAO;
 import sp23cp18103.nhom2.finedining.database.ThongTinChiTietDatMonDAO;
 import sp23cp18103.nhom2.finedining.model.ThongTinChiTietDatMon;
 import sp23cp18103.nhom2.finedining.model.ThongTinHoaDon;
 import sp23cp18103.nhom2.finedining.utils.ColorHelper;
 import sp23cp18103.nhom2.finedining.utils.DateHelper;
 import sp23cp18103.nhom2.finedining.utils.NumberHelper;
+import sp23cp18103.nhom2.finedining.utils.PreferencesHelper;
 
 /*
  * Adapter để hiển thị danh sách hóa đơn trong HoaDonFragment
@@ -40,11 +42,14 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
     List<ThongTinChiTietDatMon> thongTinChiTietDatMonList;
     private IEditListenerHoaDon iEditListener;
 
+    private NhanVienDAO nhanVienDAO;
+
 
     public HoaDonAdapter(Context context, List<ThongTinHoaDon> ThongTinHoaDonList,IEditListenerHoaDon iEditListener) {
         this.context = context;
         this.ThongTinHoaDonList = ThongTinHoaDonList;
         this.iEditListener = iEditListener;
+        nhanVienDAO = new NhanVienDAO(context);
     }
 
     @NonNull
@@ -87,7 +92,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.HoaDonView
             holder.imgThongBao.setVisibility(View.GONE);
         }
 
-        if (tthd.getTrangThai() == 3 || tthd.getTrangThai() == 0){
+        if ((tthd.getTrangThai() == 3 || tthd.getTrangThai() == 0) && nhanVienDAO.getPhanQuyen(PreferencesHelper.getId(context)) != 1){
             holder.imgEdit.setVisibility(View.GONE);
         } else {
             holder.imgEdit.setVisibility(View.VISIBLE);
