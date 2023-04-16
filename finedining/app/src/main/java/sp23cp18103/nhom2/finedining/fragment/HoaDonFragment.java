@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -280,7 +281,8 @@ public class HoaDonFragment extends Fragment {
                         hienThiTatCa();
                     } else {
                         capNhatHoaDon();
-                    }                    return true;
+                    }
+                    return true;
                 }
                 return false;
             }
@@ -293,6 +295,39 @@ public class HoaDonFragment extends Fragment {
                 } else {
                     capNhatHoaDon();
                 }
+            }
+        });
+        edTimKiem.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fbtnThemHoaDon.show();
+                    }
+                }, 100);
+            }
+        });
+        input_ngay.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fbtnThemHoaDon.show();
+                    }
+                }, 100);
+            }
+        });
+        input_gio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fbtnThemHoaDon.show();
+                    }
+                }, 100);
             }
         });
     }
@@ -346,6 +381,32 @@ public class HoaDonFragment extends Fragment {
                 FloatingActionButton ftbtnThemHoaDon = getActivity().findViewById(R.id.fbtn_them_hoaDon_collection);
                 ftbtnThemHoaDon.hide();
             }
+        });
+        rcv_HoaDon.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if (dy > 0)
+                {
+                    fbtnThemHoaDon.hide();
+                }
+                if (dy <= 0)
+                {
+                    fbtnThemHoaDon.show();
+                }
+            }
+
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+//            {
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+//                {
+//                    fbtnThemHoaDon.show();
+//                }
+//
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
         });
         rcv_HoaDon.setAdapter(hoaDonAdapter);
     }
