@@ -128,6 +128,7 @@ public class ThongTinHoaDonDAO {
                     "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                     "AND hd.trangThai = 3 " +
                     "AND dm.trangThai = 1 " +
+                    "AND strftime('%Y',hd.thoiGianDat) LIKE strftime('%Y', date('now'))" +
                     "ORDER BY ngayNhoNhat ASC LIMIT 1 ";
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
         if (c.moveToNext()){
@@ -145,6 +146,7 @@ public class ThongTinHoaDonDAO {
                 "WHERE nv.maNH = (SELECT nvht.maNH FROM nhanvien nvht WHERE nvht.maNV = ? ) " +
                 "AND hd.trangThai = 3 " +
                 "AND dm.trangThai = 1 " +
+                "AND strftime('%Y',hd.thoiGianDat) LIKE strftime('%Y', date('now'))" +
                 "ORDER BY ngayLonNhat DESC LIMIT 1 ";
         Cursor c = db.rawQuery(sql,new String[]{String.valueOf(maNV)});
        if (c.moveToNext()){

@@ -79,6 +79,12 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         banDAO = new BanDAO(context);
         holder.tvViTri.setText(ban.getViTri());
         holder.tvLoaiBan.setText("" + loaiBan.getTenLoai());
+        holder.tvTrangThaiDung.setText(ban.getTenTrangThai());
+        if (ban.getTrangThai() == 1) {
+            holder.tvTrangThaiDung.setTextColor(ColorHelper.getPositiveColor(context));
+        } else {
+            holder.tvTrangThaiDung.setTextColor(ColorHelper.getNegativeColor(context));
+        }
 //        holder.tvTrangThaiBan.setText((banDAO.getKiemTraConTrong(position)==1) ?"Trống":"Đầy");
 
         if (banDAO.getKiemTraConTrong(manv, ban.getMaBan()) == 1) {
@@ -86,7 +92,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             holder.tvTrangThaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         } else {
             holder.tvTrangThaiBan.setText("Trống");
-            holder.tvTrangThaiBan.setTextColor(ColorHelper.getPositiveColor(context));
+            holder.tvTrangThaiBan.setTextColor(ColorHelper.getWaitingColor(context));
         }
 
         holder.imgSua.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +194,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
     }
 
     public class BanViewHolder extends RecyclerView.ViewHolder {
-        TextView tvViTri, tvLoaiBan, tvTrangThaiBan;
+        TextView tvViTri, tvLoaiBan, tvTrangThaiBan, tvTrangThaiDung;
         ImageButton imgSua;
 
         public BanViewHolder(@NonNull View itemView) {
@@ -197,6 +203,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             tvLoaiBan = itemView.findViewById(R.id.tvLoaiBan);
             tvTrangThaiBan = itemView.findViewById(R.id.tvTrangThai);
             imgSua = itemView.findViewById(R.id.imgSua);
+            tvTrangThaiDung = itemView.findViewById(R.id.tvTrangThaiDung);
         }
     }
 

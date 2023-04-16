@@ -135,7 +135,7 @@ public class NhanVien {
      * 1:"Quản lý"; 0:"Nhân viên"
      * */
     public String getTenPhanQuyen(){
-        return (this.phanQuyen == 1) ? "Quản lý" : "Nhân viên";
+        return (this.phanQuyen == 1) ? "Quản lý" : "Phục vụ";
     }
 
     /*
