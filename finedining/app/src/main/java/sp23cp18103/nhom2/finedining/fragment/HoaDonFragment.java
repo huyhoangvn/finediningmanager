@@ -297,39 +297,6 @@ public class HoaDonFragment extends Fragment {
                 }
             }
         });
-        edTimKiem.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        fbtnThemHoaDon.show();
-                    }
-                }, 100);
-            }
-        });
-        input_ngay.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        fbtnThemHoaDon.show();
-                    }
-                }, 100);
-            }
-        });
-        input_gio.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        fbtnThemHoaDon.show();
-                    }
-                }, 100);
-            }
-        });
     }
     @SuppressLint("NotifyDataSetChanged")
     public void capNhatHoaDon(){
@@ -391,22 +358,11 @@ public class HoaDonFragment extends Fragment {
                 {
                     fbtnThemHoaDon.hide();
                 }
-                if (dy <= 0)
+                if (dy < 0)
                 {
                     fbtnThemHoaDon.show();
                 }
             }
-
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-//            {
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-//                {
-//                    fbtnThemHoaDon.show();
-//                }
-//
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
         });
         rcv_HoaDon.setAdapter(hoaDonAdapter);
     }
