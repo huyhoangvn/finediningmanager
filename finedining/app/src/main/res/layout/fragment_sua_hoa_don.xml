@@ -7,7 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_suaHoaDonFragment"
     tools:context=".fragment.SuaHoaDonFragment"
-    android:background="?android:colorBackground">
+    android:background="?android:colorBackground"
+    android:descendantFocusability="afterDescendants">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
