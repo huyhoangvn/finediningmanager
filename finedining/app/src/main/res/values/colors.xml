@@ -59,7 +59,7 @@
     <color name="Dark_OnSurfaceVariant">#d7c2b9</color>
     <!--Color Highlight-->
     <color name="Positive">#6BA539</color>
-    <color name="Negative">#AE433B</color>
-    <color name="Neutral">#3B61A3</color>
+    <color name="Negative">#EE291A</color>
+    <color name="Neutral">#5D8AD8</color>
     <color name="Waiting">#BC6803</color>
 </resources>
