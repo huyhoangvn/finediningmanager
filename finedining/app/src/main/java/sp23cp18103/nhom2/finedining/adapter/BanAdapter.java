@@ -92,7 +92,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
             holder.tvTrangThaiBan.setTextColor(ColorHelper.getNegativeColor(context));
         } else {
             holder.tvTrangThaiBan.setText("Trống");
-            holder.tvTrangThaiBan.setTextColor(ColorHelper.getWaitingColor(context));
+            holder.tvTrangThaiBan.setTextColor(ColorHelper.getNeutralColor(context));
         }
 
         holder.imgSua.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class BanAdapter extends RecyclerView.Adapter<BanAdapter.BanViewHolder> {
         View view = inflater.inflate(R.layout.dialog_ban, null);
         builder.setView(view);
         TextView tvTieuDeBan = view.findViewById(R.id.tvTieuDeBan);
-        tvTieuDeBan.setText("Sửa loại bàn");
+        tvTieuDeBan.setText("Sửa bàn");
 
         banDAO = new BanDAO(context);
 
